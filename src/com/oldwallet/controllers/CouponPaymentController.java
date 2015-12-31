@@ -74,11 +74,12 @@ public class CouponPaymentController {
 					map.put("Ack", resp.getAck());
 					modelMap.addAttribute("map", map);
 					//response.sendRedirect(this.getServletContext().getContextPath()+"/Response.jsp");
-					System.out.println("Success :: "+resp.toString());
+					log.debug("Success :: "+resp.toString());
+					smsController.sendSMS(modelMap, couponPayment.getMobile(), session);
 					return "success";
 				} else {
 					modelMap.addAttribute("Error", resp.getErrors());
-					System.out.println(resp.getErrors().toString());
+					log.debug(resp.getErrors().toString());
 					//response.sendRedirect(this.getServletContext().getContextPath()+"/Error.jsp");
 					return "error";
 				}
