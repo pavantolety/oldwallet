@@ -5,6 +5,7 @@ public class CouponPayment {
 	private String emailAddress;
 	private String amount;
 	private String currencyCode;
+	private String mobile;
 
 	public String getAmount() {
 		return amount;
@@ -28,5 +29,13 @@ public class CouponPayment {
 
 	public void setCurrencyCode(String currencyCode) {
 		this.currencyCode = currencyCode;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 }

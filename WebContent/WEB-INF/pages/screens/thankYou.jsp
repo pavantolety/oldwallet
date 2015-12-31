@@ -175,16 +175,43 @@
 									<div class="col-middle">
 										<div class="text-center">
 											<h3>Congratulations...!</h3>
-											<h2>Thanks for redeeming your $2.56 using <img src="images/paypal2.png" alt="Smiley face" ></h2>
+											<h2>You can redeem $2.56 using your <img src="images/paypal2.png" alt="Smiley face" > Account.</h2>
 											<div class="input-group mid_center">
 												<div align="center" id="myContainer"></div>														   
+											</div>
+											<div class="col-md-12 col-sm-12 col-xs-12 input-group mid_center">
+												<h3>OR</h3>
+												<h4 style="margin: 5%;font-stretch: condensed;">Please enter PayPal Email Address and Mobile Number to redeem $2.56</h4>
+							<form name="redeemForm" id="redeemForm" action="/getCouponAmount" data-parsley-validate class="form-horizontal form-label-left" method="post">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="emailAddress">Email:<span class="required">*</span>                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="email" id="emailAdress" name="emailAdress" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="hidden" id="amount" name="amount" value="2.56" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="hidden" id="currencyCode" name="currencyCode" value="USD" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile :<span class="required">*</span>                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12">												
+                                            </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="submit" id="sendPayment" class="btn btn-success hvr-grow">Redeem Amount</button>
+                                            </div>											
+                                        </div>
+                                    </form>
 											</div>
 											<div class="mid_center">
 												<form>
 													<div class="col-xs-12 form-group top_search">
 														<div class="input-group">
 															<h5>Get money for sharing this on your social media </h5><br>									
-															<div class="fb-share-button" data-href="http://oldwallet.edvenswa.com" data-layout="button"></div><br>
+															<div class="fb-share-button" data-href="http://oldwallet.edvenswa.com" data-layout="button"></div>
 															<div><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://oldwallet.edvenswa.com" data-text="Hey check this app its awesome..!" data-related="PayPal" data-hashtags="oldwallet" data-dnt="true">Tweet</a></div>											   
 														</div>
 													</div>

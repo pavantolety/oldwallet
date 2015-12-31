@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +29,16 @@ import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 @Controller
 public class CouponPaymentController {
 	
+	@Autowired
+	SMSController smsController;
+	
 	private static Logger log = Logger.getLogger(CouponPaymentController.class);
 	
-	@RequestMapping(value="/sendMassPayment", method=RequestMethod.POST)
+	@RequestMapping(value="/getCouponAmount", method=RequestMethod.POST)
 	public String sendMassPayment(ModelMap modelMap, CouponPayment couponPayment, HttpSession session) {
+		
 		log.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
+		
 		String returnPage = "error";
 		
 		MassPayReq req = new MassPayReq();
