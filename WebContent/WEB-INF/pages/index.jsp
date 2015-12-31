@@ -30,7 +30,10 @@
     <link href="css/select/select2.min.css" rel="stylesheet">
     <!-- switchery -->
     <link rel="stylesheet" href="css/switchery/switchery.min.css" />
-
+	<!-- Sweet Alert -->
+	<link rel="stylesheet" href="css/sweet-alert.css" />
+	<script src="js/sweet-alert.min.js"></script>
+	
     <script src="js/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -276,38 +279,49 @@
 		<script type="text/javascript">
 	var coupons=["coupon456","coupon001","coupon123"];	
 	$(function() {
-		$("#redeem_button").click(function() {
-		
+		$("#redeem_button").click(function() {		
 		//var e=$('#redeem_form [name=paypal_id]').val();
 		var c=document.getElementById("couponCode").value;
+		var mobile = document.getElementById("mobile").value;
 		if($('#terms').prop('checked')){
-			if(c != null){
-			
+			if(c != null){			
 				if(checkArray(c) == "true"){
 					for (j=0;j<coupons.length;j++){
 						if(coupons[j]==c ){
 							if(document.cookie != document.getElementById("couponCode").value){
 							var presentVal=document.getElementById("couponCode").value;
 							document.cookie = presentVal; "expires=Tue, 15 Dec 2015 00:00:10 UTC;";
+							var url = '/sendSMS/';
+							url = url+mobile;
+							$.ajax({
+								type:'GET',
+								url:url,
+								success:function(data) {
+									
+								},
+								error:function(data) {
+									alert(JSON.stringify(data));
+								}
+							});
 							location.href="/thankYou";
 							return false;
 							}else if(document.cookie == document.getElementById("couponCode").value){
-							alert("Coupon or Event Expired ");
+							sweetAlert("success","Coupon or Event Expired","info");
 							break;
 							}
 						}
 					}
 				}else{
-					alert("Invalid Coupon");
+					swal("Error","Invalid Coupon","error");
 					location.href="/";
 				}
 			
 			}else{
-				alert("Please enter Coupon Code");
+				sweetAlert("success","Please enter Coupon Code","info");
 			}
 		}
 		else{
-			alert("Please Agree Trerms and Conditions");
+			sweetAlert("success","Please Agree Trerms and Conditions","info");
 		}
     
 		});

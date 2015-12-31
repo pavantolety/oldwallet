@@ -23,7 +23,7 @@ public class SMSController {
 	
 	private static Logger log = Logger.getLogger(SMSController.class);
 	
-	@RequestMapping(value="/sendSMS/{mobile}", method = RequestMethod.POST)
+	@RequestMapping(value="/sendSMS/{mobile}", method = RequestMethod.GET)
 	public String sendSMS(ModelMap modelMap, @PathVariable String mobile,HttpSession session) {
 		
 		 log.debug("Begining of sendSMS ::");
