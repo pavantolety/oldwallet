@@ -211,8 +211,10 @@
 													<div class="col-xs-12 form-group top_search">
 														<div class="input-group">
 															<h5>Get money for sharing this on your social media </h5><br>									
-															<div class="fb-share-button" data-href="http://oldwallet.edvenswa.com" data-layout="button"></div>
-															<div><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://oldwallet.edvenswa.com" data-text="Hey check this app its awesome..!" data-related="PayPal" data-hashtags="oldwallet" data-dnt="true">Tweet</a></div>											   
+															<div class="fb-share-button" data-href="http://oldwallet.edvenswa.com" data-layout="button"></div>																													
+															&nbsp;&nbsp;
+															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://oldwallet.edvenswa.com" data-text="Hey check this app its awesome..!" data-related="PayPal" data-hashtags="oldwallet" data-dnt="true">Tweet</a></span>											   
+															
 														</div>
 													</div>
 												</form>
