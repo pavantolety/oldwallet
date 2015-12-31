@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.oldwallet.constraints.PageView;
 
 @Controller
-public class OldwalletController {
+public class DefaultController {
 		
 		@RequestMapping(value = { "/", "/index" })
 		public String index(ModelMap modelMap) {
