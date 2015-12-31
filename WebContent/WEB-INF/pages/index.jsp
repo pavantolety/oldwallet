@@ -293,6 +293,7 @@
 							document.cookie = presentVal; "expires=Tue, 15 Dec 2015 00:00:10 UTC;";
 							var url = '/sendSMS/';
 							url = url+mobile;
+							if(mobile) {
 							$.ajax({
 								type:'GET',
 								url:url,
@@ -300,28 +301,30 @@
 									
 								},
 								error:function(data) {
-									alert(JSON.stringify(data));
+									console.log("Error While Sending sms ::"+JSON.stringify(data));
 								}
 							});
+							}
+							sweetAlert("Success","Coupon redeem successfully","info");
 							location.href="/thankYou";
 							return false;
 							}else if(document.cookie == document.getElementById("couponCode").value){
-							sweetAlert("success","Coupon or Event Expired","info");
+							sweetAlert("Info","Coupon or Event Expired","info");
 							break;
 							}
 						}
 					}
 				}else{
-					swal("Error","Invalid Coupon","error");
+					sweetAlert("Info","Invalid Coupon","info");
 					location.href="/";
 				}
 			
 			}else{
-				sweetAlert("success","Please enter Coupon Code","info");
+				sweetAlert("Info","Please enter Coupon Code","info");
 			}
 		}
 		else{
-			sweetAlert("success","Please Agree Trerms and Conditions","info");
+			sweetAlert("Info","Please Agree Trerms and Conditions","info");
 		}
     
 		});
