@@ -34,6 +34,9 @@
 	<link rel="stylesheet" href="css/sweet-alert.css" />
 	<script src="js/sweet-alert.min.js"></script>
 	
+	<!-- Hover css -->
+	<link rel="stylesheet" href="css/hover-min.css" />
+	
     <script src="js/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -194,14 +197,14 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile Number:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12">
-												<input type="checkbox" name="terms" id="terms" > Agree to <a href="/terms"><b><u>Terms and Conditions</u></b></a>
+												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                <button type="reset" class="btn btn-primary">Reset</button>
-                                                <button type="button" id="redeem_button" class="btn btn-success">Redeem</button>
+                                                <button type="reset" class="btn btn-primary hvr-grow">Reset</button>
+                                                <button type="button" id="redeem_button" class="btn btn-success hvr-grow">Redeem</button>
                                             </div>											
                                         </div>
                                     </form>
@@ -227,6 +230,38 @@
             </div>
         </div>
 
+<!-- Modal Window of terms and conditions  -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="tandc"  role="dialog" aria-hidden="true"  >
+                                    <div class="modal-dialog modal-lg" style="overflow:scroll;height:600px;">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" style="background-color: #64DD17;" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Product Details</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                             
+						                           <h1>Hello Terms & Conditions</h1>
+						                             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam augue libero, dapibus vitae varius sit amet, iaculis convallis mauris. Cras dictum facilisis tellus, et consequat nunc rhoncus malesuada. Integer tincidunt sapien sed augue volutpat, in eleifend dolor malesuada. Vestibulum sodales congue velit, id tincidunt justo vehicula at. Maecenas eu quam turpis. Cras ultricies elit non risus cursus, sit amet ornare diam lacinia. Suspendisse sodales sem diam, nec molestie dui lobortis a.</p>
+
+<p>Vestibulum porta lacinia arcu, in placerat ex gravida id. Cras quis dui et diam venenatis feugiat. Suspendisse suscipit, sem non sodales gravida, libero est vehicula metus, at scelerisque diam turpis et arcu. Aenean consequat neque quis arcu vestibulum, a commodo ante ullamcorper. Maecenas interdum ante quis eros pretium, nec feugiat nibh mattis. Sed aliquet condimentum laoreet. Nunc ut elit at quam dignissim sagittis nec eu ante. Curabitur pellentesque velit vestibulum metus vestibulum, sed placerat velit pellentesque. Curabitur bibendum sem sit amet lectus maximus, nec pulvinar enim accumsan. Vivamus a rutrum erat. Praesent purus lectus, pulvinar quis ullamcorper eget, gravida non felis. Maecenas sit amet velit ut risus pharetra rhoncus eget non urna. Nullam varius tristique leo.</p>
+
+<p>Vivamus consequat varius nisi, eget lacinia nulla tempus non. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus lacus dolor, vehicula elementum lorem at, auctor cursus diam. Mauris magna risus, vehicula id hendrerit eu, ornare ac odio. Aenean facilisis metus lectus, et fermentum ipsum mollis iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Aenean quis lacus dignissim, rutrum erat ac, ultricies massa. Maecenas viverra tincidunt velit sed tristique. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam malesuada ac diam ut fermentum. Pellentesque feugiat accumsan sapien, elementum eleifend massa tincidunt ut.</p>
+
+<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris tristique eget leo non euismod. Quisque arcu turpis, finibus quis sagittis eget, imperdiet a dolor. Duis a ultricies diam. Maecenas vestibulum, justo in ultricies cursus, odio ligula ornare sapien, nec elementum orci metus in magna. Phasellus orci libero, consectetur quis lacus sed, finibus mollis nisi. Nullam vitae maximus nisl.</p>
+
+<p>Nam at lectus sollicitudin, mollis nunc in, maximus turpis. Donec ut velit luctus, tempor magna nec, blandit risus. Vestibulum congue, nulla quis tempor sollicitudin, lacus turpis euismod elit, bibendum porttitor turpis felis et urna. Donec ante diam, facilisis ac varius ac, varius et est. Fusce ac ullamcorper nisl. Etiam metus ex, aliquam sed purus et, semper posuere nibh. Aliquam sed tortor eu justo maximus accumsan. Quisque vehicula sollicitudin orci et iaculis. Aliquam quis auctor lectus.</p>
+							                            
+                                            <div class="modal-footer">
+                                                <button type="button"  class="btn btn-default btn-md hvr-grow" data-dismiss="modal"><b>Close</b></button>
+                                               
+                                            </div>
+		</div>
+		</div>
+                                        </div>
+                                    
+                                </div>
         <script src="js/bootstrap.min.js"></script>
 
         <!-- chart js -->
@@ -337,6 +372,10 @@
 			}
 		}
 		return bool;
+	}
+	
+	function openTerms() {
+		$("#tandc").modal();
 	}
 </script>
 <script src="js/custom.js"></script>
