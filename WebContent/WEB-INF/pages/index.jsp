@@ -236,13 +236,13 @@
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <button type="button" style="background-color: #64DD17;" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Product Details</h4>
+                                                <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
                                             </div>
                                             <div class="modal-body">
                                              
-						                           <h1>Hello Terms & Conditions</h1>
+						                           <h1>Coupan Redeemtion Terms</h1>
 						                             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam augue libero, dapibus vitae varius sit amet, iaculis convallis mauris. Cras dictum facilisis tellus, et consequat nunc rhoncus malesuada. Integer tincidunt sapien sed augue volutpat, in eleifend dolor malesuada. Vestibulum sodales congue velit, id tincidunt justo vehicula at. Maecenas eu quam turpis. Cras ultricies elit non risus cursus, sit amet ornare diam lacinia. Suspendisse sodales sem diam, nec molestie dui lobortis a.</p>
 
 <p>Vestibulum porta lacinia arcu, in placerat ex gravida id. Cras quis dui et diam venenatis feugiat. Suspendisse suscipit, sem non sodales gravida, libero est vehicula metus, at scelerisque diam turpis et arcu. Aenean consequat neque quis arcu vestibulum, a commodo ante ullamcorper. Maecenas interdum ante quis eros pretium, nec feugiat nibh mattis. Sed aliquet condimentum laoreet. Nunc ut elit at quam dignissim sagittis nec eu ante. Curabitur pellentesque velit vestibulum metus vestibulum, sed placerat velit pellentesque. Curabitur bibendum sem sit amet lectus maximus, nec pulvinar enim accumsan. Vivamus a rutrum erat. Praesent purus lectus, pulvinar quis ullamcorper eget, gravida non felis. Maecenas sit amet velit ut risus pharetra rhoncus eget non urna. Nullam varius tristique leo.</p>
