@@ -190,16 +190,16 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="text" id="couponCode" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-												<!-- <input type="checkbox" name="terms" id="terms" > Agree to <a href="/terms"><b><u>Terms and Conditions</u></b></a> -->
+												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile Number:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12">
 												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -317,7 +317,7 @@
 		$("#redeem_button").click(function() {		
 		//var e=$('#redeem_form [name=paypal_id]').val();
 		var c=document.getElementById("couponCode").value;
-		var mobile = document.getElementById("mobile").value;
+		//var mobile = document.getElementById("mobile").value;
 		if($('#terms').prop('checked')){
 			if(c != null){			
 				if(checkArray(c) == "true"){
@@ -326,7 +326,7 @@
 							if(document.cookie != document.getElementById("couponCode").value){
 							var presentVal=document.getElementById("couponCode").value;
 							document.cookie = presentVal; "expires=Tue, 15 Dec 2015 00:00:10 UTC;";
-							var url = '/sendSMS/';
+							/* var url = '/sendSMS/';
 							url = url+mobile;
 							if(mobile) {
 							$.ajax({
@@ -339,7 +339,7 @@
 									console.log("Error While Sending sms ::"+JSON.stringify(data));
 								}
 							});
-							}
+							} */
 							sweetAlert("Success","Coupon redeem successfully","info");
 							location.href="/thankYou";
 							return false;

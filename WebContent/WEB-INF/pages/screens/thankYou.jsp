@@ -187,7 +187,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="emailAddress">Email:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="email" id="emailAdress" name="emailAdress" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="email" id="emailAddress" name="emailAddress" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="amount" name="amount" value="2.56" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="currencyCode" name="currencyCode" value="USD" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
