@@ -1,0 +1,211 @@
+
+<script id="eventDetails" type="text/html">
+        <br>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-2">
+						<img src="/event/image/get/{{id}}" width="200px" height="200px" alt=""style="background-image: url(/img/2.png); width:250px; height:150px; background-repeat: repeat-n;">
+					</div>
+				</div>
+				<div class="row">
+					<br/>
+						Event Code <b>{{code}}</b><br>
+						Scheduled from <b>{{beginDate}}</b> to <b>{{endDate}}</b>
+				</div>
+				<div class="row">
+                  Contact Details:<br>
+				  {{address}}<br>
+				  {{city}},{{state}} - {{zip}}<br>
+				</div>
+			</div>
+            <div class="col-sm-6">
+				 <h3>Sign up for this event</h3>
+
+                   {{#showSignupForm}}
+					<form name="signUpSubmitForm" id="signUpSubmitForm" action="/participants/signUpSubmit.json"
+						method="post">																  	
+                       	
+					  	<div class="form-group" >	
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								<input type="text" class="form-control" placeholder="Name"
+									name="name" id="name">
+							</div>
+						</div>
+						
+						<div class="form-group" >
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+								<input type="text" class="form-control"
+									placeholder="Email Address" name="emailAddress" id="emailAddress">
+							</div>
+						</div>
+						
+						<div class="form-group" >
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+								<input type="text" class="form-control"
+									placeholder="Phone Number" name="phoneNumber" id="phoneNumber">								
+							</div>
+						</div>
+												
+					 {{/showSignupForm}}
+
+					{{^showSignupForm}}
+                       <form name="signUpSubmitForm" id="signUpSubmitForm" action="/participants/eventSignup.json"
+						method="post">
+                         <input type="hidden" name="eventId" id="eventId" value="{{id}}">
+					{{/showSignupForm}}
+					    <div class="row">
+							<div class="col-md-6">&nbsp;</div>
+							<div class="col-md-6">
+								<button type="button" onclick="participantEventSignUp()" class="btn-u pull-right">Signup</button>
+							</div>
+						</div>
+						 {{#showSignupForm}}
+						<hr/>						
+								<img src="/img/FacebookButton.png" style="cursor: pointer;" height="70px" width="270px" onclick="Login({{id}})" /> 
+						{{/showSignupForm}}
+  						 <input type="hidden" name="eventCode" id="eventCode" value="{{code}}">
+					</form>
+					
+					<form class="formbox" style="display: none;" method="post" action="/user/loginFromFBSubmit" id="myForm" name="myForm">
+						<input type="hidden" id="emailAddress" class="emailAddress" name="emailAddress"  />
+						<input type="hidden" id="token" name="token" value=""/>
+						<input type="hidden" id="fbId" name="fbId" value=""/>
+						<input type="hidden" id="name" name="name" value=""/>
+						<input type="hidden" id="eventId" name="eventId" value="{{id}}"/>
+						<input type="hidden" id="eventCode" name="eventCode" value="{{code}}"/>
+						
+						
+				  </form>
+		    </div>			
+		</div>
+</script>
+
+
+
+<script id="eventDonationDetails" type="text/html">
+        <br>
+		<div class="row">
+			<div>
+					{{#description}}
+                   <h5>Description:<b>{{description}}</b></h5>
+					{{/description}}
+				    
+					{{^description}}
+                   <h5></h5>
+					{{/description}}
+               {{#event.showDonation}}
+                <form  class="formbox" action="/event/donations/payment/request" name="eventDonationForm" id="eventDonationForm" modelAttribute="donation" method="post">
+										     <div class="row">
+										        <div class="col-sm-6">
+										          <div class="input-group margin-bottom-20">
+							                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+							                        <input type="number" name="amount" id="amount" min="1" class="form-control" placeholder="Enter payment amount" required/>
+                    						 		</div>
+										         </div>
+										         <input type="hidden" name="eventId" id="eventId" value="{{event.id}}">
+										         <div class="col-sm-6">
+										         	<button type="submit" class="btn btn-success">Donate</button>
+										         </div>
+										     </div>
+				</form>
+              {{/event.showDonation}}
+              {{^event.showDonation}}
+			   <p><h3 style="margin:5px;">Event is not accepting any payments currently</h3></p>
+              {{/event.showDonation}}
+			</div>	
+		</div>
+</script>
+
+    <script id="failureMessage">
+    	<div class="alert alert-danger alert-dismissable">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    	   <a href="#" class="alert-link">{{message}}</a>
+       </div>
+    </script>
+    
+    <script id="successMessage">
+    	<div class="alert alert-success alert-dismissable">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    	   <a href="#" class="alert-link">{{message}}</a>
+       </div>
+    </script>
+    
+    <script type="text/javascript">
+					
+					function Login()
+					{
+					console.log("Login() function started::");
+						FB.login(function(response) {
+						   if (response.authResponse) 
+						   {
+							   console.log("User Logged In::");
+						    	var token = response.authResponse.accessToken;
+								testAPI(token);
+				  			} else 
+				  			{
+				  	    	 console.log('User cancelled login or did not fully authorize.');
+				   			}
+						 },{scope:'public_profile,email,publish_actions'});
+					
+					
+					}
+						
+						window.fbAsyncInit = function() {
+							FB.init({
+								appId : '761060867308485',
+								cookie : true,
+								xfbml : true,
+								oauth	: true,
+								version : 'v2.2'
+								
+							});
+
+							FB.getLoginStatus(function(response) {
+								statusChangeCallback(response);
+
+							});
+
+						};
+
+						// Load the SDK asynchronously
+						(function(d, s, id) {
+							var js, fjs = d.getElementsByTagName(s)[0];
+							if (d.getElementById(id))
+								return;
+							js = d.createElement(s);
+							js.id = id;
+							js.src = "//connect.facebook.net/en_US/sdk.js";
+							fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));
+
+						function testAPI(token) {
+							console.log('Welcome!  Fetching your information.... ');
+							FB.api('/me',
+											function(response) {
+												console.log('First Name: '+ response.first_name);
+												console.log('Last Name: '+ response.last_name);
+												console.log('Email: '+ response.email);
+												console.log('Gender: '+ response.gender);
+												console.log('ID: '+ response.id);
+												console.log('Token: ' + token);
+																																				
+												$(".emailAddress").val(response.email);
+												$("#token").val(token);
+												$("#fbId").val(response.id);
+ 												$("#myForm").submit();
+
+											});
+						}
+						function capLock(e){
+							 kc = e.keyCode?e.keyCode:e.which;
+							 sk = e.shiftKey?e.shiftKey:((kc == 16)?true:false);
+							 if(((kc >= 65 && kc <= 90) && !sk)||((kc >= 97 && kc <= 122) && sk))
+							  document.getElementById('CAPS').style.visibility = 'visible';
+							 else
+							  document.getElementById('CAPS').style.visibility = 'hidden';
+							}
+					</script>

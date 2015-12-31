@@ -1,0 +1,314 @@
+
+<script id="eventDetails" type="text/html">
+        <br>
+		<div class="row">
+	<h4>Please login to buy ticket for this event</h4>
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-2">
+						<img src="/event/image/get/{{event.id}}" width="200px" height="200px" alt=""style="background-image: url(/img/2.png); width:250px; height:150px; background-repeat: repeat-n;">
+					</div>
+				</div>
+				<div class="row">
+					<br/>
+						Event Code <b>{{event.code}}</b><br>
+						Scheduled from <b>{{event.beginDate}}</b> to <b>{{event.endDate}}</b>
+				</div>
+				<div class="row">
+                  Contact Details:<br>
+				  {{event.address}}<br>
+				  {{event.city}},{{event.state}} - {{event.zip}}<br>
+				</div>
+			</div>
+            <div class="col-sm-6">				
+
+               
+   					{{^event.showSignupForm}}
+                       <form  id="signUpSubmitForm" action="/buyTicket"
+						method="post">
+                         	<input type="hidden" name="eventId" id="eventId" value="{{event.id}}">
+							<select id="totalTickets" class="form-control" name="totalTickets" style="color:black">
+							
+							</select>
+							<input type="hidden" placeholder="Buy Ticket" class="form-control" id="availableTickets" name="availableTickets" value="{{availableTickets}}">
+						 <div class="row">
+							<div class="col-md-6">&nbsp;</div>
+							<div class="col-md-11">
+								<button type="submit" class="btn-u pull-right">Buy Ticket</button>
+							</div>
+						</div>
+						</form>
+						<br><br>
+					<form name="attendEventForm" id="attendEventForm">
+                         	<input type="hidden" name="eventId" id="eventId" value="{{event.id}}">
+							<input type="text" class="form-control" name="ticketCode" id="ticketCode" placeholder="Enter Code to attend">
+							<div class="row">
+							<div class="col-md-6">&nbsp;</div>
+							<div class="col-md-11">
+								<button type="button" class="btn-u pull-right" onclick="participantEventSignUp()">Attend Event</button>
+							</div>
+						</div>
+						</form>
+					<br><br>
+							<form id="referToFriend" name="referToFriend" modalAttribute="referToFriend" method="POST" action="/event/inviteFriends1">
+								<input type="hidden" name="eventId" id="eventId" value="{{event.id}}" >
+								<div class="col-md-12">							
+									<textarea class="form-control" name="emailAddress" id="emailAddress" placeholder="Enter Email Address to Refer"></textarea>	
+								</div>
+									<br><br><br><br><br>
+								<div class="col-md-12">
+									<button type="button" id = "inviteFriends" name="inviteFriends" onclick="sendInvitaions()"class="btn-u pull-right">Refer Your Friend</button>
+								</div>
+							</form>
+							
+
+					{{/event.showSignupForm}}
+	
+						 {{#event.showSignupForm}}
+						<hr/>						
+								<img src="/img/FacebookButton.png" style="cursor: pointer;" height="70px" width="270px" onclick="Login({{id}})" /> 
+						{{/event.showSignupForm}}
+  						
+					<form class="formbox" style="display: none;" method="post" action="/user/loginFromFBSubmit" id="myForm" name="myForm">
+						<input type="hidden" id="emailAddress" class="emailAddress" name="emailAddress"  />
+						<input type="hidden" id="token" name="token" value=""/>
+						<input type="hidden" id="fbId" name="fbId" value=""/>
+						<input type="hidden" id="name" name="name" value=""/>
+						<input type="hidden" id="eventId" name="eventId" value="{{id}}"/>
+						<input type="hidden" id="eventCode" name="eventCode" value="{{code}}"/>						
+				  </form>
+						<br><br><br>
+					<div align="right"><button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true" >Close</button>
+				</div>
+		    </div>				
+		</div>
+</script>
+
+
+<script id="eventDetails1" type="text/html">
+        <br>
+		<div class="row">
+
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-2">
+						<img src="/event/image/get/{{event.id}}" width="200px" height="200px" alt=""style="background-image: url(/img/2.png); width:250px; height:150px; background-repeat: repeat-n;">
+					</div>
+				</div>
+				<div class="row">
+					<br/>
+						Event Code <b>{{event.code}}</b><br>
+						Scheduled from <b>{{event.beginDate}}</b> to <b>{{event.endDate}}</b>
+				</div>
+				<div class="row">
+                  Contact Details:<br>
+				  {{event.address}}<br>
+				  {{event.city}},{{event.state}} - {{event.zip}}<br>
+				</div>
+			</div>
+            <div class="col-sm-6">				
+
+                   {{#event.showSignupForm}}
+					<form name="signUpSubmitForm" id="signUpSubmitForm" >																  	
+					  	<div class="form-group" >	
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								<input type="text" class="form-control" placeholder="Name"
+									name="name" id="name" required>
+							</div>
+						</div>
+						
+						<div class="form-group" >
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+								<input type="text" class="form-control"
+									placeholder="Email Address" name="emailAddress" id="emailAddress" required>
+							</div>
+						</div>
+						
+						<div class="form-group" >
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+								<input type="text" class="form-control"
+									placeholder="Phone Number" name="phoneNumber" id="phoneNumber" required>								
+							</div>
+						</div>
+						<div class="col-md-12">
+									<button type="button" id = "participantEventSignUp" name="participantEventSignUp" onclick="eventParticipantSignUp()" class="btn-u pull-right">Event SignUp</button>
+								</div>	
+					</form>					
+					 {{/event.showSignupForm}}
+
+					
+					   
+
+						{{^event.showSignupForm}}
+           
+					<form name="attendeeEventForm" id="attendeeEventForm">
+							<input type="hidden" name="eventCode" id="eventCode" value="{{event.code}}">
+							<div class="row">
+							<div class="col-md-6">&nbsp;</div>
+							<div class="col-md-11">
+								<button type="button" class="btn-u pull-right" onclick="participantSignUp()">Attend Event</button>
+							</div>
+						</div>
+						</form>
+					<br><br>
+							<form id="referToFriend" name="referToFriend" modalAttribute="referToFriend" method="POST" action="/event/inviteFriends1">
+								<input type="hidden" name="eventId" id="eventId" value="{{event.id}}" >
+								<div class="col-md-12">							
+									<textarea class="form-control" name="emailAddress" id="emailAddress" placeholder="Enter Email Address to Refer"></textarea>	
+								</div>
+									<br><br><br><br><br>
+								<div class="col-md-12">
+									<button type="button" id = "inviteFriends" name="inviteFriends" onclick="sendInvitaions()"class="btn-u pull-right">Refer Your Friend</button>
+								</div>
+							</form>
+							
+
+					{{/event.showSignupForm}}
+	
+						 {{#event.showSignupForm}}
+						<hr/>						
+								<img src="/img/FacebookButton.png" style="cursor: pointer;" height="70px" width="270px" onclick="Login({{id}})" /> 
+						{{/event.showSignupForm}}
+  						
+					<form class="formbox" style="display: none;" method="post" action="/user/loginFromFBSubmit" id="myForm" name="myForm">
+						<input type="hidden" id="emailAddress" class="emailAddress" name="emailAddress"  />
+						<input type="hidden" id="token" name="token" value=""/>
+						<input type="hidden" id="fbId" name="fbId" value=""/>
+						<input type="hidden" id="name" name="name" value=""/>
+						<input type="hidden" id="eventId" name="eventId" value="{{event.id}}"/>
+						<input type="hidden" id="eventCode" name="eventCode" value="{{event.code}}"/>						
+				  </form>
+						<br><br><br>
+					<div align="right"><button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true" >Close</button>
+				</div>
+		    </div>				
+		</div>
+</script>
+
+
+<script id="eventDonationDetails" type="text/html">
+        <br>
+		<div class="row">
+			<div>
+					{{#description}}
+                   <h5>Description:<b>{{description}}</b></h5>
+					{{/description}}
+				    
+					{{^description}}
+                   <h5></h5>
+					{{/description}}
+               {{#event.showDonation}}
+                <form  class="formbox" action="/event/donations/payment/request" name="eventDonationForm" id="eventDonationForm" modelAttribute="donation" method="post">
+										     <div class="row">
+										        <div class="col-sm-6">
+										          <div class="input-group margin-bottom-20">
+							                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+							                        <input type="number" name="amount" id="amount" min="1" class="form-control" placeholder="Enter payment amount" required/>
+                    						 		</div>
+										         </div>
+										         <input type="hidden" name="eventId" id="eventId" value="{{event.id}}">
+										         <div class="col-sm-6">
+										         	<button type="submit" class="btn btn-success">Donate</button>
+										         </div>
+										     </div>
+				</form>
+              {{/event.showDonation}}
+              {{^event.showDonation}}
+			   <p><h3 style="margin:5px;">Event is not accepting any payments currently</h3></p>
+              {{/event.showDonation}}
+			</div>	
+		</div>
+</script>
+
+    <script id="failureMessage">
+    	<div class="alert alert-danger alert-dismissable">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    	   <a href="#" class="alert-link">{{message}}</a>
+       </div>
+    </script>
+    
+    <script id="successMessage">
+    	<div class="alert alert-success alert-dismissable">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    	   <a href="#" class="alert-link">{{message}}</a>
+       </div>
+    </script>
+    
+    <script type="text/javascript">
+					
+					function Login()
+					{
+					console.log("Login() function started::");
+						FB.login(function(response) {
+						   if (response.authResponse) 
+						   {
+							   console.log("User Logged In::");
+						    	var token = response.authResponse.accessToken;
+								testAPI(token);
+				  			} else 
+				  			{
+				  	    	 console.log('User cancelled login or did not fully authorize.');
+				   			}
+						 },{scope:'public_profile,email,publish_actions'});
+					
+					
+					}
+						
+						window.fbAsyncInit = function() {
+							FB.init({
+								appId : '761060867308485',
+								cookie : true,
+								xfbml : true,
+								oauth	: true,
+								version : 'v2.2'
+								
+							});
+
+							FB.getLoginStatus(function(response) {
+								statusChangeCallback(response);
+
+							});
+
+						};
+
+						// Load the SDK asynchronously
+						(function(d, s, id) {
+							var js, fjs = d.getElementsByTagName(s)[0];
+							if (d.getElementById(id))
+								return;
+							js = d.createElement(s);
+							js.id = id;
+							js.src = "//connect.facebook.net/en_US/sdk.js";
+							fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));
+
+						function testAPI(token) {
+							console.log('Welcome!  Fetching your information.... ');
+							FB.api('/me',
+											function(response) {
+												console.log('First Name: '+ response.first_name);
+												console.log('Last Name: '+ response.last_name);
+												console.log('Email: '+ response.email);
+												console.log('Gender: '+ response.gender);
+												console.log('ID: '+ response.id);
+												console.log('Token: ' + token);
+																																				
+												$(".emailAddress").val(response.email);
+												$("#token").val(token);
+												$("#fbId").val(response.id);
+ 												$("#myForm").submit();
+
+											});
+						}
+						function capLock(e){
+							 kc = e.keyCode?e.keyCode:e.which;
+							 sk = e.shiftKey?e.shiftKey:((kc == 16)?true:false);
+							 if(((kc >= 65 && kc <= 90) && !sk)||((kc >= 97 && kc <= 122) && sk))
+							  document.getElementById('CAPS').style.visibility = 'visible';
+							 else
+							  document.getElementById('CAPS').style.visibility = 'hidden';
+							}
+					</script>

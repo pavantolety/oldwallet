@@ -1,0 +1,1910 @@
+
+<script id="eventRow" type="text/html">
+  <td align="center"><a href="#" onClick="showEventModal('{{id}}')"><img id="img{{id}}" src="/event/image/get/{{id}}" width="50px" height="50px" alt="Logo"></a></td>
+  <td align="center">{{name}}</td>
+  <td align="center">{{city}},{{state}}</td>
+  <td align="center">{{status}}</td>
+  <td align="center">{{beginDate}}</td>
+  <td align="center">{{endDate}}</td>
+  <td align="center"><a href="#" onClick="showEditEventModal('{{id}}')"><i class="fa fa-edit"></i></a></td>
+  <td align="center"><a href="#" onClick="showEvensubtParticipantModal('{{id}}')"><i class="fa fa-users"></i></a></td>
+     <td align="center"><a href="#" onClick="showEventAddonModal('{{id}}')"><i class="fa fa-plus-square-o"></i></a></td>
+    </script>
+
+<script id="eventRowTR" type="text/html">
+      <tr id="org{{id}}">
+  <td align="center"><a href="#" onClick="showEventModal('{{id}}')"><img id="img{{id}}" src="/event/image/get/{{id}}" width="50px" height="50px" alt="Logo"></a></td>
+  <td align="center">{{name}}</td>
+  <td align="center">{{city}},{{state}}</td>
+  <td align="center">{{status}}</td>
+  <td align="center">{{beginDate}}</td>
+  <td align="center">{{endDate}}</td>
+  <td align="center"><a href="#" onClick="showEditEventModal('{{id}}')"><i class="fa fa-edit"></i></a></td>
+        <td align="center"><a href="#" onClick="showEventParticipantModal('{{id}}')"><i class="fa fa-users"></i></a></td>
+        <td align="center"><a href="#" onClick="showEventAddonModal('{{id}}')"><i class="fa fa-plus-square-o"></i></a></td>
+     </tr>
+</script>
+
+<script id="eventParticipantDetails" type="text/html">
+<h3><a href="/eventTracker/{{eventId}}" target="_new">View Event Tracker</a></h3>
+ 
+   <br>  
+  
+	<div id="eventParticipantsTab" class="table-responsive">
+      <table id="dataTable" class="table table-bordered table-hover table-striped">
+		<thead>
+      <tr>
+         <th class="text-center">Name</th>
+   		 <th class="text-center">Email</th>
+		 <th class="text-center">Status</th>
+         
+      </tr>
+		</thead>
+		<tbody>
+   {{#participants}}
+   			<tr>
+               <td class="text-center">{{name}}</td>
+      		   <td class="text-center">{{emailAddress}}</td>
+               <td class="text-center">{{status}}</td>
+            </tr>     
+      {{/participants}}
+
+    {{^participants}}
+   <tr><td colspan="3" class="text-center"><h3>No one has signed up for any Event yet</h3></td></tr>
+       {{/participants}}
+		</tbody>
+      </table>
+	</div>
+
+</script>
+
+<script id="paypalAccountsForm" type="text/html">
+<br> <b><p>
+		You can create multiple PayPal accounts for your payment
+		purposes. <br>These accounts will be only used for payment
+		acceptance.
+	</p></b>
+
+<form class="formbox" id="paypalAccountForm"
+	name="paypalAccountForm" role="form">
+	<div class="form-group">
+		<label for="clientID" class="sr-only">Account Name</label> <input
+			type="text" placeholder="Account Name" id="accountName"
+			name="accountName" class="form-control">
+	</div>
+	<div class="form-group">
+		<label for="clientEmail" class="sr-only">PayPal Account
+			Email</label> <input type="text" placeholder="PayPal Account Email"
+			id="clientEmail" name="clientEmail" class="form-control">
+	</div>
+
+	<button class="btn-u btn-u-default" type="button"
+		onclick="createPaymentAccount()">Add a new Account</button>
+</form>
+<br>
+<div id="paypalAccountsMessage"></div>
+<br>
+<div id="paypalAccountsGrid">
+    <table id="dataTable" class="table table-bordered table-hover table-striped">
+		<thead>
+      	<tr>
+         	<th class="text-center">Account Name</th>
+   			<th class="text-center">PayPal Account Email</th>
+      	</tr>
+		</thead>
+		<tbody>
+   {{#paypalAccounts}}
+   		<tr>
+			<td>{{name}}</td>
+      		<td>{{email}}</td>
+		</tr>     
+   {{/paypalAccounts}}
+		</tbody>
+	</table>
+<div id="paypalMessage"></div>
+</div>
+</script>
+
+<script id="eventAddonSubscription" type="text/html">
+
+     <ul class="list-group margin-bottom-20"">
+       <li class="list-group-item">
+          <i class="fa fa-arrow-circle-right"></i><a href="#" onclick="eventAddon('RAFFLE','{{id}}')"> Raffle</a>
+       </li>
+       <li class="list-group-item">
+          <i class="fa fa-arrow-circle-right"></i><a href="#" onclick="eventAddon('DONATIONS','{{id}}')"> Donations</a>
+       </li>
+       <li class="list-group-item">
+          <i class="fa fa-arrow-circle-right"></i><a href="#" onclick="eventAddon('TRIVIA','{{id}}')"> Trivia</a>
+       </li>
+       <li class="list-group-item">
+          <i class="fa fa-arrow-circle-right"></i><a href="#" onclick="eventAddon('POLL','{{id}}')"> Poll</a>
+       </li>
+     </ul>
+     <p>Test Message</p>
+     <div id="eventAddonMessage"></div>
+
+    </script>
+
+<script id="checkMessage">
+	<div class="alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+			& times;
+	</button><a href="#" class="alert-link">please Ensure that Participants and email is selected</a>
+       </div>
+</script>
+
+<script id="raffleInit" type="text/html">
+            <br>
+               
+               <form id="addRaffleForm" name="addRaffleForm" action="#">
+  <table align="center" class="table table-bordered"> 
+   <tr class="table table-bordered" >
+    <td align="center">                              
+                    <input type="number" class="form-control" placeholder="Total Raffles" name="totalRaffles" id="totalRaffles">                          
+    </td>
+    <td align="center">              
+                    <input type="number" class="form-control"  placeholder="Spins for each Raffle" name="spinsPerRaffle" id=spinsPerRaffle" value="1" readonly>
+    </td>
+    <td align="center">  
+                    <input type="hidden" value="{{eventId}}" name="eventId" id="eventId">     
+                  <input type="button"  class="btn btn-success"
+                   onclick="saveRaffle()" value="Save" >
+     </td> 
+    </tr>   
+  </table>               
+     </form>
+<div id="raffleMessage"></div>
+    </script>
+
+<script id="raffleService" type="text/html">
+
+           <br>                            
+              <p><b>Please run raffle to view winner for a prize.</b></p>
+              
+              <div class="progress">
+              <div id="raffleProgressBar" class="progress-bar" role="progressbar" aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentage}}%;">
+                {{percentage}} %
+              </div>
+              </div>                            
+              
+           <table id="rafleDetailsTable" align="center" class="table table-bordered">
+            <tr>
+             <td width="30%">
+              <table id="rafleDetailsTable"
+               class="table table-bordered">
+                 <tr>
+                <td>Total Raffles</td>
+                <td>{{totalRaffles}}</td>
+               </tr>
+               <!--
+               <tr>
+                <td>Spins per Raffle</td>
+                <td>{{spinsPerRaffle}}</td>
+               </tr>
+               -->               
+               <tr>
+                <td>Raffles Completed</td>
+                <td><div id="rafflesCompletedDiv">{{rafflesCompleted}}</div></td>
+               </tr>
+                  {{#canRunRaffle}}  
+               <tr>
+                <td colspan="2" align="center"><input type="button"
+                 class="btn btn-info" value="Run For All" onclick="runRaffle('{{raffleId}}')" width="100%"></td>
+				<td colspan="2" align="center">
+               </tr>
+               {{/canRunRaffle}}
+              </table>
+             </td>
+             <td>
+              <table id="rafleOutcomeTable"
+               class="table table-bordered" >
+               <thead>
+                <tr>
+                 <th class="text-center" width="5%">#</th>
+                 <th class="text-center" width="30%">Date Time</th>
+                 <th class="text-center">Winner</th>
+                </tr>
+               </thead>
+               <tbody>
+                {{#raffleOutcomes}}
+                   <tr>
+                 <td>{{spinNumber}}</td>
+                 <td>{{raffleTime}}</td>
+                 <td>{{emailAddress}}</td>
+                </tr>
+                {{/raffleOutcomes}}
+                {{^raffleOutcomes}}
+                                                              <tr>
+                     <td id="noRaffleOutcomeRow" colspan="3" align="center"><h3>No Raffle has been run yet !</h3></td>
+                                                                </tr>
+                {{/raffleOutcomes}}
+               </tbody>
+              </table>
+             </td>
+            </tr>
+          </table>
+</script>
+
+<script id="raffleWinnerRow" type="text/html">        
+  <tr>
+   <td>{{spinNumber}}</td>
+   <td>{{raffleTime}}</td>
+   <td>{{emailAddress}}</td>
+  </tr>              
+    </script>
+
+<script id="donationInit" type="text/html">
+	<br>
+	<form id="addDonationForm" name="addDonationForm" action="#">
+		<table id="donationDetailsTable" align="center" class="table table-bordered">
+			<tr>
+				<th colspan="3">Donations Setup/Details</th>
+			</tr>
+			<tr>
+				<td>Target Amount</td>
+				<td>PayPal Account</td>
+				<td>#</td>
+			</tr>
+			<tr>
+				<td>                 
+					<input type="text" class="form-control" placeholder="Target" name="targetAmount" id="targetAmount" required>
+					<h6 style="margin-left:300px;">Max 140 Characters</h6>
+					<textarea class="form-control" placeholder="Donation Description" rows="4" cols="50" name="description" id="description" onclick="restrict()" style="resize:none;" required ></textarea>
+                    <input type="hidden" class="form-control" value="{{eventId}}" name="eventId" id="eventId">
+					<input type="hidden" class="form-control" value="{{donationAddonId}}" name="donationAddonId" id="donationAddonId">
+                  	<input type="hidden" class="form-control" value="{{paypalAccountId}}" name="paypalAccountId" id="paypalAccountId">
+                    
+                </td>
+                <td>
+                  <label for="paypalAccount" class="sr-only">PayPal Account</label>
+                  <select name="paypalAccount" id="paypalAccount" class="form-control">
+                   {{#accounts}}
+                  <option value="{{id}}">{{name}}</option>
+                   {{/accounts}}
+                 </select>
+                </td>
+                <td align="center">                
+                  <input type="button" class="btn btn-success"
+                   onclick="saveDonation()" value="Save" >                  
+                </td>               
+			</tr>
+		</table>
+	</form>
+</script>
+
+<script id="donationServiceTab1" type="text/html">
+    <br>                            
+	<div>
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+            	<div class="panel-heading">
+                	<div class="row">
+                    	<div class="col-xs-3">
+							<i class="fa fa-5x">${{donationsAmountFormat}}</i>						
+                        </div>
+                	</div>
+					<br>
+            		<div class="panel-footer btn-warning">
+                    	<div><font style="color: #444444">Donations received from <b>{{totalUsersDonated}}</b> participants</font></div>
+                	</div>
+            	</div>
+			</div>
+			<div>
+				<div class="col-lg-3">
+					<a href="/donations/{{eventCode}}" target="_new">View Thermometer</a><br>
+				</div>
+				<div class="col-lg-9">
+		<form name="donationForm" id="donationForm" class="donationForm" >
+        <div class="row">
+            <div class="col-sm-6">
+				<div class="form-group">
+                        <div class="col-lg-13">
+     		 <input type="text" name="donorName" id="donorName" class="form-control" placeholder="Donor Name"/>
+				</div>
+				</div>
+					<div class="form-group">
+                        <div class="col-lg-13">
+     		 <input type="email" name="donorEmail" id="donorEmail" class="form-control" placeholder="Donor Email"/>
+				</div>
+					</div>
+	
+     		 <input type="text" name="donorPhone" id="donorPhone" class="form-control" placeholder="Donor Phone"/>
+
+     		 <input type="hidden" name="eventId" id="eventId" class="form-control" value="{{eventId}}">
+      
+            </div>
+            <div class="col-sm-6">
+<div class="form-group">
+     <div class="input-group">
+	
+       <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+       <input type="text" name="amount" id="amount" min="1" class="form-control"  placeholder="Enter dollar amount"/>
+	
+          </div>
+			</div>
+      <br>     
+
+            </div>
+        </div>
+     <div class="form-group">
+		<button class="btn btn-success btn pull-right"   onclick="receiveAdhoc()" style="margin:-30px 69px 1px 0px"> Receive Adhoc Donation</button>
+ 				</div>
+   </form>
+       
+				</div>
+			</div>
+			<br>
+        	<div class="progress">
+          		<div id="donationProgressBar" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentage}}%; font-color: #000000; border: 10px">
+            		<font color="#000000" border="10px">${{donationsAmountFormat}} has been received out of ${{targetAmountFormat}}</font>
+          		</div>
+        	</div>                              
+			<br>
+           	<table id="donationDetailsTable" align="center" class="table table-bordered">
+            <tr>
+              <td>Assigned PayPal Account</td>
+              <td>${{paypalAccountName}}</td>
+               </tr>
+            <tr>
+              <td>Target Amount</td>
+              <td>${{targetAmountFormat}}</td>
+               </tr>
+            <tr>
+              <td>Total Amount Received</td>
+              <td>${{donationsAmountFormat}}</td>
+               </tr>
+            <tr>
+              <td>Total Users Donated</td>
+              <td>{{totalUsersDonated}}</td>
+               </tr>
+              <tr>
+				<td>Description</td>
+				<td>{{description}}</td>
+				</tr>
+            {{#highDonationAmount}}
+            <tr>
+              <td>Highest Donation Amount</td>
+              <td>{{highDonationAmount}}</td>
+               </tr>
+            {{/highDonationAmount}}
+            {{#highDonationUser}}
+            <tr>
+              <td>Highest Paid User</td>
+              <td>{{highDonationUser}}</td>
+               </tr>
+            {{/highDonationUser}} 
+			</table>
+		</div>
+	</div>
+</script>
+<script id="donationServiceTab2" type="text/html">
+<div class="table-responsive">
+	<table id="eventDonorsTab" class="table table-bordered table-hover table-striped">
+	<thead>
+		<tr>
+			<th class="text-center">Date</th>
+			<th class="text-center">Name of the Donor</th>
+			<th class="text-center">Email</th>
+			<th class="text-center">Phone</th>
+			<th class="text-center">Donated Amount</th>
+			<th class="text-center">Status</th>
+		</tr>
+	</thead>
+	<tbody>
+   	{{#donationsList}}
+   		<tr>
+ 			<td class="text-center">{{dateCreated}}</td>
+      		<td class="text-center">{{donorName}}</td>
+			<td class="text-center">{{donorEmail}}</td>
+			<td class="text-center">{{donorPhone}}</td>
+			<td class="text-center">{{amount}}</td>
+			<td class="text-center">{{status}}</td>
+		</tr>     
+	{{/donationsList}}
+    {{^donationsList}}
+		<tr>
+			<td colspan="3" class="text-center"><h3>No one has donated yet for this event</h3></td>
+		</tr>
+	{{/donationsList}}
+	</tbody>
+	</table>
+</div>
+</script>
+
+<script id="paymentAccntRowTmpl" type="text/html">
+               <tr>
+                <td>{{accountName}}</td>
+                <td>{{clientEmail}}</td>
+               </tr>
+    </script>
+
+<script id="paymentAccntTableTmpl" type="text/html">
+      <table id="paymentAccntTable" align="center" class="table table-bordered">
+                  <tr>
+                <th>Name</th>
+                <th>Email</th>
+               </tr>
+               <tr>
+                <td>{{accountName}}</td>
+                <td>{{clientEmail}}</td>
+               </tr>
+         </table>
+    </script>
+<script id="triviaInit" type="text/html">
+            <br>
+			<table id="triviaDetailsTable" align="center" class="table table-bordered" style="width:50%;">
+				<tr>
+					<th colspan="2">Select number of Questions for Trivia</th>
+			</tr>                                                               
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="totalTrivias" class="sr-only">Total Trivias</label>
+						<input type="number" placeholder="Total Trivias"  name="totalTrivias" id="totalTrivias" class="form-control">
+					</div>
+                </td>
+                <td>
+                 <div class="form-group">
+                  <button class="btn-u btn-u-default" type="button" onclick="createTriviaQuestions('{{eventId}}','{{triviaAccntId}}')"> Next </button>
+                 </div>
+                </td>
+               </tr> 
+               
+                </table>
+
+             <div id="triviaQuestionsDisplay"></div>
+            
+    </script>
+
+<script id="triviaQuestionsAll" type="text/html">
+  
+ <form id="triviaQuestionsForm" name="triviaQuestionsForm" enctype="multipart/form-data" method="post" action="/event/trivia/create.json">
+
+  <p>Enter maximum correct answers for trivia.For correct answer participants you can select a random winner similar to raffle.</p>
+  <br>
+  <div class="form-group">
+     <label for="maxCorrectAnswers" class="sr-only">Max Correct Answers</label>
+     <input type="number" placeholder="Maximum Correct Answers" name="maxCorrectAnswers" id="maxCorrectAnswers" class="form-control"  required="required"/>
+  </div>
+  <br>
+  <p>
+   Please enter all the questions and answers for the trivia
+  </p>
+  <br>
+      {{#data}}
+          <div id="triviaQuestion{{qIndex}}">   			
+			<div class="table table-bordered">
+
+				<div class="input-group margin-bottom-20">
+					<span class="input-group-addon">Q.{{qIndex}}</span>
+					<textarea placeholder="Question {{qIndex}}" id="tq{{qIndex}}" name="triviaQuestion" class="form-control" required="required"/></textarea>
+				</div>
+	<p class="help-block">You can also upload an image for your question.</p>
+	<div class="input-group margin-bottom-20">
+	<span class="input-group-addon"><i class="fa fa-picture-o"></i></span>
+    <input type="file" name="picture" id="picture" class="form-control">
+	</div>	
+				<div class="input-group margin-bottom-20">
+					<span class="input-group-addon">1.</span>
+					<input type="text" placeholder="Question {{qIndex}} Option 1" id="tq{{qIndex}}Answer1" name="triviaAnswer1" class="form-control" required="required"/ >
+				</div>
+				<div class="input-group margin-bottom-20">
+					<span class="input-group-addon">2.</span>
+					<input type="text" placeholder="Question {{qIndex}} Option 2" id="tq{{qIndex}}Answer2" name="triviaAnswer2" class="form-control" required="required"/ >
+				</div>
+				<div class="input-group margin-bottom-20">
+					<span class="input-group-addon">3.</span>
+					<input type="text" placeholder="Question {{qIndex}} Option 3" id="tq{{qIndex}}Answer3" name="triviaAnswer3" class="form-control" required="required"/>
+				</div>
+				<div class="input-group margin-bottom-20">
+					<span class="input-group-addon">4.</span>
+					<input type="text" placeholder="Question {{qIndex}} Option 4" id="tq{{qIndex}}Answer4" name="triviaAnswer4" class="form-control" required="required"/ >
+				</div>
+				<div> 
+    		    	<span class="input-group-addon">Correct Answer for Question {{qIndex}} is </span>
+					<input type="number" placeholder="Enter Answer Number between 1 to 4" id="tq{{qIndex}}CorrectAnswer" name="triviaCorrectAnswer" class="form-control" length="1" size="3" min="1" max="4" required="required">
+     			</div>
+				<div id="triviaQA" style="margin-left: 600px; margin-bottom: 0px; color: red;font-size:84%">
+				</div>
+		   </div>
+
+           <input type="hidden" id="tqIndex" name="triviaIndex" value="{{qIndex}}" />
+		   
+			                                           
+   </div>
+   {{/data}}
+      <br>
+        <div class="form-group">
+        <input type="hidden" name="totalTrivias" id="questionFormsTotalTrivias">
+        <input type="hidden" name="eventId" id="eventId" value="{{eventId}}">
+        <input type="hidden" name="triviaAccntId" id="triviaAccntId" value="{{triviaAccntId}}"> 
+        <button class="btn-u btn-u-default" type="button" onclick="submitTriviaQuestions()"> Submit </button>
+        </div>
+
+	</form>      
+    </script>
+
+<script id="triviaService" type="text/html">
+         <br>
+         <p>
+   Please Click on one of the buttons to organize trivia.
+   </p>
+    <table id="triviaDetailsTable" align="center" class="table table-bordered" style="width: 100%;">
+               <tr>
+                <th>Trivia Details</th>
+               </tr>
+               <tr>
+                   <td style="background-color: #eeeeee">
+            {{#triviaKeys}}  
+			<div>
+   			 <a href="/triviaTracker/{{id}}" target="_new">View Trivia Tracker</a><br>     
+  		 	</div>                                                             
+			<div class="panel panel-primary col-lg-8">
+            	
+            	<div class="panel-body">			
+					{{#showImage}}
+						<div clas="row" style="width: 200px; float:left; height:220px; margin:20px">
+							<img src="data:image/png;base64,{{pictureObj}}"  width="200px" height="220px">
+						</div>
+					{{/showImage}}
+				<div style="width: 300px; float:left; height:220px; margin:20px">
+					<div class="panel-heading">
+						<font color="{{#inprogress}}yellow{{/inprogress}}">{{question}}</font></b>
+                	</div>
+	 			<div class="row">1. {{answer1}}</div>
+     			<div class="row">2. {{answer2}}</div>
+     			<div class="row">3. {{answer3}}</div>
+     			<div class="row">4. {{answer4}}</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-primary col-lg-4">
+            {{#scheduled}}
+				<div class="form-group" style="padding: 27px;height:275px ;">
+				  {{#scheduled}}
+                  <button class="btn btn-default" id="trivia{{id}}" type="button" onclick="organizeTrivia('{{eventId}}','{{triviaAccntId}}','{{id}}')">Start Trivia</button>
+					<button class="btn btn-default"  type="button" data-toggle="modal" data-target="#myModal">Post Trivia</button>                  
+				{{/scheduled}}
+				</div>
+			{{/scheduled}}
+            {{^scheduled}}
+            	<div class="panel-heading">
+                	<div class="row">
+                    	<div class="col-xs-12">
+                        	<i class="fa fa-3x">{{totalCorrectAnswers}} answered correctly</i>
+                        </div>
+					</div>
+                </div>
+            	<div class="panel-footer btn-warning">
+                    <div><font style="color: #444444">Total Participants: <b>{{totalParticipants}}</b></font>
+					</div>
+                </div>
+                  {{^selectWinner}}
+            	<div class="panel-footer btn-danger">
+                    <div><font style="color: #444444">Winner: <b>{{winnerEmail}}</b></font></div>
+                </div>					
+                  {{/selectWinner}}
+				<div class="form-group" style="padding:0px;height:79px">
+                  {{#selectWinner}}
+                   <button class="btn btn-danger" id="selTriviaWinner{{id}}" type="button" onclick="selectTriviaWinner('{{id}}', '{{eventId}}')">Select Winner</button>
+                  {{/selectWinner}}
+				</div>
+				{{#stopTrivia}}
+                   <button class="btn btn-danger" id="stoTrivia{{id}}" type="button" onclick="stopTrivia('{{.id}}', '{{eventId}}')">Stop Trivia</button>
+            	{{/stopTrivia}}
+				<div class="form-group" style="padding: 0px">
+                  
+				</div>
+ 			{{/scheduled}}
+			</div>
+           {{/triviaKeys}}
+		</td>
+
+	</tr>
+  </table>
+<div  id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg" >
+      <div class="modal-content">
+    {{#triviaKeys}}
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 id="myModalLabel">Trivia Question Details</h3>
+     </div>
+  
+      <div class="modal-body"> 
+     {{#showImage}}
+      <div clas="row" style="width: 200px; float:left; height:220px; margin:20px">
+       <img src="data:image/png;base64,{{pictureObj}}"  width="200px" height="220px">
+      </div>
+     {{/showImage}} 
+     
+   <div style="width: 350px; float:left; height:220px; margin:20px">
+    <div class="row">
+     <textarea name="question" rows="10" >{{question}}?
+      1.{{answer1}}
+      2.{{answer2}}
+      3.{{answer3}}
+      4.{{answer4}}
+     </textarea> </div>
+     </div>
+     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+     <div class="modal-footer">
+         <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button class="btn btn-success" onclick="publishToFB('{{eventId}}','{{triviaAccntId}}','{{id}}')">Post Trivia to Facebook</button>
+      </div>
+	<div id ="publishToFBMessage"></div>
+    {{/triviaKeys}}
+    </div>
+   </div>
+</div>
+     </script>
+
+<!-- Summary BEGIN-->
+<script id="summaryInit" type="text/html">
+<br>
+ <div align="center">
+    <a href="/eventTracker/{{eventId}}" target="_new">View Event Tracker</a><br>     
+   </div>
+	
+
+</script>
+
+<!--  Gallery BEGIN -->
+
+<script id="galleryInit" type="text/html">
+            <br>
+			<table id="galleryDetailsTable" align="center" class="table table-bordered" style="width:50%;">
+				<tr>
+					<th colspan="2">Create Gallery</th>
+			</tr>                                                               
+			<tr>
+                <td>
+                 <div class="form-group">
+                  <button class="btn-u btn-u-default" type="button" onclick="createGalleryImages('{{eventId}}','{{galleryAccntId}}')"> Add Image </button>
+                 </div>
+                </td>
+               </tr> 
+               
+                </table>
+
+             <div id="addImageDisplay"></div>
+            
+    </script>
+
+<script id="galleryImagesAll" type="text/html">
+  <div style="margin-left:150px;">
+ <div id="slider2_container" style="position: relative; top: 0px; left: 100px; width: 600px; height: 300px; overflow: hidden; ">
+
+        <!-- Loading Screen -->
+		
+        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+            <div style="position: absolute; display: block; background: url(/img/loading.gif) no-repeat center center;
+                top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+        </div>
+
+        <!-- Slides Container -->
+	
+        <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px; overflow: hidden;">
+            {{#imageKeys}}			
+			<div>
+                <img u="image" src="{{imageLocation}}" onload="getImageSlideShow()" style="width:auto;height:600;"/>
+                <img u="thumb" src="{{imageLocation}}" width="80px" height="40px"/>
+            </div>
+			
+			{{/imageKeys}}
+				
+        </div>
+      
+        <!-- Arrow Navigator Skin Begin -->
+        
+        <!-- Arrow Left -->
+        <span u="arrowleft" class="jssora02l" style="width: 55px; height: 55px; top: 123px; left: 8px;">
+        </span>
+        <!-- Arrow Right -->
+        <span u="arrowright" class="jssora02r" style="width: 55px; height: 55px; top: 123px; right: 8px">
+        </span>
+        <!-- Arrow Navigator Skin End -->
+        
+        <!-- ThumbnailNavigator Skin Begin -->
+        <div u="thumbnavigator" class="jssort03" style="position: absolute; width: 600px; height: 60px; left:0px; bottom: 0px;">
+            <div style=" background-color: #000; filter:alpha(opacity=30); opacity:.3; width: 100%; height:100%;"></div>
+
+            <!-- Thumbnail Item Skin Begin -->
+
+            <div u="slides" style="cursor: move;">
+                <div u="prototype" class="p" style="POSITION: absolute; WIDTH: 62px; HEIGHT: 32px; TOP: 0; LEFT: 0;">
+                    <div class="w"><div u="thumbnailtemplate" style=" WIDTH: 100%; HEIGHT: 100%; border: none;position:absolute; TOP: 0; LEFT: 0;"></div></div>
+                    <div class="c" style="POSITION: absolute; BACKGROUND-COLOR: #000; TOP: 0; LEFT: 0">
+                    </div>
+                </div>
+            </div>
+            <!-- Thumbnail Item Skin End -->
+        </div>
+        <!-- ThumbnailNavigator Skin End -->
+        <a style="display: none" href="http://www.jssor.com">jQuery Carousel</a>
+    </div>
+	<div align="center">
+
+     <form id="galleryImagesForm" name="galleryImagesForm" action="/event/gallery/create.json" method="post" enctype="multipart/form-data">
+		<br>
+      {{#data}}
+<div align="left">Upload Image to Gallery</div>
+<div class="container">
+      <div  class="row" id="galleryImage{{qIndex}}"> 
+			<div class="col-sm-8" >
+				<div class="input-group margin-bottom-20">
+					<span class="input-group-addon"><i
+					class="fa fa-picture-o"></i></span> 
+					<input type="file" name="logo" id="logo" class="form-control" title="Image">
+				</div>
+			</div>
+				
+			<input type="hidden" id="tqIndex" name="imageIndex" value="{{qIndex}}" />   
+			<input type="hidden" id="tq{{qIndex}}" name="imageTitle" value="Image..{{qIndex}}">     
+   	
+   {{/data}}
+	<div class="col-sm-4">
+				<button class="btn-u btn-u-default" type="button" onclick="uploadToGallery('{{eventId}}','{{galleryAccntId}}','{{totalImages}}')"> UPLOAD </button>
+			</div>	
+		Uploaded Image should be less than 3MB
+	</div>
+	</div>
+	<input type="hidden" name="totalImages" id="totalImages" value="{{totalImages}}">
+	<input type="hidden" name="eventId" id="eventId" value="{{eventId}}">
+    <input type="hidden" name="galleryAccntId" id="galleryAccntId" value="{{galleryAccntId}}">
+</form>
+
+</div>
+</div>      
+</script>
+
+<script id="galleryForm" type="text/html">
+<div align="center">
+
+     <form id="galleryImagesForm" name="galleryImagesForm" action="/event/gallery/create.json" method="post" enctype="multipart/form-data">
+		<br>
+      {{#data}}
+<div align="left">Upload Image to Gallery</div>
+<div class="container">
+      <div  class="row" id="galleryImage{{qIndex}}"> 
+			<div class="col-sm-8" >
+				<div class="input-group margin-bottom-20">
+					<span class="input-group-addon"><i
+					class="fa fa-picture-o"></i></span> 
+					<input type="file" name="logo" id="logo" class="form-control" title="Image">
+				</div>
+				Uploaded Image should be less than 3MB
+			</div>
+				
+			<input type="hidden" id="tqIndex" name="imageIndex" value="{{qIndex}}" />   
+			<input type="hidden" id="tq{{qIndex}}" name="imageTitle" value="Image..{{qIndex}}">     
+   	
+   {{/data}}
+	<div class="col-sm-4">
+				<button class="btn-u btn-u-default" type="button" onclick="uploadToGallery('{{eventId}}','{{galleryAccntId}}','{{totalImages}}')"> UPLOAD </button>
+			</div>	
+	</div>
+	</div>
+	<input type="hidden" name="totalImages" id="totalImages" value="{{totalImages}}">
+	<input type="hidden" name="eventId" id="eventId" value="{{eventId}}">
+    <input type="hidden" name="galleryAccntId" id="galleryAccntId" value="{{galleryAccntId}}">
+</form>
+
+</div>
+</script>
+<script id="galleryService" type="text/html">
+<br/><br/>
+
+<div id="eventGalleryImage" class="table-responsive">
+      <table id="dataTable" class="table table-bordered table-hover table-striped">
+		<thead>
+      <tr>
+         <th class="text-center">Images</th>
+		<th class="text-center">Action</th>     
+      </tr>
+		</thead>
+		<tbody>
+  {{#imageKeys}}
+   			<tr>
+      		   	<td class="text-center"><img u="thumb" src="{{imageLocation}}" width="80px" height="40px"/></td>
+                <td class="text-center"><button class="btn-u btn-u-default" type="button" onclick="deleteImage('{{eventId}}','{{id}}')"> DELETE </button></td>
+            </tr>     
+    {{/imageKeys}}
+		</tbody>
+      </table>
+	</div>
+
+	
+	
+
+ </script>
+
+<script id="imageService" type="text/html">
+<br/><br/>
+
+ <div id="slider2_container" style="position: relative; top: 0px; left: 100px; width: 600px; height: 300px; overflow: hidden; ">
+
+        <!-- Loading Screen -->
+        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+            <div style="position: absolute; display: block; background: url(/img/loading.gif) no-repeat center center;
+                top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+        </div>
+
+        <!-- Slides Container -->
+        <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px; overflow: hidden;">
+            
+			{{#imageKeys}}
+			<div>
+                <img u="image" src="{{imageLocation}}" onload="getImageSlideShow()" style="width:auto;height:600;"/>
+                <img u="thumb" src="{{imageLocation}}"  width="80px" height="40px"/>
+            </div>
+			{{/imageKeys}}
+            
+        </div>
+        {{^imageKeys}}
+            	<h3>No Images were uploaded yet</h3>
+		{{/imageKeys}}
+        <!-- Arrow Navigator Skin Begin -->
+        
+        <!-- Arrow Left -->
+        <span u="arrowleft" class="jssora02l" style="width: 55px; height: 55px; top: 123px; left: 8px;">
+        </span>
+        <!-- Arrow Right -->
+        <span u="arrowright" class="jssora02r" style="width: 55px; height: 55px; top: 123px; right: 8px">
+        </span>
+        <!-- Arrow Navigator Skin End -->
+        
+        <!-- ThumbnailNavigator Skin Begin -->
+        <div u="thumbnavigator" class="jssort03" style="position: absolute; width: 600px; height: 60px; left:0px; bottom: 0px;">
+            <div style=" background-color: #000; filter:alpha(opacity=30); opacity:.3; width: 100%; height:100%;"></div>
+
+            <!-- Thumbnail Item Skin Begin -->
+
+            <div u="slides" style="cursor: move;">
+                <div u="prototype" class="p" style="POSITION: absolute; WIDTH: 62px; HEIGHT: 32px; TOP: 0; LEFT: 0;">
+                    <div class=w><div u="thumbnailtemplate" style=" WIDTH: 100%; HEIGHT: 100%; border: none;position:absolute; TOP: 0; LEFT: 0;"></div></div>
+                    <div class=c style="POSITION: absolute; BACKGROUND-COLOR: #000; TOP: 0; LEFT: 0">
+                    </div>
+                </div>
+            </div>
+            <!-- Thumbnail Item Skin End -->
+        </div>
+        <!-- ThumbnailNavigator Skin End -->
+        <a style="display: none" href="http://www.jssor.com">jQuery Carousel</a>
+    </div>
+
+	
+	
+</script>
+<!--  POLL BEGIN -->
+<script id="pollInit" type="text/html">
+             <br>
+             
+                  <table id="pollDetailsTable" align="center" class="table table-bordered" style="width:50%;">
+                  <tr>
+                <th colspan="2">Poll Setup/Details</th>
+               </tr>                                                               
+               <tr>
+                   <td>
+                 <div class="form-group">
+                                    <label for="totalPolls" class="sr-only">Total Polls</label>
+                                    <input type="number" placeholder="Total Polls"  name="totalPolls" id="totalPolls" class="form-control">
+                                </div>
+     
+                </td>
+                <td>
+                 <div class="form-group">
+                  <button class="btn-u btn-u-default" type="button" onclick="createPollQuestions('{{eventCode}}', '{{eventId}}','{{pollAccntId}}')"> Next </button>
+                 </div>
+                </td>
+               </tr> 
+               
+                </table>
+
+             <div id="pollQuestionsDisplay"></div>
+            
+    </script>
+
+<script id="pollQuestionsAll" type="text/html">
+  
+     <form id="pollQuestionsForm" name="pollQuestionsForm" action="#" method="post">
+<br>
+  <p>
+   Please enter all the questions and options for the Poll
+  </p>
+   <br>
+
+      {{#data}}
+          <div id="pollQuestion{{qIndex}}">
+      <div class="table table-bordered">
+	<div><b>Poll {{qIndex}}</b></div>
+    <div class="input-group margin-bottom-20">
+     <span class="input-group-addon">PollCode:{{qIndex}}</span>
+     <input type="text" placeholder="Poll {{qIndex}} Code" id="tq{{qIndex}}Code" name="pollCode" class="form-control">
+    </div>
+    <div class="input-group margin-bottom-20">
+     <span class="input-group-addon">Q:{{qIndex}}</span>
+     <textarea placeholder="Question {{qIndex}}" id="tq{{qIndex}}" name="pollQuestion" class="form-control"></textarea>
+    </div>	
+    <div class="input-group margin-bottom-20">
+     <span class="input-group-addon">1.</span>
+     <input type="text" placeholder="Poll {{qIndex}} Option 1" id="tq{{qIndex}}Answer1" name="pollAnswer1" class="form-control">
+    </div>
+    <div class="input-group margin-bottom-20">
+     <span class="input-group-addon">2.</span>
+     <input type="text" placeholder="Poll {{qIndex}} Option 2" id="tq{{qIndex}}Answer2" name="pollAnswer2" class="form-control">
+    </div>
+    <div class="input-group margin-bottom-20">
+     <span class="input-group-addon">3.</span>
+     <input type="text" placeholder="Poll {{qIndex}} Option 3" id="tq{{qIndex}}Answer3" name="pollAnswer3" class="form-control">
+    </div>
+    <div class="input-group margin-bottom-20">
+     <span class="input-group-addon">4.</span>
+     <input type="text" placeholder="Poll {{qIndex}} Option 4" id="tq{{qIndex}}Answer4" name="pollAnswer4" class="form-control">
+    </div>
+     </div>
+      <input type="hidden" id="tqIndex" name="pollIndex" value="{{qIndex}}" />                                               
+     </div>
+   {{/data}}
+      <br>
+                          <div class="form-group">
+        <input type="hidden" name="totalPolls" id="questionFormsTotalPolls">
+        <input type="hidden" name="eventId" id="eventId" value="{{eventId}}">
+        <input type="hidden" name="pollAccntId" id="pollAccntId" value="{{pollAccntId}}"> 
+        <input type="hidden" name="eventCode" id="eventCode" value="{{eventCode}}"> 
+        <button class="btn-u btn-u-default" type="button" onclick="submitPollQuestions()"> Submit </button>
+        </div>
+           </form>      
+    </script>
+
+<script id="pollService" type="text/html">
+	<br>
+	<p>Welcome to Polling add-on</p>
+    <table id="pollDetailsTable" align="center" class="table table-bordered" style="width: 100%;">
+		<tr>
+			<th>Poll Details</th>
+		</tr>
+		<tr>
+			<td style="background-color: #eeeeee">
+            {{#pollKeys}}                                                               
+			<div class="panel panel-primary col-lg-12" style="padding: 0px">
+            	<div class="panel-heading">
+					<font color="yellow">{{pollCode}}/{{question}}</font></b>
+                </div>
+            	<div class="panel-body">
+					<div class="span4">
+						A1): {{answer1}}
+        				<div class="progress progress-striped active">
+          					<div class="progress-bar" style="width: {{ans1p}}; border: 10px"></div>
+        				</div>
+					</div>
+					<div class="span4">
+						A2): {{answer2}}
+        				<div class="progress progress-striped active">
+          					<div class="progress-bar" style="width: {{ans2p}}; border: 10px"></div>
+        				</div>
+					</div>
+					<div class="span4">
+						A3): {{answer3}}
+        				<div class="progress progress-striped active">
+          					<div class="progress-bar" style="width: {{ans3p}}; border: 10px"></div>
+        				</div>
+					</div>
+					<div class="span4">
+						A4): {{answer4}}
+        				<div class="progress progress-striped active">
+          					<div class="progress-bar" style="width: {{ans4p}}; border: 10px"></div>
+        				</div>
+					</div>
+				</div>
+            	<div class="panel-footer btn-warning">
+                    <div><font style="color: #444444">{{answersCount}} voted; <b>
+					<a href="/polls/{{eventCode}}{{eventCodePoll}}/{{pollCode}}" target="_new">View Results</a>
+					</b></font></div>
+                </div>
+			</div>
+            {{/pollKeys}}
+			</td>
+		</tr>
+  	</table>
+</script>
+
+<!--  POLL END -->
+<script id="notificationInit" type="text/html">
+    <div id="notificationSvcDiv">
+     <form name="notificationSvcForm" id="notificationSvcForm">
+  <table id="notificationSvcTab" class="table table-bordered">
+      <tr>
+        <td><input type="radio" name="notificationType" id="notificationType" class="notificationType" value="MAIL" onclick="displayNotificationMsgComposer(this)">&#160;Send Mail</td>
+        <td><input type="radio" name="notificationType" id="notificationType" class="notificationType" value="SMS" onclick="displayNotificationMsgComposer(this)">&#160;Send SMS</td>
+      </tr>
+      <tr>
+      <td colspan="2">
+       {{#hasParticipants}}
+         <table class="table">
+          <tr>
+           <td width="40%">
+              <ul class="list-group">
+               <li class="list-group-item"><input type="checkbox" name="allParticipants" id="allParticipants" class="allParticipants" onchange="toggleAllParticipants(this.checked)">&#160;<strong>Participant Name</strong></li>
+              {{#participants}}
+                <li class="list-group-item"><input type="checkbox" name="participants" id="participants" class="participants" onchange="toggleParticipants(this.value,this.checked)" value="{{id}}">&#160;{{name}}</li>    
+            {{/participants}}
+              </ul>
+           </td>
+           <td>
+              <div id="notificationComposerDiv">
+              </div>
+           </td>
+          <tr>
+           <td colspan="2" align="right">
+                <button class="btn btn-primary"  type="button" onclick="sendNotification('{{eventId}}')">Notify</button>              
+    <button class="btn btn-danger" type="button" onclick="clearNotificationMsg()">Clear</button>
+    
+   			 <input type="hidden" name="messageType" id="messageType">
+                <input type="hidden" name="subject" id="subject" >
+                <input type="hidden" name="message" id="message" >
+				<input type="hidden" name="eventId" id="eventId" value={{eventId}} class="eventId">
+           </td>
+          </tr>
+       {{/hasParticipants}}   
+	
+    {{^participants}}
+   <tr><td class="text-center"><h3>No one has signed up for any Event yet</h3></td></tr>
+       {{/participants}}
+
+        </table>
+      </td>
+      </tr>
+   
+      </table>
+
+   </form>
+
+      </div>
+
+      </div>
+</script>
+
+<script id="notificationEmail" type="text/html">
+<div class="form-group">
+<input type="text" class="form-control" name="notificationEmailSubject" id="notificationEmailSubject" style="width:500px;" placeholder="Subject">
+<br/>
+<textarea name="notificationEmailMsg" class="form-control" id="notificationEmailMsg"  placeholder="Text your message here" style="width:500px;height:250px;" ></textarea>
+</div>
+</script>
+
+<script id="notificationSMS" type="text/html">
+<div class="form-group">
+<textarea name="notificationSMSMsg" class="form-control" id="notificationSMSMsg" placeholder="Text your message here" style="width:500px;height:80px;" maxlength="160"></textarea>
+<p><span id="remaining">160 characters remaining</span></p>
+</div>
+</script>
+
+<script id="eventEditDetails" type="type/html">
+     <form id="eventEditForm" name="eventEditForm" action="#" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="editEventModalLabel">Edit Event # {{id}}</h4>
+					</div>
+					<div class="modal-body">
+						<form id="editEventForm" name="editEventForm"
+							action="/event/update.json" modelAttribute="event"
+							enctype="multipart/form-data" method="post">
+							<div class="input-group margin-bottom-20">
+								<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+								<input type="text" class="form-control" name="name" id="name">
+							</div>
+							<div class="input-group margin-bottom-20">
+								<span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+								<input type="text" class="form-control" name="code" id="code">
+							</div>
+							<div class="input-group margin-bottom-20">
+								<span class="input-group-addon"><i class="fa fa-calendar"></i>&nbsp;From:
+								</span> <input type="text" class="form-control" name="beginDate"
+									id="beginDate"> <span class="input-group-addon"><i
+									class="fa fa-calendar"></i>&nbsp;To: </span> <input type="text"
+									class="form-control" name="endDate" id="endDate">
+							</div>
+							<div class="input-group margin-bottom-20">
+								<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+								<textarea rows="5" class="form-control" name="aboutEvent"
+									id="aboutEvent" placeholder="About the event..."></textarea>
+							</div>
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="fa fa-location-arrow"></i></span> <input type="text"
+									class="form-control" name="address" id="address"> <input
+									type="text" class="form-control" name="city" id="city">
+								<select class="form-control" name="state" id="state">
+									<option value="">State</option>
+									<option value="Alabama">Alabama</option>
+        							<option value="Alaska">Alaska</option>
+        							<option value="Arizona">Arizona</option>
+       								<option value="Arkansas">Arkansas</option>
+        							<option value="California">California</option>
+        							<option value="Colorado">Colorado</option>
+        							<option value="Connecticut">Connecticut</option>
+        							<option value="Delaware">Delaware</option>
+       								<option value="District Of Columbia">District Of Columbia</option>
+        							<option value="Florida">Florida</option>
+        							<option value="Georgia">Georgia</option>
+        							<option value="Hawaii">Hawaii</option>
+        							<option value="Idaho">Idaho</option>
+                                    <option value="Illinois">Illinois</option>
+                                    <option value="Indiana">Indiana</option>
+                                    <option value="Iowa">Iowa</option>
+                                    <option value="Kansas">Kansas</option>
+                                    <option value="Kentucky">Kentucky</option>
+                                    <option value="Louisiana">Louisiana</option>
+                                    <option value="Maine">Maine</option>
+                                    <option value="Maryland">Maryland</option>
+                                    <option value="Massachusetts">Massachusetts</option>
+                                    <option value="Michigan">Michigan</option>
+                                    <option value="Minnesota">Minnesota</option>
+                                    <option value="Mississippi">Mississippi</option>
+                                    <option value="Missouri">Missouri</option>
+                                    <option value="Montana">Montana</option>
+                                    <option value="Nebraska">Nebraska</option>
+                                    <option value="Nevada">Nevada</option>
+                                    <option value="New Hampshire">New Hampshire</option>
+                                    <option value="New Jersey">New Jersey</option>
+                                    <option value="New Mexico">New Mexico</option>
+                                    <option value="New York">New York</option>
+                                    <option value="North Carolina">North Carolina</option>
+                                    <option value="North Dakota">North Dakota</option>
+                                    <option value="Ohio">Ohio</option>
+                                    <option value="Oklahoma">Oklahoma</option>
+                                    <option value="Oregon">Oregon</option>
+                                    <option value="Pennsylvania">Pennsylvania</option>
+                                    <option value="Rhode Island">Rhode Island</option>
+                                    <option value="South Carolina">South Carolina</option>
+                                    <option value="South Dakota">South Dakota</option>
+                                    <option value="Tennessee">Tennessee</option>
+                                    <option value="Texas">Texas</option>
+                                    <option value="Utah">Utah</option>
+                                    <option value="Vermont">Vermont</option>
+                                    <option value="Virginia">Virginia</option>
+                                    <option value="Washington">Washington</option>
+                                    <option value="West Virginia">West Virginia</option>
+                                    <option value="Wisconsin">Wisconsin</option>
+                                    <option value="Wyoming">Wyoming</option>
+								</select> <input type="text" class="form-control" name="zip" id="zip">
+							</div>
+							<p class="help-block">Please upload event logo</p>
+							<div class="input-group margin-bottom-20">
+								<span class="input-group-addon"><i
+									class="fa fa-picture-o"></i></span> <input type="file" name="logo"
+									id="editLogo" class="form-control" title="Logo">
+							</div>
+							<div class="input-group margin-bottom-20">
+								<span class="input-group-addon"><img height="25px"
+									width="25px" title="Raffle" src="/img/raffle.jpeg"></span> <a
+									href="#"
+									onclick="eventAddon('RAFFLE','<c:out value="${id}" />')">
+									Raffle</a> 
+								<span class="input-group-addon"><img
+									height="25px" width="25px" title="Trivia"
+									src="/img/trivia.jpeg"></span> <a href="#"
+									onclick="eventAddon('TRIVIA','<c:out value="${id}" />')">
+									Trivia</a> 
+								<span class="input-group-addon"><img
+									height="25px" width="25px" title="Donations"
+									src="/img/donate.png"></span> <a href="#"
+									onclick="eventAddon('DONATIONS','<c:out value="${id}" />')">
+									Donations</a>
+								<span class="input-group-addon"><img
+									height="25px" width="25px" title="Poll"
+									src="/img/poll.png"></span> <a href="#"
+									onclick="eventAddon('POLL','<c:out value="${id}" />')">
+									Poll</a>
+							</div>
+							<div class="input-group margin-bottom-20">
+								<span class="input-group-addon"><i class="fa fa-adjust"></i></span>
+								<select class="form-control" name="status" id="status">
+									<option value="NEW">NEW</option>
+									<option value="SCHEDULED">SCHEDULED</option>
+									<option value="INPROGRESS">INPROGRESS</option>
+									<option value="COMPLETED">COMPLETED</option>
+									<option value="CANCELLED">CANCELLED</option>
+								</select>
+							</div>
+							<div id="eventAddonMessage"></div>
+							<div class="input-group margin-bottom-20">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-success" onclick="editEvent()">Save Changes</button>
+							</div>
+
+							<input type="hidden" name="id">
+
+							<div id="editEventMessage"></div>
+
+					</div>
+					<div class="modal-footer">
+
+					</div>
+				</div>
+			</form>
+</script>
+
+<!-- Following content is from participants.html -->
+
+<script id="raffleServiceA" type="text/html">
+<br>
+   {{^raffleSubscription}}
+		 <div class="alert alert-warning" style="background-color: #cccccc">
+  <p>
+  <h2>Information Note:</h2>
+  </p>
+  <p><h4>{{message}}</h4></p>
+ </div>
+   {{/raffleSubscription}}
+
+   {{#raffleSubscription}}
+
+    {{^displayRaffleTable}}
+        <p><h3>{{message}}</h3></p>
+    {{/displayRaffleTable}}
+  
+    {{#raffleWinner}}
+    <h3><i class="fa fa-gift"></i> Congratulations ! You are one of the raffle winners. Please contact event manager for further details.</h3>
+    <hr>
+    {{/raffleWinner}}
+	
+    {{#displayRaffleTable}}
+    
+    <div class="progress">
+		  <div id="raffleProgressBar" class="progress-bar" role="progressbar" aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentage}}%;">
+		    {{percentage}} %
+		  </div>
+    </div>        
+    <table>
+<tr>
+ <td>
+  {{#raffleWinner}}
+   <img src="/img/RW.PNG" alt="" height="100" width="200px">
+  {{/raffleWinner}}
+  
+  {{#completedRaffles}}
+   <img src="/img/RL.PNG" alt="" height="100" width="200px">
+  {{/completedRaffles}} 
+ 
+  {{#raffleTotal}}  
+   <img src="/img/R.PNG" alt="" height="100" width="200px">           
+  {{/raffleTotal}}  
+   </td>
+<tr>
+</table>
+	<table id="rafleDetailsTable" align="center" class="table table-bordered">
+		<tr>
+			<td>
+				<table id="rafleDetailsTable"
+					class="table table-bordered">
+  					<tr>
+						<td>Total Raffles</td>
+						<td>{{totalRaffles}}</td>
+					</tr>
+
+					<tr>
+						<td>Raffles Completed</td>
+						<td><div id="rafflesCompletedDiv">{{rafflesCompleted}}</div></td>
+					</tr>
+
+				</table>
+			</td>
+		</tr>
+   </table>
+    {{/displayRaffleTable}}
+
+  {{/raffleSubscription}}
+</script>
+
+<script id="donationInitA" type="text/html">
+    <br>    
+    <div class="alert alert-warning" style="background-color: #cccccc">
+  <p>
+  <h2>Information Note:</h2>
+  </p>
+  <p><h4>{{message}}</h4></p>
+ </div>
+</script>
+
+<script id="donationServiceA" type="text/html">
+<br>
+    <p>
+		<b>Make your donations here, for a Cause:: "{{description}}"</b>
+	</p>
+	<div>
+    	<div class="col-sm-8">
+<br>
+<br>
+          
+            
+			<form name="donationForm{{eventId}}" id="donationForm{{eventId}}" method = "post" action = "/event/donations/payment/request">
+     			<div class="row">
+        			<div class="col-sm-4">
+          				<div class="input-group margin-bottom-20">
+							<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+							<input type="number" name="amount" id="amount" min="1" class="form-control" placeholder="Enter dollar amount" required/>
+            			</div>
+         			</div>
+         			<input type="hidden" name="eventId" id="eventId" value="{{eventId}}">
+         			<div class="col-sm-4">
+         				<button id="submitDonation" class="btn btn-success btn-block" type="submit">Donate</button>
+         			</div>
+     			</div>
+			</form>
+     	</div>
+     	<div class="col-sm-4">
+        	{{#donationsTable}}
+				<table id="pRafleOutcomeTable" class="table table-bordered" >
+					<thead>
+						<tr>
+							<th class="text-center" width="60%">Donated Amount</th>
+							<th class="text-center" width="30%">Date Time</th>
+						</tr>
+					</thead>
+					<tbody>
+ 						{{#donations}}
+  						<tr>
+							<td>{{amount}}</td>
+						    <td>{{dateCreated}}</td>
+						</tr>
+						{{/donations}}
+					</tbody>
+				</table>
+			{{/donationsTable}}
+		</div>
+	</div>
+</script>
+
+<script id="pollServiceA" type="text/html">
+<br>
+    <p>
+		<b>Poll Results captured so far...</b>
+	</p>
+{{#pollKeys}}
+<div class="panel panel-primary col-lg-12" style="background-color: #cccccc">
+		<div class="panel-heading">
+			<h1 id="">{{question}}</h1><h4>[{{pollCode}}]</h4>
+		</div>
+		<div class="panel-body">
+		{{#isPolled}}
+			<div>
+				{{answer1}}
+        		<div class="progress progress-striped active">
+          			<div class="progress-bar" style="width: {{ans1p}}%; border: 10px"></div>
+        		</div>
+			</div>                              
+			<div>
+				{{answer2}}
+        		<div class="progress progress-striped active">
+          			<div class="progress-bar" style="width: {{ans2p}}%; border: 10px"></div>
+        		</div>
+			</div>                              
+			<div>
+				{{answer3}}
+        		<div class="progress progress-striped active">
+          			<div class="progress-bar" style="width: {{ans3p}}%; border: 10px"></div>
+        		</div>
+			</div>                              
+			<div>
+				{{answer4}}
+        		<div class="progress progress-striped active">
+          			<div class="progress-bar" style="width: {{ans4p}}%; border: 10px"></div>
+        		</div>
+			</div>                              
+		{{/isPolled}}
+</div>
+{{#isNotPolled}}
+<form name="pollForm{{pollCode}}" id="pollForm{{pollCode}}" class="pollForm{{pollCode}}" >
+	
+		
+		<div> <input type="radio" name="pollAnswer" id="pollAnswer" value="1"> {{answer1}}</div>
+		<div> <input type="radio" name="pollAnswer" id="pollAnswer" value="2"> {{answer2}}</div>
+		<div> <input type="radio" name="pollAnswer" id="pollAnswer" value="3"> {{answer3}}</div>
+		<div> <input type="radio" name="pollAnswer" id="pollAnswer" value="4"> {{answer4}}</div>
+		
+     <input type="hidden" name="pollId" id="pollId" value="{{id}}" >
+     <input type="hidden" name="pollCode" id="pollCode" value="{{pollCode}}" >
+
+</form>
+<div style="text-align: center;">
+			<div class="col-xs-6 col-xs-offset-3">
+				<a id="submit_answer" class="btn btn-success btn-block" onclick="submitPoll('{{pollCode}}')">
+					Vote
+				</a>
+			</div>
+		</div>
+{{/isNotPolled}}
+
+{{/pollKeys}}
+
+</script>
+
+<script id="triviaServiceA" type="text/html">
+<br>
+<br>
+    <p>
+		<b>Participate in Trivia by answering to the following question!</b>
+	</p>
+<div>
+ <div class="col-sm-12">
+	<form action="#" name="triviaForm" id="triviaForm" method="post">
+ 		<p>Please choose one of the options below and submit for the trivia !</p>
+    <div >	
+		<div style="width: 200px; float:left; height:220px; margin:20px">
+			{{#showImage}}
+				<div clas="row"><img src="data:image/png;base64,{{picture}}"  width="200px" height="220px"></div>
+			{{/showImage}}
+		</div>
+     	<div class="panel-body" style="width: 400px; float:left; height:100px; margin:20px">
+			<div>
+				<p style="font-family: sans-serif">{{question}}</p>
+     		</div>
+			<div>
+				<input type="radio" name="triviaAnswer" id="triviaAnswer" value="1"> {{answer1}}
+			</div>
+			<div>
+				<input type="radio" name="triviaAnswer" id="triviaAnswer" value="2"> {{answer2}}
+			</div>
+			<div>
+				<input type="radio" name="triviaAnswer" id="triviaAnswer" value="3"> {{answer3}}
+			</div>
+			<div>
+				<input type="radio" name="triviaAnswer" id="triviaAnswer" value="4"> {{answer4}}
+			</div>
+     	</div>
+	</div>
+
+     <div  style="width: 42px; float:right; height:50px; margin:54px">
+			<button type="button" class="btn btn-success" onclick="submitTrivia()">Submit</button>
+     	</div>
+     	<input type="hidden" name="eventId" id="triviasEventId" value="{{eventId}}" >
+	 	<input type="hidden" name="triviaAccntId" id="triviasAccountId" value="{{triviaAccntId}}" >
+	 	<input type="hidden" name="id" id="triviasId" value="{{triviaId}}" >
+	</div>
+
+	</form>
+ </div>
+</div>
+</script>
+<script id="triviaWinnerA" type="text/html">
+<br>
+    <p>
+		<b>Information:</b>
+	</p>
+<div>
+    <h3><i class="fa fa-gift"></i> Congratulations ! You are the trivia winner. Please contact event manager for further details.</h3>
+    <hr>
+</div>
+</script>
+
+<script id="triviaParticipationA" type="text/html">
+<br>
+    <p>
+		<b>Information:</b>
+	</p>
+<div>
+ <p><b>You will be notified shortly about the trivia result</b></p>
+</div>
+</script>
+
+
+<script id="successMessage" type="text/html">
+<br>
+<div class="alert alert-success" style="background-color: #006a00">
+<p>
+	<h2>Information Note:</h2>
+</p>
+<p><h4>{{message}}</h4></p>
+</div>
+</script>
+
+<script id="infoMessage" type="text/html">
+<br>
+<div class="alert alert-warning" style="background-color: #cccccc">
+<p>
+	<h2>Information Note:</h2>
+</p>
+<p><h4>{{message}}</h4></p>
+</div>
+</script>
+<script id="triviaMessage" type="text/html">
+<br>
+<div class="alert alert-warning" style="background-color: #cccccc">
+<p>
+	<h2>Information Note:</h2>
+</p>
+<p><h4>{{message}}</h4></p>
+</div>
+</script>
+<script id="errorMessage" type="text/html">
+<br>
+<div class="alert alert-danger" style="background-color: #ff2f2f">
+<p>
+	<h2>Information Note:</h2>
+<p><h4>{{message}}</h4></p>
+</p>
+
+</div>
+</script>
+<script id="invitationForm" type="text/html">
+<div class="row"  style="margin-left:193px">
+	<div class="col-sm-5">
+		<div class="col-sm-1"></div><h3 style="color:#19b24a;margin-left:106px"> Invite Your Friends </h3>
+		<form id="invitation" name="invitation" method="POST" action="/event/inviteFriends">
+			<input type="hidden" name="eventId" id="eventId" value="{{eventId}}" >				
+          	<div class="input-group margin-bottom-20">
+				<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+					<textarea name="emailAddress" id="emailAddress" class="form-control" rows="12" colls="12" placeholder="Enter Email Addresses with comma separated" style="width:495px;height:180px; resize: none;" required/></textarea>	<br/><br/>
+			</div>
+				<input type = "button"  class="btn btn-success" id = "inviteFriends" name="inviteFriends" value ="Invite Friends" onclick="sendInvitaions({{eventId}})">
+         </form>
+	</div>
+</div>
+</div>
+</script>
+<script id="invitationInit" type="text/html">
+<br/>
+
+
+	<div class="table-responsive" id="invitedUsers">
+		<div class="col-sm-2"></div><h3 style="color:#F00"> Invited Emails List </h3>
+		<table id="dataTable" class="table table-bordered table-hover table-striped">
+			<thead>
+      			<tr><th class="text-center">Email Addresses</th></tr>
+			</thead>
+			<tbody>
+   				{{#emails}}
+   					<tr>
+                      <td class="text-center">{{emailAddress}}</td>
+					  <td class="text-center"><form type="hidden" name="resendForm"id="resendForm"><input type="hidden" name="eventId" id="eventId" value="{{eventId}}"><input type="hidden" name="emailAddress" id="emailAddress" class="emailAddress" value="{{emailAddress}}"><input type = "button"  class="btn btn-success" id = "resendEmail" name="resendEmail" value ="Resend Email" onclick="resendNotification('{{eventId}}','{{emailAddress}}')"></form></td>
+                    </tr>     
+      			{{/emails}}
+
+    			{{^emails}}
+   					<tr><td colspan="3" class="text-center"><h3>No one has invited for this event yet</h3></td></tr>
+       			{{/emails}}
+			</tbody>
+      	</table>
+	</div>				
+</div>         
+</script>
+<script id="agendaInit" type="text/html">
+<br/>
+<div class="row">
+ <div class="col-sm-12">
+  <h3 style="color:##F00" align="center"> Please Enter Event Objective and Highlights to continue </h3><br/><br/>
+  <form id="agendaForm" name="agendaForm"  modelattribute="agendaPoints" method="POST" action="/event/agenda/init.json">
+   <input type="hidden" name="eventId" id="eventId" value="{{eventId}}" > 
+    <input type="hidden" name="agendaId" id="agendaId" value="{{agendaId}}" > 
+   <div class="input-group margin-bottom-20">
+    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+   <input type="text" name="eventObjective" id="eventObjective" placeholder="Objective of the event" >    
+           </div>
+    <div class="input-group margin-bottom-20">
+     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+     <textarea name="highlights" id="highlights" class="form-control" rows="5" colls="12" placeholder="Enter Event Highlights" required/></textarea> <br/><br/>
+   </div>
+   <div class="col-sm-8"></div> <input type = "button"  class="btn btn-success" id = "initializeAgenda" name="initializeAgenda" value ="Next" onclick="agendaAddonInit()">
+         </form>
+ </div> 
+</div>         
+</script>
+<script id="agendaPoints" type="text/html">
+<br/>
+<div class="row">
+ <div class="col-sm-12">
+  <h3 style="color:##F00" align="center"> Please Enter Event Agenda </h3><br/><br/>
+  <form id="agendaInitForm" name="agendaInitForm" modelattribute="agendaPointsForm" action="/agenda/create.json" method="POST">
+   <input type="hidden" name="agendaPoints[0].eventId" id="agendaPoints.eventId" value="{{eventId}}" > 
+   <input type="hidden" name="agendaPoints[0].agendaId" id="agendaPoints.agendaId" value="{{agendaId}}" > 
+   <div class="col-md-12 table-responsive">
+<table class="table table-bordered table-hover table-sortable"  id="tbl1">
+ <tr><td align="center">Start Date</td align="center"><td align="center">End Date</td><td>Description</td></tr> 
+</table>
+  </div>
+ </div>
+ </div>
+ <input type = "submit"  class="btn btn-success" id = "agendaPoints" name="agendaPoints" value ="Save" onclick="createAgendaPoints()">
+ </form>
+ <div class="btn btn-default pull-right">
+	<button id="anc_add" class="btn btn-primary" onclick="add()">Add Row</button>
+	<button  id="anc_rem"  class="btn btn-danger" onclick="rem()">Remove Row</button>
+ </div>   
+<div id="actionMessage"></div>  
+</script>
+<script id="eventAgenda" type="text/html">
+<body>
+<br/>
+<div id="calFAgenda">
+{{message}}
+<div class="row" >
+
+ <div id='calendar'></div>
+ </div> 
+</div>
+</body>      
+</script>
+
+<script id="showfeedbackForm" type="text/html">
+<body>
+<br/>
+<div class="row" >
+<form name="feedbackForm" id="feedbackForm" modelattribute="feedback">
+	<div align="center">	
+ 		<input type="hidden" name="eventId" id="eventId" value="{{eventId}}" /> 
+		<input id="rating" name="rating" type="number" />
+	</div>
+	<div>		
+		<textarea  name="comment" class="form-control" id="comment" placeholder="Comment"></textarea>
+	</div>
+</form>
+<br />
+<div align="right">
+<button type="submit" class="btn btn-success" onclick ="submitFeedback()">Submit</button>
+</div>
+ </div>
+
+<div id="page-container2">
+<div align="center">	
+		<input id="rating2" name="rating2" type="number"  value="{{average}}" disabled/>
+	</div>
+<table>
+<tbody>
+ 		{{#commentsWithAuthors}}
+			<tr><td>
+				<div class="row-fluid" style="font-family: sans-serif">
+					{{email}} &nbsp; &nbsp; <input id="rate2{{qIndex}}" name="rating" type="number"  value="{{rating}}" disabled/>
+				</div>
+				
+				<div class="row-fluid">
+						Comment:<p style="font-family: courier, monospace">{{comment}}</p>
+					</br>
+				</div>
+			</td></tr>
+		{{/commentsWithAuthors}}
+</tbody>
+	</table>
+		<div class="my-navigation" style="margin:0px 0px 0px 500px">
+		<div class="simple-pagination-first" style="float:left"></div> 
+		<div class="simple-pagination-previous" style="float:left;margin:0px 20px 0px 25px"></div>
+		<div class="simple-pagination-page-numbers" style="float:left"></div>
+		<div class="simple-pagination-next" style="float:left;margin:0px 33px 0px 24px"></div>
+		<div class="simple-pagination-last" style="float:left"></div>
+
+	</div> 
+</body>      
+</script>
+
+<script id="showfeedbackForm1" type="text/html">
+
+<br/>
+	<div align="center">	
+		<input id="rating" name="rating" type="number"  value="{{average}}" disabled/>
+	</div>
+	</br></br>
+<div id="page-container">
+<table>
+<tbody>
+ 		{{#commentsWithAuthors}}
+			<tr><td>
+				<div class="row-fluid" style="font-family: sans-serif">
+					{{email}} &nbsp; &nbsp; <input id="rate{{qIndex}}" name="rating" type="number"  value="{{rating}}" disabled/>
+				</div>
+				
+				<div class="row-fluid">
+						Comment:<p style="font-family: courier, monospace">{{comment}}</p>
+					</br>
+				</div>
+			</td></tr>
+		{{/commentsWithAuthors}}
+</tbody>
+	</table>
+		<div class="my-navigation" style="margin:0px 0px 0px 500px">
+		<div class="simple-pagination-first" style="float:left"></div> 
+		<div class="simple-pagination-previous" style="float:left;margin:0px 20px 0px 25px"></div>
+		<div class="simple-pagination-page-numbers" style="float:left"></div>
+		<div class="simple-pagination-next" style="float:left;margin:0px 33px 0px 24px"></div>
+		<div class="simple-pagination-last" style="float:left"></div>
+	</div> 
+	</div>    
+</script>
+
+<script id="showSubmittedfeedbackForm" type="text/html">
+<body>
+<br/>
+<div class="container" >
+	<div  class="col-md-5" align="left"> <b>Your Rating	</b>
+		<input id="rating" name="rating" type="number"  value="{{rating}}" disabled/>
+		<br>
+		<b>Your Comment:</b><p style="font-family: courier, monospace">{{comment}}</p>
+		<b>Event Rating :</b> <input id="rating1" name="rating1" type="number"  value="{{average}}" disabled/>
+			
+	</div>	
+<div class="col-md-7" align="left">
+	<div id="page-container1">
+		<b>Users Rating</b>
+		<br><br>
+		<table>
+			<tbody>
+ 				{{#commentsWithAuthors}}
+					<tr><td>
+						<div class="row-fluid" style="font-family: sans-serif">
+							{{email}} &nbsp; &nbsp; <input id="rate1{{qIndex}}" name="rating" type="number"  value="{{rating}}" disabled/>
+						</div>
+				
+						<div class="row-fluid">
+							Comment:<p style="font-family: courier, monospace">{{comment}}</p>
+						</br>
+						</div>
+					</td></tr>
+				{{/commentsWithAuthors}}
+			</tbody>
+		</table>
+		<div class="my-navigation" style="margin:0px 0px 0px 200px">
+			<div class="simple-pagination-first" style="float:left"></div> 
+			<div class="simple-pagination-previous" style="float:left;margin:0px 20px 0px 25px"></div>
+			<div class="simple-pagination-page-numbers" style="float:left"></div>
+			<div class="simple-pagination-next" style="float:left;margin:0px 33px 0px 24px"></div>
+			<div class="simple-pagination-last" style="float:left"></div>
+		</div>
+	</div>	
+		<div id="page-container2">
+			<br><br>
+			<b>Categories Ratings</b>
+			<br><br>			
+			<table>
+			<tbody>
+ 					{{#categoriesByRating}}
+					<tr><td>
+						<div class="row-fluid" style="font-family: sans-serif">
+							{{category}} &nbsp; &nbsp; <input id="ratex{{qInd}}" name="rating" type="number"  value="{{rating}}" disabled/>
+						</div>
+					</td></tr>
+					{{/categoriesByRating}}
+			</tbody>
+			</table>
+			<div class="my-navigation" style="margin:0px 0px 0px 300px">
+				<div class="simple-pagination-first" style="float:left"></div> 
+				<div class="simple-pagination-previous" style="float:left;margin:0px 20px 0px 25px"></div>
+				<div class="simple-pagination-page-numbers" style="float:left"></div>
+				<div class="simple-pagination-next" style="float:left;margin:0px 33px 0px 24px"></div>
+				<div class="simple-pagination-last" style="float:left"></div>
+			</div>
+		</div> 	
+ 	</div>	
+ </div> 
+
+</body> 
+      
+</script>
+
+<script id="showEventDetails" type="text/html">
+<style>
+#left{
+float:left;
+width:25%;
+overflow:hidden;
+}
+#right{
+overflow:hidden;
+width:30%;
+}
+#right1{
+overflow:hidden;
+width:25%;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height:70px;
+  padding: 1px 2px;
+  font-size: 14px;
+  line-height: 4.33;
+  border-radius: 35px;
+}
+</style>
+<body>
+<br />
+<div class="container" > 
+{{#event}}
+<div style="width: 100%;">
+ <div style="float: left; width: 20%;">
+ <img id="img{{id}}" src="/event/image/get/{{id}}" width="200px" height="200px" alt="Logo">
+</div>
+ <div style="float: left; width: 40%;">
+	<div>
+ <h4><u>Name</u>:&nbsp;&nbsp;{{name}}</h4>
+  </div><div>
+	<h4><i class="fa fa-clock-o fa-1x">:{{beginDate}} to {{endDate}}</i></h4>
+    </div>
+<div>
+<h4><u>Location</u>: {{address}}</h4>
+</div>
+ <div>
+</div>
+</div>
+ <div style="float: left; width: 40%;">
+<iframe src="http://maps.google.com/maps?q={{latitude}},{{longitude}}&z=15&output=embed" width="450" height="200"></iframe>	
+</div>
+ <br style="clear: left;" />
+</div>
+
+</div>
+<div>
+ <p><u>About</u>:&nbsp;&nbsp;{{aboutEvent}}</p><br/>
+</div>
+<div align="center">
+{{#status}}
+<p>This event is featured with Raffle, Polls, Trivia, Images & Donations.Please go to the respective tabs and enjoy the Event by using all the features. </p>
+<a class="btn btn-success btn-circle btn-xl" data-toggle="tab" id="tabRaffleResp"  onclick="showRaffleModal2()" href="#raffleResponse">Raffle</a>
+<a class="btn btn-success btn-circle btn-xl" data-toggle="tab" id="tabTriviaResp" onclick="showTriviaModal2()" href="#triviaResponse">Trivia</a>
+<a class="btn btn-success btn-circle btn-xl" data-toggle="tab" id="tabDonationResp" onclick="showDonationModal2()" href="#donationResponse">Donation</a></li>
+<a class="btn btn-success btn-circle btn-xl" data-toggle="tab" id="tabPollResp" onclick="showPollModal2()" href="#pollResponse">Poll</a>
+<a class="btn btn-success btn-circle btn-xl" data-toggle="tab" id="tabGalleryResp" onclick="showGalleryAddonModal2()" href="#galleryResponse">Gallery</a>							   
+{{/status}}
+
+{{^status}}
+<h4> Please check-in to this event for it's addons </h4>
+{{/status}}
+</div>
+<br><br>
+<div align="center">
+<b >Please CHECK IN to enjoy Add-on's feature.Click on below Link to CHECK IN</b>
+<h3><a href="/eventTracker/{{id}}" target="_new">View Event Tracker</a></h3>
+</div>
+Organizer Contact.<br/>
+{{hostName}}
+{{phone}}
+
+{{/event}}  
+</body>
+
+
+</script>
+
+<script id="nearestEvents" type="text/html">
+<h3>Nearest Events</h3>
+<hr />
+<div style="width:500px;height:300px;line-height:2em;border:solid 1px gray;overflow:scroll;overflow-x:hidden;overflow-y:scroll; background-color:white;">
+
+{{#events}}
+ <table>
+  <tr>
+   <td>
+    <h3 style="float:left;color:#DF0101">{{name}}</h3>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <span style="float:left;color:#0000FF" class="fa fa-clock-o">:{{beginDate}} to {{endDate}}</span><br/>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <span style="float:left;color:#0000FF" class="fa fa-map-marker">:{{address}}</span><br/>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <a style="float:left;color:#0000FF" href="" >>>>View Details</a><br/>
+   </td>
+  </tr>
+ </table>
+<br />
+<hr />
+
+{{/events}} 
+</div>
+ </script>
