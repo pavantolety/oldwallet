@@ -11,21 +11,10 @@ import com.oldwallet.constraints.PageView;
 public class DefaultController {
 		
 		@RequestMapping(value = { "/", "/index" })
-		public String index(ModelMap modelMap) {
-				
+		public String index(ModelMap modelMap) {				
 			return "index";
 		}
-		
-		@RequestMapping(value={"/dashboard"}, method=RequestMethod.GET)
-		public String dashboard(ModelMap modelMap) {
-			return "dashboard";
-		}
-		
-		@RequestMapping(value="/redeem", method=RequestMethod.GET)
-		public String redeem(ModelMap modelMap) {
-			return PageView.REDEEM;
-		}
-		
+				
 		@RequestMapping(value="/thankYou", method=RequestMethod.GET)
 		public String thankYou(ModelMap modelMap) {
 			return PageView.THANKYOU;
