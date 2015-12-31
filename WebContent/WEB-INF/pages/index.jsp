@@ -181,10 +181,16 @@
                                     <form name="redeemForm" id="redeemForm" action="/thankYou" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span>
-                                            </label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="text" id="couponCode" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+												<!-- <input type="checkbox" name="terms" id="terms" > Agree to <a href="/terms"><b><u>Terms and Conditions</u></b></a> -->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile Number:<span class="required">*</span>                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12">
 												<input type="checkbox" name="terms" id="terms" > Agree to <a href="/terms"><b><u>Terms and Conditions</u></b></a>
                                             </div>
                                         </div>
@@ -193,10 +199,8 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                                 <button type="reset" class="btn btn-primary">Reset</button>
                                                 <button type="button" id="redeem_button" class="btn btn-success">Redeem</button>
-                                            </div>
-											
+                                            </div>											
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
@@ -204,14 +208,14 @@
                     </div>
 					 <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                        	<p align="center"><img src="../images/11.gif" alt=""></img>
-                        	<img src="../images/11.gif" alt=""></img></p>
+                        	<p align="center"><img src="../images/11.gif" alt="" style="height: auto;width: 35%;"></img>
+                        	<img src="../images/11.gif" alt="" style="height: auto;width: 35%;"></img></p>
                         </div>
                      </div>
                       <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                        	<p align="center"><img src="../images/22.gif" alt=""></img>
-                        	<img src="../images/22.gif" alt=""></img></p>
+                        	<p align="center"><img src="../images/22.gif" alt="" style="height: auto;width: 35%;"></img>
+                        	<img src="../images/22.gif" alt="" style="height: auto;width: 35%;"></img></p>
                         </div>
                      </div>
                 <!-- /page content -->
