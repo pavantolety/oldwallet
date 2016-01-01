@@ -75,7 +75,9 @@ public class CouponPaymentController {
 					modelMap.addAttribute("map", map);
 					//response.sendRedirect(this.getServletContext().getContextPath()+"/Response.jsp");
 					log.debug("Success :: "+resp.toString());
+					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 					smsController.sendSMS(modelMap, couponPayment.getMobile(), session);
+					}
 					return "success";
 				} else {
 					modelMap.addAttribute("Error", resp.getErrors());
