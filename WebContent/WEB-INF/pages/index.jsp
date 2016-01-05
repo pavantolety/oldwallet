@@ -599,17 +599,23 @@
 						data:coupon,
 						success:function(data) {
 							alert(JSON.stringify(data));
+							var action = data.action;
+							alert(action);
+							if(action=='valid') {
 							var successUrl = '/valid';
 							//successUrl = successUrl+c;
 							$("#redeemForm").attr("action", successUrl);
 							$("#redeemForm").submit();
-							
-							alert("Going to success URL ::");
+							} else if(action=="invalid") {
+								sweetAlert("Info",data.message,"info");
+							}else if(data.action='error') {
+								sweetAlert("Info",data.message,"info");
+							}
 							
 						},
 						
 						error:function(data) {
-							alert("Error While Sending sms ::"+JSON.stringify(data));
+							console.log("Error  ::"+JSON.stringify(data));
 						}
 					});
 					

@@ -192,6 +192,8 @@
                                                 <input type="email" id="emailAddress" name="emailAddress" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="amount" name="amount" value="<c:out value="${coupon.couponValue}"/>" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="couponCode" name="couponCode" value="<c:out value="${coupon.couponCode}"/>" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="hidden" id="couponId" name="couponId" value="<c:out value="${coupon.couponId}"/>" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="hidden" id="eventId" name="eventId" value="<c:out value="${coupon.eventId}"/>" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="currencyCode" name="currencyCode" value="USD" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         </div>

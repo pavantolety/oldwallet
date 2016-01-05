@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,15 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.oldwallet.constraints.PageView;
-import com.oldwallet.dao.CouponDAO;
-import com.oldwallet.model.Coupon;
-import com.oldwallet.model.CouponPayment;
-import com.oldwallet.util.paypal.Configuration;
 
 import urn.ebay.api.PayPalAPI.MassPayReq;
 import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
@@ -30,6 +24,14 @@ import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
 import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
 import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
+import com.oldwallet.constraints.PageView;
+import com.oldwallet.dao.CouponDAO;
+import com.oldwallet.dao.TransactionDAO;
+import com.oldwallet.model.Coupon;
+import com.oldwallet.model.CouponPayment;
+import com.oldwallet.model.Transaction;
+import com.oldwallet.util.paypal.Configuration;
+
 @Controller
 public class CouponPaymentController {
 	
@@ -38,6 +40,9 @@ public class CouponPaymentController {
 	
 	@Autowired
 	CouponDAO couponDAO;
+	
+	@Autowired
+	TransactionDAO transactionDAO;
 	
 	private static Logger log = Logger.getLogger(CouponPaymentController.class);
 	
@@ -56,7 +61,7 @@ public class CouponPaymentController {
 			} else {
 				//user entered expired coupon.
 				modelMap.put("action", "invalid");
-				modelMap.put("message", "Please enter a valid coupon.");
+				modelMap.put("message", "This coupon is already redeemed.");
 			}
 			
 		} else {
@@ -123,6 +128,27 @@ public class CouponPaymentController {
 		PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
 		
 		try {
+			//Building Transaction Object ::
+			String transactionCode = UUID.randomUUID().toString().replaceAll("-", "");
+			log.debug("EventId ::: "+couponPayment.getEventId());
+			log.debug("CouponId ::: "+couponPayment.getCouponId());
+			log.debug("CouponCode ::: "+couponPayment.getCouponCode());
+			log.debug("Amount ::: "+couponPayment.getAmount());
+			log.debug("Tran ::: "+transactionCode);
+			
+			Transaction transaction = new Transaction();
+			transaction.setCouponCode(couponPayment.getCouponCode());
+			transaction.setCouponId(couponPayment.getCouponId());
+			transaction.setCouponValue(couponPayment.getAmount());
+			transaction.setEventId(couponPayment.getEventId());
+			transaction.setTransactionCode(transactionCode);
+			transaction.setUserEmail(couponPayment.getEmailAddress());
+			transaction.setUserMobile(couponPayment.getMobile());
+			
+			//Init the transaction ..
+			
+			boolean isTransactionInit = transactionDAO.initTransaction(transaction);
+			//TODO if isTransactioninit true then only go for masspay.
 			MassPayResponseType resp = service.massPay(req);
 			if (resp != null) {
 				modelMap.addAttribute("lastReq", service.getLastRequest());
@@ -133,12 +159,21 @@ public class CouponPaymentController {
 					modelMap.addAttribute("map", map);
 					//response.sendRedirect(this.getServletContext().getContextPath()+"/Response.jsp");
 					log.debug("Success :: "+resp.toString());
+					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
+					transaction2.setStatus("COMPLETE");
+					boolean isUpdated = transactionDAO.UpdateTransaction(transaction2);
+					if(isUpdated) {
+						couponDAO.updateCoupon(transaction2.getCouponCode());
+					}
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 					smsController.sendSMS(modelMap, couponPayment.getMobile(), session);
 					}
 					return "success";
 				} else {
 					modelMap.addAttribute("Error", resp.getErrors());
+					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
+					transaction2.setStatus("ERROR");
+					transactionDAO.UpdateTransaction(transaction2);
 					log.debug(resp.getErrors().toString());
 					//response.sendRedirect(this.getServletContext().getContextPath()+"/Error.jsp");
 					return "error";

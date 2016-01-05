@@ -5,6 +5,8 @@ public class CouponPayment {
 	private String emailAddress;
 	private String amount;
 	private String couponCode;
+	private String couponId;
+	private String eventId;
 	private String currencyCode;
 	private String mobile;
 
@@ -46,5 +48,21 @@ public class CouponPayment {
 
 	public void setCouponCode(String couponCode) {
 		this.couponCode = couponCode;
+	}
+
+	public String getCouponId() {
+		return couponId;
+	}
+
+	public void setCouponId(String couponId) {
+		this.couponId = couponId;
+	}
+
+	public String getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
 	}
 }

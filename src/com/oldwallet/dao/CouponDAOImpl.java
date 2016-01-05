@@ -9,28 +9,16 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.oldwallet.config.SystemParams;
-import com.oldwallet.controllers.CouponPaymentController;
 import com.oldwallet.model.Coupon;
 
 @Repository
 public class CouponDAOImpl implements CouponDAO{
 	
 	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW'";
+	
+	public static final String UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=? WHERE COUPON_CODE=?";
 	
 	private JdbcTemplate jdbcTemplate;
 	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
@@ -82,5 +70,15 @@ public class CouponDAOImpl implements CouponDAO{
 					
 		System.out.println("corporation::"+coupon);	
 		return coupon;
+	}
+
+	@Override
+	public boolean updateCoupon(String couponCode) {
+		boolean isUpdated = false;
+		int result = jdbcTemplate.update(UPDATE_COUPON, "EXPIRED", couponCode);
+		if(result>0) {
+			isUpdated = true;
+		}
+		return isUpdated;
 	}
 }
