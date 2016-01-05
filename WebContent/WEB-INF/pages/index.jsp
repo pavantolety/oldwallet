@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="x_content">
                                     <br />
-                                    <form name="redeemForm" id="redeemForm" action="/thankYou" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                                    <form name="redeemForm" id="redeemForm" action="/validateCouPon" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span>                            </label>
