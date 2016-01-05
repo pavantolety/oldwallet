@@ -14,6 +14,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.oldwallet.constraints.PageView;
+import com.oldwallet.dao.CouponDAO;
+import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponPayment;
 import com.oldwallet.util.paypal.Configuration;
 
@@ -32,7 +35,34 @@ public class CouponPaymentController {
 	@Autowired
 	SMSController smsController;
 	
+	@Autowired
+	CouponDAO couponDAO;
+	
 	private static Logger log = Logger.getLogger(CouponPaymentController.class);
+	
+	@RequestMapping(value="/validateCoupon", method=RequestMethod.POST)
+	public String validateCoupon(ModelMap modelMap, Coupon coupon) {
+		log.debug("Beginning Of Validating Coupon ::: "+coupon);
+		String returnURI = "/";
+		
+		if(coupon!=null && coupon.getCouponCode()!=null) {
+			//User entered a coupon code.
+			Coupon validCoupon = couponDAO.getCouponByCode(coupon.getCouponCode());
+			if(validCoupon!=null) {
+				//User entered a valid coupon.
+				modelMap.put("coupon", coupon);
+				returnURI = PageView.THANKYOU;
+			} else {
+				//user entered expired coupon.
+			}
+			return returnURI;
+			
+		} else {
+			// User didn't entered any coupon.
+			return returnURI;
+		}
+		
+	}
 	
 	@RequestMapping(value="/getCouponAmount", method=RequestMethod.POST)
 	public String sendMassPayment(ModelMap modelMap, CouponPayment couponPayment, HttpSession session) {

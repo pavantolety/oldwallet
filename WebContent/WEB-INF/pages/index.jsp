@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="x_content">
                                     <br />
-                                    <form name="redeemForm" id="redeemForm" action="/validateCouPon" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                                    <form name="redeemForm" id="redeemForm"  data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span>                            </label>
@@ -204,7 +204,7 @@
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                                 <button type="reset" class="btn btn-primary hvr-grow">Reset</button>
-                                                <button type="submit" id="" class="btn btn-success hvr-grow">Redeem</button>
+                                                <button type="button" id="redeem_button" class="btn btn-success hvr-grow">Redeem</button>
                                             </div>											
                                         </div>
                                     </form>
@@ -579,7 +579,7 @@
                 });
             });
         </script>
-		<!--  <script type="text/javascript">
+		 <script type="text/javascript">
 	var coupons=["coupon456","coupon001","coupon123"];	
 	$(function() {
 		$("#redeem_button").click(function() {		
@@ -588,6 +588,7 @@
 		//var mobile = document.getElementById("mobile").value;
 		if($('#terms').prop('checked')){
 			if(c != null){			
+				alert(JSON.stringify(c));
 				if(checkArray(c) == "true"){
 					for (j=0;j<coupons.length;j++){
 						if(coupons[j]==c ){
@@ -667,7 +668,7 @@
 	function openTerms() {
 		$("#tandc").modal();
 	}
-</script>-->
+</script>
 <script src="js/custom.js"></script>
         
 </body>
