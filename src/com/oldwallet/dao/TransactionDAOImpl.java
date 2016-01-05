@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.oldwallet.model.MonthlyRedeemCouponsCount;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.util.DataRetievar;
 
@@ -28,6 +29,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	private static final String INIT_TRANSACTION = "INSERT INTO TRANSACTION(EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE, COUPON_RETRIEVE_LOCATION, TRANSACTION_CODE, STATUS) VALUES(?,?,?,?,?,?,?,?,'INIT')";
 	private static final String UPDATE_TRANSACTION = "UPDATE TRANSACTION SET TRANSACTION_UPDATION=NOW(), STATUS=? WHERE TRANSACTION_CODE=?";
 	private static final String GET_TRANSACTION_BY_CODE = "SELECT TRANSACTION_ID, EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE, COUPON_RETRIEVE_LOCATION, TRANSACTION_CODE, TRANSACTION_CREATION, TRANSACTION_UPDATION, STATUS FROM TRANSACTION WHERE TRANSACTION_CODE=?";
+	private static final String GET_MONTHLY_REDEEMED_COUPONS_COUNT = "SELECT MONTH(TRANSACTION_UPDATION) MONTH, COUNT(*) COUNT FROM TRANSACTION GROUP BY MONTH(TRANSACTION_UPDATION);";
 
 	@Override
 	public boolean initTransaction(Transaction transaction) {
@@ -86,6 +88,31 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 		log.debug("End of Transaction Retrieve");
 		return transaction;
+	}
+
+	@Override
+	public List<MonthlyRedeemCouponsCount> getRedeemedCouponsCountByMonth() {
+		List<MonthlyRedeemCouponsCount> redeemsCount = new ArrayList<MonthlyRedeemCouponsCount>();
+		List<Map<String, Object>> redeemedCouponsCount = jdbcTemplate.queryForList(GET_MONTHLY_REDEEMED_COUPONS_COUNT);
+		if(redeemedCouponsCount.size()>0){
+			log.debug("There is transaction ::: ");
+		for (Map<String, Object> map : redeemedCouponsCount) {
+			redeemsCount.add(retrieveRedeemedCount(map));
+			}
+		return redeemsCount;
+		} else {
+			log.debug("NO valid coupons available ::: ");
+			return null;
+		}
+	}
+
+	private MonthlyRedeemCouponsCount retrieveRedeemedCount(Map<String, Object> map) {
+		MonthlyRedeemCouponsCount count = new MonthlyRedeemCouponsCount();
+		
+		count.setCount(DataRetievar.getStringValue("COUNT", map));
+		count.setMonth(DataRetievar.getStringValue("MONTH", map));
+		
+		return count;
 	}
 
 }
