@@ -178,7 +178,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Redeem <small>your coupon.</small></h2>
+                                    <h2>Redeem your coupon.</h2>
                                    
                                     <div class="clearfix"></div>
                                 </div>

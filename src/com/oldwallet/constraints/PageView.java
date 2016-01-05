@@ -8,4 +8,14 @@ public interface PageView {
 	
 	String THANKYOU = "screens/thankYou";
 	
+	String MASSPAY = "admin/massPay";
+	
+	String UPLOAD = "admin/uploadData";
+	
+	String TRACKCOUPONS = "admin/trackCoupons";
+	
+	String TRACKREDEMPTIONS = "admin/trackRedemption";
+	
+	String ADMINHOME = "adminHome";
+	
 }
