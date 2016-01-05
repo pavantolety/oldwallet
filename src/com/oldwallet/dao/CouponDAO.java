@@ -4,5 +4,5 @@ import com.oldwallet.model.Coupon;
 
 public interface CouponDAO {
 	
-	public Coupon validateCoupon(Coupon coupon);
+	public Coupon getCouponByCode(String couponCode);
 }

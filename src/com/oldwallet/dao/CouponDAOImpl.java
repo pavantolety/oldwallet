@@ -26,9 +26,9 @@ import com.oldwallet.config.SystemParams;
 import com.oldwallet.model.Coupon;
 
 @Repository
-public class CouponDAOImpl {
+public class CouponDAOImpl implements CouponDAO{
 	
-	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE COUPON_ID=? AND REDEEM_STATUS=?";
+	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW'";
 	
 	private JdbcTemplate jdbcTemplate;
 
@@ -37,25 +37,19 @@ public class CouponDAOImpl {
 	        this.jdbcTemplate = new JdbcTemplate(dataSource);
 	    }
 	
-	
+	@Override
 	@Transactional
-	public Coupon validateCoupon(Coupon coupon) {
+	public Coupon getCouponByCode(String couponCode) {
 	     List<Coupon> couponList =  new  ArrayList<Coupon>();
-		List<Map<String, Object>> couponCodes = jdbcTemplate.queryForList(VALIDATE_COUPON,coupon.getCouponId(),coupon.getCouponCode());
-		if(couponCodes.size()>0){
-		for (Map<String, Object> map : couponCodes) {
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(VALIDATE_COUPON,couponCode);
+		if(coupon.size()>0){
+		for (Map<String, Object> map : coupon) {
 			couponList.add(retrieveCoupon(map));
 			}
-		 if(couponList.size()>0){
-			  Coupon couponData = couponList.get(0);
-			  couponData.getCouponCode();
-			  boolean matched = BCrypt.checkpw(coupon.getCouponCode(),  couponData.getCouponCode());
-			  System.out.println("status>>>>>>"+matched);
-			  if(matched){
-				  return couponList.get(0);		      
-			  }
-		 	}
-		}return null;
+		return couponList.get(0);
+		} else {
+			return null;
+		}
 	}
 	
 	private Coupon retrieveCoupon(Map<String, Object> map) {

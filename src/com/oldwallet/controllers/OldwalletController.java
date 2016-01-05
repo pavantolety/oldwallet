@@ -48,8 +48,8 @@ public class OldwalletController {
 			
 			System.out.println("Coupon Code::::" +coupon.getCouponCode());
 			
-			Coupon couponCode = couponDAO.getCouponById(coupon);
-			if (coupon.getCouponCode()!=null){
+			Coupon couponCode = couponDAO.getCouponByCode(coupon.getCouponCode());
+			if (couponCode!=null){
 				System.out.println("Going to the ThankYou ::: ");
 				return PageView.THANKYOU;
 			
@@ -57,8 +57,9 @@ public class OldwalletController {
 				modelMap.put("status","failure");
 				modelMap.put("error", "Invalid Coupon");
 				modelMap.put("message", "Please use valid coupon code to redeem...");
+				return PageView.REDEEM;
 			}
-			return PageView.REDEEM;
+			
 		}
 		
 }
