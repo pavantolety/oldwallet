@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -42,12 +43,17 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	public boolean createCouponData(CouponData couponData) {
 		// Create coupon Data
 		boolean created =  false; 
-													
+				try{									
 		   int i =  jdbcTemplate.update(CREATE_COUPON_DATA,couponData.getCouponCode(),couponData.getCouponValue(),couponData.getCouponHideLocation(),couponData.getReedemStatus(),couponData.getValidityPeriod(),couponData.getValidFrom(),couponData.getValidTo());
 		
 		   if(i>0){
 			   created=true;
 		   }
+				}catch (DuplicateKeyException de) {
+					de.printStackTrace();
+	               }catch(Exception e){
+	            	   e.printStackTrace();
+	               }
 		   return created;
 	}
 

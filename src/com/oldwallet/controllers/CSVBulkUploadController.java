@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.oldwallet.dao.CSVBulkUploadDAO;
 import com.oldwallet.model.CouponData;
 import com.opencsv.CSVReader;
@@ -69,6 +70,9 @@ private static Logger log = Logger.getLogger(CSVBulkUploadController.class);
 		              couponData1.setValidTo(format2.format(format1.parse(nextLine[6])));
 		               
 		               uploaded = csvBulkUploadDAO.createCouponData(couponData1);
+		               if(!uploaded){
+		            	   modelMap.put("status", "Uploaded failed Data is already uploaded");
+		               }
 		               }catch (DuplicateKeyException de) {
 						de.printStackTrace();
 		               }catch(Exception e){
@@ -79,11 +83,11 @@ private static Logger log = Logger.getLogger(CSVBulkUploadController.class);
 		    		 }
 		    	 }
 		    	}
-		    }
+		    }else{
+		    	 modelMap.put("status", "Please Upload your file");
+		     }
 		     if(uploaded){
 		     modelMap.put("status", "Uploaded Successfully");
-		     }else{
-		    	 modelMap.put("status", "Uploading  Failed");
 		     }
 	return "csvBulkUpload";
 	}
