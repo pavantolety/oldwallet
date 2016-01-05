@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -175,20 +177,21 @@
 									<div class="col-middle">
 										<div class="text-center">
 											<h3>Congratulations...!</h3>
-											<h2>You can redeem $2.56 using your <img src="images/paypal2.png" alt="Smiley face" > Account.</h2>
+											<h2>You can redeem <c:out value="${coupon.couponValue}"/> using your <img src="images/paypal2.png" alt="Smiley face" > Account.</h2>
 											<div class="input-group mid_center">
 												<div align="center" id="myContainer"></div>														   
 											</div>
 											<div class="col-md-12 col-sm-12 col-xs-12 input-group mid_center">
 												<h3>OR</h3>
-												<h4 style="margin: 5%;font-stretch: condensed;">Please enter PayPal Email Address and Mobile Number to redeem $2.56</h4>
+												<h4 style="margin: 5%;font-stretch: condensed;">Please enter PayPal Email Address and Mobile Number to redeem <c:out value="${coupon.couponValue}"/></h4>
 							<form name="redeemForm" id="redeemForm" action="/getCouponAmount" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="emailAddress">Email:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="email" id="emailAddress" name="emailAddress" required="required" class="form-control col-md-7 col-xs-12">
-                                                <input type="hidden" id="amount" name="amount" value="2.56" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="hidden" id="amount" name="amount" value="<c:out value="${coupon.couponValue}"/>" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="hidden" id="couponCode" name="couponCode" value="<c:out value="${coupon.couponCode}"/>" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="currencyCode" name="currencyCode" value="USD" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         </div>

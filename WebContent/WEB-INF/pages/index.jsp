@@ -184,12 +184,12 @@
                                 </div>
                                 <div class="x_content">
                                     <br />
-                                    <form name="redeemForm" id="redeemForm"  data-parsley-validate class="form-horizontal form-label-left" method="post">
+                                    <form name="redeemForm" id="redeemForm"  action="" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" id="couponCode" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="text" id="couponCode" name="couponCode" required="required" class="form-control col-md-7 col-xs-12">
 												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             </div>
                                         </div>
@@ -584,55 +584,35 @@
 	$(function() {
 		$("#redeem_button").click(function() {		
 		//var e=$('#redeem_form [name=paypal_id]').val();
-		var c=document.getElementById("couponCode").value;
+		var c=$("#couponCode").val();
 		//var mobile = document.getElementById("mobile").value;
 		if($('#terms').prop('checked')){
 			if(c != null){			
-				alert(JSON.stringify(c));
-				if(checkArray(c) == "true"){
-					for (j=0;j<coupons.length;j++){
-						if(coupons[j]==c ){
-							if(document.cookie != document.getElementById("couponCode").value){
-							var presentVal=document.getElementById("couponCode").value;
-							document.cookie = presentVal; "expires=Tue, 15 Dec 2015 00:00:10 UTC;";
-							/* var url = '/sendSMS/';
-							url = url+mobile;
-							if(mobile) {
-							$.ajax({
-								type:'GET',
-								url:url,
-								success:function(data) {
-									
-								},
-								error:function(data) {
-									console.log("Error While Sending sms ::"+JSON.stringify(data));
-								}
-							});
-							} */
-							swal({   title: "Info",   
-								text: "Coupon redeem successfully.!",   
-								type: "info",   
-								showCancelButton: false,   
-								confirmButtonColor: "#AEDEF4",   
-								confirmButtonText: "Ok!",   
-								closeOnConfirm: true }, function(){   
-								location.href="/thankYou";
-								});
-							return false;
-							}else if(document.cookie == document.getElementById("couponCode").value){
-							swal({   title: "Info",   
-							text: "Coupon or Event Expired.!",   
-							type: "info",   
-							showCancelButton: false,   
-							confirmButtonColor: "#AEDEF4",   
-							confirmButtonText: "Ok!",   
-							closeOnConfirm: true }, function(){   
-							location.href="/";
-							});
-							break;
-							}
+				alert(JSON.stringify(c))
+				var coupon = {
+							couponCode : c
+					};
+					alert("Going to validate :::")
+					$.ajax({
+						type:'POST',
+						url:'/validateCoupon.json',
+						data:coupon,
+						success:function(data) {
+							alert(JSON.stringify(data));
+							var successUrl = '/valid';
+							//successUrl = successUrl+c;
+							$("#redeemForm").attr("action", successUrl);
+							$("#redeemForm").submit();
+							
+							alert("Going to success URL ::");
+							
+						},
+						
+						error:function(data) {
+							alert("Error While Sending sms ::"+JSON.stringify(data));
 						}
-					}
+					});
+					
 				}else{
 					swal({   title: "Info",   
 							text: "Please enter a valid coupon.!",   
@@ -645,10 +625,7 @@
 							});					
 				}
 			
-			}else{
-				sweetAlert("Info","Please enter Coupon Code","info");
 			}
-		}
 		else{
 			sweetAlert("Info","Please Agree Trerms and Conditions","info");
 		}

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.oldwallet.config.SystemParams;
+import com.oldwallet.controllers.CouponPaymentController;
 import com.oldwallet.model.Coupon;
 
 @Repository
@@ -31,6 +33,7 @@ public class CouponDAOImpl implements CouponDAO{
 	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW'";
 	
 	private JdbcTemplate jdbcTemplate;
+	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
 
 	 @Autowired
 	    public void setDataSource(DataSource dataSource) {
@@ -38,16 +41,18 @@ public class CouponDAOImpl implements CouponDAO{
 	    }
 	
 	@Override
-	@Transactional
 	public Coupon getCouponByCode(String couponCode) {
+		log.debug("Beginning of getCouponByCode ::: ");
 	     List<Coupon> couponList =  new  ArrayList<Coupon>();
 		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(VALIDATE_COUPON,couponCode);
 		if(coupon.size()>0){
+			log.debug("Calid Coupon is available ::: ");
 		for (Map<String, Object> map : coupon) {
 			couponList.add(retrieveCoupon(map));
 			}
 		return couponList.get(0);
 		} else {
+			log.debug("NO valid coupons available ::: ");
 			return null;
 		}
 	}
@@ -60,7 +65,7 @@ public class CouponDAOImpl implements CouponDAO{
 		coupon.setCouponId(Long.parseLong(map.get("COUPON_ID").toString()));
 		}
 		if(map.get("EVENT_ID")!=null){
-			coupon.setEventId(Long.parseLong(map.get("COUPON_CODE").toString()));
+			coupon.setEventId(Long.parseLong(map.get("EVENT_ID").toString()));
 			}
 		if(map.get("COUPON_CODE")!=null){
 			coupon.setCouponCode(map.get("COUPON_CODE").toString());

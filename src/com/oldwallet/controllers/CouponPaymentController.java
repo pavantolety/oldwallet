@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -41,27 +42,54 @@ public class CouponPaymentController {
 	private static Logger log = Logger.getLogger(CouponPaymentController.class);
 	
 	@RequestMapping(value="/validateCoupon", method=RequestMethod.POST)
-	public String validateCoupon(ModelMap modelMap, Coupon coupon) {
+	public void validateCoupon(ModelMap modelMap, Coupon coupon) {
 		log.debug("Beginning Of Validating Coupon ::: "+coupon);
-		String returnURI = "/";
-		
+				
 		if(coupon!=null && coupon.getCouponCode()!=null) {
 			//User entered a coupon code.
 			Coupon validCoupon = couponDAO.getCouponByCode(coupon.getCouponCode());
 			if(validCoupon!=null) {
 				//User entered a valid coupon.
-				modelMap.put("coupon", coupon);
-				returnURI = PageView.THANKYOU;
+				modelMap.put("coupon", validCoupon);
+				modelMap.put("action", "valid");
+				modelMap.put("message", "You have entered a valid coupon.");
 			} else {
 				//user entered expired coupon.
+				modelMap.put("action", "invalid");
+				modelMap.put("message", "Please enter a valid coupon.");
 			}
-			return returnURI;
 			
 		} else {
 			// User didn't entered any coupon.
-			return returnURI;
+			modelMap.put("action", "error");
+			modelMap.put("message", "Please enter a coupon.");
 		}
 		
+	}
+	
+	@RequestMapping(value="/valid", method=RequestMethod.POST)
+	public String validCouponResponse(ModelMap modelMap, Coupon coupon) {
+		log.debug("Beginnig of ValidCoupon Response ::");
+		String returnURI = "/index";
+		String couponCode = coupon.getCouponCode();
+		if(couponCode!= null && couponCode!= "" && couponCode.length()>4) {
+			Coupon validCoupon = couponDAO.getCouponByCode(couponCode);
+			if(validCoupon!=null) {
+				log.debug("Coupon is Valid ::");
+				returnURI = PageView.THANKYOU;
+				modelMap.put("coupon", validCoupon);
+				modelMap.put("action", "success");
+				modelMap.put("message", "Valid Coupon");
+			} else {
+				modelMap.put("action", "error");
+				modelMap.put("message", "Invalid Coupon");
+			}
+		} else {
+			modelMap.put("action", "error");
+			modelMap.put("message", "Invalid coupon");
+		}		
+		log.debug("End of ValidCoupon Response ::");
+		return returnURI;
 	}
 	
 	@RequestMapping(value="/getCouponAmount", method=RequestMethod.POST)
