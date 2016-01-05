@@ -588,19 +588,19 @@
 		//var mobile = document.getElementById("mobile").value;
 		if($('#terms').prop('checked')){
 			if(c != null){			
-				alert(JSON.stringify(c))
+				//alert(JSON.stringify(c))
 				var coupon = {
 							couponCode : c
 					};
-					alert("Going to validate :::")
+					//alert("Going to validate :::")
 					$.ajax({
 						type:'POST',
 						url:'/validateCoupon.json',
 						data:coupon,
 						success:function(data) {
-							alert(JSON.stringify(data));
+							//alert(JSON.stringify(data));
 							var action = data.action;
-							alert(action);
+							//alert(action);
 							if(action=='valid') {
 							var successUrl = '/valid';
 							//successUrl = successUrl+c;
