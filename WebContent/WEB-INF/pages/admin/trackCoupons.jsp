@@ -66,7 +66,7 @@
 
                        <div class="menu_section">
                             <ul class="nav side-menu">
-                                <li><a href="/upload"><i class="fa fa-edit"></i>Upload Data</a></li>
+                                <li><a href="/adminHome"><i class="fa fa-edit"></i>Upload Data</a></li>
                                 <li><a href="/massPay"><i class="fa fa-edit"></i>Mass Pay</a></li>
                                 <li><a href="/trackRedemptions"><i class="fa fa-table"></i>Track Coupon Redemption</a></li>
                                 <li><a href="/trackCoupons"><i class="fa fa-desktop"></i>Track Coupon Locations</a></li>

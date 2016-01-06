@@ -156,7 +156,7 @@
 
                     <div class="page-title">
                         <div class="title_left">
-                            <h3><img src="images/paypal2.png" alt="Smiley face" ></h3>
+                            <h3><a href="/index"><img src="images/paypal2.png" alt="Smiley face" ></a></h3>
                         </div>
                         <div class="title_right">
                             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -218,7 +218,7 @@
 															<h5>Get money for sharing this on your social media </h5><br>									
 															<div class="fb-share-button" data-href="http://oldwallet.edvenswa.com" data-layout="button"></div>																													
 															&nbsp;&nbsp;
-															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://oldwallet.edvenswa.com" data-text="Hey check this app its awesome..!" data-related="PayPal" data-hashtags="oldwallet" data-dnt="true">Tweet</a></span>											   
+															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my reference" data-via="kalyantolety" data-size="large">Tweet</a></span>											   
 															
 														</div>
 													</div>
@@ -296,16 +296,16 @@
 		}(document, 'script', 'facebook-jssdk'));
 		</script>
 		<script>
-		(function(d,s,id){
-			var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-			if(!d.getElementById(id)){
-				js=d.createElement(s);
-				js.id=id;
-				js.src=p+'://platform.twitter.com/widgets.js';
-				fjs.parentNode.insertBefore(js,fjs);
-				}
-				}
-				(document, 'script', 'twitter-wjs'));
+		function(d,s,id){
+		var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+			if(!d.getElementById(id)){js=d.createElement(s);
+		js.id=id;
+		js.src=p+'://platform.twitter.com/widgets.js';
+		fjs.parentNode.insertBefore(js,fjs);
+		}
+		}
+		(document, 'script', 'twitter-wjs')
+		;
 		</script>
 		<script>
 		paypal.use( ["login"], function(login) {

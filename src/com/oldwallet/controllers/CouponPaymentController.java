@@ -61,13 +61,13 @@ public class CouponPaymentController {
 			} else {
 				//user entered expired coupon.
 				modelMap.put("action", "invalid");
-				modelMap.put("message", "This coupon is already redeemed.");
+				modelMap.put("message", "Coupon or Event is Expired or Invalid.");
 			}
 			
 		} else {
 			// User didn't entered any coupon.
 			modelMap.put("action", "error");
-			modelMap.put("message", "Please enter a coupon.");
+			modelMap.put("message", "Please enter Coupon Code.");
 		}
 		
 	}
@@ -91,7 +91,7 @@ public class CouponPaymentController {
 			}
 		} else {
 			modelMap.put("action", "error");
-			modelMap.put("message", "Invalid coupon");
+			modelMap.put("message", "Enter Coupon");
 		}		
 		log.debug("End of ValidCoupon Response ::");
 		return returnURI;

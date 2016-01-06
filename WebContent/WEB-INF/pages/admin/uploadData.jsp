@@ -224,14 +224,14 @@
                             <div class="x_panel">
                                 <div class="x_content">
                                     <br />
-                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-
+                                    
+                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/csvBulkUpload" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="file">Select file to Upload <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="file" id="" name="" class="form-control col-md-7 col-xs-12">
-                                            </div>
+                                                <input type="file" id="file" name="file" class="form-control col-md-7 col-xs-12">
+                                            </div> ${status}
                                         </div>
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
@@ -240,7 +240,6 @@
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
