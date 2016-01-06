@@ -115,4 +115,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return count;
 	}
 
+	@Override
+	public List<MonthlyRedeemCouponsCount> getCouponsCount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

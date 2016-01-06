@@ -14,4 +14,6 @@ public interface TransactionDAO {
 	public Transaction getTransactionDetailsById(String transId);
 	
 	public List<MonthlyRedeemCouponsCount> getRedeemedCouponsCountByMonth();
+	
+	public List<MonthlyRedeemCouponsCount> getCouponsCount();
 }

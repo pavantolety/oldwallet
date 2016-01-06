@@ -587,7 +587,7 @@
 		var c=$("#couponCode").val();
 		//var mobile = document.getElementById("mobile").value;
 		if($('#terms').prop('checked')){
-			if(c != null){			
+			if(c != null && c.lenght>=1){			
 				//alert(JSON.stringify(c))
 				var coupon = {
 							couponCode : c
