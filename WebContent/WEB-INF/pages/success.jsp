@@ -178,7 +178,21 @@
 																					
 										</div>
 									</div>
+									<div class="text-center">
+												<form>
+													<div class="col-xs-12 form-group top_search">
+														<div class="form-group">
+															<h5>Get money for sharing this on your social media </h5><br>									
+															<a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>																													
+															&nbsp;&nbsp;
+															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>											   
+															
+														</div>
+													</div>
+												</form>
+											</div>
 								</div>
+								
 								<!-- /page content -->
                             </div>
                         </div>
@@ -249,15 +263,15 @@
 		</script>
 		<script>
 		(function(d,s,id){
-			var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-			if(!d.getElementById(id)){
-				js=d.createElement(s);
-				js.id=id;
-				js.src=p+'://platform.twitter.com/widgets.js';
-				fjs.parentNode.insertBefore(js,fjs);
-				}
-				}
-				(document, 'script', 'twitter-wjs'));
+		var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+			if(!d.getElementById(id)){js=d.createElement(s);
+		js.id=id;
+		js.src=p+'://platform.twitter.com/widgets.js';
+		fjs.parentNode.insertBefore(js,fjs);
+		}
+		}
+		(document, 'script', 'twitter-wjs'))
+		;
 		</script>
 		<script>
 		paypal.use( ["login"], function(login) {

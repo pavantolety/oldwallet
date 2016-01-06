@@ -158,16 +158,6 @@
                         <div class="title_left">
                             <h3><a href="/index"><img src="images/paypal2.png" alt="Smiley face" ></a></h3>
                         </div>
-                        <div class="title_right">
-                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                                <!-- <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                                </div> -->
-                            </div>
-                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="row">
@@ -177,14 +167,11 @@
 									<div class="col-middle">
 										<div class="text-center">
 											<h3>Congratulations...!</h3>
-											<h2>You can redeem <c:out value="${coupon.couponValue}"/> using your <img src="images/paypal2.png" alt="Smiley face" > Account.</h2>
-											<div class="input-group mid_center">
-												<div align="center" id="myContainer"></div>														   
-											</div>
-											<div class="col-md-12 col-sm-12 col-xs-12 input-group mid_center">
-												<h3>OR</h3>
-												<h4 style="margin: 5%;font-stretch: condensed;">Please enter PayPal Email Address and Mobile Number to redeem <c:out value="${coupon.couponValue}"/></h4>
-							<form name="redeemForm" id="redeemForm" action="/getCouponAmount" data-parsley-validate class="form-horizontal form-label-left" method="post">
+											<h5>You can redeem <c:out value="${coupon.couponValue}"/> using your <img src="images/paypal2.png" alt="Smiley face" > Account.</h5>
+											
+											<div class="text-center">
+												<h5>Please enter PayPal Email Address and Mobile Number to redeem <c:out value="${coupon.couponValue}"/></h5>
+											<form name="redeemForm" id="redeemForm" action="/getCouponAmount" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="emailAddress">Email:<span class="required">*</span>                            </label>
@@ -211,19 +198,7 @@
                                         </div>
                                     </form>
 											</div>
-											<div class="mid_center">
-												<form>
-													<div class="col-xs-12 form-group top_search">
-														<div class="input-group">
-															<h5>Get money for sharing this on your social media </h5><br>									
-															<div class="fb-share-button" data-href="http://oldwallet.edvenswa.com" data-layout="button"></div>																													
-															&nbsp;&nbsp;
-															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my reference" data-via="kalyantolety" data-size="large">Tweet</a></span>											   
-															
-														</div>
-													</div>
-												</form>
-											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -273,52 +248,7 @@
 		<script src="https://www.paypalobjects.com/js/external/api.js"></script>
        
         <script src="js/custom.js"></script>
-		 <script>					
-			$(document).ready(function() {
-			$.ajaxSetup({ cache: true });
-			  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
-				FB.init({
-				  appId: '{530726687101469}',
-				  version: 'v2.5' // or v2.0, v2.1, v2.2, v2.3
-				});     
-				$('#loginbutton,#feedbutton').removeAttr('disabled');
-				FB.getLoginStatus(updateStatusCallback);
-			  });
-			}); 
-		</script>
-		<script>
-		(function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=530726687101469";
-		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-		</script>
-		<script>
-		function(d,s,id){
-		var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-			if(!d.getElementById(id)){js=d.createElement(s);
-		js.id=id;
-		js.src=p+'://platform.twitter.com/widgets.js';
-		fjs.parentNode.insertBefore(js,fjs);
-		}
-		}
-		(document, 'script', 'twitter-wjs')
-		;
-		</script>
-		<script>
-		paypal.use( ["login"], function(login) {
-		  login.render ({
-			"appid": "AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO_-MCI4DQQ4-LWvkDLIN2fGsd",
-			"authend": "sandbox",
-			"scopes": "profile email address phone https://uri.paypal.com/services/paypalattributes",
-			"containerid": "myContainer",
-			"locale": "en-us",
-			"returnurl": "https://devtools-paypal.com"
-		  });
-		});
-		</script>
+		 
 
         <!-- select2 -->
        
