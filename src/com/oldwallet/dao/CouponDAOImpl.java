@@ -16,7 +16,7 @@ import com.oldwallet.model.Coupon;
 @Repository
 public class CouponDAOImpl implements CouponDAO{
 	
-	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW'";
+	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE EVENT_ID IN(SELECT EVENT_ID FROM EVENTS WHERE EVENT_STATUS LIKE 'NEW') AND REDEEM_STATUS LIKE 'NEW' AND COUPON_CODE=?";
 	
 	public static final String UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=? WHERE COUPON_CODE=?";
 	

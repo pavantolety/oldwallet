@@ -587,8 +587,7 @@
 		var c=$("#couponCode").val();
 		//var mobile = document.getElementById("mobile").value;
 		if($('#terms').prop('checked')){
-			if(c != null && c.lenght>=1){			
-				//alert(JSON.stringify(c))
+			if(c != null && $("#couponCode").val()){			
 				var coupon = {
 							couponCode : c
 					};
@@ -620,6 +619,7 @@
 					});
 					
 				}else{
+					alert("NO COUPON");
 					swal({   title: "Info",   
 							text: "Please enter a valid coupon.!",   
 							type: "info",   
