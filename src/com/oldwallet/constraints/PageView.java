@@ -18,4 +18,6 @@ public interface PageView {
 	
 	String ADMINHOME = "adminHome";
 	
+	String FACEBOOK = "facebook";
+	
 }

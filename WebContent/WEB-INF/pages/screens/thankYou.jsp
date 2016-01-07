@@ -256,35 +256,6 @@
        
         <script src="js/custom.js"></script>
 		 
-		<!-- Load jQuery from CDN so can run demo immediately -->
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
-   <!--  <script src="js/intlTelInput.js"></script>
-    
-    <script>
-      $("#mobile").intlTelInput({
-        // allowExtensions: true,
-        // autoFormat: false,
-        // autoHideDialCode: false,
-        // autoPlaceholder: false,
-        // dropdownContainer: $("body"),
-        // excludeCountries: ["us"],
-        // geoIpLookup: function(callback) {
-        //   $.get('http://ipinfo.io', function() {}, "jsonp").always(function(resp) {
-        //     var countryCode = (resp && resp.country) ? resp.country : "";
-        //     callback(countryCode);
-        //   });
-        // },
-        // initialCountry: "auto",
-        // nationalMode: false,
-        // numberType: "MOBILE",
-        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-        // preferredCountries: ['cn', 'jp'],
-        utilsScript: "js/utils.js"
-      });
-    </script> -->
-        <!-- select2 -->
-       
-        <!-- /editor -->
 </body>
 
 </html>
