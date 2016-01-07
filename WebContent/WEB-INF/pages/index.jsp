@@ -124,14 +124,7 @@
                                                 <input type="text" id="couponCode" name="couponCode" required="required" class="form-control col-md-7 col-xs-12">
 												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             </div>
-                                        </div>
-                                        <!-- <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile Number:<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12">
-												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
-                                            </div>
-                                        </div> -->
+                                        </div>                                        
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -258,6 +251,11 @@
 		//var e=$('#redeem_form [name=paypal_id]').val();
 		var c=$("#couponCode").val();
 		//var mobile = document.getElementById("mobile").value;
+		
+		if(c.length==0) {
+			sweetAlert("Info","Please enter a coupon code","info");
+			return;
+		}
 		if($('#terms').prop('checked')){
 			if(c != null && $("#couponCode").val()){			
 				var coupon = {
@@ -278,6 +276,8 @@
 							$("#redeemForm").attr("action", successUrl);
 							$("#redeemForm").submit();
 							} else if(action=="invalid") {
+								sweetAlert("Info","Invalid Coupon Code","info");
+							}else if(data.action='expired') {
 								sweetAlert("Info",data.message,"info");
 							}else if(data.action='error') {
 								sweetAlert("Info",data.message,"info");

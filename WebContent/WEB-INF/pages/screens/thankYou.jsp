@@ -30,9 +30,13 @@
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- select2 -->
     <link href="css/select/select2.min.css" rel="stylesheet">
+    
+    <!-- Hover css -->
+	<link rel="stylesheet" href="css/hover-min.css" />
+	
     <!-- switchery -->
     <link rel="stylesheet" href="css/switchery/switchery.min.css" />
-
+	<link rel="stylesheet" href="css/intlTelInput.css">
     <script src="js/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -189,7 +193,8 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile :<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12">												
+                                                <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12" data-parsley-minlength="6"  data-parsley-maxlength="15" parsley-pattern-message="Please enter a valid mobile phone number." placeholder="Add Number with Country Code" pattern="^[{+}][0-9]{10,15}$"/>	
+                                                										
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>
@@ -251,7 +256,32 @@
        
         <script src="js/custom.js"></script>
 		 
-
+		<!-- Load jQuery from CDN so can run demo immediately -->
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+   <!--  <script src="js/intlTelInput.js"></script>
+    
+    <script>
+      $("#mobile").intlTelInput({
+        // allowExtensions: true,
+        // autoFormat: false,
+        // autoHideDialCode: false,
+        // autoPlaceholder: false,
+        // dropdownContainer: $("body"),
+        // excludeCountries: ["us"],
+        // geoIpLookup: function(callback) {
+        //   $.get('http://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+        //     var countryCode = (resp && resp.country) ? resp.country : "";
+        //     callback(countryCode);
+        //   });
+        // },
+        // initialCountry: "auto",
+        // nationalMode: false,
+        // numberType: "MOBILE",
+        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+        // preferredCountries: ['cn', 'jp'],
+        utilsScript: "js/utils.js"
+      });
+    </script> -->
         <!-- select2 -->
        
         <!-- /editor -->
