@@ -11,6 +11,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponData;
 
 @Repository
@@ -20,6 +21,7 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	
 	public static final String CREATE_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,COUPON_VALUE,COUPON_HIDE_LOCATION,REDEEM_STATUS,VALIDITY_PERIOD,VALID_FROM,VALID_TO,COUNTRY_CODE)VALUES(?,?,?,?,?,?,?,?)";
 	
+	public static final String GET_TRACKING_COUPON_DATA = "SELECT COUNT(COUPON_CODE)AS COUPON_COUNT,COUPON_HIDE_LOCATION AS LOCATION,COUNTRY_CODE AS C_CODE FROM COUPONS GROUP BY COUNTRY_CODE";
 	private JdbcTemplate jdbcTemplate;
 
 	 @Autowired
@@ -55,6 +57,40 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	            	   e.printStackTrace();
 	               }
 		   return created;
+	}
+
+	@Override
+	public List<CouponData> getCouponTrackingData() {
+		// getting Coupon data by coupon code
+		List<CouponData> couponDataList =  new ArrayList<CouponData>();
+			
+				List<Map<String,Object>> myList = jdbcTemplate.queryForList(GET_TRACKING_COUPON_DATA);
+				if(myList.size()>0){
+					
+				for (Map<String, Object> map : myList) {
+					couponDataList.add(retrieveCouponTrackData(map));
+					}
+				return couponDataList;
+				} else {
+					
+					return null;
+				}
+	}
+	private CouponData retrieveCouponTrackData(Map<String, Object> map) {
+		
+		CouponData coupon = new CouponData();
+		
+		if(map.get("COUPON_COUNT")!=null){
+		coupon.setCouponCount(Long.parseLong(map.get("COUPON_COUNT").toString()));
+		}
+		if(map.get("LOCATION")!=null){
+			coupon.setCouponHideLocation(map.get("LOCATION").toString());
+			}
+		if(map.get("C_CODE")!=null){
+			coupon.setCountryCode(map.get("C_CODE").toString());
+		}
+		
+		return coupon;
 	}
 
 }
