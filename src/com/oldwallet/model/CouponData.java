@@ -18,9 +18,18 @@ public class CouponData {
     private String validityPeriod;
     private String validFrom;
     private String validTo;
+    private String countryCode;
     
     
     
+    
+    
+	public String getCountryCode() {
+		return countryCode;
+	}
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 	public long getEventId() {
 		return eventId;
 	}
