@@ -175,7 +175,7 @@ public class CouponPaymentController {
 						couponDAO.updateCoupon(transaction2.getCouponCode());
 					}*/
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
-					smsController.sendSMS(modelMap, couponPayment.getMobile(), session);
+					smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
 					}
 					return "success";
 				} else {
