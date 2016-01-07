@@ -19,11 +19,14 @@ public class CouponData {
     private String validFrom;
     private String validTo;
     private String countryCode;
+    private long couponCount ;
     
-    
-    
-    
-    
+	public long getCouponCount() {
+		return couponCount;
+	}
+	public void setCouponCount(long couponCount) {
+		this.couponCount = couponCount;
+	}
 	public String getCountryCode() {
 		return countryCode;
 	}

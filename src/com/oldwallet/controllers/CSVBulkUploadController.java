@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -105,30 +107,26 @@ private static Logger log = Logger.getLogger(CSVBulkUploadController.class);
 	}
 
 	@RequestMapping(value="/getTrackedCouponsMap", method=RequestMethod.GET)
-	public String getTrackedCouponsMap(ModelMap modelMap, HttpSession session) {
-		
-		/*JSONArray list = new JSONArray();
-	 	if(eventsList!=null) {
-	         for(Cevent event : eventsList){
-	         	 if(event.getLatitude()!=null){
+	public void getTrackedCouponsMap(ModelMap modelMap, HttpSession session) {
+		List<CouponData> coupnDataList = csvBulkUploadDAO.getCouponTrackingData();
+		System.out.println("Data  for tracking>>>>>>>>>>>>>>");
+		JSONArray list = new JSONArray();
+	 	if(coupnDataList!=null) {
+	         for(CouponData couponData : coupnDataList){
+	         	 if(couponData.getCountryCode()!=null){
 	 	        	 JSONObject obj = new JSONObject();
-	 	        	 obj.put("event_id",event.getId());
-	 	        	 obj.put("event_name", event.getName());
-	 	        	 obj.put("event_desc", event.getAboutEvent());
-	 	        	 obj.put("event_type", event.getEventType());
-	 	        	 obj.put("event_beginDate", event.getBeginDate());
-	 	        	 obj.put("event_endDate", event.getEndDate());
-	 	        	 obj.put("event_address", event.getAddress());
-	 	        	 obj.put("event_lat", event.getLatitude());
-	 	        	 obj.put("event_lng", event.getLongitude());
+	 	        	 obj.put("code",couponData.getCountryCode());
+	 	        	 obj.put("name", couponData.getCouponHideLocation());
+	 	        	 obj.put("value", couponData.getCouponCount());
+	 	        	 obj.put("color","#ff0000");
 	 	        	 list.add(obj);
 	 	        	 }	 
 	         }
 	 		}
 	 	
-	 	list.toJSONString();*/
+	 	modelMap.put("mapData", list);
 	
-	return PageView.TRACKCOUPONS;
+	
 
 	}
 	
