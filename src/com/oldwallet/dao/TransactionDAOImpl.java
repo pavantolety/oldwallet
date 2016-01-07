@@ -10,7 +10,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.oldwallet.model.MonthlyCouponsCount;
 import com.oldwallet.model.MonthlyRedeemCouponsCount;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.util.DataRetievar;
@@ -29,8 +31,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 	private static final String INIT_TRANSACTION = "INSERT INTO TRANSACTION(EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE, COUPON_RETRIEVE_LOCATION, TRANSACTION_CODE, STATUS) VALUES(?,?,?,?,?,?,?,?,'INIT')";
 	private static final String UPDATE_TRANSACTION = "UPDATE TRANSACTION SET TRANSACTION_UPDATION=NOW(), STATUS=? WHERE TRANSACTION_CODE=?";
 	private static final String GET_TRANSACTION_BY_CODE = "SELECT TRANSACTION_ID, EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE, COUPON_RETRIEVE_LOCATION, TRANSACTION_CODE, TRANSACTION_CREATION, TRANSACTION_UPDATION, STATUS FROM TRANSACTION WHERE TRANSACTION_CODE=?";
-	private static final String GET_MONTHLY_REDEEMED_COUPONS_COUNT = "SELECT MONTH(TRANSACTION_UPDATION) MONTH, COUNT(*) COUNT FROM TRANSACTION GROUP BY MONTH(TRANSACTION_UPDATION);";
-
+	private static final String GET_MONTHLY_REDEEMED_COUPONS_COUNT = "SELECT MONTH(TRANSACTION_UPDATION) MONTH, COUNT(*) COUNT FROM TRANSACTION GROUP BY MONTH(TRANSACTION_UPDATION)";
+	private static final String GET_MONTHLY_NEW_COUPONS_COUNT = "SELECT MONTH(VALID_FROM) AS MONTH, COUNT(1) AS TOTAL_COUPONS_COUNT FROM COUPONS GROUP BY MONTH(VALID_FROM)";
+	private static final String GET_MONTHLY_EXPIRED_COUPONS_COUNT = "SELECT MONTH(VALID_FROM) AS MONTH, COUNT(1) AS EXPIRED_COUPONS_COUNT FROM COUPONS WHERE REDEEM_STATUS LIKE 'EXPIRED' GROUP BY MONTH(VALID_FROM)";
+	public static final  String  UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
 	@Override
 	public boolean initTransaction(Transaction transaction) {
 		boolean isInserted = false;
@@ -42,11 +46,13 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	@Override
+	@Transactional
 	public boolean UpdateTransaction(Transaction transaction) {
 		boolean isUpdated = false;
 		int result = jdbcTemplate.update(UPDATE_TRANSACTION, transaction.getStatus(), transaction.getTransactionCode());
 		if(result>0) {
 			isUpdated = true;
+			int result1 = jdbcTemplate.update(UPDATE_COUPON, "EXPIRED", transaction.getCouponCode());
 		}
 		return isUpdated;
 	}
@@ -119,6 +125,57 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public List<MonthlyRedeemCouponsCount> getCouponsCount() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<MonthlyCouponsCount> getMonthlyCouponsCount() {
+		
+		List<MonthlyCouponsCount> totalCount = new ArrayList<MonthlyCouponsCount>();
+		List<Map<String, Object>> newCouponsCount = jdbcTemplate.queryForList(GET_MONTHLY_NEW_COUPONS_COUNT);
+		if(newCouponsCount.size()>0){
+			log.debug("There is transaction ::: ");
+		for (Map<String, Object> map : newCouponsCount) {
+			totalCount.add(retrieveCouponsCount(map));
+			}
+		return totalCount;
+		} else {
+			log.debug("NO valid coupons available ::: ");
+			return null;
+		}
+	}
+	
+	private MonthlyCouponsCount retrieveCouponsCount(Map<String, Object> map) {
+		MonthlyCouponsCount count = new MonthlyCouponsCount();
+		
+		count.setToltalCouponsCount(DataRetievar.getStringValue("TOTAL_COUPONS_COUNT", map));
+		count.setMonth(DataRetievar.getStringValue("MONTH", map));
+		
+		return count;
+	}
+
+	@Override
+	public List<MonthlyCouponsCount> getExpiredMonthlyCouponsCount() {
+
+		List<MonthlyCouponsCount> totalCount = new ArrayList<MonthlyCouponsCount>();
+		List<Map<String, Object>> newCouponsCount = jdbcTemplate.queryForList(GET_MONTHLY_EXPIRED_COUPONS_COUNT);
+		if(newCouponsCount.size()>0){
+			log.debug("There is transaction ::: ");
+		for (Map<String, Object> map : newCouponsCount) {
+			totalCount.add(retrieveExspiredCouponsCount(map));
+			}
+		return totalCount;
+		} else {
+			log.debug("NO valid coupons available ::: ");
+			return null;
+		}
+	}
+	private MonthlyCouponsCount retrieveExspiredCouponsCount(Map<String, Object> map) {
+		MonthlyCouponsCount count = new MonthlyCouponsCount();
+		
+		count.setToltalCouponsCount(DataRetievar.getStringValue("EXPIRED_COUPONS_COUNT", map));
+		count.setMonth(DataRetievar.getStringValue("MONTH", map));
+		
+		return count;
 	}
 
 }

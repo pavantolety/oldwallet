@@ -20,7 +20,7 @@
     <link href="css/animate.min.css" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/user.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
@@ -45,7 +45,7 @@
 
 </head>
 
-
+<body>
     <div class="container body">
 
             <!-- top navigation -->
@@ -158,18 +158,14 @@
                         </div>
                         <div class="title_right">
                             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                                <!-- <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                                </div> -->
                             </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                    </div>
+                        <div class="col-md-8 col-sm-8 col-xs-8">
                             <div class="x_panel">
                                 <!-- page content -->								
 									<div class="col-middle">

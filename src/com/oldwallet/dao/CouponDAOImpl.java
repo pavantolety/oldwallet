@@ -18,7 +18,7 @@ public class CouponDAOImpl implements CouponDAO{
 	
 	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE EVENT_ID IN(SELECT EVENT_ID FROM EVENTS WHERE EVENT_STATUS LIKE 'NEW') AND REDEEM_STATUS LIKE 'NEW' AND COUPON_CODE=?";
 	
-	public static final String UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=? WHERE COUPON_CODE=?";
+	public static final String UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
 	
 	private JdbcTemplate jdbcTemplate;
 	private static Logger log = Logger.getLogger(CouponDAOImpl.class);

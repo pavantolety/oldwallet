@@ -20,7 +20,7 @@
     <link href="css/animate.min.css" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/user.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
@@ -105,7 +105,9 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
+                     <div class="col-md-2 col-sm-2 col-xs-2">
+                    </div>
+                        <div class="col-md-8 col-sm-8 col-xs-8">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Redeem your coupon.</h2>
@@ -117,14 +119,14 @@
                                     <form name="redeemForm" id="redeemForm"  action="" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span>                            </label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="text" id="couponCode" name="couponCode" required="required" class="form-control col-md-7 col-xs-12">
 												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             </div>
                                         </div>
                                         <!-- <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile Number:<span class="required">*</span>                            </label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile Number:<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12">
 												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
@@ -141,14 +143,17 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                     
+                         <div class="col-md-2 col-sm-2 col-xs-2">
+                    </div>
+                    </div>    
+                    </div>                 
                 <!-- /page content -->
             </div>
         </div>
 
 <!-- Modal Window of terms and conditions  -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" id="tandc"  role="dialog" aria-hidden="true"  >
-                                    <div class="modal-dialog modal-lg" style="overflow-y:scroll;overflow-x:hidden;height:600px;">
+                                    <div class="modal-dialog modal-lg" style="overflow:scroll;height:600px;">
                                         <div class="modal-content">
 
                                             <div class="modal-header">

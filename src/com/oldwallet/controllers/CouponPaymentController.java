@@ -162,9 +162,9 @@ public class CouponPaymentController {
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
 					transaction2.setStatus("COMPLETE");
 					boolean isUpdated = transactionDAO.UpdateTransaction(transaction2);
-					if(isUpdated) {
+					/*if(isUpdated) {
 						couponDAO.updateCoupon(transaction2.getCouponCode());
-					}
+					}*/
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 					smsController.sendSMS(modelMap, couponPayment.getMobile(), session);
 					}

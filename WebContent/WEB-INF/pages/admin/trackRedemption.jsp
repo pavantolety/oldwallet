@@ -55,7 +55,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>OldWallet</span></a>
+                        <a href="/index" class="site_title"> <span>OldWallet</span></a>
                     </div>
                     <div class="clearfix"></div>
 
@@ -104,104 +104,6 @@
                         <div class="nav toggle">
                             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                         </div>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/img.jpg" alt="">John Doe
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                                    <li><a href="javascript:;">  Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="badge bg-red pull-right">50%</span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">Help</a>
-                                    </li>
-                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                                            <span>
-                                        <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where... 
-                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                                            <span>
-                                        <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where... 
-                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                                            <span>
-                                        <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where... 
-                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                                            <span>
-                                        <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where... 
-                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a>
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
                     </nav>
                 </div>
 
@@ -222,7 +124,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                     <h2>Bar graph <small>Monthly</small></h2>
+                                     <h2><small>Monthly Coupon Redemptions</small></h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -245,40 +147,10 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Bar graph <small>Weekly</small></h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <canvas id="canvas_bar"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                     <div class="row">
-                     	 <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Bar graph <small>Monthly (Coupons vs Redemptions)</small></h2>
+                                    <h2><small>Monthly (Total Coupons vs Expired Coupons)</small></h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -298,6 +170,36 @@
                                 </div>
                                 <div class="x_content">
                                     <canvas id="canvas_bar_dual"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="clearfix"></div>
+                     <div class="row">
+                     	 <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2><small>Weekly Coupon Redemptions</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Settings 1</a>
+                                                </li>
+                                                <li><a href="#">Settings 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <canvas id="canvas_bar"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +226,7 @@
                 <!-- footer content -->
                 <footer>
                     <div class="">
-                        <p class="pull-right"><span class="lead"> <i class="fa fa-paw"></i>OldWallets!</span>
+                        <p class="pull-right"><span class="lead"></i>OldWallets!</span>
                         </p>
                     </div>
                     <div class="clearfix"></div>
@@ -424,10 +326,11 @@
         var randomScalingFactor = function () {
             return Math.round(Math.random() * 100)
         };
-		var counts=[];
+		var reCounts=[];
 		
-       
-
+        var newCoupons =[];
+        var newMonths =[];
+        var expCoupons = [];
         $(document).ready(function () {
             new Chart($("#canvas_bar").get(0).getContext("2d")).Bar(weeklyBarChartData, {
                 tooltipFillColor: "rgba(51, 51, 51, 0.55)",
@@ -442,11 +345,26 @@
     			type:'GET',
     			url:'/couponsCountByMonth.json',
     			success:function(data) {
-    				alert(JSON.stringify(data));
-    				for(i=0;i<data.couponsCount.length;i++){
+    				for(i=0;i<data.redeemedCount.length;i++){
     					
-    					counts.push(parseInt(data.couponsCount[i].count));
+    					reCounts.push(parseInt(data.redeemedCount[i]));
     				}
+					for(j=0;j<data.coupons.length;j++){
+    					
+						newCoupons.push(parseInt(data.coupons[j]));
+    				}
+					for(k=0;k<data.expiredCoupons.length;k++){
+    					
+						expCoupons.push(parseInt(data.expiredCoupons[k]));
+    				}
+    				newMonths =  data.months;
+    				
+    				new Chart($("#canvas_bar_dual").get(0).getContext("2d")).Bar(dualBarChartData, {
+                        tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+                        responsive: true,
+                        barDatasetSpacing: 6,
+                        barValueSpacing: 5
+                    });
     				 new Chart($("#month_canvas_bar").get(0).getContext("2d")).Bar(monthlyBarChartData, {
     		                tooltipFillColor: "rgba(51, 51, 51, 0.55)",
     		                responsive: true,
@@ -459,38 +377,10 @@
     				alert(JSON.stringify(data));
     			}
     		});
-
-           
         });
-        
-        var dualBarChartData = {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                datasets: [
-                    {
-                        fillColor: "#26B99A", //rgba(220,220,220,0.5)
-                        strokeColor: "#26B99A", //rgba(220,220,220,0.8)
-                        highlightFill: "#36CAAB", //rgba(220,220,220,0.75)
-                        highlightStroke: "#36CAAB", //rgba(220,220,220,1)
-                        data: [51, 30, 40, 28, 92, 50, 45]
-                },
-                    {
-                        fillColor: "#03586A", //rgba(151,187,205,0.5)
-                        strokeColor: "#03586A", //rgba(151,187,205,0.8)
-                        highlightFill: "#066477", //rgba(151,187,205,0.75)
-                        highlightStroke: "#066477", //rgba(151,187,205,1)
-                        data: [41, 56, 25, 48, 72, 34, 12]
-                }
-            ],
-            }
 
-            $(document).ready(function () {
-                new Chart($("#canvas_bar_dual").get(0).getContext("2d")).Bar(dualBarChartData, {
-                    tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-                    responsive: true,
-                    barDatasetSpacing: 6,
-                    barValueSpacing: 5
-                });
-            });
+  
+
         
         var weeklyBarChartData = {
                 labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -513,10 +403,31 @@
                             strokeColor: "#26B99A", //rgba(220,220,220,0.8)
                             highlightFill: "#36CAAB", //rgba(220,220,220,0.75)
                             highlightStroke: "#36CAAB", //rgba(220,220,220,1)
-                            data: counts
+                            data: reCounts
                     },
                 ],
                 }
+        
+        var dualBarChartData = {
+                labels: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+                datasets: [
+                    {
+                        fillColor: "#26B99A", //rgba(220,220,220,0.5)
+                        strokeColor: "#26B99A", //rgba(220,220,220,0.8)
+                        highlightFill: "#36CAAB", //rgba(220,220,220,0.75)
+                        highlightStroke: "#36CAAB", //rgba(220,220,220,1)
+                        data:newCoupons
+                },
+                    {
+                        fillColor: "#03586A", //rgba(151,187,205,0.5)
+                        strokeColor: "#03586A", //rgba(151,187,205,0.8)
+                        highlightFill: "#066477", //rgba(151,187,205,0.75)
+                        highlightStroke: "#066477", //rgba(151,187,205,1)
+                        data: expCoupons
+                }
+            ],
+            }
+       
     </script>
      <!-- datepicker -->
     <script type="text/javascript">

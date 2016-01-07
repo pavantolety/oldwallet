@@ -20,7 +20,7 @@
     <link href="css/animate.min.css" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/user.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
@@ -45,7 +45,7 @@
 
 </head>
 
-
+<body>
     <div class="container body">
 
             <!-- top navigation -->
@@ -154,7 +154,7 @@
 
                     <div class="page-title">
                         <div class="title_left">
-                            <h3><img src="images/paypal2.png" alt="Smiley face" ></h3>
+                            <h3><a href="/index"><img src="images/paypal2.png" alt="Smiley face" ></a></h3>
                         </div>
                         <div class="title_right">
                             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -169,16 +169,33 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                    </div>
+                        <div class="col-md-8 col-sm-8 col-xs-8">
                             <div class="x_panel">
                                 <!-- page content -->								
 									<div class="col-middle">
 										<div class="text-center">
 											<h3>Problem while proccessing your request please try later...!</h3>
 																					
+																					
 										</div>
 									</div>
+									<div class="text-center">
+												<form>
+													<div class="col-xs-12 form-group top_search">
+														<div class="form-group">
+															<h5>Get money for sharing this on your social media </h5><br>									
+															<a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>																													
+															&nbsp;&nbsp;
+															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>											   
+															
+														</div>
+													</div>
+												</form>
+											</div>
 								</div>
+								
 								<!-- /page content -->
                             </div>
                         </div>
@@ -249,15 +266,15 @@
 		</script>
 		<script>
 		(function(d,s,id){
-			var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-			if(!d.getElementById(id)){
-				js=d.createElement(s);
-				js.id=id;
-				js.src=p+'://platform.twitter.com/widgets.js';
-				fjs.parentNode.insertBefore(js,fjs);
-				}
-				}
-				(document, 'script', 'twitter-wjs'));
+		var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+			if(!d.getElementById(id)){js=d.createElement(s);
+		js.id=id;
+		js.src=p+'://platform.twitter.com/widgets.js';
+		fjs.parentNode.insertBefore(js,fjs);
+		}
+		}
+		(document, 'script', 'twitter-wjs'))
+		;
 		</script>
 		<script>
 		paypal.use( ["login"], function(login) {

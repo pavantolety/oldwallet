@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oldwallet.model.MonthlyRedeemCouponsCount;
 import com.oldwallet.model.Transaction;
+import com.oldwallet.model.MonthlyCouponsCount;
 
 public interface TransactionDAO {
 
@@ -16,4 +17,8 @@ public interface TransactionDAO {
 	public List<MonthlyRedeemCouponsCount> getRedeemedCouponsCountByMonth();
 	
 	public List<MonthlyRedeemCouponsCount> getCouponsCount();
+	
+	public List<MonthlyCouponsCount> getMonthlyCouponsCount();
+	
+	public List<MonthlyCouponsCount> getExpiredMonthlyCouponsCount();
 }
