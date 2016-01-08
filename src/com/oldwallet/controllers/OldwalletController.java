@@ -81,6 +81,11 @@ public class OldwalletController {
 			return PageView.UPLOAD;
 		}
 		
+		@RequestMapping(value="/facebook", method=RequestMethod.GET)
+		public String facebook(ModelMap modelMap) {
+			return PageView.FACEBOOK;
+		}
+		
 		@RequestMapping(value="/validateCoupon", method=RequestMethod.GET)
 		public String validateCoupon(ModelMap modelMap,Coupon coupon) {
 			
@@ -108,18 +113,31 @@ public class OldwalletController {
 
 			List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
 			
-			BasicAmountType amount1 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()),massPay.getAmount1());
-			BasicAmountType amount2 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode2()),massPay.getAmount2());
-			
-			MassPayRequestItemType item1 = new MassPayRequestItemType(amount1);
-			MassPayRequestItemType item2 = new MassPayRequestItemType(amount2);
-			
-			item1.setReceiverEmail(massPay.getEmailAddress1());
-			item2.setReceiverEmail(massPay.getEmailAddress2());
-			
-			massPayItem.add(item1);
-			massPayItem.add(item2);
-			
+			BasicAmountType amount1 = null;
+			if(massPay.getCurrencyCode1()!=null && massPay.getCurrencyCode1().equalsIgnoreCase("USD")) {
+				amount1= new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()),massPay.getAmount1());
+			}
+			BasicAmountType amount2 = null;
+			if(massPay.getCurrencyCode1()!=null && massPay.getCurrencyCode1().equalsIgnoreCase("USD")) {
+				amount2 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()),massPay.getAmount1());
+			}
+			MassPayRequestItemType item1 = null;
+			MassPayRequestItemType item2 = null;
+			if(amount1!=null) {
+				item1 = new MassPayRequestItemType(amount1);
+				if(massPay.getEmailAddress1()!=null && massPay.getEmailAddress1().length()>1) {
+					item1.setReceiverEmail(massPay.getEmailAddress1());
+					massPayItem.add(item1);
+				}
+			}
+			if(amount2!=null) {
+				item2 = new MassPayRequestItemType(amount2);
+				if(massPay.getEmailAddress2()!=null && massPay.getEmailAddress2().length()>1) {
+					item2.setReceiverEmail(massPay.getEmailAddress2());
+					massPayItem.add(item2);
+				}
+			}						
+			if(massPayItem.size()>0) {
 			MassPayRequestType reqType = new MassPayRequestType(massPayItem);
 			reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
 			req.setMassPayRequest(reqType);
@@ -156,7 +174,10 @@ public class OldwalletController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			} else {
+				modelMap.put("action", "Error");
+				modelMap.put("message", "Unable to process your request");
+			}
 			return returnPage;
 		}
 		

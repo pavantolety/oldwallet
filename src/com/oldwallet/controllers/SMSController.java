@@ -24,7 +24,7 @@ public class SMSController {
 	private static Logger log = Logger.getLogger(SMSController.class);
 	
 	@RequestMapping(value="/sendSMS/{mobile}", method = RequestMethod.GET)
-	public String sendSMS(ModelMap modelMap, @PathVariable String mobile,HttpSession session) {
+	public String sendSMS(ModelMap modelMap, @PathVariable String mobile, String amount,HttpSession session) {
 		
 		 log.debug("Begining of sendSMS ::");
 
@@ -39,7 +39,7 @@ public class SMSController {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("To", mobile)); 
 		params.add(new BasicNameValuePair("From", "855-851-3299")); 
-		params.add(new BasicNameValuePair("Body","Your coupon amount $2.56 is successfully credited to your Paypal account."));
+		params.add(new BasicNameValuePair("Body","Your coupon amount $"+amount+" is successfully credited to your Paypal account."));
 
 		try {
 			com.twilio.sdk.resource.instance.Message sms = messageFactory.create(params);

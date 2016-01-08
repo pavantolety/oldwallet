@@ -20,6 +20,8 @@ public class CouponDAOImpl implements CouponDAO{
 	
 	public static final String UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
 	
+	public static final String IS_COUPON_EXISTS = "SELECT * FROM COUPONS WHERE COUPON_CODE = ?";
+	
 	private JdbcTemplate jdbcTemplate;
 	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
 
@@ -80,5 +82,15 @@ public class CouponDAOImpl implements CouponDAO{
 			isUpdated = true;
 		}
 		return isUpdated;
+	}
+
+	@Override
+	public boolean isCouponExists(String couponCode) {
+		boolean isExists = false;
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(IS_COUPON_EXISTS,couponCode);
+		if(coupon.size()>0) {
+			isExists = true;
+		}
+		return isExists;
 	}
 }

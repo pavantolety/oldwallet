@@ -55,7 +55,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>OldWallet</span></a>
+                        <a href="index.html" class="site_title"><span>OldWallet</span></a>
                     </div>
                     <div class="clearfix"></div>
 
@@ -129,34 +129,34 @@
                                     <form class="form-horizontal form-label-left input_mask" method="POST" action="/sendMassPayment">
 
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress1" placeholder="Eamil Id">
+                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress1" placeholder="Email Id" required="required">
                                             
                                         </div>
 										<div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control" id="inputSuccess3" name="amount1" placeholder="Amount">
+                                            <input type="text" class="form-control" id="inputSuccess3" name="amount1" placeholder="Amount" required="required">
                                             
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control" id="inputSuccess3" name="currencyCode1" placeholder="Currency Code">
+                                            <input type="text" class="form-control" id="inputSuccess3" name="currencyCode1" placeholder="Currency Code" required="required">
                                             
                                         </div>
 
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress2" placeholder="Email Id">
+                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress2" placeholder="Email Id" required="required">
                                             
                                         </div>
 										<div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control" id="inputSuccess3" name="amount2" placeholder="Amount">
+                                            <input type="text" class="form-control" id="inputSuccess3" name="amount2" placeholder="Amount" required="required">
                                             
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control" id="inputSuccess3" name="currencyCode2" placeholder="Currency Code">
+                                            <input type="text" class="form-control" id="inputSuccess3" name="currencyCode2" placeholder="Currency Code" required="required">
                                             
                                         </div>
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                                <button type="submit" class="btn btn-primary">Cancel</button>
+                                                <button type="reset" class="btn btn-primary">Cancel</button>
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
@@ -182,7 +182,7 @@
                  <!-- footer content -->
                 <footer>
                     <div class="">
-                        <p class="pull-right"><span class="lead"> <i class="fa fa-paw"></i> OldWallets!</span>
+                        <p class="pull-right"><span class="lead"> OldWallets!</span>
                         </p>
                     </div>
                     <div class="clearfix"></div>
@@ -436,6 +436,7 @@
     <script>
         NProgress.done();
     </script>
+   
     <!-- /datepicker -->
     <!-- /footer content -->
 </body>

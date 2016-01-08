@@ -177,7 +177,7 @@
                     </div>
                     <div class="clearfix"></div>
                      <div class="row">
-                     	 <div class="col-md-6 col-sm-6 col-xs-12">
+                     	<div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2><small>Weekly Coupon Redemptions</small></h2>
@@ -226,7 +226,7 @@
                 <!-- footer content -->
                 <footer>
                     <div class="">
-                        <p class="pull-right"><span class="lead"></i>OldWallets!</span>
+                        <p class="pull-right"><span class="lead">OldWallets!</span>
                         </p>
                     </div>
                     <div class="clearfix"></div>

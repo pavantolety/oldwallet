@@ -30,9 +30,13 @@
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- select2 -->
     <link href="css/select/select2.min.css" rel="stylesheet">
+    
+    <!-- Hover css -->
+	<link rel="stylesheet" href="css/hover-min.css" />
+	
     <!-- switchery -->
     <link rel="stylesheet" href="css/switchery/switchery.min.css" />
-
+	<link rel="stylesheet" href="css/intlTelInput.css">
     <script src="js/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -172,7 +176,7 @@
 											<h5>You can redeem <c:out value="${coupon.couponValue}"/> using your <img src="images/paypal2.png" alt="Smiley face" > Account.</h5>
 											
 											<div class="text-center">
-												<h5>Please enter PayPal Email Address and Mobile Number to redeem <c:out value="${coupon.couponValue}"/></h5>
+												<h5>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h5>
 											<form name="redeemForm" id="redeemForm" action="/getCouponAmount" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">
@@ -189,7 +193,8 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile :<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12">												
+                                                <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12" data-parsley-minlength="6"  data-parsley-maxlength="15" parsley-pattern-message="Please enter a valid mobile phone number." placeholder="Add Number with Country Code" pattern="^[{+}][0-9]{10,15}$"/>	
+                                                										
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>
@@ -251,10 +256,6 @@
        
         <script src="js/custom.js"></script>
 		 
-
-        <!-- select2 -->
-       
-        <!-- /editor -->
 </body>
 
 </html>

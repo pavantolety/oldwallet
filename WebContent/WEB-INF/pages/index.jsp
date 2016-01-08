@@ -258,6 +258,11 @@
 		//var e=$('#redeem_form [name=paypal_id]').val();
 		var c=$("#couponCode").val();
 		//var mobile = document.getElementById("mobile").value;
+		
+		if(c.length==0) {
+			sweetAlert("Info","Please enter a coupon code","info");
+			return;
+		}
 		if($('#terms').prop('checked')){
 			if(c != null && $("#couponCode").val()){			
 				var coupon = {
@@ -278,6 +283,8 @@
 							$("#redeemForm").attr("action", successUrl);
 							$("#redeemForm").submit();
 							} else if(action=="invalid") {
+								sweetAlert("Info","Invalid Coupon Code","info");
+							}else if(data.action='expired') {
 								sweetAlert("Info",data.message,"info");
 							}else if(data.action='error') {
 								sweetAlert("Info",data.message,"info");
@@ -304,7 +311,7 @@
 			
 			}
 		else{
-			sweetAlert("Info","Please Agree Trerms and Conditions","info");
+			sweetAlert("Info","Please Agree Terms and Conditions","info");
 		}
     
 		});

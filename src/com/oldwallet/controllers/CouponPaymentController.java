@@ -52,16 +52,25 @@ public class CouponPaymentController {
 				
 		if(coupon!=null && coupon.getCouponCode()!=null) {
 			//User entered a coupon code.
+			boolean isExists = couponDAO.isCouponExists(coupon.getCouponCode());
+			if(isExists) {
+				log.debug("Coupon Exists :::");
 			Coupon validCoupon = couponDAO.getCouponByCode(coupon.getCouponCode());
 			if(validCoupon!=null) {
 				//User entered a valid coupon.
+				log.debug("Coupon VALID :::");
 				modelMap.put("coupon", validCoupon);
 				modelMap.put("action", "valid");
-				modelMap.put("message", "You have entered a valid coupon.");
+				modelMap.put("message", "You have entered a valid coupon.!");
 			} else {
 				//user entered expired coupon.
+				modelMap.put("action", "expired");
+				modelMap.put("message", "Coupon Code Expired or Event Closed.!");
+			}
+			} else {
+				log.debug("Coupon INVALID :::");
 				modelMap.put("action", "invalid");
-				modelMap.put("message", "Coupon Code Expired or Event Closed");
+				modelMap.put("message", "Coupon Code is Expired.!");
 			}
 			
 		} else {
@@ -161,12 +170,13 @@ public class CouponPaymentController {
 					log.debug("Success :: "+resp.toString());
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
 					transaction2.setStatus("COMPLETE");
+					System.out.println("email is "+transaction2.getUserEmail() );
 					boolean isUpdated = transactionDAO.UpdateTransaction(transaction2);
 					/*if(isUpdated) {
 						couponDAO.updateCoupon(transaction2.getCouponCode());
 					}*/
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
-					smsController.sendSMS(modelMap, couponPayment.getMobile(), session);
+					smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
 					}
 					return "success";
 				} else {
