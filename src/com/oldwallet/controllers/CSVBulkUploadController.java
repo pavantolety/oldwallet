@@ -73,6 +73,7 @@ private static Logger log = Logger.getLogger(CSVBulkUploadController.class);
 		              SimpleDateFormat format2 =  new SimpleDateFormat("yyyy-MM-dd");
 		              couponData1.setValidFrom(format2.format(format1.parse(nextLine[6])));
 		              couponData1.setValidTo(format2.format(format1.parse(nextLine[7])));
+		              couponData1.setAvailableRedemptions(Long.parseLong(nextLine[8]));
 		               
 		               uploaded = csvBulkUploadDAO.createCouponData(couponData1);
 		               if(!uploaded){

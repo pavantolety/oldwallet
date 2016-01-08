@@ -19,7 +19,7 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 
 	public static final String GET_COUPON_DATA_BY_CODE= "SELECT * FROM COUPONS WHERE COUPON_CODE=?";
 	
-	public static final String CREATE_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,COUPON_VALUE,COUPON_HIDE_LOCATION,REDEEM_STATUS,VALIDITY_PERIOD,VALID_FROM,VALID_TO,COUNTRY_CODE)VALUES(?,?,?,?,?,?,?,?)";
+	public static final String CREATE_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,COUPON_VALUE,COUPON_HIDE_LOCATION,REDEEM_STATUS,VALIDITY_PERIOD,VALID_FROM,VALID_TO,AVAILABLE_REDEMPTIONS,COUNTRY_CODE)VALUES(?,?,?,?,?,?,?,?,?)";
 	
 	public static final String GET_TRACKING_COUPON_DATA = "SELECT COUNT(COUPON_CODE)AS COUPON_COUNT,COUPON_HIDE_LOCATION AS LOCATION,COUNTRY_CODE AS C_CODE FROM COUPONS GROUP BY COUNTRY_CODE";
 	private JdbcTemplate jdbcTemplate;
@@ -46,7 +46,7 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 		// Create coupon Data
 		boolean created =  false; 
 				try{									
-		   int i =  jdbcTemplate.update(CREATE_COUPON_DATA,couponData.getCouponCode(),couponData.getCouponValue(),couponData.getCouponHideLocation(),couponData.getReedemStatus(),couponData.getValidityPeriod(),couponData.getValidFrom(),couponData.getValidTo(),couponData.getCountryCode());
+		   int i =  jdbcTemplate.update(CREATE_COUPON_DATA,couponData.getCouponCode(),couponData.getCouponValue(),couponData.getCouponHideLocation(),couponData.getReedemStatus(),couponData.getValidityPeriod(),couponData.getValidFrom(),couponData.getValidTo(),couponData.getAvailableRedemptions(),couponData.getCountryCode());
 		
 		   if(i>0){
 			   created=true;

@@ -20,6 +20,7 @@ public class CouponData {
     private String validTo;
     private String countryCode;
     private long couponCount ;
+    private long availableRedemptions ;
     
 	public long getCouponCount() {
 		return couponCount;
@@ -117,8 +118,11 @@ public class CouponData {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-    
-    
-	
+	public long getAvailableRedemptions() {
+		return availableRedemptions;
+	}
+	public void setAvailableRedemptions(long availableRedemptions) {
+		this.availableRedemptions = availableRedemptions;
+	}
 	
 }
