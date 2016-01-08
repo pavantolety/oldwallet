@@ -170,6 +170,7 @@ public class CouponPaymentController {
 					log.debug("Success :: "+resp.toString());
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
 					transaction2.setStatus("COMPLETE");
+					System.out.println("email is "+transaction2.getUserEmail() );
 					boolean isUpdated = transactionDAO.UpdateTransaction(transaction2);
 					/*if(isUpdated) {
 						couponDAO.updateCoupon(transaction2.getCouponCode());

@@ -176,7 +176,7 @@
 											<h5>You can redeem <c:out value="${coupon.couponValue}"/> using your <img src="images/paypal2.png" alt="Smiley face" > Account.</h5>
 											
 											<div class="text-center">
-												<h5>Please enter PayPal Email Address and Mobile Number to redeem <c:out value="${coupon.couponValue}"/></h5>
+												<h5>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h5>
 											<form name="redeemForm" id="redeemForm" action="/getCouponAmount" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                         <div class="form-group">

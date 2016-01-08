@@ -27,6 +27,8 @@
 
     <script src="js/jquery.min.js"></script>
     <script src="js/nprogress.js"></script>
+    <link rel="stylesheet" href="css/sweet-alert.css" />
+	<script src="js/sweet-alert.min.js"></script>
     <script>
         NProgress.start();
     </script>
@@ -55,7 +57,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>OldWallet</span></a>
+                        <a href="/adminHome" class="site_title"><i class="fa fa-paw"></i> <span>OldWallet</span></a>
                     </div>
                     <div class="clearfix"></div>
 
@@ -66,7 +68,7 @@
 
                         <div class="menu_section">
                             <ul class="nav side-menu">
-                                <li><a href="/upload"><i class="fa fa-edit"></i>Upload Data</a></li>
+                                <li><a href="/adminHome"><i class="fa fa-edit"></i>Upload Data</a></li>
                                 <li><a href="/massPay"><i class="fa fa-edit"></i>Mass Pay</a></li>
                                 <li><a href="/trackRedemptions"><i class="fa fa-table"></i>Track Coupon Redemption</a></li>
                                 <li><a href="/trackCoupons"><i class="fa fa-desktop"></i>Track Coupon Locations</a></li>
@@ -132,7 +134,7 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="file">Select file to Upload <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="file" id="file" name="file" class="form-control col-md-7 col-xs-12">
+                                                <input type="file" id="file" name="file" class="form-control col-md-7 col-xs-12" onchange="ValidateSingleInput(this)">
                                             </div> ${status}
                                         </div>
                                         <div class="ln_solid"></div>
@@ -416,6 +418,31 @@
     </script>
     <script>
         NProgress.done();
+    </script>
+     <script>
+    var _validFileExtensions = [".csv",".xlsx"];    
+    function ValidateSingleInput(oInput) {
+        if (oInput.type == "file") {
+            var sFileName = oInput.value;
+             if (sFileName.length > 0) {
+                var blnValid = false;
+                for (var j = 0; j < _validFileExtensions.length; j++) {
+                    var sCurExtension = _validFileExtensions[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                        blnValid = true;
+                        break;
+                    }
+                }
+                 
+                if (!blnValid) {
+                	sweetAlert("Info","" + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "),"info");
+                    oInput.value = "";
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     </script>
     <!-- /datepicker -->
     <!-- /footer content -->

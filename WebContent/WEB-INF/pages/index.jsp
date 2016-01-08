@@ -311,7 +311,7 @@
 			
 			}
 		else{
-			sweetAlert("Info","Please Agree Trerms and Conditions","info");
+			sweetAlert("Info","Please Agree Terms and Conditions","info");
 		}
     
 		});

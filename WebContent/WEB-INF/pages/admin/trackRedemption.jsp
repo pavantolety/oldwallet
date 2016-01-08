@@ -177,7 +177,7 @@
                     </div>
                     <div class="clearfix"></div>
                      <div class="row">
-                     	 <!-- <div class="col-md-6 col-sm-6 col-xs-12">
+                     	<div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2><small>Weekly Coupon Redemptions</small></h2>
@@ -213,13 +213,13 @@
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                             <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
                                         </div>
-                                    </div> 
+                                    </div> -->
                                 </div>
                                 <div class="x_content">
                                     <div class="demo-container" style="height:250px">
                                         <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height:250px;"></div>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>

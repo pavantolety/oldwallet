@@ -34,7 +34,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 	private static final String GET_MONTHLY_REDEEMED_COUPONS_COUNT = "SELECT MONTH(TRANSACTION_UPDATION) MONTH, COUNT(*) COUNT FROM TRANSACTION GROUP BY MONTH(TRANSACTION_UPDATION)";
 	private static final String GET_MONTHLY_NEW_COUPONS_COUNT = "SELECT MONTH(VALID_FROM) AS MONTH, COUNT(1) AS TOTAL_COUPONS_COUNT FROM COUPONS GROUP BY MONTH(VALID_FROM)";
 	private static final String GET_MONTHLY_EXPIRED_COUPONS_COUNT = "SELECT MONTH(VALID_FROM) AS MONTH, COUNT(1) AS EXPIRED_COUPONS_COUNT FROM COUPONS WHERE REDEEM_STATUS LIKE 'EXPIRED' GROUP BY MONTH(VALID_FROM)";
-	public static final  String  UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
+	public static final  String UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=?,REDEEMED_BY=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
+	
 	@Override
 	public boolean initTransaction(Transaction transaction) {
 		boolean isInserted = false;
@@ -48,17 +49,25 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	@Transactional
 	public boolean UpdateTransaction(Transaction transaction) {
+		log.debug("Begining of transaction Update :: "+transaction.getUserEmail());
 		boolean isUpdated = false;
 		int result = jdbcTemplate.update(UPDATE_TRANSACTION, transaction.getStatus(), transaction.getTransactionCode());
 		if(result>0) {
 			isUpdated = true;
-			int result1 = jdbcTemplate.update(UPDATE_COUPON, "EXPIRED", transaction.getCouponCode());
+			log.debug("UPDATING COUPONS TABLE ::: "+transaction.getUserEmail());
+			int result1 = jdbcTemplate.update(UPDATE_COUPON, "EXPIRED",transaction.getUserEmail(), transaction.getCouponCode());
+			if(result1>0) {
+				log.debug("COUPON UPDATED ::");
+			} else {
+				log.debug("COUPON UPDATION FAILED ::");
+			}
 		}
 		return isUpdated;
 	}
 
 	@Override
 	public Transaction getTransactionDetailsById(String transCode) {
+		log.debug("Begining of getTransaction :: "+transCode);
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		List<Map<String, Object>> transactionMap = jdbcTemplate.queryForList(GET_TRANSACTION_BY_CODE,transCode);
 		if(transactionMap.size()>0){

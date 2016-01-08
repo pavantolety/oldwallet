@@ -129,28 +129,28 @@
                                     <form class="form-horizontal form-label-left input_mask" method="POST" action="/sendMassPayment">
 
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress1" placeholder="Eamil Id">
+                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress1" placeholder="Email Id" required="required">
                                             
                                         </div>
 										<div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control" id="inputSuccess3" name="amount1" placeholder="Amount">
+                                            <input type="text" class="form-control" id="inputSuccess3" name="amount1" placeholder="Amount" required="required">
                                             
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control" id="inputSuccess3" name="currencyCode1" placeholder="Currency Code">
+                                            <input type="text" class="form-control" id="inputSuccess3" name="currencyCode1" placeholder="Currency Code" required="required">
                                             
                                         </div>
 
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress2" placeholder="Email Id">
+                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress2" placeholder="Email Id" required="required">
                                             
                                         </div>
 										<div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control" id="inputSuccess3" name="amount2" placeholder="Amount">
+                                            <input type="text" class="form-control" id="inputSuccess3" name="amount2" placeholder="Amount" required="required">
                                             
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control" id="inputSuccess3" name="currencyCode2" placeholder="Currency Code">
+                                            <input type="text" class="form-control" id="inputSuccess3" name="currencyCode2" placeholder="Currency Code" required="required">
                                             
                                         </div>
                                         <div class="ln_solid"></div>
@@ -436,6 +436,7 @@
     <script>
         NProgress.done();
     </script>
+   
     <!-- /datepicker -->
     <!-- /footer content -->
 </body>
