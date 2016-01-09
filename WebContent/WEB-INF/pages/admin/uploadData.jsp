@@ -134,7 +134,7 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="file">Select file to Upload <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="file" id="file" name="file" class="form-control col-md-7 col-xs-12" onchange="ValidateSingleInput(this)">
+                                                <input type="file" id="file" name="file" class="form-control col-md-7 col-xs-12" >
                                             </div> ${status}
                                         </div>
                                         <div class="ln_solid"></div>
@@ -420,29 +420,46 @@
         NProgress.done();
     </script>
      <script>
-    var _validFileExtensions = [".csv",".xlsx"];    
-    function ValidateSingleInput(oInput) {
-        if (oInput.type == "file") {
-            var sFileName = oInput.value;
-             if (sFileName.length > 0) {
-                var blnValid = false;
-                for (var j = 0; j < _validFileExtensions.length; j++) {
-                    var sCurExtension = _validFileExtensions[j];
-                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                        blnValid = true;
-                        break;
-                    }
-                }
-                 
-                if (!blnValid) {
-                	sweetAlert("Info","" + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "),"info");
-                    oInput.value = "";
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+     (function($) {
+    	    $.fn.checkFileType = function(options) {
+    	        var defaults = {
+    	            allowedExtensions: [],
+    	            success: function() {},
+    	            error: function() {}
+    	        };
+    	        options = $.extend(defaults, options);
+
+    	        return this.each(function() {
+
+    	            $(this).on('change', function() {
+    	                var value = $(this).val(),
+    	                    file = value.toLowerCase(),
+    	                    extension = file.substring(file.lastIndexOf('.') + 1);
+
+    	                if ($.inArray(extension, options.allowedExtensions) == -1) {
+    	                    options.error();
+    	                    $(this).focus();
+    	                } else {
+    	                    options.success();
+
+    	                }
+
+    	            });
+
+    	        });
+    	    };
+
+    	})(jQuery);
+
+    	$(function() {
+    	    $('#file').checkFileType({
+    	        allowedExtensions: ['csv'],
+    	        error: function() {
+    	            sweetAlert("Info","Please use .csv files to upload your data","info");
+    	        }
+    	    });
+
+    	});
     </script>
     <!-- /datepicker -->
     <!-- /footer content -->

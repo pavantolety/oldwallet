@@ -67,11 +67,7 @@ public class CouponPaymentController {
 				modelMap.put("action", "valid");
 				modelMap.put("message", "You have entered a valid coupon.!");
 				}else{
-					boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
-					Transaction transaction = transactionDAO.getTransactionDetailsByEmail(validCoupon.getRedeemedBy());
-					long referedAmount = NumberUtils.toLong(validCoupon.getCouponValue())+NumberUtils.toLong(transaction.getCouponValue());
-					transaction.setCouponValue(referedAmount+"");
-					boolean updateRef = transactionDAO.updateTransactionByEmail(transaction);
+		
 					modelMap.put("action", "expired");
 					modelMap.put("message", "Coupon Code Expired or Event Closed.!");
 				}
@@ -97,19 +93,34 @@ public class CouponPaymentController {
 	
 	@RequestMapping(value="/valid", method=RequestMethod.POST)
 	public String validCouponResponse(ModelMap modelMap, Coupon coupon) {
-		log.debug("Beginnig of ValidCoupon Response ::");
+		System.out.println("Beginnig of ValidCoupon Response ::");
 		String returnURI = "/index";
 		String couponCode = coupon.getCouponCode();
 		if(couponCode!= null && couponCode!= "" && couponCode.length()>4) {
 			Coupon validCoupon = couponDAO.getCouponByCode(couponCode);
 			if(validCoupon!=null) {
-				log.debug("Coupon is Valid ::");
-				returnURI = PageView.THANKYOU;
+				if(validCoupon.getAvailableRedemptions() !=0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+					//User entered a valid coupon.
+					System.out.println("Coupon VALID :::");
+					modelMap.put("coupon", validCoupon);
+					modelMap.put("action", "valid");
+					modelMap.put("message", "You have entered a valid coupon.!");
+					returnURI = PageView.THANKYOU;
+					}else{
+						modelMap.put("action", "expired");
+						modelMap.put("message", "Coupon Code Expired or Event Closed.!");
+						returnURI =  "error";
+					}
+				
+				System.out.println("Coupon is Valid ::");
+				
 				
 				modelMap.put("coupon", validCoupon);
 				modelMap.put("action", "success");
 				modelMap.put("message", "Valid Coupon");
 			} else {
+				//user entered expired coupon.
+			
 				modelMap.put("action", "error");
 				modelMap.put("message", "Invalid Coupon");
 			}
@@ -117,7 +128,7 @@ public class CouponPaymentController {
 			modelMap.put("action", "error");
 			modelMap.put("message", "Invalid coupon");
 		}		
-		log.debug("End of ValidCoupon Response ::");
+		System.out.println("End of ValidCoupon Response ::");
 		return returnURI;
 	}
 	
@@ -127,7 +138,10 @@ public class CouponPaymentController {
 		log.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
 		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress());
 		String returnPage = "error";
-		
+		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment.getCouponCode());
+
+		if(validCoupon!=null) {
+		if(validCoupon.getAvailableRedemptions() !=0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
 		if(transactionDetails==null){
 
 		MassPayReq req = new MassPayReq();
@@ -204,9 +218,21 @@ public class CouponPaymentController {
 							}
 					
 					}
-				
+				    if(validCoupon.getAvailableRedemptions() == 1){
+				    	boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
+						Transaction transaction3 = transactionDAO.getTransactionDetailsByEmail(validCoupon.getRedeemedBy());
+						long referedAmount = NumberUtils.toLong(validCoupon.getCouponValue())+NumberUtils.toLong(transaction3.getCouponValue());
+						transaction3.setCouponValue(referedAmount+"");
+						boolean updateRef = transactionDAO.updateTransactionByEmail(transaction3);
+						CouponPayment cp =  new CouponPayment();
+						cp.setEmailAddress(transaction3.getUserEmail());
+						cp.setCurrencyCode("USD");
+						cp.setAmount(transaction3.getCouponValue());
+						boolean isSuccess = sendSuperUserPayment(cp);
+						System.out.println("IS-SUCCESS"+isSuccess);
+				    }
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
-					smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
+					//smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
 					}
 					return "success";
 				} else {
@@ -216,7 +242,7 @@ public class CouponPaymentController {
 					transactionDAO.UpdateTransaction(transaction2);
 					log.debug(resp.getErrors().toString());
 					//response.sendRedirect(this.getServletContext().getContextPath()+"/Error.jsp");
-					return "error";
+					return "emailError";
 				}
 			}
 		
@@ -226,10 +252,103 @@ public class CouponPaymentController {
 		}
 			return returnPage;
 		}else{
-			modelMap.put("message", "Coupon already used for this email!..");
-			return "error";
+			modelMap.put("message", "Coupon already used for this email!");
+			return "emailError";
 		}
-		
+		}
+		}else{
+			modelMap.put("message", "Coupon already used for this email!");
+			return "emailError";
+		}
+		return returnPage;
 	}
+	
+	public boolean sendSuperUserPayment( CouponPayment couponPayment) {
+		
+		log.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
+		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress());
+		boolean isSent = false;
+		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment.getCouponCode());
 
+		if(validCoupon!=null) {
+		if(validCoupon.getAvailableRedemptions() !=0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+		if(transactionDetails==null){
+
+		MassPayReq req = new MassPayReq();
+
+		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
+		
+		BasicAmountType amount = new BasicAmountType(CurrencyCodeType.fromValue(couponPayment.getCurrencyCode()),couponPayment.getAmount());
+		
+		MassPayRequestItemType item = new MassPayRequestItemType(amount);
+		
+		item.setReceiverEmail(couponPayment.getEmailAddress());
+		massPayItem.add(item);
+		
+		MassPayRequestType reqType = new MassPayRequestType(massPayItem);
+		reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
+		req.setMassPayRequest(reqType);
+		
+		// Configuration map containing signature credentials and other required configuration.
+		// For a full list of configuration parameters refer in wiki page.
+		// (https://github.com/paypal/sdk-core-java/wiki/SDK-Configuration-Parameters)
+		Map<String,String> configurationMap =  Configuration.getAcctAndConfig();
+		
+		// Creating service wrapper object to make an API call by loading configuration map.
+		PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+		
+		try {
+			//Building Transaction Object ::
+			String transactionCode = UUID.randomUUID().toString().replaceAll("-", "");
+			log.debug("EventId ::: "+couponPayment.getEventId());
+			log.debug("CouponId ::: "+couponPayment.getCouponId());
+			log.debug("CouponCode ::: "+couponPayment.getCouponCode());
+			log.debug("Amount ::: "+couponPayment.getAmount());
+			log.debug("Tran ::: "+transactionCode);
+			
+			Transaction transaction = new Transaction();
+			transaction.setCouponCode(couponPayment.getCouponCode());
+			transaction.setCouponId(couponPayment.getCouponId());
+			transaction.setCouponValue(couponPayment.getAmount());
+			transaction.setEventId(couponPayment.getEventId());
+			transaction.setTransactionCode(transactionCode);
+			transaction.setUserEmail(couponPayment.getEmailAddress());
+			transaction.setUserMobile(couponPayment.getMobile());
+			
+			//Init the transaction ..
+			
+			boolean isTransactionInit = transactionDAO.initTransaction(transaction);
+			//TODO if isTransactioninit true then only go for masspay.
+			MassPayResponseType resp = service.massPay(req);
+			if (resp != null) {
+				
+				if (resp.getAck().toString().equalsIgnoreCase("SUCCESS")) {
+					Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+					map.put("Ack", resp.getAck());
+				
+					//response.sendRedirect(this.getServletContext().getContextPath()+"/Response.jsp");
+					log.debug("Success :: "+resp.toString());
+				
+					isSent = true;
+				} else {
+	
+					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
+					transaction2.setStatus("ERROR");
+					transactionDAO.UpdateTransaction(transaction2);
+					log.debug(resp.getErrors().toString());
+					//response.sendRedirect(this.getServletContext().getContextPath()+"/Error.jsp");
+					isSent = false;
+				}
+			}
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isSent;
+		}
+		}
+		}
+		return isSent;
+	}
 }
