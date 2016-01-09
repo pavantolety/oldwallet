@@ -13,6 +13,29 @@ public class Coupon {
 	private String couponHideLocation;
 	
 	private String redeemStatus;
+	
+	private String redeemedBy;
+	
+	private int availableRedemptions;
+	
+	
+	
+
+	public String getRedeemedBy() {
+		return redeemedBy;
+	}
+
+	public void setRedeemedBy(String redeemedBy) {
+		this.redeemedBy = redeemedBy;
+	}
+
+	public int getAvailableRedemptions() {
+		return availableRedemptions;
+	}
+
+	public void setAvailableRedemptions(int availableRedemptions) {
+		this.availableRedemptions = availableRedemptions;
+	}
 
 	public String getCouponCode() {
 		return couponCode;

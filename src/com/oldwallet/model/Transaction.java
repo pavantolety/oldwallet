@@ -15,6 +15,34 @@ public class Transaction {
 	private String userEmail;
 	private String userMobile;
 	private String status;
+    private String redeemedLocation;
+    private String redeemedLocationCode;
+    private int availableRedemptions;
+    
+    
+	public int getAvailableRedemptions() {
+		return availableRedemptions;
+	}
+
+	public void setAvailableRedemptions(int availableRedemptions) {
+		this.availableRedemptions = availableRedemptions;
+	}
+
+	public String getRedeemedLocation() {
+		return redeemedLocation;
+	}
+
+	public void setRedeemedLocation(String redeemedLocation) {
+		this.redeemedLocation = redeemedLocation;
+	}
+
+	public String getRedeemedLocationCode() {
+		return redeemedLocationCode;
+	}
+
+	public void setRedeemedLocationCode(String redeemedLocationCode) {
+		this.redeemedLocationCode = redeemedLocationCode;
+	}
 
 	public String getId() {
 		return id;

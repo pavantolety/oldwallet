@@ -63,12 +63,18 @@ public class CouponDAOImpl implements CouponDAO{
 		if(map.get("COUPON_VALUE")!=null) {
 			coupon.setCouponValue(map.get("COUPON_VALUE").toString());
 		}	
-		if(map.get("REDEEMED_STATUS")!=null){
-			coupon.setRedeemStatus(map.get("REDEEMED_STATUS").toString());
+		if(map.get("REDEEM_STATUS")!=null){
+			coupon.setRedeemStatus(map.get("REDEEM_STATUS").toString());
 		}
 		if(map.get("COUPON_HIDE_LOCATION")!=null){
 		coupon.setCouponHideLocation(map.get("COUPON_HIDE_LOCATION").toString());
-		}			
+		}
+		if(map.get("REDEEMED_BY")!=null){
+			coupon.setRedeemedBy(map.get("REDEEMED_BY").toString());
+			}
+		if(map.get("AVAILABLE_REDEMPTIONS")!=null){
+			coupon.setAvailableRedemptions(Integer.parseInt(map.get("AVAILABLE_REDEMPTIONS").toString()));
+			}
 					
 		System.out.println("corporation::"+coupon);	
 		return coupon;

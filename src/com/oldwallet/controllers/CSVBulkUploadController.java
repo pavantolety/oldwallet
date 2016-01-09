@@ -116,11 +116,19 @@ private static Logger log = Logger.getLogger(CSVBulkUploadController.class);
 	         for(CouponData couponData : coupnDataList){
 	         	 if(couponData.getCountryCode()!=null){
 	 	        	 JSONObject obj = new JSONObject();
+	 	        	 if(couponData.getReedemStatus().equalsIgnoreCase("NEW")){
 	 	        	 obj.put("code",couponData.getCountryCode());
 	 	        	 obj.put("name", couponData.getCouponHideLocation());
 	 	        	 obj.put("value", couponData.getCouponCount());
 	 	        	 obj.put("color","#ff0000");
-	 	        	 list.add(obj);
+	 	        	 
+	 	        	 }else if(couponData.getReedemStatus().equalsIgnoreCase("EXPIRED")){
+	 	        		 obj.put("code",couponData.getRedeemedLocationCode());
+		 	        	 obj.put("name", couponData.getRedeemedLocation());
+		 	        	 obj.put("value", couponData.getCouponCount());
+		 	        	 obj.put("color","#00ff00");
+	 	        	 }
+	 	        	list.add(obj);
 	 	        	 }	 
 	         }
 	 		}

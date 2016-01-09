@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,16 +55,29 @@ public class CouponPaymentController {
 			//User entered a coupon code.
 			boolean isExists = couponDAO.isCouponExists(coupon.getCouponCode());
 			if(isExists) {
+				
 				log.debug("Coupon Exists :::");
 			Coupon validCoupon = couponDAO.getCouponByCode(coupon.getCouponCode());
+
 			if(validCoupon!=null) {
+				if(validCoupon.getAvailableRedemptions() !=0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
 				//User entered a valid coupon.
 				log.debug("Coupon VALID :::");
 				modelMap.put("coupon", validCoupon);
 				modelMap.put("action", "valid");
 				modelMap.put("message", "You have entered a valid coupon.!");
+				}else{
+					boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
+					Transaction transaction = transactionDAO.getTransactionDetailsByEmail(validCoupon.getRedeemedBy());
+					long referedAmount = NumberUtils.toLong(validCoupon.getCouponValue())+NumberUtils.toLong(transaction.getCouponValue());
+					transaction.setCouponValue(referedAmount+"");
+					boolean updateRef = transactionDAO.updateTransactionByEmail(transaction);
+					modelMap.put("action", "expired");
+					modelMap.put("message", "Coupon Code Expired or Event Closed.!");
+				}
 			} else {
 				//user entered expired coupon.
+				boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
 				modelMap.put("action", "expired");
 				modelMap.put("message", "Coupon Code Expired or Event Closed.!");
 			}
@@ -91,6 +105,7 @@ public class CouponPaymentController {
 			if(validCoupon!=null) {
 				log.debug("Coupon is Valid ::");
 				returnURI = PageView.THANKYOU;
+				
 				modelMap.put("coupon", validCoupon);
 				modelMap.put("action", "success");
 				modelMap.put("message", "Valid Coupon");
@@ -110,9 +125,11 @@ public class CouponPaymentController {
 	public String sendMassPayment(ModelMap modelMap, CouponPayment couponPayment, HttpSession session) {
 		
 		log.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
-		
+		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress());
 		String returnPage = "error";
 		
+		if(transactionDetails==null){
+
 		MassPayReq req = new MassPayReq();
 
 		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
@@ -171,10 +188,23 @@ public class CouponPaymentController {
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
 					transaction2.setStatus("COMPLETE");
 					System.out.println("email is "+transaction2.getUserEmail() );
-					boolean isUpdated = transactionDAO.UpdateTransaction(transaction2);
-					/*if(isUpdated) {
-						couponDAO.updateCoupon(transaction2.getCouponCode());
-					}*/
+					transaction2.setRedeemedLocation(couponPayment.getRedeemedLocation());
+					transaction2.setRedeemedLocationCode(couponPayment.getRedeemedLocationCode());
+					
+					Coupon coupon =  couponDAO.getCouponByCode(transaction2.getCouponCode());
+					
+					if(coupon!=null){
+						
+							if(coupon.getRedeemedBy()==null){
+								transaction2.setAvailableRedemptions(coupon.getAvailableRedemptions());
+								boolean isUpdated = transactionDAO.UpdateTransaction(transaction2);
+							}else{
+								transaction2.setAvailableRedemptions(coupon.getAvailableRedemptions());
+								boolean isUpdated = transactionDAO.UpdateRedeemedTrasaction(transaction2);
+							}
+					
+					}
+				
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 					smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
 					}
@@ -189,13 +219,17 @@ public class CouponPaymentController {
 					return "error";
 				}
 			}
-
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+			return returnPage;
+		}else{
+			modelMap.put("message", "Coupon already used for this email!..");
+			return "error";
+		}
 		
-		return returnPage;
 	}
 
 }

@@ -21,7 +21,23 @@ public class CouponData {
     private String countryCode;
     private long couponCount ;
     private long availableRedemptions ;
+    private String redeemedLocation;
+    private String redeemedLocationCode;
     
+    
+    
+	public String getRedeemedLocation() {
+		return redeemedLocation;
+	}
+	public void setRedeemedLocation(String redeemedLocation) {
+		this.redeemedLocation = redeemedLocation;
+	}
+	public String getRedeemedLocationCode() {
+		return redeemedLocationCode;
+	}
+	public void setRedeemedLocationCode(String redeemedLocationCode) {
+		this.redeemedLocationCode = redeemedLocationCode;
+	}
 	public long getCouponCount() {
 		return couponCount;
 	}

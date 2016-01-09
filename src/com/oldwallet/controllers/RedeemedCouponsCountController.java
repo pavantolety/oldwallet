@@ -42,6 +42,7 @@ public class RedeemedCouponsCountController {
 	     int [] redeemedCount =  new int[12];
 	     int [] coupons =  new int[12];
 	     int [] expiredCoupons =  new int[12];
+	     if(couponsCounts1.size()>0){
 	     for(MonthlyRedeemCouponsCount mc :couponsCounts1){
 	    	 //TODO need to write in the for loop
 		        if(NumberUtils.toInt(mc.getMonth())!=0&&mc.getMonth()!=null){
@@ -97,6 +98,8 @@ public class RedeemedCouponsCountController {
 		        	}
 		        }
 		     }
+	     }
+	     if(couponsCounts2.size()>0){
 	     for(MonthlyCouponsCount mc :couponsCounts2){
 	    	 //TODO need to write in the for loop
 		        if(NumberUtils.toInt(mc.getMonth())!=0&&mc.getMonth()!=null){
@@ -152,6 +155,8 @@ public class RedeemedCouponsCountController {
 		        	}
 		        }
 		     }
+	     }
+	     if(couponsCounts.size()>0){
 	     for(MonthlyCouponsCount mc :couponsCounts){
 	    	 // TODO need to write in the for loop
 	        if(NumberUtils.toInt(mc.getMonth())!=0&&mc.getMonth()!=null){
@@ -206,6 +211,7 @@ public class RedeemedCouponsCountController {
 	        		}
 	        	}
 	        }
+	     }
 	     }
 	     modelMap.put("months",months);
 	     modelMap.put("expiredCoupons", expiredCoupons);

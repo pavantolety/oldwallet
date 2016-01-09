@@ -183,6 +183,8 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="emailAddress">Email:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="email" id="emailAddress" name="emailAddress" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="hidden" id="redeemedLocation" name="redeemedLocation">
+                                                  <input type="hidden" id="redeemedLocationCode" name="redeemedLocationCode">
                                                 <input type="hidden" id="amount" name="amount" value="<c:out value="${coupon.couponValue}"/>" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="couponCode" name="couponCode" value="<c:out value="${coupon.couponCode}"/>" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="couponId" name="couponId" value="<c:out value="${coupon.couponId}"/>" required="required" class="form-control col-md-7 col-xs-12">
@@ -255,7 +257,31 @@
 		<script src="https://www.paypalobjects.com/js/external/api.js"></script>
        
         <script src="js/custom.js"></script>
-		 
+		 <script type="text/javascript">
+			$(function() {
+				jQuery.ajax( { 
+					  url: '//freegeoip.net/json/', 
+					  type: 'POST', 
+					  dataType: 'jsonp',
+					  success: function(location) {
+					    // example where I update content on the page.
+					  /*   jQuery('#city').html(location.city);
+					    jQuery('#region-code').html(location.region_code);
+					    jQuery('#region-name').html(location.region_name);
+					    jQuery('#areacode').html(location.areacode);
+					    jQuery('#ip').html(location.ip);
+					    jQuery('#zipcode').html(location.zipcode);
+					    jQuery('#longitude').html(location.longitude);
+					    jQuery('#latitude').html(location.latitude); */
+
+					    alert(location.country_name);
+					    alert(location.country_code);
+					    $("#redeemedLocation").val(location.country_name);
+					    $("#redeemedLocationCode").val(location.country_code);
+					  }
+					} );
+			});
+		 </script>
 </body>
 
 </html>

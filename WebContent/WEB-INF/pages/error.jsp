@@ -176,6 +176,8 @@
                                 <!-- page content -->								
 									<div class="col-middle">
 										<div class="text-center">
+										
+										<h1> ${message} </h1>
 											<h3>Problem while proccessing your request please try later...!</h3>
 																					
 																					

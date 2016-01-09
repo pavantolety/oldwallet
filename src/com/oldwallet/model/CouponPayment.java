@@ -9,6 +9,26 @@ public class CouponPayment {
 	private String eventId;
 	private String currencyCode;
 	private String mobile;
+	private String redeemedLocation;
+	private String redeemedLocationCode;
+	
+	
+
+	public String getRedeemedLocation() {
+		return redeemedLocation;
+	}
+
+	public void setRedeemedLocation(String redeemedLocation) {
+		this.redeemedLocation = redeemedLocation;
+	}
+
+	public String getRedeemedLocationCode() {
+		return redeemedLocationCode;
+	}
+
+	public void setRedeemedLocationCode(String redeemedLocationCode) {
+		this.redeemedLocationCode = redeemedLocationCode;
+	}
 
 	public String getAmount() {
 		return amount;
