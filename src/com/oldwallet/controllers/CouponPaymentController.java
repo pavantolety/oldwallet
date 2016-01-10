@@ -219,9 +219,10 @@ public class CouponPaymentController {
 					
 					}
 				    if(validCoupon.getAvailableRedemptions() == 1){
-				    	boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
+				    	
 						Transaction transaction3 = transactionDAO.getTransactionDetailsByEmail(validCoupon.getRedeemedBy());
-						long referedAmount = NumberUtils.toLong(validCoupon.getCouponValue())+NumberUtils.toLong(transaction3.getCouponValue());
+						long referedAmount = NumberUtils.toLong(validCoupon.getCouponValue())
+								+NumberUtils.toLong(transaction3.getCouponValue());
 						transaction3.setCouponValue(referedAmount+"");
 						boolean updateRef = transactionDAO.updateTransactionByEmail(transaction3);
 						CouponPayment cp =  new CouponPayment();
@@ -229,7 +230,11 @@ public class CouponPaymentController {
 						cp.setCurrencyCode("USD");
 						cp.setAmount(transaction3.getCouponValue());
 						boolean isSuccess = sendSuperUserPayment(cp);
-						System.out.println("IS-SUCCESS"+isSuccess);
+						if(isSuccess){
+							boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode(),"REDEEMED");
+							System.out.println("IS-SUCCESS"+isSuccess);
+						}
+						
 				    }
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 					//smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);

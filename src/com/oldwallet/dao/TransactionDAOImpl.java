@@ -88,14 +88,26 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public boolean updateCoupon(String couponCode) {
 		boolean isUpdated = false;
 		
-		int result1 = jdbcTemplate.update(UPDATE_COUPON_DATA,"EXPIRED",couponCode);
+		int result1 = jdbcTemplate.update(UPDATE_COUPON_DATA,"REDEEMED",couponCode);
 		if(result1>0){
 			isUpdated= true;
 		}
 		
 		return isUpdated;
 	}
-
+	
+	@Override
+	public boolean updateCoupon(String couponCode, String couponStatus) {
+		boolean isUpdated = false;
+		
+		int result1 = jdbcTemplate.update(UPDATE_COUPON_DATA,couponStatus,couponCode);
+		if(result1>0){
+			isUpdated= true;
+		}
+		
+		return isUpdated;
+	}
+	
 	@Override
 	public Transaction getTransactionDetailsById(String transCode) {
 		log.debug("Begining of getTransaction :: "+transCode);

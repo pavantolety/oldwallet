@@ -19,11 +19,11 @@
     <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
 
-    <!-- Custom styling plus plugins -->
+     <!-- Custom styling plus plugins -->
     <link href="css/custom.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.1.css" />
-    <link href="css/icheck/flat/green.css" rel="stylesheet" />
-    <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link href="css/icheck/flat/green.css" rel="stylesheet">
+    <link href="css/floatexamples.css" rel="stylesheet" />
 
 
     <script src="js/jquery.min.js"></script>
@@ -58,7 +58,7 @@
 
                     <br />
 
-                      <!-- sidebar menu -->
+                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
                         <div class="menu_section">
@@ -83,7 +83,6 @@
                                            			</li>
                                        			</ul>
                                            </li>
-                                           
                                        </ul>
                             	</li>
                                 <li><a href="/massPay"><i class="fa fa-edit"></i>Mass Pay-Test</a></li>
@@ -160,6 +159,7 @@
                     <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                 </span>
                         </div>
+                    </div>
                     </div>
                     <br />
 
@@ -251,294 +251,21 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-12 widget_tally_box">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>User Uptake</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="dashboard_graph x_panel">
+                                <div class="row x_title">
+                                    <div class="col-md-6">
+                                        <h3>Coupon Redemptions</h3>
+                                    </div>
                                 </div>
                                 <div class="x_content">
-
-                                    <div id="graph_bar" style="width:100%; height:200px;"></div>
-
-                                    <div class="col-xs-12 bg-white progress_summary">
-
-                                        <div class="row">
-                                            <div class="progress_title">
-                                                <span class="left">Escudor Wireless 1.0</span>
-                                                <span class="right">This sis</span>
-                                                <div class="clearfix"></div>
-                                            </div>
-
-                                            <div class="col-xs-2">
-                                                <span>SSD</span>
-                                            </div>
-                                            <div class="col-xs-8">
-                                                <div class="progress progress_sm">
-                                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="89"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2 more_info">
-                                                <span>89%</span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="progress_title">
-                                                <span class="left">Mobile Access</span>
-                                                <span class="right">Smart Phone</span>
-                                                <div class="clearfix"></div>
-                                            </div>
-
-                                            <div class="col-xs-2">
-                                                <span>App</span>
-                                            </div>
-                                            <div class="col-xs-8">
-                                                <div class="progress progress_sm">
-                                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="79"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2 more_info">
-                                                <span>79%</span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="progress_title">
-                                                <span class="left">WAN access users</span>
-                                                <span class="right">Total 69%</span>
-                                                <div class="clearfix"></div>
-                                            </div>
-
-                                            <div class="col-xs-2">
-                                                <span>Usr</span>
-                                            </div>
-                                            <div class="col-xs-8">
-                                                <div class="progress progress_sm">
-                                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="69"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2 more_info">
-                                                <span>69%</span>
-                                            </div>
-                                        </div>
-
+                                    <div class="demo-container" style="height:250px">
+                                        <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height: 250px; padding: 0px; position: relative;"><canvas class="flot-base" width="1047" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1047px; height: 250px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 15px; text-align: center;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 143px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 270px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 398px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 526px; text-align: center;">8</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 650px; text-align: center;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 778px; text-align: center;">12</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 905px; text-align: center;">14</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 1033px; text-align: center;">16</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 220px; left: 7px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 193px; left: 7px; text-align: right;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 165px; left: 1px; text-align: right;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 138px; left: 1px; text-align: right;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 110px; left: 1px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 83px; left: 1px; text-align: right;">25</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 55px; left: 1px; text-align: right;">30</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 28px; left: 1px; text-align: right;">35</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 0px; left: 1px; text-align: right;">40</div></div></div><canvas class="flot-overlay" width="1047" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1047px; height: 250px;"></canvas><div class="legend"><div style="position: absolute; width: 80px; height: 16px; top: 17px; right: 13px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:17px;right:13px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(38,185,154);overflow:hidden"></div></div></td><td class="legendLabel">Registrations</td></tr></tbody></table></div></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- start of weather widget -->
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Daily active users <small>Sessions</small></h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="temperature"><b>Monday</b>, 07:30 AM
-                                                <span>F</span>
-                                                <span><b>C</b>
-                                        </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="weather-icon">
-                                                <span>
-                                            <canvas height="84" width="84" id="partly-cloudy-day"></canvas>
-                                        </span>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="weather-text">
-                                                <h2>Texas
-                                            <br><i>Partly Cloudy Day</i>
-                                        </h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="weather-text pull-right">
-                                            <h3 class="degrees">23</h3>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-
-
-                                    <div class="row weather-days">
-                                        <div class="col-sm-2">
-                                            <div class="daily-weather">
-                                                <h2 class="day">Mon</h2>
-                                                <h3 class="degrees">25</h3>
-                                                <span>
-                                                <canvas id="clear-day" width="32" height="32">
-                                                </canvas>
-
-                                        </span>
-                                                <h5>15
-                                            <i>km/h</i>
-                                        </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="daily-weather">
-                                                <h2 class="day">Tue</h2>
-                                                <h3 class="degrees">25</h3>
-                                                <canvas height="32" width="32" id="rain"></canvas>
-                                                <h5>12
-                                            <i>km/h</i>
-                                        </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="daily-weather">
-                                                <h2 class="day">Wed</h2>
-                                                <h3 class="degrees">27</h3>
-                                                <canvas height="32" width="32" id="snow"></canvas>
-                                                <h5>14
-                                            <i>km/h</i>
-                                        </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="daily-weather">
-                                                <h2 class="day">Thu</h2>
-                                                <h3 class="degrees">28</h3>
-                                                <canvas height="32" width="32" id="sleet"></canvas>
-                                                <h5>15
-                                            <i>km/h</i>
-                                        </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="daily-weather">
-                                                <h2 class="day">Fri</h2>
-                                                <h3 class="degrees">28</h3>
-                                                <canvas height="32" width="32" id="wind"></canvas>
-                                                <h5>11
-                                            <i>km/h</i>
-                                        </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="daily-weather">
-                                                <h2 class="day">Sat</h2>
-                                                <h3 class="degrees">26</h3>
-                                                <canvas height="32" width="32" id="cloudy"></canvas>
-                                                <h5>10
-                                            <i>km/h</i>
-                                        </h5>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- end of weather widget -->
-
-
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="x_panel fixed_height_320">
-                                <div class="x_title">
-                                    <h2>Daily active users <small>Sessions</small></h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class="dashboard-widget-content">
-                                        <ul class="quick-list">
-                                            <li><i class="fa fa-calendar-o"></i><a href="#">Settings</a>
-                                            </li>
-                                            <li><i class="fa fa-bars"></i><a href="#">Subscription</a>
-                                            </li>
-                                            <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
-                                            <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                                            </li>
-                                            <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
-                                            <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                                            </li>
-                                            <li><i class="fa fa-area-chart"></i><a href="#">Logout</a>
-                                            </li>
-                                        </ul>
-
-                                        <div class="sidebar-widget">
-                                            <h4>Profile Completion</h4>
-                                            <canvas width="150" height="80" id="foo2" class="" style="width: 160px; height: 100px;"></canvas>
-                                            <div class="goal-wrapper">
-                                                <span class="gauge-value pull-left">$</span>
-                                                <span id="gauge-text2" class="gauge-value pull-left">3,200</span>
-                                                <span id="goal-text2" class="goal-value pull-right">$5,000</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-
-                </div>
-
-                <!-- footer content -->
-                <footer>
-                    <div class="">
-                        <p class="pull-right">Gentelella Alela! a Bootstrap 3 template by <a>Kimlabs</a>. |
-                            <span class="lead"> <i class="fa fa-paw"></i> Gentelella Alela!</span>
-                        </p>
-                    </div>
-                    <div class="clearfix"></div>
-                </footer>
-                <!-- /footer content -->
 
             </div>
             <!-- /page content -->
@@ -554,21 +281,39 @@
         <div id="notif-group" class="tabbed_notifications"></div>
     </div>
 
-   <script src="js/bootstrap.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
 
     <!-- chart js -->
     <script src="js/chartjs/chart.min.js"></script>
     <!-- bootstrap progress js -->
     <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
     <!-- icheck -->
     <script src="js/icheck/icheck.min.js"></script>
+    <!-- daterangepicker -->
+    <script type="text/javascript" src="js/moment.min2.js"></script>
+    <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
+    <!-- sparkline -->
+    <script src="js/sparkline/jquery.sparkline.min.js"></script>
 
     <script src="js/custom.js"></script>
+    <!-- skycons -->
+    <script src="js/skycons/skycons.js"></script>
 
     <!-- echart -->
     <script src="js/echart/echarts-all.js"></script>
     <script src="js/echart/green.js"></script>
+     <!-- flot js -->
+    <!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+    <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" src="js/flot/date.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
+    <script type="text/javascript" src="js/flot/curvedLines.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
 
     <script>
         //random data
@@ -920,6 +665,248 @@
     
 
     </script>
+     <!-- flot -->
+    <script type="text/javascript">
+        //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
+        var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
+
+        //generate random number for charts
+        randNum = function () {
+            return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
+        }
+
+        $(function () {
+            var d1 = [];
+            //var d2 = [];
+
+            //here we generate data for chart
+            for (var i = 0; i < 30; i++) {
+                d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
+                //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
+            }
+
+            var chartMinDate = d1[0][0]; //first day
+            var chartMaxDate = d1[20][0]; //last day
+
+            var tickSize = [1, "day"];
+            var tformat = "%d/%m/%y";
+
+            //graph options
+            var options = {
+                grid: {
+                    show: true,
+                    aboveData: true,
+                    color: "#3f3f3f",
+                    labelMargin: 10,
+                    axisMargin: 0,
+                    borderWidth: 0,
+                    borderColor: null,
+                    minBorderMargin: 5,
+                    clickable: true,
+                    hoverable: true,
+                    autoHighlight: true,
+                    mouseActiveRadius: 100
+                },
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        lineWidth: 2,
+                        steps: false
+                    },
+                    points: {
+                        show: true,
+                        radius: 4.5,
+                        symbol: "circle",
+                        lineWidth: 3.0
+                    }
+                },
+                legend: {
+                    position: "ne",
+                    margin: [0, -25],
+                    noColumns: 0,
+                    labelBoxBorderColor: null,
+                    labelFormatter: function (label, series) {
+                        // just add some space to labes
+                        return label + '&nbsp;&nbsp;';
+                    },
+                    width: 40,
+                    height: 1
+                },
+                colors: chartColours,
+                shadowSize: 0,
+                tooltip: true, //activate tooltip
+                tooltipOpts: {
+                    content: "%s: %y.0",
+                    xDateFormat: "%d/%m",
+                    shifts: {
+                        x: -30,
+                        y: -50
+                    },
+                    defaultTheme: false
+                },
+                yaxis: {
+                    min: 0
+                },
+                xaxis: {
+                    mode: "time",
+                    minTickSize: tickSize,
+                    timeformat: tformat,
+                    min: chartMinDate,
+                    max: chartMaxDate
+                }
+            };
+            var plot = $.plot($("#placeholder33x"), [{
+                label: "Email Sent",
+                data: d1,
+                lines: {
+                    fillColor: "rgba(150, 202, 89, 0.12)"
+                }, //#96CA59 rgba(150, 202, 89, 0.42)
+                points: {
+                    fillColor: "#fff"
+                }
+            }], options);
+        });
+    </script>
+    <!-- /flot -->
+    <!--  -->
+    <script>
+        $('document').ready(function () {
+            $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
+                type: 'bar',
+                height: '125',
+                barWidth: 13,
+                colorMap: {
+                    '7': '#a1a1a1'
+                },
+                barSpacing: 2,
+                barColor: '#26B99A'
+            });
+
+            $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
+                type: 'bar',
+                height: '40',
+                barWidth: 8,
+                colorMap: {
+                    '7': '#a1a1a1'
+                },
+                barSpacing: 2,
+                barColor: '#26B99A'
+            });
+
+            $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
+                type: 'line',
+                height: '40',
+                width: '200',
+                lineColor: '#26B99A',
+                fillColor: '#ffffff',
+                lineWidth: 3,
+                spotColor: '#34495E',
+                minSpotColor: '#34495E'
+            });
+
+            var doughnutData = [
+                {
+                    value: 30,
+                    color: "#455C73"
+                },
+                {
+                    value: 30,
+                    color: "#9B59B6"
+                },
+                {
+                    value: 60,
+                    color: "#BDC3C7"
+                },
+                {
+                    value: 100,
+                    color: "#26B99A"
+                },
+                {
+                    value: 120,
+                    color: "#3498DB"
+                }
+        ];
+            var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
+            var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
+            var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
+        });
+    </script>
+    <!-- -->
+    <!-- datepicker -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var cb = function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
+            }
+
+            var optionSet1 = {
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-small btn-primary',
+                cancelClass: 'btn-small',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Clear',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            };
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+            $('#reportrange').daterangepicker(optionSet1, cb);
+            $('#reportrange').on('show.daterangepicker', function () {
+                console.log("show event fired");
+            });
+            $('#reportrange').on('hide.daterangepicker', function () {
+                console.log("hide event fired");
+            });
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+            });
+            $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+                console.log("cancel event fired");
+            });
+            $('#options1').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+            });
+            $('#options2').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+            });
+            $('#destroy').click(function () {
+                $('#reportrange').data('daterangepicker').remove();
+            });
+        });
+    </script>
+    <!-- /datepicker -->
 </body>
 
 </html>

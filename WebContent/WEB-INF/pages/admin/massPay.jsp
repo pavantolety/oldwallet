@@ -55,7 +55,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><span>OldWallet</span></a>
+                        <a href="index.html" class="site_title"><span>Management Console</span></a>
                     </div>
                     <div class="clearfix"></div>
 
@@ -66,9 +66,9 @@
 
                         <div class="menu_section">
                             <ul class="nav side-menu">
-                            	<li class="active"><a><i class="fa fa-edit"></i>Coupon Management</a>
+                            	<li><a><i class="fa fa-edit"></i>Coupon Management</a>
                            			<ul class="nav child_menu" style="display: none">
-                                           <li><a href="/uploadData">Upload Coupons</a>
+                                           <li><a href="/adminHome">Upload Coupons</a>
                                            </li>
                                            <li><a href="/manageCoupons">Manage Coupons</a>
                                            </li>
@@ -78,13 +78,19 @@
                             	</li>
                             	<li><a><i class="fa fa-edit"></i>Dashboard</a>
                             		<ul class="nav child_menu" style="display: none">
-                                           <li><a href="/trackRedemptions">Coupon Redemption Stats</a>
+                                           <li><a>Oldwallet Campaign</a>
+	                                       		<ul class="nav child_menu" style="display: none">
+	                                       			<li><a href="/couponStats">Coupon Redemptions</a>
+                                           			</li>
+                                          			<li><a href="/trackCoupons">Coupon Hide & Retrieve Locations</a>
+                                           			</li>
+                                       			</ul>
                                            </li>
-                                           <li><a href="/trackCoupons">Coupon Hide & Retrieve Locations</a>
-                                           </li>
+                                           
                                        </ul>
                             	</li>
                                 <li><a href="/massPay"><i class="fa fa-edit"></i>Mass Pay-Test</a></li>
+                                
                             </ul>
                         </div>
 

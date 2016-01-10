@@ -10,19 +10,17 @@ public interface PageView {
 	
 	String MASSPAY = "admin/massPay";
 	
-	String UPLOAD = "admin/uploadData";
-	
 	String TRACKCOUPONS = "admin/trackCoupons";
 	
 	String TRACKREDEMPTIONS = "admin/trackRedemption";
 	
 	String ADMINHOME = "adminHome";
 	
-	String COUPONSTATS = "adminHome/couponStats";
+	String COUPONSTATS = "admin/couponStats";
 	
-	String MANAGECOUPONS = "adminHome/manageCoupons";
+	String MANAGECOUPONS = "admin/manageCoupons";
 	
-	String DOWNLOADDATA = "adminHome/downloadData";
+	String DOWNLOADDATA = "admin/downloadData";
 	
 	String FACEBOOK = "facebook";
 	

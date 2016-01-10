@@ -25,6 +25,8 @@ import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponDAO;
+import com.oldwallet.model.AdminLogin;
+import com.oldwallet.model.AdminSession;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.MassPay;
 import com.oldwallet.util.paypal.Configuration;
@@ -72,14 +74,13 @@ public class OldwalletController {
 		}
 		
 		@RequestMapping(value="/adminHome", method=RequestMethod.GET)
-		public String adminHome(ModelMap modelMap) {
-			return PageView.ADMINHOME;
-		}
-		
-		@RequestMapping(value="/upload", method=RequestMethod.GET)
-		public String upload(ModelMap modelMap) {
-			return PageView.UPLOAD;
-		}
+		  public String adminHome(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
+		   AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
+		   if(adminSession != null){
+		    return PageView.ADMINHOME;
+		    }
+		   return "/adminLogin";
+		  }
 		
 		@RequestMapping(value="/couponStats", method=RequestMethod.GET)
 		public String couponStats(ModelMap modelMap) {

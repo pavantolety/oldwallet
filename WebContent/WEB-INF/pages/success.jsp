@@ -154,7 +154,7 @@
 
                     <div class="page-title">
                         <div class="title_left">
-                            <h3><a href="/index"><img src="images/paypal2.png" alt="Smiley face" ></a></h3>
+                            <h3><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" ></a></h3>
                         </div>
                         <div class="title_right">
                             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -170,7 +170,7 @@
                                 <!-- page content -->								
 									<div class="col-middle">
 										<div class="text-center">
-											<h3>You have successfully redeemed your coupon amount to your PayPal Account.!</h3>
+											<h3>You have successfully redeemed your coupon amount to your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.!</h3>
 																					
 										</div>
 									</div>

@@ -160,7 +160,7 @@
 
                     <div class="page-title">
                         <div class="title_left">
-                            <h3><a href="/index"><img src="images/paypal2.png" alt="Smiley face" ></a></h3>
+                            <h3><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" ></a></h3>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -172,16 +172,17 @@
                                 <!-- page content -->								
 									<div class="col-middle">
 										<div class="text-center">
-											<h3>Congratulations...!</h3>
-											<h5>You can redeem <c:out value="${coupon.couponValue}"/> using your <img src="images/paypal2.png" alt="Smiley face" > Account.</h5>
+											<h4>Congratulations...!</h4>
+											<h4>You can redeem <c:out value="${coupon.couponValue}"/> using your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.</h4>
 											
 											<div class="text-center">
-												<h5>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h5>
+												<h4>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h4>
 											<form name="redeemForm" id="redeemForm" action="/getCouponAmount" data-parsley-validate class="form-horizontal form-label-left" method="post">
-
+										<div class="col-md-3 col-sm-3 col-xs-12">
+										</div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="emailAddress">Email:<span class="required">*</span>                            </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <label class="control-label pull-left">Email:<span class="required">*</span></label>
                                                 <input type="email" id="emailAddress" name="emailAddress" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="redeemedLocation" name="redeemedLocation">
                                                   <input type="hidden" id="redeemedLocationCode" name="redeemedLocationCode">
@@ -192,9 +193,12 @@
                                                 <input type="hidden" id="currencyCode" name="currencyCode" value="USD" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+										</div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile :<span class="required">*</span>                            </label>
+                                            <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile :<span class="required">*</span>                            </label> -->
                                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <label class="control-label pull-left">Mobile :<span class="required">*</span>                            </label>
                                                 <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12" data-parsley-minlength="6"  data-parsley-maxlength="15" parsley-pattern-message="Please enter a valid mobile phone number." placeholder="Add Number with Country Code" pattern="^[{+}][0-9]{10,15}$"/>	
                                                 										
                                             </div>

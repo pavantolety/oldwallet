@@ -89,8 +89,8 @@
             <div class="right_col" role="main">
 
                     <div class="page-title">
-                        <div class="title_left">
-                           <h3><a href="/index"><img src="images/paypal2.png" alt="Smiley face" ></a></h3>
+                        <div class="">
+                           <h3><a href="/index"><img src="images/PayPal_btn4.png"  alt="Smiley face" ></a></h3>
                         </div>
                         <div class="title_right">
                             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -117,10 +117,11 @@
                                 <div class="x_content">
                                     <br />
                                     <form name="redeemForm" id="redeemForm"  action="" data-parsley-validate class="form-horizontal form-label-left" method="post">
-
+										<div class="col-md-3 col-sm-3 col-xs-12">
+										</div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Coupon Code:<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                            	<label class="control-label">Coupon Code:<span class="required">*</span></label>
                                                 <input type="text" id="couponCode" name="couponCode" required="required" class="form-control col-md-7 col-xs-12">
 												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             </div>
