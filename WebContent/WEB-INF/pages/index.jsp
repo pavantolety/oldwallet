@@ -315,7 +315,6 @@
 		}
     
 		});
-	});
 	function checkArray(c){
 		var bool = "false";
 		for (j=0;j<coupons.length;j++){

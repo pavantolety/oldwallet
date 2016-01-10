@@ -73,7 +73,7 @@ public class CouponPaymentController {
 				}
 			} else {
 				//user entered expired coupon.
-				boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
+				//boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
 				modelMap.put("action", "expired");
 				modelMap.put("message", "Coupon Code Expired or Event Closed.!");
 			}
@@ -225,6 +225,9 @@ public class CouponPaymentController {
 						transaction3.setCouponValue(referedAmount+"");
 						boolean updateRef = transactionDAO.updateTransactionByEmail(transaction3);
 						CouponPayment cp =  new CouponPayment();
+						System.out.println("eventid>>>>>>>>>>>>>>>>"+validCoupon.getEventId());
+						cp.setEventId(validCoupon.getEventId()+"");
+						cp.setCouponId(validCoupon.getCouponId()+"");
 						cp.setEmailAddress(transaction3.getUserEmail());
 						cp.setCurrencyCode("USD");
 						cp.setAmount(validCoupon.getCouponValue());
@@ -269,7 +272,7 @@ public class CouponPaymentController {
 		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress());
 		boolean isSent = false;
 
-
+		System.out.println("trans//////////"+transactionDetails.getEventId());
 		MassPayReq req = new MassPayReq();
 
 		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
@@ -313,7 +316,7 @@ public class CouponPaymentController {
 			
 			//Init the transaction ..
 			
-			boolean isTransactionInit = transactionDAO.initTransaction(transaction);
+			//boolean isTransactionInit = transactionDAO.initTransaction(transaction);
 			//TODO if isTransactioninit true then only go for masspay.
 			MassPayResponseType resp = service.massPay(req);
 			if (resp != null) {

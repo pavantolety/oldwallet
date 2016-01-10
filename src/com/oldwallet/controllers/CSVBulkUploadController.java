@@ -102,7 +102,7 @@ private static Logger log = Logger.getLogger(CSVBulkUploadController.class);
 		     if(uploaded){
 		     modelMap.put("status", "Uploaded Successfully");
 		     }
-	return PageView.UPLOAD;
+	return PageView.ADMINHOME;
 	}
 	
 	
