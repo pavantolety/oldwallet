@@ -81,6 +81,21 @@ public class OldwalletController {
 			return PageView.UPLOAD;
 		}
 		
+		@RequestMapping(value="/couponStats", method=RequestMethod.GET)
+		public String couponStats(ModelMap modelMap) {
+			return PageView.COUPONSTATS;
+		}
+		
+		@RequestMapping(value="/manageCoupons", method=RequestMethod.GET)
+		public String manageCoupons(ModelMap modelMap) {
+			return PageView.MANAGECOUPONS;
+		}
+		
+		@RequestMapping(value="/downloadData", method=RequestMethod.GET)
+		public String downloadData(ModelMap modelMap) {
+			return PageView.DOWNLOADDATA;
+		}
+		
 		@RequestMapping(value="/facebook", method=RequestMethod.GET)
 		public String facebook(ModelMap modelMap) {
 			return PageView.FACEBOOK;

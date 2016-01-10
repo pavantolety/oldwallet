@@ -18,6 +18,12 @@ public interface PageView {
 	
 	String ADMINHOME = "adminHome";
 	
+	String COUPONSTATS = "adminHome/couponStats";
+	
+	String MANAGECOUPONS = "adminHome/manageCoupons";
+	
+	String DOWNLOADDATA = "adminHome/downloadData";
+	
 	String FACEBOOK = "facebook";
 	
 }

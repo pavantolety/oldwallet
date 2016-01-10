@@ -61,16 +61,30 @@
 
                     <br />
 
-                    <!-- sidebar menu -->
+                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-                       <div class="menu_section">
+                        <div class="menu_section">
                             <ul class="nav side-menu">
-                                <li><a href="/adminHome"><i class="fa fa-edit"></i>Upload Data</a></li>
-                                <li><a href="/massPay"><i class="fa fa-edit"></i>Mass Pay</a></li>
-                                <li><a href="/trackRedemptions"><i class="fa fa-table"></i>Track Coupon Redemption</a></li>
-                                <li><a href="/trackCoupons"><i class="fa fa-desktop"></i>Track Coupon Locations</a></li>
-                                
+                            	<li class="active"><a><i class="fa fa-edit"></i>Coupon Management</a>
+                           			<ul class="nav child_menu" style="display: none">
+                                           <li><a href="/uploadData">Upload Coupons</a>
+                                           </li>
+                                           <li><a href="/manageCoupons">Manage Coupons</a>
+                                           </li>
+                                           <li><a href="/downloadData">Download Coupon Data</a>
+                                           </li>
+                                       </ul>
+                            	</li>
+                            	<li><a><i class="fa fa-edit"></i>Dashboard</a>
+                            		<ul class="nav child_menu" style="display: none">
+                                           <li><a href="/trackRedemptions">Coupon Redemption Stats</a>
+                                           </li>
+                                           <li><a href="/trackCoupons">Coupon Hide & Retrieve Locations</a>
+                                           </li>
+                                       </ul>
+                            	</li>
+                                <li><a href="/massPay"><i class="fa fa-edit"></i>Mass Pay-Test</a></li>
                             </ul>
                         </div>
 
