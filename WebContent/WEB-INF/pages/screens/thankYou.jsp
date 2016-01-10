@@ -173,7 +173,7 @@
 									<div class="col-middle">
 										<div class="text-center">
 											<h4>Congratulations...!</h4>
-											<h4>You can redeem <c:out value="${coupon.couponValue}"/> using your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.</h4>
+											<h4>You can redeem $<c:out value="${coupon.couponValue}"/> using your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.</h4>
 											
 											<div class="text-center">
 												<h4>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h4>

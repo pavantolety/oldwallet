@@ -123,7 +123,11 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             	<label class="control-label">Coupon Code:<span class="required">*</span></label>
                                                 <input type="text" id="couponCode" name="couponCode" required="required" class="form-control col-md-7 col-xs-12">
+												<br/>
+                                            	<div id="errorMessage"></div>                                            	
+                                            												
 												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
+                                            	
                                             </div>
                                         </div>
                                         <!-- <div class="form-group">
@@ -260,7 +264,9 @@
 		//var mobile = document.getElementById("mobile").value;
 		
 		if(c.length==0) {
-			sweetAlert("Info","Please enter a coupon code","info");
+			//sweetAlert("Info","Please enter a coupon code","info");
+			$('#errorMessage').empty();
+			$('#errorMessage').append('<b style="color:orange;">Please enter a coupon code</b>');
 			return;
 		}
 		if($('#terms').prop('checked')){
@@ -279,15 +285,22 @@
 							//alert(action);
 							if(action=='valid') {
 							var successUrl = '/valid';
+							$('#errorMessage').empty();
 							//successUrl = successUrl+c;
 							$("#redeemForm").attr("action", successUrl);
 							$("#redeemForm").submit();
-							} else if(action=="invalid") {
-								sweetAlert("Info","Invalid Coupon Code","info");
+							
+							} else if(action=="invalid") {	
+								$('#errorMessage').empty();
+								$('#errorMessage').append('<b style="color:red;">Invalid Coupon Code</b>');
 							}else if(data.action='expired') {
-								sweetAlert("Info",data.message,"info");
+								//sweetAlert("Info",data.message,"info");
+								$('#errorMessage').empty();
+								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
 							}else if(data.action='error') {
-								sweetAlert("Info",data.message,"info");
+								//sweetAlert("Info",data.message,"info");
+								$('#errorMessage').empty();
+								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
 							}
 							
 						},
@@ -298,23 +311,19 @@
 					});
 					
 				}else{
-					swal({   title: "Info",   
-							text: "Please enter a valid coupon.!",   
-							type: "info",   
-							showCancelButton: false,   
-							confirmButtonColor: "#AEDEF4",   
-							confirmButtonText: "Ok!",   
-							closeOnConfirm: true }, function(){   
-							location.href="/";
-							});					
+					$('#errorMessage').empty();
+					$('#errorMessage').append('<b style="color:orange;">Please enter a valid coupon.!</b>');								
 				}
 			
 			}
 		else{
-			sweetAlert("Info","Please Agree Terms and Conditions","info");
+			//sweetAlert("Info","Please Agree Terms and Conditions","info");
+			$('#errorMessage').empty();
+			$('#errorMessage').append('<b style="color:red;">Please check Agree Terms and Conditions</b>');
 		}
     
 		});
+
 	function checkArray(c){
 		var bool = "false";
 		for (j=0;j<coupons.length;j++){

@@ -255,12 +255,12 @@ public class CouponPaymentController {
 		}
 			return returnPage;
 		}else{
-			modelMap.put("message", "Coupon already used for this email!");
+			modelMap.put("message", "This email is already used for a coupon!");
 			return "emailError";
 		}
 		}
 		}else{
-			modelMap.put("message", "Coupon already used for this email!");
+			modelMap.put("message", "This email is already used for a coupon!");
 			return "emailError";
 		}
 		return returnPage;
