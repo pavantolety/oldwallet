@@ -45,8 +45,4 @@ public class AuthenticationController {
 						
 		return "/adminLogin";
 	}
-	
-	
-	
-
 }

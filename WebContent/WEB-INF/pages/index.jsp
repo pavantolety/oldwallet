@@ -253,28 +253,6 @@
             });
         </script>
 		 <script type="text/javascript">
-	var coupons=["coupon456","coupon001","coupon123"];	
-
-	$(function() {
-		jQuery.ajax( { 
-			  url: '//freegeoip.net/json/', 
-			  type: 'POST', 
-			  dataType: 'jsonp',
-			  success: function(location) {
-			    // example where I update content on the page.
-			  /*   jQuery('#city').html(location.city);
-			    jQuery('#region-code').html(location.region_code);
-			    jQuery('#region-name').html(location.region_name);
-			    jQuery('#areacode').html(location.areacode);
-			    jQuery('#ip').html(location.ip);
-			    jQuery('#zipcode').html(location.zipcode);
-			    jQuery('#longitude').html(location.longitude);
-			    jQuery('#latitude').html(location.latitude);
-			    jQuery('#country-name').html(location.country_name); */
-			    alert(location.country_code);
-			  }
-			} );
-
 
 		$("#redeem_button").click(function() {		
 		//var e=$('#redeem_form [name=paypal_id]').val();

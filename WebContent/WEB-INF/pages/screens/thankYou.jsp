@@ -184,8 +184,8 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             <label class="control-label pull-left">Email:<span class="required">*</span></label>
                                                 <input type="email" id="emailAddress" name="emailAddress" required="required" class="form-control col-md-7 col-xs-12">
-                                                <input type="hidden" id="redeemedLocation" name="redeemedLocation">
-                                                  <input type="hidden" id="redeemedLocationCode" name="redeemedLocationCode">
+                                               <input type="hidden" id="latitude" name="latitude">
+                                                  <input type="hidden" id="longitude" name="longitude">
                                                 <input type="hidden" id="amount" name="amount" value="<c:out value="${coupon.couponValue}"/>" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="couponCode" name="couponCode" value="<c:out value="${coupon.couponCode}"/>" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="couponId" name="couponId" value="<c:out value="${coupon.couponId}"/>" required="required" class="form-control col-md-7 col-xs-12">
@@ -278,10 +278,8 @@
 					    jQuery('#longitude').html(location.longitude);
 					    jQuery('#latitude').html(location.latitude); */
 
-					    alert(location.country_name);
-					    alert(location.country_code);
-					    $("#redeemedLocation").val(location.country_name);
-					    $("#redeemedLocationCode").val(location.country_code);
+					    $("#latitude").val(location.latitude);
+					    $("#longitude").val(location.longitude);
 					  }
 					} );
 			});

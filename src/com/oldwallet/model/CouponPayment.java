@@ -9,25 +9,27 @@ public class CouponPayment {
 	private String eventId;
 	private String currencyCode;
 	private String mobile;
-	private String redeemedLocation;
-	private String redeemedLocationCode;
+	private String latitude;
+	private String longitude;
+	
+	
 	
 	
 
-	public String getRedeemedLocation() {
-		return redeemedLocation;
+	public String getLatitude() {
+		return latitude;
 	}
 
-	public void setRedeemedLocation(String redeemedLocation) {
-		this.redeemedLocation = redeemedLocation;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
-	public String getRedeemedLocationCode() {
-		return redeemedLocationCode;
+	public String getLongitude() {
+		return longitude;
 	}
 
-	public void setRedeemedLocationCode(String redeemedLocationCode) {
-		this.redeemedLocationCode = redeemedLocationCode;
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getAmount() {

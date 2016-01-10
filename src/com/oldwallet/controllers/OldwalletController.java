@@ -34,167 +34,187 @@ import com.oldwallet.util.paypal.Configuration;
 @Controller
 public class OldwalletController {
 		
-		@Autowired
-		CouponDAO couponDAO;
+	@Autowired
+	CouponDAO couponDAO;
+	
+	@RequestMapping(value = { "/", "/index" })
+	public String index(ModelMap modelMap) {
+			
+		return "index";
+	}
+	
+	@RequestMapping(value={"/dashboard"}, method=RequestMethod.GET)
+	public String dashboard(ModelMap modelMap) {
+		return "dashboard";
+	}
+	
+	@RequestMapping(value="/redeem", method=RequestMethod.GET)
+	public String redeem(ModelMap modelMap) {
+		return PageView.REDEEM;
+	}
+	
+	@RequestMapping(value="/thankYou", method=RequestMethod.GET)
+	public String thankYou(ModelMap modelMap) {
+		return PageView.THANKYOU;
+	}
+	
+	@RequestMapping(value="/massPay", method=RequestMethod.GET)
+	public String massPay(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
+		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
+		if(adminSession != null){
+			return PageView.MASSPAY;
+			}
+		return "/adminLogin";
+	}
+	
+	@RequestMapping(value="/trackCoupons", method=RequestMethod.GET)
+	public String trackCoupons(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
+		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
+		if(adminSession != null){
+			return PageView.TRACKCOUPONS;
+			}
+		return "/adminLogin";
+	}
+
+	@RequestMapping(value="/adminHome", method=RequestMethod.GET)
+	public String adminHome(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
+		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
+		if(adminSession != null){
+			return PageView.ADMINHOME;
+			}
+		return "/adminLogin";
+	}
+	
+	@RequestMapping(value="/manageCoupons", method=RequestMethod.GET)
+	public String manageCoupons(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
+		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
+		if(adminSession != null){
+			 List<Coupon> couponList = couponDAO.getCouponData();
+			    if(couponList.size()>0){
+			     System.out.println("Going to data table :::");
+			     modelMap.put("couponList" , couponList);
+			    }
+			return PageView.MANAGECOUPONS;
+			}
+		return "/adminLogin";
+	}
+	
+	@RequestMapping(value="/couponStats", method=RequestMethod.GET)
+	public String couponStats(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
+		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
+		if(adminSession != null){
+			return PageView.COUPONSTATS;
+			}
+		return "/adminLogin";
+	}
+	
+	@RequestMapping(value="/downloadData", method=RequestMethod.GET)
+	public String downloadData(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
+		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
+		if(adminSession != null){
+			return PageView.DOWNLOADDATA;
+			}
+		return "/adminLogin";
+	}
+	
+	@RequestMapping(value="/facebook", method=RequestMethod.GET)
+	public String facebook(ModelMap modelMap) {
+		return PageView.FACEBOOK;
+	}
+	
+	@RequestMapping(value="/validateCoupon", method=RequestMethod.GET)
+	public String validateCoupon(ModelMap modelMap,Coupon coupon) {
 		
-		@RequestMapping(value = { "/", "/index" })
-		public String index(ModelMap modelMap) {
-				
-			return "index";
-		}
+		System.out.println("Coupon Code::::" +coupon.getCouponCode());
 		
-		@RequestMapping(value={"/dashboard"}, method=RequestMethod.GET)
-		public String dashboard(ModelMap modelMap) {
-			return "dashboard";
-		}
+		Coupon couponCode = couponDAO.getCouponByCode(coupon.getCouponCode());
+		if (couponCode!=null){
+			System.out.println("Going to the ThankYou ::: ");
+			return PageView.THANKYOU;
 		
-		@RequestMapping(value="/redeem", method=RequestMethod.GET)
-		public String redeem(ModelMap modelMap) {
+		}else {
+			modelMap.put("status","failure");
+			modelMap.put("error", "Invalid Coupon");
+			modelMap.put("message", "Please use valid coupon code to redeem...");
 			return PageView.REDEEM;
 		}
 		
-		@RequestMapping(value="/thankYou", method=RequestMethod.GET)
-		public String thankYou(ModelMap modelMap) {
-			return PageView.THANKYOU;
-		}
-		
-		@RequestMapping(value="/massPay", method=RequestMethod.GET)
-		public String massPay(ModelMap modelMap) {
-			return PageView.MASSPAY;
-		}
-		
-		@RequestMapping(value="/trackCoupons", method=RequestMethod.GET)
-		public String trackCoupons(ModelMap modelMap) {
-			return PageView.TRACKCOUPONS;
-		}
-		
-		@RequestMapping(value="/trackRedemptions", method=RequestMethod.GET)
-		public String trackRedemption(ModelMap modelMap) {
-			return PageView.TRACKREDEMPTIONS;
-		}
-		
-		@RequestMapping(value="/adminHome", method=RequestMethod.GET)
-		  public String adminHome(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
-		   AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
-		   if(adminSession != null){
-		    return PageView.ADMINHOME;
-		    }
-		   return "/adminLogin";
-		  }
-		
-		@RequestMapping(value="/couponStats", method=RequestMethod.GET)
-		public String couponStats(ModelMap modelMap) {
-			return PageView.COUPONSTATS;
-		}
-		
-		@RequestMapping(value="/manageCoupons", method=RequestMethod.GET)
-		public String manageCoupons(ModelMap modelMap) {
-			return PageView.MANAGECOUPONS;
-		}
-		
-		@RequestMapping(value="/downloadData", method=RequestMethod.GET)
-		public String downloadData(ModelMap modelMap) {
-			return PageView.DOWNLOADDATA;
-		}
-		
-		@RequestMapping(value="/facebook", method=RequestMethod.GET)
-		public String facebook(ModelMap modelMap) {
-			return PageView.FACEBOOK;
-		}
-		
-		@RequestMapping(value="/validateCoupon", method=RequestMethod.GET)
-		public String validateCoupon(ModelMap modelMap,Coupon coupon) {
-			
-			System.out.println("Coupon Code::::" +coupon.getCouponCode());
-			
-			Coupon couponCode = couponDAO.getCouponByCode(coupon.getCouponCode());
-			if (couponCode!=null){
-				System.out.println("Going to the ThankYou ::: ");
-				return PageView.THANKYOU;
-			
-			}else {
-				modelMap.put("status","failure");
-				modelMap.put("error", "Invalid Coupon");
-				modelMap.put("message", "Please use valid coupon code to redeem...");
-				return PageView.REDEEM;
-			}
-			
-		}
-		
-		@RequestMapping(value="/sendMassPayment", method=RequestMethod.POST)
-		public String sendMassPayment(ModelMap modelMap, MassPay massPay, HttpSession session) {
-			System.out.println("Begining of sendMassPayment() ::::"+massPay.getAmount1()+", "+massPay.getEmailAddress1());
-			String returnPage = "error";
-			MassPayReq req = new MassPayReq();
+	}
+	
+	@RequestMapping(value="/sendMassPayment", method=RequestMethod.POST)
+	public String sendMassPayment(ModelMap modelMap, MassPay massPay, HttpSession session) {
+		System.out.println("Begining of sendMassPayment() ::::"+massPay.getAmount1()+", "+massPay.getEmailAddress1());
+		String returnPage = "error";
+		MassPayReq req = new MassPayReq();
 
-			List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
-			
-			BasicAmountType amount1 = null;
-			if(massPay.getCurrencyCode1()!=null && massPay.getCurrencyCode1().equalsIgnoreCase("USD")) {
-				amount1= new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()),massPay.getAmount1());
-			}
-			BasicAmountType amount2 = null;
-			if(massPay.getCurrencyCode1()!=null && massPay.getCurrencyCode1().equalsIgnoreCase("USD")) {
-				amount2 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()),massPay.getAmount1());
-			}
-			MassPayRequestItemType item1 = null;
-			MassPayRequestItemType item2 = null;
-			if(amount1!=null) {
-				item1 = new MassPayRequestItemType(amount1);
-				if(massPay.getEmailAddress1()!=null && massPay.getEmailAddress1().length()>1) {
-					item1.setReceiverEmail(massPay.getEmailAddress1());
-					massPayItem.add(item1);
-				}
-			}
-			if(amount2!=null) {
-				item2 = new MassPayRequestItemType(amount2);
-				if(massPay.getEmailAddress2()!=null && massPay.getEmailAddress2().length()>1) {
-					item2.setReceiverEmail(massPay.getEmailAddress2());
-					massPayItem.add(item2);
-				}
-			}						
-			if(massPayItem.size()>0) {
-			MassPayRequestType reqType = new MassPayRequestType(massPayItem);
-			reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
-			req.setMassPayRequest(reqType);
-			
-			// Configuration map containing signature credentials and other required configuration.
-			// For a full list of configuration parameters refer in wiki page.
-			// (https://github.com/paypal/sdk-core-java/wiki/SDK-Configuration-Parameters)
-			Map<String,String> configurationMap =  Configuration.getAcctAndConfig();
-			
-			// Creating service wrapper object to make an API call by loading configuration map.
-			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
-			
-			try {
-				MassPayResponseType resp = service.massPay(req);
-				if (resp != null) {
-					modelMap.addAttribute("lastReq", service.getLastRequest());
-					modelMap.addAttribute("lastResp", service.getLastResponse());
-					if (resp.getAck().toString().equalsIgnoreCase("SUCCESS")) {
-						Map<Object, Object> map = new LinkedHashMap<Object, Object>();
-						map.put("Ack", resp.getAck());
-						modelMap.addAttribute("map", map);
-						//response.sendRedirect(this.getServletContext().getContextPath()+"/Response.jsp");
-						System.out.println("Success :: "+resp.toString());
-						return "success";
-					} else {
-						modelMap.addAttribute("Error", resp.getErrors());
-						System.out.println(resp.getErrors().toString());
-						//response.sendRedirect(this.getServletContext().getContextPath()+"/Error.jsp");
-						return "error";
-					}
-				}
-
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			} else {
-				modelMap.put("action", "Error");
-				modelMap.put("message", "Unable to process your request");
-			}
-			return returnPage;
-		}
+		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
 		
+		BasicAmountType amount1 = null;
+		if(massPay.getCurrencyCode1()!=null && massPay.getCurrencyCode1().equalsIgnoreCase("USD")) {
+			amount1= new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()),massPay.getAmount1());
+		}
+		BasicAmountType amount2 = null;
+		if(massPay.getCurrencyCode1()!=null && massPay.getCurrencyCode1().equalsIgnoreCase("USD")) {
+			amount2 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()),massPay.getAmount1());
+		}
+		MassPayRequestItemType item1 = null;
+		MassPayRequestItemType item2 = null;
+		if(amount1!=null) {
+			item1 = new MassPayRequestItemType(amount1);
+			if(massPay.getEmailAddress1()!=null && massPay.getEmailAddress1().length()>1) {
+				item1.setReceiverEmail(massPay.getEmailAddress1());
+				massPayItem.add(item1);
+			}
+		}
+		if(amount2!=null) {
+			item2 = new MassPayRequestItemType(amount2);
+			if(massPay.getEmailAddress2()!=null && massPay.getEmailAddress2().length()>1) {
+				item2.setReceiverEmail(massPay.getEmailAddress2());
+				massPayItem.add(item2);
+			}
+		}						
+		if(massPayItem.size()>0) {
+		MassPayRequestType reqType = new MassPayRequestType(massPayItem);
+		reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
+		req.setMassPayRequest(reqType);
+		
+		// Configuration map containing signature credentials and other required configuration.
+		// For a full list of configuration parameters refer in wiki page.
+		// (https://github.com/paypal/sdk-core-java/wiki/SDK-Configuration-Parameters)
+		Map<String,String> configurationMap =  Configuration.getAcctAndConfig();
+		
+		// Creating service wrapper object to make an API call by loading configuration map.
+		PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+		
+		try {
+			MassPayResponseType resp = service.massPay(req);
+			if (resp != null) {
+				modelMap.addAttribute("lastReq", service.getLastRequest());
+				modelMap.addAttribute("lastResp", service.getLastResponse());
+				if (resp.getAck().toString().equalsIgnoreCase("SUCCESS")) {
+					Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+					map.put("Ack", resp.getAck());
+					modelMap.addAttribute("map", map);
+					//response.sendRedirect(this.getServletContext().getContextPath()+"/Response.jsp");
+					System.out.println("Success :: "+resp.toString());
+					return "success";
+				} else {
+					modelMap.addAttribute("Error", resp.getErrors());
+					System.out.println(resp.getErrors().toString());
+					//response.sendRedirect(this.getServletContext().getContextPath()+"/Error.jsp");
+					return "error";
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		} else {
+			modelMap.put("action", "Error");
+			modelMap.put("message", "Unable to process your request");
+		}
+		return returnPage;
+	}
+	
 }

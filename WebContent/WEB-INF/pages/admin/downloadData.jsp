@@ -124,6 +124,21 @@
                         <div class="nav toggle">
                             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                         </div>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/emptyUser.png" alt="">Admin
+                                    <span class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">                 
+                                    
+                                    
+                                    <li><a href="/adminLogout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                    </li>
+                                </ul>
+                            </li>                            
+                        </ul>
                     </nav>
                 </div>
 
@@ -147,12 +162,12 @@
                                 <div class="x_content">
                                     <br />
                                     
-                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/csvBulkUpload" method="post" enctype="multipart/form-data">
+                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" >
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="file">Select file to Upload <span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="file">Download Coupon Data <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="file" id="file" name="file" class="form-control col-md-7 col-xs-12">
+                                                <input type="text" id="file" name="file" class="form-control col-md-7 col-xs-12">
                                             </div> ${status}
                                         </div>
                                         <div class="ln_solid"></div>

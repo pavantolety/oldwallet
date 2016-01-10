@@ -22,6 +22,8 @@ public class CouponDAOImpl implements CouponDAO{
 	
 	public static final String IS_COUPON_EXISTS = "SELECT * FROM COUPONS WHERE COUPON_CODE = ?";
 	
+	public static final String GET_COUPON_VALUES = "SELECT * FROM COUPONS";
+	
 	private JdbcTemplate jdbcTemplate;
 	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
 
@@ -75,7 +77,24 @@ public class CouponDAOImpl implements CouponDAO{
 		if(map.get("AVAILABLE_REDEMPTIONS")!=null){
 			coupon.setAvailableRedemptions(Integer.parseInt(map.get("AVAILABLE_REDEMPTIONS").toString()));
 			}
-					
+		if(map.get("COMPLETED_REDEMPTIONS")!=null){
+			coupon.setCompletedRedemptions(Integer.parseInt(map.get("COMPLETED_REDEMPTIONS").toString()));
+			}
+		if(map.get("REDEEMED_DATE")!=null){
+		   coupon.setRedeemedDate(map.get("REDEEMED_DATE").toString());
+		  }
+		  if(map.get("LOCATION")!=null){
+		   coupon.setLocation(map.get("LOCATION").toString());
+		  }
+		  if(map.get("VALIDITY_PERIOD")!=null){
+		   coupon.setValidityPeriod(map.get("VALIDITY_PERIOD").toString());
+		  }
+		  if(map.get("VALID_FROM")!=null){
+		   coupon.setValidFrom(map.get("VALID_FROM").toString());
+		  }
+		  if(map.get("VALID_TO")!=null){
+		   coupon.setValidTo(map.get("VALID_TO").toString());
+		  }
 		System.out.println("corporation::"+coupon);	
 		return coupon;
 	}
@@ -99,4 +118,19 @@ public class CouponDAOImpl implements CouponDAO{
 		}
 		return isExists;
 	}
+	
+	@Override
+	 public List<Coupon> getCouponData() {
+	  List<Coupon> couponList = new ArrayList<Coupon>();
+	  List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_COUPON_VALUES);
+	  if(mapList.size()>0){
+	   for(Map<String,Object> map : mapList){
+	    couponList.add(retrieveCoupon(map));
+	   }
+	   return couponList;
+	  }else{
+	  
+	  return null;
+	  }
+	 }
 }

@@ -1,0 +1,4 @@
+var data= {"photos":
+[{"photo_url":"mkyong.com","photo_title":"mkyong.com","photo_file_url":"http:\/\/localhost:8088\/event\/image\/get\/14","messages":["msg 1","msg 2","msg 3"]},
+{"photo_url":"mkyong.com","photo_title":"mkyong.com","longitude": -64.404945, "latitude": -35.202924,"photo_file_url":"http:\/\/localhost:8088\/event\/image\/get\/14","messages":["msg 1","msg 2","msg 3"]},{"photo_url":"mkyong.com","photo_title":"mkyong.com","longitude": 87.470493, "latitude": 47.867077,"photo_file_url":"mkyong.com","messages":["msg 1","msg 2","msg 3"]},
+{"photo_url":"mkyong.com","photo_title":"mkyong.com","longitude": 77.470493, "latitude": 47.867077,"photo_file_url":"mkyong.com","messages":["msg 1","msg 2","msg 3"]},{"photo_url":"mkyong.com","photo_title":"mkyong.com","longitude": 67.470493, "latitude": 54.867077,"photo_file_url":"mkyong.com","messages":["msg 1","msg 2","msg 3"]}]}

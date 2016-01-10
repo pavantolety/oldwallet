@@ -18,8 +18,25 @@ public class Coupon {
 	
 	private int availableRedemptions;
 	
+	private int completedRedemptions;
 	
+	private String validFrom;
 	
+	private String validTo;
+	
+	private String redeemedDate;
+	
+	 private String location;
+	 
+	 private String validityPeriod;	
+
+	public int getCompletedRedemptions() {
+		return completedRedemptions;
+	}
+
+	public void setCompletedRedemptions(int completedRedemptions) {
+		this.completedRedemptions = completedRedemptions;
+	}
 
 	public String getRedeemedBy() {
 		return redeemedBy;
@@ -83,5 +100,45 @@ public class Coupon {
 
 	public void setEventId(long eventId) {
 		this.eventId = eventId;
+	}
+
+	public String getRedeemedDate() {
+		return redeemedDate;
+	}
+
+	public void setRedeemedDate(String redeemedDate) {
+		this.redeemedDate = redeemedDate;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getValidityPeriod() {
+		return validityPeriod;
+	}
+
+	public void setValidityPeriod(String validityPeriod) {
+		this.validityPeriod = validityPeriod;
+	}
+
+	public String getValidFrom() {
+		return validFrom;
+	}
+
+	public void setValidFrom(String validFrom) {
+		this.validFrom = validFrom;
+	}
+
+	public String getValidTo() {
+		return validTo;
+	}
+
+	public void setValidTo(String validTo) {
+		this.validTo = validTo;
 	}
 }

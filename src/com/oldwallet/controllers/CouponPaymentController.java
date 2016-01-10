@@ -60,7 +60,7 @@ public class CouponPaymentController {
 			Coupon validCoupon = couponDAO.getCouponByCode(coupon.getCouponCode());
 
 			if(validCoupon!=null) {
-				if(validCoupon.getAvailableRedemptions() !=0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+				if(validCoupon.getAvailableRedemptions() >0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
 				//User entered a valid coupon.
 				log.debug("Coupon VALID :::");
 				modelMap.put("coupon", validCoupon);
@@ -99,7 +99,7 @@ public class CouponPaymentController {
 		if(couponCode!= null && couponCode!= "" && couponCode.length()>4) {
 			Coupon validCoupon = couponDAO.getCouponByCode(couponCode);
 			if(validCoupon!=null) {
-				if(validCoupon.getAvailableRedemptions() !=0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+				if(validCoupon.getAvailableRedemptions() >0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
 					//User entered a valid coupon.
 					System.out.println("Coupon VALID :::");
 					modelMap.put("coupon", validCoupon);
@@ -141,7 +141,7 @@ public class CouponPaymentController {
 		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment.getCouponCode());
 
 		if(validCoupon!=null) {
-		if(validCoupon.getAvailableRedemptions() !=0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+		if(validCoupon.getCompletedRedemptions()<validCoupon.getAvailableRedemptions() && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
 		if(transactionDetails==null){
 
 		MassPayReq req = new MassPayReq();
@@ -202,39 +202,34 @@ public class CouponPaymentController {
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
 					transaction2.setStatus("COMPLETE");
 					System.out.println("email is "+transaction2.getUserEmail() );
-					transaction2.setRedeemedLocation(couponPayment.getRedeemedLocation());
-					transaction2.setRedeemedLocationCode(couponPayment.getRedeemedLocationCode());
+					transaction2.setLatitude(couponPayment.getLatitude());
+					transaction2.setLongitude(couponPayment.getLongitude());
 					
 					Coupon coupon =  couponDAO.getCouponByCode(transaction2.getCouponCode());
 					
 					if(coupon!=null){
 						
 							if(coupon.getRedeemedBy()==null){
-								transaction2.setAvailableRedemptions(coupon.getAvailableRedemptions());
+								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
 								boolean isUpdated = transactionDAO.UpdateTransaction(transaction2);
 							}else{
-								transaction2.setAvailableRedemptions(coupon.getAvailableRedemptions());
+								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
 								boolean isUpdated = transactionDAO.UpdateRedeemedTrasaction(transaction2);
 							}
 					
 					}
-				    if(validCoupon.getAvailableRedemptions() == 1){
-				    	
+				    if(validCoupon.getAvailableRedemptions()-1 == validCoupon.getCompletedRedemptions()){
+				    	boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
 						Transaction transaction3 = transactionDAO.getTransactionDetailsByEmail(validCoupon.getRedeemedBy());
-						long referedAmount = NumberUtils.toLong(validCoupon.getCouponValue())
-								+NumberUtils.toLong(transaction3.getCouponValue());
+						long referedAmount = NumberUtils.toLong(validCoupon.getCouponValue())+NumberUtils.toLong(transaction3.getCouponValue());
 						transaction3.setCouponValue(referedAmount+"");
 						boolean updateRef = transactionDAO.updateTransactionByEmail(transaction3);
 						CouponPayment cp =  new CouponPayment();
 						cp.setEmailAddress(transaction3.getUserEmail());
 						cp.setCurrencyCode("USD");
-						cp.setAmount(transaction3.getCouponValue());
+						cp.setAmount(validCoupon.getCouponValue());
 						boolean isSuccess = sendSuperUserPayment(cp);
-						if(isSuccess){
-							boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode(),"REDEEMED");
-							System.out.println("IS-SUCCESS"+isSuccess);
-						}
-						
+						System.out.println("IS-SUCCESS"+isSuccess);
 				    }
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 					//smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
@@ -273,11 +268,7 @@ public class CouponPaymentController {
 		log.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
 		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress());
 		boolean isSent = false;
-		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment.getCouponCode());
 
-		if(validCoupon!=null) {
-		if(validCoupon.getAvailableRedemptions() !=0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
-		if(transactionDetails==null){
 
 		MassPayReq req = new MassPayReq();
 
@@ -350,10 +341,8 @@ public class CouponPaymentController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return isSent;
-		}
-		}
-		}
+
+
 		return isSent;
 	}
 }

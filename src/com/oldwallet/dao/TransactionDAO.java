@@ -14,8 +14,6 @@ public interface TransactionDAO {
 	
 	public boolean updateCoupon(String couponCode);
 	
-	public boolean updateCoupon(String couponCode, String couponStatus);
-	
 	public boolean UpdateRedeemedTrasaction(Transaction transaction);
 
 	public Transaction getTransactionDetailsById(String transId);
@@ -30,6 +28,7 @@ public interface TransactionDAO {
 	
 	public List<MonthlyCouponsCount> getExpiredMonthlyCouponsCount();
 
-	public boolean updateTransactionByEmail(Transaction transaction);	
+	public boolean updateTransactionByEmail(Transaction transaction);
 	
+	public List<Transaction> getRedeemedCouponData();
 }

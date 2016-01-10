@@ -15,11 +15,32 @@ public class Transaction {
 	private String userEmail;
 	private String userMobile;
 	private String status;
-    private String redeemedLocation;
-    private String redeemedLocationCode;
+    private String latitude;
+    private String longitude;
     private int availableRedemptions;
+    private long couponCount;
+    private int completedRedemptions;
     
     
+    
+    
+    
+	public int getCompletedRedemptions() {
+		return completedRedemptions;
+	}
+
+	public void setCompletedRedemptions(int completedRedemptions) {
+		this.completedRedemptions = completedRedemptions;
+	}
+
+	public long getCouponCount() {
+		return couponCount;
+	}
+
+	public void setCouponCount(long couponCount) {
+		this.couponCount = couponCount;
+	}
+
 	public int getAvailableRedemptions() {
 		return availableRedemptions;
 	}
@@ -28,20 +49,22 @@ public class Transaction {
 		this.availableRedemptions = availableRedemptions;
 	}
 
-	public String getRedeemedLocation() {
-		return redeemedLocation;
+
+
+	public String getLatitude() {
+		return latitude;
 	}
 
-	public void setRedeemedLocation(String redeemedLocation) {
-		this.redeemedLocation = redeemedLocation;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
-	public String getRedeemedLocationCode() {
-		return redeemedLocationCode;
+	public String getLongitude() {
+		return longitude;
 	}
 
-	public void setRedeemedLocationCode(String redeemedLocationCode) {
-		this.redeemedLocationCode = redeemedLocationCode;
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getId() {
