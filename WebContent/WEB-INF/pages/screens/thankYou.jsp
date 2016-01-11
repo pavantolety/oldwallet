@@ -215,7 +215,7 @@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                             <br/>
                                                 <button onclick="redeemAmount()" id="sendPayment" class="btn btn-success hvr-grow">Redeem Amount</button>
-                                            </div>											
+                                            </div>	
                                         
                            
 											</div>
