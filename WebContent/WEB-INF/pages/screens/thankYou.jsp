@@ -338,7 +338,10 @@
 						}else if(data.action == "error"){
 							$('#errorMessage').empty();
 							$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
-						}else if(data.action == "success"){
+						}else if(data.action == "success" && data.refferedUser=="false"){
+							var url = "https://localhost:8089/redeemedKey?redeemKey="+data.redeemKey;
+							var liveUrlFB = "https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com/redeemedKey?redeemKey="+data.redeemKey;
+							var liveUrlTwt = "http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com/redeemedKey?redeemKey="+data.redeemKey;
 							$('#thankYouDiv').empty();
 		$('<div class="right_col" role="main">\
            <div class="page-title">\
@@ -366,8 +369,8 @@
 																<div class="col-xs-12 form-group top_search">\
 																	<div class="form-group">\
 																		<h5>Get money for sharing this on your social media </h5><br>\
-																		<a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>&nbsp;&nbsp;\
-										<span><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>\
+																		<a class="fb-share-button" id="shareFB" data-href="" data-layout="button"></a>&nbsp;&nbsp;\
+										<span><a href="https://twitter.com/share" class="twitter-share-button" id="shareTwt" data-url="" data-text="Please use my link." data-size="small">Tweet</a></span>\
 										</div>\
 																</div>\
 															</form>\
@@ -376,6 +379,8 @@
 			                            </div>\
 			                        </div>\
 			                    </div>').appendTo("#thankYouDiv");
+		$("#shareFB").attr("data-href",liveUrlFB);
+		$("#shareTwt").attr("data-href",liveUrlTwt);
 					
 		$.ajaxSetup({ cache: true });
 		  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
@@ -416,6 +421,33 @@
 	  });
 	});
 	
+						}else if(data.action == "success" && data.refferedUser=="true"){
+							$('#thankYouDiv').empty();
+							$('<div class="right_col" role="main">\
+					           <div class="page-title">\
+					            <div class="title_left">\
+								<h3><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" ></a></h3>\
+								                        </div>\
+								                        <div class="title_right">\
+								                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">\
+								                            </div>\
+								                        </div>\
+								                    </div>\
+								                    <div class="clearfix"></div>\
+								                    <div class="row">\
+								                    <div class="col-md-2 col-sm-2 col-xs-2">\
+								                    </div>\
+								                        <div class="col-md-8 col-sm-8 col-xs-8">\
+								                            <div class="x_panel">\
+																	<div class="col-middle">\
+																		<div class="text-center">\
+					<h3>You have successfully redeemed your coupon amount to your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.!</h3>\
+																		</div>\
+																	</div>\
+																</div>\
+								                            </div>\
+								                        </div>\
+								                    </div>').appendTo("#thankYouDiv");
 						}else if(data.action == "defaultError"){
 							$('#errorMessage').empty();
 							$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');

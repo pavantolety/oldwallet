@@ -29,6 +29,18 @@ public class Coupon {
 	 private String location;
 	 
 	 private String validityPeriod;	
+	 
+	 private String redeemKey;
+	 
+	 
+
+	public String getRedeemKey() {
+		return redeemKey;
+	}
+
+	public void setRedeemKey(String redeemKey) {
+		this.redeemKey = redeemKey;
+	}
 
 	public int getCompletedRedemptions() {
 		return completedRedemptions;

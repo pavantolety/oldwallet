@@ -2,6 +2,7 @@ package com.oldwallet.dao;
 
 import java.util.List;
 
+import com.oldwallet.model.Coupon;
 import com.oldwallet.model.MonthlyRedeemCouponsCount;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.model.MonthlyCouponsCount;
@@ -18,7 +19,7 @@ public interface TransactionDAO {
 
 	public Transaction getTransactionDetailsById(String transId);
 	
-	public Transaction getTransactionDetailsByEmail(String email);
+	public Transaction getTransactionDetailsByEmail(String email,long eventId);
 	
 	public List<MonthlyRedeemCouponsCount> getRedeemedCouponsCountByMonth();
 	
@@ -31,4 +32,6 @@ public interface TransactionDAO {
 	public boolean updateTransactionByEmail(Transaction transaction);
 	
 	public List<Transaction> getRedeemedCouponData();
+	
+	public boolean  createRedeemKey(Coupon coupon);
 }

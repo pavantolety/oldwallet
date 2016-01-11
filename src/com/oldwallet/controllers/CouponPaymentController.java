@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,6 +33,8 @@ import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponPayment;
 import com.oldwallet.model.Transaction;
+import com.oldwallet.model.UserToken;
+import com.oldwallet.util.AuthenticationUtils;
 import com.oldwallet.util.paypal.Configuration;
 
 @Controller
@@ -91,7 +94,46 @@ public class CouponPaymentController {
 		}
 		
 	}
-	
+	@RequestMapping(value = "/redeemedKey" , method = RequestMethod.GET)
+	public String getCouponValidation(ModelMap  modelMap ,Coupon coupon,HttpServletRequest request){
+		System.out.println("Beginnig of ValidCoupon Response ::");
+		String returnURI = "/index";
+	        UserToken userToken = couponDAO.getRedeemKey(coupon.getRedeemKey());
+	        if(userToken!=null){
+			Coupon validCoupon = couponDAO.getCouponByCode(userToken.getCouponCode());
+			if(validCoupon!=null) {
+				if(validCoupon.getAvailableRedemptions() >0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+					//User entered a valid coupon.
+					System.out.println("Coupon VALID :::");
+					modelMap.put("coupon", validCoupon);
+					modelMap.put("action", "valid");
+					modelMap.put("message", "You have entered a valid coupon.!");
+					return  PageView.THANKYOU;
+					}else{
+						modelMap.put("action", "expired");
+						modelMap.put("message", "Coupon Code Expired or Event Closed.!");
+						
+					}
+				
+				System.out.println("Coupon is Valid ::");
+				
+				
+				modelMap.put("coupon", validCoupon);
+				modelMap.put("action", "success");
+				modelMap.put("message", "Valid Coupon");
+			} else {
+				//user entered expired coupon.
+			
+				modelMap.put("action", "error");
+				modelMap.put("message", "Invalid Coupon");
+			}
+	        }else{
+	        	modelMap.put("action", "error");
+				modelMap.put("message", "Invalid Coupon");
+	        }
+		
+		return  PageView.THANKYOU;
+	}
 	@RequestMapping(value="/valid", method={RequestMethod.POST,RequestMethod.GET})
 	public String validCouponResponse(ModelMap modelMap, Coupon coupon,HttpServletRequest request) {
 		System.out.println("Beginnig of ValidCoupon Response ::");
@@ -140,7 +182,7 @@ public class CouponPaymentController {
 	public void sendMassPayment(ModelMap modelMap, CouponPayment couponPayment, HttpSession session) {
 		
 		log.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
-		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress());
+		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress(),NumberUtils.toLong(couponPayment.getEventId()));
 		
 		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment.getCouponCode());
 
@@ -216,15 +258,25 @@ public class CouponPaymentController {
 							if(coupon.getRedeemedBy()==null){
 								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
 								boolean isUpdated = transactionDAO.UpdateTransaction(transaction2);
+								String redeemKey  = AuthenticationUtils.generateTokenForAuthentication();
+								coupon.setRedeemedBy(transaction2.getUserEmail());
+								coupon.setCouponCode(transaction2.getCouponCode());
+								coupon.setRedeemKey(redeemKey);
+								boolean isCreated = transactionDAO.createRedeemKey(coupon);
+								    if(isCreated){
+								    	modelMap.put("redeemKey", redeemKey);
+								    }
+								    modelMap.put("refferedUser", "false");
 							}else{
 								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
 								boolean isUpdated = transactionDAO.UpdateRedeemedTrasaction(transaction2);
+								modelMap.put("refferedUser", "true");
 							}
 					
 					}
 				    if(validCoupon.getAvailableRedemptions()-1 == validCoupon.getCompletedRedemptions()){
 				    	boolean isUpdated = transactionDAO.updateCoupon(validCoupon.getCouponCode());
-						Transaction transaction3 = transactionDAO.getTransactionDetailsByEmail(validCoupon.getRedeemedBy());
+						Transaction transaction3 = transactionDAO.getTransactionDetailsByEmail(validCoupon.getRedeemedBy(),validCoupon.getEventId());
 						long referedAmount = NumberUtils.toLong(validCoupon.getCouponValue())+NumberUtils.toLong(transaction3.getCouponValue());
 						transaction3.setCouponValue(referedAmount+"");
 						boolean updateRef = transactionDAO.updateTransactionByEmail(transaction3);
@@ -237,6 +289,7 @@ public class CouponPaymentController {
 						cp.setAmount(validCoupon.getCouponValue());
 						boolean isSuccess = sendSuperUserPayment(cp);
 						System.out.println("IS-SUCCESS"+isSuccess);
+						
 				    }
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 					//smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
@@ -261,7 +314,7 @@ public class CouponPaymentController {
 		}
 		}else{
 			modelMap.put("action", "already");
-			modelMap.put("message", "Coupon is Expired!");			
+			modelMap.put("message", "Email is already Used for this coupon!");			
 			}
 		}
 		}else{
@@ -275,7 +328,7 @@ public class CouponPaymentController {
 	public boolean sendSuperUserPayment( CouponPayment couponPayment) {
 		
 		log.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
-		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress());
+		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress(),NumberUtils.toLong(couponPayment.getEventId()));
 		boolean isSent = false;
 
 		System.out.println("trans//////////"+transactionDetails.getEventId());

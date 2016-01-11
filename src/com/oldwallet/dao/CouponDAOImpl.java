@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.Coupon;
+import com.oldwallet.model.UserToken;
 
 @Repository
 public class CouponDAOImpl implements CouponDAO{
@@ -23,6 +24,8 @@ public class CouponDAOImpl implements CouponDAO{
 	public static final String IS_COUPON_EXISTS = "SELECT * FROM COUPONS WHERE COUPON_CODE = ?";
 	
 	public static final String GET_COUPON_VALUES = "SELECT * FROM COUPONS";
+	
+	public static final String  GET_USER_TOKEN_VALUES = "SELECT * FROM USER_TOKENS WHERE TOKEN =?";
 	
 	private JdbcTemplate jdbcTemplate;
 	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
@@ -133,4 +136,43 @@ public class CouponDAOImpl implements CouponDAO{
 	  return null;
 	  }
 	 }
+
+	@Override
+	public UserToken getRedeemKey(String redeemKey) {
+		List<UserToken> userToken =  new ArrayList<UserToken>();
+		List<Map<String,Object>> mapList = jdbcTemplate.queryForList(GET_USER_TOKEN_VALUES,redeemKey);
+		if(mapList.size()>0){
+			for(Map<String,Object> map : mapList){
+				userToken.add(retriveUserToken(map));
+					
+				}
+			
+			return userToken.get(0);
+			
+		}
+			return null;
+		
+		}
+	
+
+private UserToken retriveUserToken(Map<String, Object> map) {
+		
+		UserToken userToken = new UserToken();
+		
+		if(map.get("REQUEST_ID")!=null){
+			userToken.setRequestId(Long.parseLong(map.get("REQUEST_ID").toString()));
+		}
+		if(map.get("TOKEN")!=null){
+			userToken.setToken(map.get("TOKEN").toString());
+			}
+		if(map.get("COUPON_CODE")!=null){
+			userToken.setCouponCode(map.get("COUPON_CODE").toString());
+		}
+		if(map.get("USER_EMAIL")!=null) {
+			userToken.setUserEmail(map.get("USER_EMAIL").toString());
+		}	
+	
+		return userToken;
+	}
+
 }
