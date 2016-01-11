@@ -52,7 +52,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/index" class="site_title"> <span>Campaign Manager</span></a>
+                        <a href="/adminHome" class="site_title"> <span>Campaign Manager</span></a>
                     </div>
                     <div class="clearfix"></div>
 
@@ -149,13 +149,6 @@
                         <div class="col-md-3 col-sm-3 col-xs-6 tile">
                             <span>Total Coupons</span>
                             <h2>15,233</h2>
-                            <span class="sparkline_one" style="height: 160px;">
-                    <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                </span>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6 tile">
-                            <span>Coupon Amount</span>
-                            <h2>$ 4</h2>
                             <span class="sparkline_one" style="height: 160px;">
                     <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                 </span>
@@ -267,16 +260,128 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="dashboard_graph x_panel">
-                                <div class="row x_title">
-                                    <div class="col-md-6">
-                                        <h3>Coupon Redemptions</h3>
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Transaction Summary <small>Weekly progress</small></h2>
+                                    <div class="filter">
+                                        <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                            <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+                                        </div>
                                     </div>
+                                    <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <div class="demo-container" style="height:250px">
-                                        <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height: 250px; padding: 0px; position: relative;"><canvas class="flot-base" width="1047" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1047px; height: 250px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 15px; text-align: center;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 143px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 270px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 398px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 526px; text-align: center;">8</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 650px; text-align: center;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 778px; text-align: center;">12</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 905px; text-align: center;">14</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 116px; top: 233px; left: 1033px; text-align: center;">16</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 220px; left: 7px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 193px; left: 7px; text-align: right;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 165px; left: 1px; text-align: right;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 138px; left: 1px; text-align: right;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 110px; left: 1px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 83px; left: 1px; text-align: right;">25</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 55px; left: 1px; text-align: right;">30</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 28px; left: 1px; text-align: right;">35</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 0px; left: 1px; text-align: right;">40</div></div></div><canvas class="flot-overlay" width="1047" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1047px; height: 250px;"></canvas><div class="legend"><div style="position: absolute; width: 80px; height: 16px; top: 17px; right: 13px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:17px;right:13px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(38,185,154);overflow:hidden"></div></div></td><td class="legendLabel">Registrations</td></tr></tbody></table></div></div>
+                                    <div class="col-md-9 col-sm-12 col-xs-12">
+                                        <div class="demo-container" style="height:280px">
+                                            <div id="placeholder33x" class="demo-placeholder"></div>
+                                        </div>
+                                        <div class="tiles">
+                                            <div class="col-md-4 tile">
+                                                <span>Total Sessions</span>
+                                                <h2>231,809</h2>
+                                                <span class="sparkline11 graph" style="height: 160px;">
+                                        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                                    </span>
+                                            </div>
+                                            <div class="col-md-4 tile">
+                                                <span>Total Revenue</span>
+                                                <h2>$231,809</h2>
+                                                <span class="sparkline22 graph" style="height: 160px;">
+                                        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                                    </span>
+                                            </div>
+                                            <div class="col-md-4 tile">
+                                                <span>Total Sessions</span>
+                                                <h2>231,809</h2>
+                                                <span class="sparkline11 graph" style="height: 160px;">
+                                        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                                    </span>
+                                            </div>
+                                        </div>
+
                                     </div>
+
+                                    <div class="col-md-3 col-sm-12 col-xs-12">
+                                            <div class="x_title">
+                                                <h2>Top Redemptions</h2>
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li><a href="#"><i class="fa fa-chevron-up"></i></a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#">Settings 1</a>
+                                                            </li>
+                                                            <li><a href="#">Settings 2</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#"><i class="fa fa-close"></i></a>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <ul class="list-unstyled top_profiles scroll-view">
+                                                <li class="media event">
+                                                    <a class="pull-left border-aero profile_thumb">
+                                                        <i class="fa fa-user aero"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <a class="title" href="#">Ms. Mary Jane</a>
+                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                                                        <p> <small>12 Sales Today</small>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="media event">
+                                                    <a class="pull-left border-green profile_thumb">
+                                                        <i class="fa fa-user green"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <a class="title" href="#">Ms. Mary Jane</a>
+                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                                                        <p> <small>12 Sales Today</small>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="media event">
+                                                    <a class="pull-left border-blue profile_thumb">
+                                                        <i class="fa fa-user blue"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <a class="title" href="#">Ms. Mary Jane</a>
+                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                                                        <p> <small>12 Sales Today</small>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="media event">
+                                                    <a class="pull-left border-aero profile_thumb">
+                                                        <i class="fa fa-user aero"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <a class="title" href="#">Ms. Mary Jane</a>
+                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                                                        <p> <small>12 Sales Today</small>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="media event">
+                                                    <a class="pull-left border-green profile_thumb">
+                                                        <i class="fa fa-user green"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <a class="title" href="#">Ms. Mary Jane</a>
+                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                                                        <p> <small>12 Sales Today</small>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -318,7 +423,7 @@
     <!-- echart -->
     <script src="js/echart/echarts-all.js"></script>
     <script src="js/echart/green.js"></script>
-     <!-- flot js -->
+         <!-- flot js -->
     <!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
     <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
     <script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
@@ -680,7 +785,7 @@
     
 
     </script>
-     <!-- flot -->
+    <!-- flot -->
     <script type="text/javascript">
         //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
         var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
@@ -784,10 +889,9 @@
         });
     </script>
     <!-- /flot -->
-    <!--  -->
     <script>
         $('document').ready(function () {
-            $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
+            $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
                 type: 'bar',
                 height: '125',
                 barWidth: 13,

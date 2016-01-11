@@ -40,7 +40,7 @@
 </head>
 
 <body style="background:#F7F7F7;background-image: url(/images/bg.jpg)">       
-  <h3><a href="/index"><img src="images/logo.png" alt="Smiley face" style="width:5%;"></a></h3>
+  <h3><a href="/adminHome"><img src="images/logo.png" alt="Smiley face" style="width:5%;"></a></h3>
         <div id="wrapper">
       
         <div class="panel panel-default panel-body">            

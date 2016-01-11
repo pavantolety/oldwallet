@@ -129,7 +129,7 @@
 												<br/>
                                             	<div id="errorMessage"></div>                                            	
                                             												
-												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
+												<input type="checkbox" name="terms" id="terms" checked> Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             	
                                             </div>
                                         </div>
