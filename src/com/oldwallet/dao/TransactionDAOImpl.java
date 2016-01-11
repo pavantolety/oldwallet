@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.oldwallet.enums.CouponStatus;
+import com.oldwallet.model.Coupon;
 import com.oldwallet.model.MonthlyCouponsCount;
 import com.oldwallet.model.MonthlyRedeemCouponsCount;
 import com.oldwallet.model.Transaction;
@@ -38,10 +39,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public static final  String UPDATE_COUPON = "UPDATE COUPONS SET REDEEMED_BY=?,COMPLETED_REDEMPTIONS=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
 	public static final  String UPDATE_REFERRAL_COUPON = "UPDATE COUPONS SET COMPLETED_REDEMPTIONS=? WHERE COUPON_CODE=?";
 	public static final  String UPDATE_COUPON_DATA = "UPDATE COUPONS SET REDEEM_STATUS=? WHERE COUPON_CODE=?";
-	private static final String GET_TRANSACTION_BY_EMAIL = "SELECT TRANSACTION_ID, EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE,LATITUDE,LONGITUDE,  TRANSACTION_CODE, TRANSACTION_CREATION, TRANSACTION_UPDATION, STATUS FROM TRANSACTION WHERE USER_EMAIL=?";
+	private static final String GET_TRANSACTION_BY_EMAIL = "SELECT TRANSACTION_ID, EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE,LATITUDE,LONGITUDE,  TRANSACTION_CODE, TRANSACTION_CREATION, TRANSACTION_UPDATION, STATUS FROM TRANSACTION WHERE USER_EMAIL=? AND EVENT_ID=?";
 	private static final String UPDATE_TRANSACTION_BY_EMAIL = "UPDATE TRANSACTION SET COUPON_VALUE=?  WHERE USER_EMAIL=?";
 	private static final String  GET_REDEEMED_COUPON_DATA = "SELECT  COUNT(DISTINCT COUPON_CODE) AS COUPON_COUNT, LATITUDE, LONGITUDE FROM TRANSACTION GROUP BY LONGITUDE,LATITUDE";
-	
+	private static final String CREATE_USER_TOKEN_FOR_SHARE = "INSERT INTO USER_TOKENS (TOKEN , COUPON_CODE, USER_EMAIL, DATE_CREATED) VALUES(?,?,?,NOW())";
 	@Override
 	public boolean initTransaction(Transaction transaction) {
 		boolean isInserted = false;
@@ -117,10 +118,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 	}
 	@Override
-	public Transaction getTransactionDetailsByEmail(String email) {
+	public Transaction getTransactionDetailsByEmail(String email,long eventId) {
 		
 		List<Transaction> transactions = new ArrayList<Transaction>();
-		List<Map<String, Object>> transactionMap = jdbcTemplate.queryForList(GET_TRANSACTION_BY_EMAIL,email);
+		List<Map<String, Object>> transactionMap = jdbcTemplate.queryForList(GET_TRANSACTION_BY_EMAIL,email,eventId);
 		if(transactionMap.size()>0){
 			log.debug("There is transaction ::: ");
 		for (Map<String, Object> map : transactionMap) {
@@ -276,6 +277,16 @@ public class TransactionDAOImpl implements TransactionDAO {
 			log.debug("NO valid coupons available ::: ");
 			return null;
 		}
+	}
+
+	@Override
+	public boolean createRedeemKey(Coupon coupon) {
+		boolean isCreated =  false;
+		         int i  = jdbcTemplate.update(CREATE_USER_TOKEN_FOR_SHARE,coupon.getRedeemKey(),coupon.getCouponCode(),coupon.getRedeemedBy());
+		if(i>0){
+			isCreated = true;
+		}
+		return isCreated;
 	}
 
 
