@@ -217,4 +217,8 @@ public class OldwalletController {
 		return returnPage;
 	}
 	
+	@RequestMapping(value={"/emailError"}, method=RequestMethod.GET)
+	public String emailError(ModelMap modelMap) {
+		return "emailError";
+	}
 }

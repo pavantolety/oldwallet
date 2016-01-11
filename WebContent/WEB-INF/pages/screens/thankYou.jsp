@@ -156,7 +156,7 @@
             <!-- /top navigation -->
 
             <!-- page content -->
-            <div class="right_col" role="main">
+            <div class="right_col" role="main" id="thankYouDiv">
 
                     <div class="page-title">
                         <div class="title_left">
@@ -164,7 +164,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="row">
+                    <div class="row" >
                     <div class="col-md-2 col-sm-2 col-xs-2">
                     </div>
                         <div class="col-md-8 col-sm-8 col-xs-8">
@@ -172,16 +172,20 @@
                                 <!-- page content -->								
 									<div class="col-middle">
 										<div class="text-center">
+										
 											<h4>Congratulations...!</h4>
 											<h4>You can redeem $<c:out value="${coupon.couponValue}"/> using your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.</h4>
 											
-											<div class="text-center">
 												<h4>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h4>
-											<form name="redeemForm" id="redeemForm" action="/getCouponAmount" data-parsley-validate class="form-horizontal form-label-left" method="post">
-										<div class="col-md-3 col-sm-3 col-xs-12">
-										</div>
-                                        <div class="form-group">
+																				
+										
+											<div id="errorMessage"></div>
+										
+										
+                                        <div class="col-md-12 col-sm-12 col-xs-12" >
+                                        	<div class="col-md-3 col-sm-3 col-xs-6"></div>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <br/>
                                             <label class="control-label pull-left">Email:<span class="required">*</span></label>
                                                 <input type="email" id="emailAddress" name="emailAddress" required="required" class="form-control col-md-7 col-xs-12">
                                                <input type="hidden" id="latitude" name="latitude">
@@ -193,10 +197,9 @@
                                                 <input type="hidden" id="currencyCode" name="currencyCode" value="USD" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-12">
-										</div>
-                                        <div class="form-group">
-                                            <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile :<span class="required">*</span>                            </label> -->
+                                       
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                           <div class="col-md-3 col-sm-3 col-xs-6"></div>                  
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             <label class="control-label pull-left">Mobile :<span class="required">*</span>                            </label>
                                                 <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12" data-parsley-minlength="6"  data-parsley-maxlength="15" parsley-pattern-message="Please enter a valid mobile phone number." placeholder="Add Number with Country Code" pattern="^[{+}][0-9]{10,15}$"/>	
@@ -204,17 +207,19 @@
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>
-                                        <div class="form-group">
-                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                <button type="submit" id="sendPayment" class="btn btn-success hvr-grow">Redeem Amount</button>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">  
+                                         <div class="col-md-5 col-sm-5 col-xs-6"></div>                                             
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <br/>
+                                                <button onclick="redeemAmount()" id="sendPayment" class="btn btn-success hvr-grow">Redeem Amount</button>
                                             </div>											
                                         </div>
-                                    </form>
+                           
 											</div>
 											
 										</div>
 									</div>
-								</div>
+								
 								<!-- /page content -->
                             </div>
                         </div>
@@ -283,7 +288,153 @@
 					  }
 					} );
 			});
+			
+			function redeemAmount() {
+				
+			var	emailAddress 	= $("#emailAddress").val();
+			var	mobile 			= $("#mobile").val();
+			
+				 
+		    if (!(emailAddress.indexOf('@') > 0)) {
+		    	$('#errorMessage').empty();
+				$('#errorMessage').append('<b style="color:red;">Please give valid email address</b>');	
+				displayForAWhile();
+		    }else{
+		        	var	latitude		= $("#latitude").val();
+		 			var	longitude 		= $("#longitude").val();
+		 			var	amount			= $("#amount").val();
+		 			var	couponCode 		= $("#couponCode").val();
+		 			var	couponId 		= $("#couponId").val();
+		 			var	eventId 		= $("#eventId").val();
+		 			var	currencyCode 	= $("#currencyCode").val();
+		 				
+		      
+		        
+				
+				var data ={
+						emailAddress: 	emailAddress,
+						mobile		: 	mobile,
+						latitude 	:	latitude,
+						longitude	:	longitude,
+						amount		:	amount,
+						couponCode	:	couponCode,
+						couponId	:	couponId,
+						eventId		:	eventId,
+						currencyCode:	currencyCode
+						}
+				
+				$.ajax({
+					type:'POST',
+					url:'/getCouponAmount.json',
+					data:data,
+					success:function(data) {						
+						if(data.action == "already"){							
+							$('#errorMessage').empty();
+							$('#errorMessage').append('<b style="color:orange;">'+data.message+'</b>');
+						
+						}else if(data.action == "error"){
+							$('#errorMessage').empty();
+							$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
+						}else if(data.action == "success"){
+							$('#thankYouDiv').empty();
+		$('<div class="right_col" role="main">\
+           <div class="page-title">\
+            <div class="title_left">\
+			<h3><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" ></a></h3>\
+			                        </div>\
+			                        <div class="title_right">\
+			                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">\
+			                            </div>\
+			                        </div>\
+			                    </div>\
+			                    <div class="clearfix"></div>\
+			                    <div class="row">\
+			                    <div class="col-md-2 col-sm-2 col-xs-2">\
+			                    </div>\
+			                        <div class="col-md-8 col-sm-8 col-xs-8">\
+			                            <div class="x_panel">\
+												<div class="col-middle">\
+													<div class="text-center">\
+<h3>You have successfully redeemed your coupon amount to your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.!</h3>\
+													</div>\
+												</div>\
+												<div class="text-center">\
+															<form>\
+																<div class="col-xs-12 form-group top_search">\
+																	<div class="form-group">\
+																		<h5>Get money for sharing this on your social media </h5><br>\
+																		<a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>&nbsp;&nbsp;\
+										<span><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>\
+										</div>\
+																</div>\
+															</form>\
+														</div>\
+											</div>\
+			                            </div>\
+			                        </div>\
+			                    </div>').appendTo("#thankYouDiv");
+					
+		$.ajaxSetup({ cache: true });
+		  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+			FB.init({
+			  appId: '{530726687101469}',
+			  version: 'v2.5' // or v2.0, v2.1, v2.2, v2.3
+			});     
+			$('#loginbutton,#feedbutton').removeAttr('disabled');
+			//FB.getLoginStatus(updateStatusCallback);
+		  });
+
+	(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=530726687101469";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	(function(d,s,id){
+	var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+		if(!d.getElementById(id)){js=d.createElement(s);
+	js.id=id;
+	js.src=p+'://platform.twitter.com/widgets.js';
+	fjs.parentNode.insertBefore(js,fjs);
+	}
+	}
+	(document, 'script', 'twitter-wjs'))
+	;
+
+	paypal.use( ["login"], function(login) {
+	  login.render ({
+		"appid": "AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO_-MCI4DQQ4-LWvkDLIN2fGsd",
+		"authend": "sandbox",
+		"scopes": "profile email address phone https://uri.paypal.com/services/paypalattributes",
+		"containerid": "myContainer",
+		"locale": "en-us",
+		"returnurl": "https://devtools-paypal.com"
+	  });
+	});
+	
+						}else if(data.action == "defaultError"){
+							$('#errorMessage').empty();
+							$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
+						}
+						
+					},error: function(data){
+						$('#errorMessage').empty();
+						$('#errorMessage').append('<b style="color:red;">Something went wrong!....</b>');
+					}
+				});
+			}
+			 }
+			
+			function displayForAWhile(){
+				$("#errorMessage").hide().slideDown();
+				  setTimeout(function(){
+				      $("#errorMessage").hide();        
+				  }, 3000);
+			}
+			
 		 </script>
+		  
 </body>
 
 </html>

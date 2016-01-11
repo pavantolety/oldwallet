@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.math.NumberUtils;
@@ -91,8 +92,8 @@ public class CouponPaymentController {
 		
 	}
 	
-	@RequestMapping(value="/valid", method=RequestMethod.POST)
-	public String validCouponResponse(ModelMap modelMap, Coupon coupon) {
+	@RequestMapping(value="/valid", method={RequestMethod.POST,RequestMethod.GET})
+	public String validCouponResponse(ModelMap modelMap, Coupon coupon,HttpServletRequest request) {
 		System.out.println("Beginnig of ValidCoupon Response ::");
 		String returnURI = "/index";
 		String couponCode = coupon.getCouponCode();
@@ -105,11 +106,11 @@ public class CouponPaymentController {
 					modelMap.put("coupon", validCoupon);
 					modelMap.put("action", "valid");
 					modelMap.put("message", "You have entered a valid coupon.!");
-					returnURI = PageView.THANKYOU;
+					return  PageView.THANKYOU;
 					}else{
 						modelMap.put("action", "expired");
 						modelMap.put("message", "Coupon Code Expired or Event Closed.!");
-						returnURI =  "error";
+						
 					}
 				
 				System.out.println("Coupon is Valid ::");
@@ -128,16 +129,19 @@ public class CouponPaymentController {
 			modelMap.put("action", "error");
 			modelMap.put("message", "Invalid coupon");
 		}		
-		System.out.println("End of ValidCoupon Response ::");
-		return returnURI;
+		System.out.println("End of ValidCoupon Response :>>>>>>:"+request.getMethod());
+		if(request.getMethod()=="GET"){
+			return "index";
+		}
+		return  PageView.THANKYOU;
 	}
 	
 	@RequestMapping(value="/getCouponAmount", method=RequestMethod.POST)
-	public String sendMassPayment(ModelMap modelMap, CouponPayment couponPayment, HttpSession session) {
+	public void sendMassPayment(ModelMap modelMap, CouponPayment couponPayment, HttpSession session) {
 		
 		log.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
 		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress());
-		String returnPage = "error";
+		
 		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment.getCouponCode());
 
 		if(validCoupon!=null) {
@@ -237,7 +241,8 @@ public class CouponPaymentController {
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 					//smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
 					}
-					return "success";
+					modelMap.put("action", "success");
+					modelMap.put("message", "success");
 				} else {
 					modelMap.addAttribute("Error", resp.getErrors());
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
@@ -245,7 +250,8 @@ public class CouponPaymentController {
 					transactionDAO.UpdateTransaction(transaction2);
 					log.debug(resp.getErrors().toString());
 					//response.sendRedirect(this.getServletContext().getContextPath()+"/Error.jsp");
-					return "emailError";
+					modelMap.put("action", "error");
+					modelMap.put("message", "Please check your Coupon Code");
 				}
 			}
 		
@@ -253,17 +259,17 @@ public class CouponPaymentController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			return returnPage;
 		}else{
-			modelMap.put("message", "This email is already used for a coupon!");
-			return "emailError";
-		}
+			modelMap.put("action", "already");
+			modelMap.put("message", "Coupon is Expired!");			
+			}
 		}
 		}else{
-			modelMap.put("message", "This email is already used for a coupon!");
-			return "emailError";
+			modelMap.put("action", "already");
+			modelMap.put("message", "Coupon is Expired!");
+			
 		}
-		return returnPage;
+		
 	}
 	
 	public boolean sendSuperUserPayment( CouponPayment couponPayment) {

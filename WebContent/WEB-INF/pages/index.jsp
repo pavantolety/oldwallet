@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="x_content">
                                     <br />
-                                    <form name="redeemForm" id="redeemForm"  action="" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                                    <form name="couponValidForm" id="couponValidForm"  action="" data-parsley-validate class="form-horizontal form-label-left" method="post">
 										<div class="col-md-3 col-sm-3 col-xs-12">
 										</div>
                                         <div class="form-group">
@@ -274,7 +274,7 @@
 				var coupon = {
 							couponCode : c
 					};
-					//alert("Going to validate :::")
+					
 					$.ajax({
 						type:'POST',
 						url:'/validateCoupon.json',
@@ -287,17 +287,17 @@
 							var successUrl = '/valid';
 							$('#errorMessage').empty();
 							//successUrl = successUrl+c;
-							$("#redeemForm").attr("action", successUrl);
-							$("#redeemForm").submit();
+							$("#couponValidForm").attr("action", successUrl);
+							$("#couponValidForm").submit();
 							
 							} else if(action=="invalid") {	
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">Invalid Coupon Code</b>');
-							}else if(data.action='expired') {
+							}else if(data.action=='expired') {
 								//sweetAlert("Info",data.message,"info");
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
-							}else if(data.action='error') {
+							}else if(data.action=='error') {
 								//sweetAlert("Info",data.message,"info");
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
