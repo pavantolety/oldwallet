@@ -187,7 +187,7 @@
 											<span class="progressText" style="color:black;"><h5>$ ${redeemedAmount} <span class="" style="color:black;margin:39%;">${percentageVal }%</span><span class="pull-right"style="color:black">$ ${couponAmount}</span></h5></span>
 											<div class="progress">
 						  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
-						  aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${percentageVal}%">
+						  aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${percentageVal }%">
 						    
 						  </div>
 						</div> 
