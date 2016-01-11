@@ -60,7 +60,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/index" class="site_title"><span>Management Console</span></a>
+                        <a href="/index" class="site_title"><span>Campaign Manager</span></a>
                     </div>
                     <div class="clearfix"></div>
 
@@ -249,7 +249,7 @@
                  <!-- footer content -->
                 <footer>
                     <div class="">
-                        <p class="pull-right"><span class="lead"> OldWallets!</span>
+                        <p class="pull-right"><span class="lead"></span>
                         </p>
                     </div>
                     <div class="clearfix"></div>
