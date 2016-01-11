@@ -58,35 +58,30 @@
 
                     <br />
 
-                      <!-- sidebar menu -->
+                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
                         <div class="menu_section">
+                        	<h3>Admin Dashboard</h3>
                             <ul class="nav side-menu">
-                            	<li><a><i class="fa fa-edit"></i>Coupon Management</a>
+                            	<li><a><i class="fa fa-gamepad"></i>Coupon Management<span class="fa fa-chevron-down"></span></a>
                            			<ul class="nav child_menu" style="display: none">
-                                           <li><a href="/adminHome">Upload Coupons</a>
+                                           <li><a href="/adminHome"><i class="fa fa-upload"></i>Upload Coupons</a>
                                            </li>
-                                           <li><a href="/manageCoupons">Manage Coupons</a>
+                                           <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
                                            </li>
-                                           <li><a href="/downloadData">Download Coupon Data</a>
+                                           <li><a href="/downloadData"><i class="fa fa-download"></i>Download Coupon Data</a>
                                            </li>
                                        </ul>
                             	</li>
-                            	<li><a><i class="fa fa-edit"></i>Dashboard</a>
+                            	<li><a><i class="fa fa-edit"></i>Dashboard<span class="fa fa-chevron-down"></span></a>
                             		<ul class="nav child_menu" style="display: none">
-                                           <li><a>Oldwallet Campaign</a>
-	                                       		<ul class="nav child_menu" style="display: none">
-	                                       			<li><a href="/couponStats">Coupon Redemptions</a>
-                                           			</li>
-                                          			<li><a href="/trackCoupons">Coupon Hide & Retrieve Locations</a>
-                                           			</li>
-                                       			</ul>
-                                           </li>
+                                           <li><a href="/couponStats"><i class="fa fa-dashboard"></i>Coupon Redemptions</a></li>
+                                           <li><a href="/trackCoupons"><i class="fa fa-map-marker"></i>Coupon Hide & Retrieve Locations</a></li>
                                            
                                        </ul>
                             	</li>
-                                <li><a href="/massPay"><i class="fa fa-edit"></i>Mass Pay-Test</a></li>
+                                <li><a href="/massPay"><i class="fa fa-paypal"></i>Mass Pay-Test</a></li>
                                 
                             </ul>
                         </div>
