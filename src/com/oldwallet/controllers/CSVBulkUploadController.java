@@ -84,7 +84,7 @@ private static Logger log = Logger.getLogger(CSVBulkUploadController.class);
 		               
 		               uploaded = csvBulkUploadDAO.createCouponData(couponData1);
 		               if(!uploaded){
-		            	   modelMap.put("status", "Uploaded failed-Data is already uploaded");
+		            	   modelMap.put("status", "Upload Failed!,Data is already uploaded");
 		               }
 		               }catch (DuplicateKeyException de) {
 						de.printStackTrace();
