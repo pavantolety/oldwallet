@@ -218,6 +218,30 @@ body.nav-md .container.body .right_col {
     margin-left: 230px;
 }
 
+#pink_corner {
+ top: 0;
+    left: -745px;
+    width: 777px;
+    height: 667px;
+    background-color: #de2461;
+    position: absolute;
+    -ms-transform: skewX(-8deg);
+    -webkit-transform: skewX(-8deg);
+    transform: skewX(-8deg);
+    
+}
+#blue_corner {
+ top: 0;
+    left: 97%;
+    width: 777px;
+    height: 667px;
+    background-color: #1f3087;
+    position: absolute;
+    -ms-transform: skewX(-8deg);
+    -webkit-transform: skewX(-8deg);
+    transform: skewX(-8deg);
+}
+
 .nav_title {
     width: 230px;
     float: left;

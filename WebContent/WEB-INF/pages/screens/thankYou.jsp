@@ -53,7 +53,10 @@
 
 <body>
     <div class="container body">
-
+<div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="
+    padding-left: 90%;
+"></div>
+<div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
             <!-- top navigation -->
             <div class="top_nav">
 
@@ -207,13 +210,13 @@
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>
-                                        <div class="col-md-12 col-sm-12 col-xs-12">  
-                                         <div class="col-md-5 col-sm-5 col-xs-6"></div>                                             
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                        
+                                                                                     
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                             <br/>
                                                 <button onclick="redeemAmount()" id="sendPayment" class="btn btn-success hvr-grow">Redeem Amount</button>
                                             </div>											
-                                        </div>
+                                        
                            
 											</div>
 											

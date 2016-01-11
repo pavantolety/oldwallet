@@ -53,7 +53,10 @@
 
 
     <div class="container body">
-
+<div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="
+    padding-left: 90%;
+"></div>
+<div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
             <!-- top navigation -->
             <div class="top_nav">
 
