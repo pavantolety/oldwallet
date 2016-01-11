@@ -1,5 +1,6 @@
 package com.oldwallet.controllers;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.model.AdminLogin;
 import com.oldwallet.model.AdminSession;
 import com.oldwallet.model.Coupon;
+import com.oldwallet.model.CouponStatistics;
 import com.oldwallet.model.MassPay;
 import com.oldwallet.util.paypal.Configuration;
 
@@ -103,6 +105,24 @@ public class OldwalletController {
 	public String couponStats(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
 		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
 		if(adminSession != null){
+		
+			CouponStatistics cs1 =couponDAO.getTotalCouponCount();
+			CouponStatistics cs2 =couponDAO.getRedeemedCount();
+			CouponStatistics cs3 =couponDAO.getTotalCouponAmount();
+			CouponStatistics cs4 = couponDAO.getReedmedAmount();
+			if(cs1!=null){
+			 long percentage =  Math.round((cs4.getTotalRedeemedAmount()/cs3.getTotalCouponAmount())*100);
+		     DecimalFormat df = new DecimalFormat("#.00");
+		      String percentageVal = df.format(percentage);
+			modelMap.put("couponCount", cs1.getTotalCouponsCount());
+			modelMap.put("redeemedCount", cs2.getRedeemedCouponCount());
+			modelMap.put("couponAmount", cs3.getTotalCouponAmount());
+			modelMap.put("redeemedAmount", cs4.getTotalRedeemedAmount());
+			modelMap.put("percentageVal",percentageVal);
+			
+			}
+			
+			
 			return PageView.COUPONSTATS;
 			}
 		return "/adminLogin";

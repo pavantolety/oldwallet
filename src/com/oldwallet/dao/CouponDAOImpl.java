@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.Coupon;
+import com.oldwallet.model.CouponStatistics;
 import com.oldwallet.model.UserToken;
 
 @Repository
@@ -26,6 +27,14 @@ public class CouponDAOImpl implements CouponDAO{
 	public static final String GET_COUPON_VALUES = "SELECT * FROM COUPONS";
 	
 	public static final String  GET_USER_TOKEN_VALUES = "SELECT * FROM USER_TOKENS WHERE TOKEN =?";
+	
+	public static final String GET_TOTAL_COUPON_AMOUNT  = "SELECT  SUM(X.TOTAL) AS TOTAL_COUPON_AMOUNT FROM ( SELECT SUM(C.COUPON_VALUE)*SUM(C.AVAILABLE_REDEMPTIONS) AS TOTAL  FROM COUPONS C GROUP BY  C.AVAILABLE_REDEMPTIONS,C.COUPON_CODE)  X ";
+	
+	public static final String GET_TOTAL_COUPON_COUNT = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT  FROM COUPONS" ;
+	
+	public static final String GET_TOTAL_REDEEMED_AMOUNT = "SELECT SUM(COUPON_VALUE) AS REDEEMED_COUPON_AMOUNT  FROM TRANSACTION";
+	
+	public static final String GET_TOTAL_REDEEMED_COUNT = "SELECT COUNT(COUPON_CODE) AS REDEEMED_COUNT  FROM COUPONS WHERE REDEEM_STATUS='REDEEMED'" ;
 	
 	private JdbcTemplate jdbcTemplate;
 	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
@@ -174,5 +183,76 @@ private UserToken retriveUserToken(Map<String, Object> map) {
 	
 		return userToken;
 	}
+
+public CouponStatistics retriveCouponStatistics(Map<String,Object> map){
+	  CouponStatistics cs = new CouponStatistics();
+	  if(map.get("TOTAL_COUPON_AMOUNT")!=null) {
+		  cs.setTotalCouponAmount(Double.parseDouble(map.get("TOTAL_COUPON_AMOUNT").toString()));
+		}
+	  if(map.get("TOTAL_COUPON_COUNT")!=null) {
+			cs.setTotalCouponsCount(Long.parseLong(map.get("TOTAL_COUPON_COUNT").toString()));
+		}
+	  
+	  if(map.get("REDEEMED_COUPON_AMOUNT")!=null) {
+			cs.setTotalRedeemedAmount(Double.parseDouble(map.get("REDEEMED_COUPON_AMOUNT").toString()));
+		}
+	  
+	  if(map.get("REDEEMED_COUNT")!=null) {
+			cs.setRedeemedCouponCount(Long.parseLong(map.get("REDEEMED_COUNT").toString()));
+		}
+	  
+	return cs;
+}
+@Override
+public CouponStatistics getTotalCouponCount() {
+	List<Map<String, Object>> mapList =jdbcTemplate.queryForList(GET_TOTAL_COUPON_COUNT);
+	List<CouponStatistics> csList =  new ArrayList<CouponStatistics>();
+	if(mapList.size()>0){
+		for(Map<String,Object> map : mapList){
+			csList.add(retriveCouponStatistics(map));
+		}
+		return csList.get(0);
+	}
+	return null;
+}
+
+@Override
+public CouponStatistics getRedeemedCount() {
+	List<Map<String, Object>> mapList =jdbcTemplate.queryForList(GET_TOTAL_REDEEMED_COUNT);
+	List<CouponStatistics> csList =  new ArrayList<CouponStatistics>();
+	if(mapList.size()>0){
+		for(Map<String,Object> map : mapList){
+			csList.add(retriveCouponStatistics(map));
+		}
+		return csList.get(0);
+	}
+	return null;
+}
+
+@Override
+public CouponStatistics getTotalCouponAmount() {
+	List<Map<String, Object>> mapList =jdbcTemplate.queryForList(GET_TOTAL_COUPON_AMOUNT);
+	List<CouponStatistics> csList =  new ArrayList<CouponStatistics>();
+	if(mapList.size()>0){
+		for(Map<String,Object> map : mapList){
+			csList.add(retriveCouponStatistics(map));
+		}
+		return csList.get(0);
+	}
+	return null;
+}
+
+@Override
+public CouponStatistics getReedmedAmount() {
+	List<Map<String, Object>> mapList =jdbcTemplate.queryForList(GET_TOTAL_REDEEMED_AMOUNT);
+	List<CouponStatistics> csList =  new ArrayList<CouponStatistics>();
+	if(mapList.size()>0){
+		for(Map<String,Object> map : mapList){
+			csList.add(retriveCouponStatistics(map));
+		}
+		return csList.get(0);
+	}
+	return null;
+}
 
 }

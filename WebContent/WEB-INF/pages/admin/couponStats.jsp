@@ -150,19 +150,20 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
+         
                 <div class="">
-
+   			
                     <div class="row top_tiles" style="margin: 10px 0;">
                         <div class="col-md-3 col-sm-3 col-xs-6 tile">
                             <span>Total Coupons</span>
-                            <h2>15,233</h2>
+                            <h2>${couponCount}</h2>
                             <span class="sparkline_one" style="height: 160px;">
                     <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                 </span>
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-6 tile">
                             <span>Total Amount</span>
-                            <h2>$ 60,932</h2>
+                            <h2>$ ${couponAmount }</h2>
                             <span class="sparkline_two" style="height: 160px;">
                     <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                 </span>
@@ -174,8 +175,31 @@
                     <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                 </span>
                         </div>
+                
                     </div>
                     </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">                                    
+                                       <div class="barWrapper">
+											 <span class="progressText" style="text-align:center;color:green"><h3>Redeemed Amount Progress</h3></span>
+											 <span class="progressText" style="text-align:center;"><h5 id="monthDiff"></h5></span>
+											<span class="progressText" style="color:black;"><h5>$ ${redeemedAmount} <span class="" style="color:black;margin:39%;">${percentageVal }%</span><span class="pull-right"style="color:black">$ ${couponAmount}</span></h5></span>
+											<div class="progress">
+						  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+						  aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${percentageVal}%">
+						    
+						  </div>
+						</div> 
+											<div>
+											
+											</div>
+										</div>                                       
+                                      <div class="clearfix"></div>      
+                                </div>
+                            </div>
+                        </div>
+                    
                     <br />
 
                     <div class="row">
@@ -266,133 +290,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Transaction Summary <small>Weekly progress</small></h2>
-                                    <div class="filter">
-                                        <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                            <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class="col-md-9 col-sm-12 col-xs-12">
-                                        <div class="demo-container" style="height:280px">
-                                            <div id="placeholder33x" class="demo-placeholder"></div>
-                                        </div>
-                                        <div class="tiles">
-                                            <div class="col-md-4 tile">
-                                                <span>Total Sessions</span>
-                                                <h2>231,809</h2>
-                                                <span class="sparkline11 graph" style="height: 160px;">
-                                        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                    </span>
-                                            </div>
-                                            <div class="col-md-4 tile">
-                                                <span>Total Revenue</span>
-                                                <h2>$231,809</h2>
-                                                <span class="sparkline22 graph" style="height: 160px;">
-                                        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                    </span>
-                                            </div>
-                                            <div class="col-md-4 tile">
-                                                <span>Total Sessions</span>
-                                                <h2>231,809</h2>
-                                                <span class="sparkline11 graph" style="height: 160px;">
-                                        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                    </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-3 col-sm-12 col-xs-12">
-                                            <div class="x_title">
-                                                <h2>Top Redemptions</h2>
-                                                <ul class="nav navbar-right panel_toolbox">
-                                                    <li><a href="#"><i class="fa fa-chevron-up"></i></a>
-                                                    </li>
-                                                    <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                        <ul class="dropdown-menu" role="menu">
-                                                            <li><a href="#">Settings 1</a>
-                                                            </li>
-                                                            <li><a href="#">Settings 2</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="#"><i class="fa fa-close"></i></a>
-                                                    </li>
-                                                </ul>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <ul class="list-unstyled top_profiles scroll-view">
-                                                <li class="media event">
-                                                    <a class="pull-left border-aero profile_thumb">
-                                                        <i class="fa fa-user aero"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Ms. Mary Jane</a>
-                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                                        <p> <small>12 Sales Today</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li class="media event">
-                                                    <a class="pull-left border-green profile_thumb">
-                                                        <i class="fa fa-user green"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Ms. Mary Jane</a>
-                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                                        <p> <small>12 Sales Today</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li class="media event">
-                                                    <a class="pull-left border-blue profile_thumb">
-                                                        <i class="fa fa-user blue"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Ms. Mary Jane</a>
-                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                                        <p> <small>12 Sales Today</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li class="media event">
-                                                    <a class="pull-left border-aero profile_thumb">
-                                                        <i class="fa fa-user aero"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Ms. Mary Jane</a>
-                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                                        <p> <small>12 Sales Today</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li class="media event">
-                                                    <a class="pull-left border-green profile_thumb">
-                                                        <i class="fa fa-user green"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Ms. Mary Jane</a>
-                                                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                                        <p> <small>12 Sales Today</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                      
 
             </div>
             <!-- /page content -->
@@ -409,23 +307,17 @@
     </div>
 
      <script src="js/bootstrap.min.js"></script>
+     
+         <!-- chart js -->
+    <script src="js/chartjs/chart.min.js"></script>
+         <!-- bootstrap progress js -->
+    <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
     <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
 
-    <!-- chart js -->
-    <script src="js/chartjs/chart.min.js"></script>
-    <!-- bootstrap progress js -->
-    <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- icheck -->
-    <script src="js/icheck/icheck.min.js"></script>
-    <!-- daterangepicker -->
-    <script type="text/javascript" src="js/moment.min2.js"></script>
-    <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
     <!-- sparkline -->
     <script src="js/sparkline/jquery.sparkline.min.js"></script>
 
     <script src="js/custom.js"></script>
-    <!-- skycons -->
-    <script src="js/skycons/skycons.js"></script>
 
     <!-- echart -->
     <script src="js/echart/echarts-all.js"></script>
@@ -792,7 +684,6 @@
     
 
     </script>
-    <!-- flot -->
     <script type="text/javascript">
         //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
         var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
@@ -895,144 +786,7 @@
             }], options);
         });
     </script>
-    <!-- /flot -->
-    <script>
-        $('document').ready(function () {
-            $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-                type: 'bar',
-                height: '125',
-                barWidth: 13,
-                colorMap: {
-                    '7': '#a1a1a1'
-                },
-                barSpacing: 2,
-                barColor: '#26B99A'
-            });
-
-            $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
-                type: 'bar',
-                height: '40',
-                barWidth: 8,
-                colorMap: {
-                    '7': '#a1a1a1'
-                },
-                barSpacing: 2,
-                barColor: '#26B99A'
-            });
-
-            $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
-                type: 'line',
-                height: '40',
-                width: '200',
-                lineColor: '#26B99A',
-                fillColor: '#ffffff',
-                lineWidth: 3,
-                spotColor: '#34495E',
-                minSpotColor: '#34495E'
-            });
-
-            var doughnutData = [
-                {
-                    value: 30,
-                    color: "#455C73"
-                },
-                {
-                    value: 30,
-                    color: "#9B59B6"
-                },
-                {
-                    value: 60,
-                    color: "#BDC3C7"
-                },
-                {
-                    value: 100,
-                    color: "#26B99A"
-                },
-                {
-                    value: 120,
-                    color: "#3498DB"
-                }
-        ];
-            var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
-            var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
-            var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
-        });
-    </script>
-    <!-- -->
-    <!-- datepicker -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            var cb = function (start, end, label) {
-                console.log(start.toISOString(), end.toISOString(), label);
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
-            }
-
-            var optionSet1 = {
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2015',
-                dateLimit: {
-                    days: 60
-                },
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: true,
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                opens: 'left',
-                buttonClasses: ['btn btn-default'],
-                applyClass: 'btn-small btn-primary',
-                cancelClass: 'btn-small',
-                format: 'MM/DD/YYYY',
-                separator: ' to ',
-                locale: {
-                    applyLabel: 'Submit',
-                    cancelLabel: 'Clear',
-                    fromLabel: 'From',
-                    toLabel: 'To',
-                    customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    firstDay: 1
-                }
-            };
-            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-            $('#reportrange').daterangepicker(optionSet1, cb);
-            $('#reportrange').on('show.daterangepicker', function () {
-                console.log("show event fired");
-            });
-            $('#reportrange').on('hide.daterangepicker', function () {
-                console.log("hide event fired");
-            });
-            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
-                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
-            });
-            $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
-                console.log("cancel event fired");
-            });
-            $('#options1').click(function () {
-                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
-            });
-            $('#options2').click(function () {
-                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
-            });
-            $('#destroy').click(function () {
-                $('#reportrange').data('daterangepicker').remove();
-            });
-        });
-    </script>
-    <!-- /datepicker -->
+ 
 </body>
 
 </html>
