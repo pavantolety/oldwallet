@@ -55,7 +55,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><span>Campaign Manager</span></a>
+                        <a href="/adminHome" class="site_title"><span>Campaign Manager</span></a>
                     </div>
                     <div class="clearfix"></div>
 
@@ -66,7 +66,7 @@
                         </div>
                         <div class="profile_info">
                             <span>OldWallet</span>
-                            <h2>Admin Dashboard</h2>
+                            
                         </div>
                     </div>
                     <!-- /menu prile quick info -->
@@ -76,7 +76,7 @@
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
                         <div class="menu_section">
-                        	<h3>  </h3>
+                        	<h3>Admin Dashboard</h3>
                             <ul class="nav side-menu">
                             	<li><a><i class="fa fa-edit"></i>Coupon Management<span class="fa fa-chevron-down"></span></a>
                            			<ul class="nav child_menu" style="display: none">
@@ -88,7 +88,7 @@
                                            </li>
                                        </ul>
                             	</li>
-                            	<li><a><i class="fa fa-edit"></i>Dashboard</a>
+                            	<li><a><i class="fa fa-edit"></i>Dashboard<span class="fa fa-chevron-down"></span></a>
                             		<ul class="nav child_menu" style="display: none">
                                            <li><a href="/couponStats">Coupon Redemptions</a></li>
                                            <li><a href="/trackCoupons">Coupon Hide & Retrieve Locations</a></li>

@@ -54,19 +54,31 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
 
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><span>Campaign Manager</span></a>
+                   <div class="navbar nav_title" style="border: 0;">
+                        <a href="/adminHome" class="site_title"><span>Campaign Manager</span></a>
                     </div>
                     <div class="clearfix"></div>
 
+                    <!-- menu prile quick info -->
+                    <div class="profile">
+                        <div class="profile_pic">
+                            <img src="images/PayPal_btn4.png" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>OldWallet</span>
+                            
+                        </div>
+                    </div>
+                    <!-- /menu prile quick info -->
                     <br />
 
-                  <!-- sidebar menu -->
+                    <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
                         <div class="menu_section">
+                        	<h3>Admin Dashboard</h3>
                             <ul class="nav side-menu">
-                            	<li><a><i class="fa fa-edit"></i>Coupon Management</a>
+                            	<li><a><i class="fa fa-edit"></i>Coupon Management<span class="fa fa-chevron-down"></span></a>
                            			<ul class="nav child_menu" style="display: none">
                                            <li><a href="/adminHome">Upload Coupons</a>
                                            </li>
@@ -76,16 +88,10 @@
                                            </li>
                                        </ul>
                             	</li>
-                            	<li><a><i class="fa fa-edit"></i>Dashboard</a>
+                            	<li><a><i class="fa fa-edit"></i>Dashboard<span class="fa fa-chevron-down"></span></a>
                             		<ul class="nav child_menu" style="display: none">
-                                           <li><a>Oldwallet Campaign</a>
-	                                       		<ul class="nav child_menu" style="display: none">
-	                                       			<li><a href="/couponStats">Coupon Redemptions</a>
-                                           			</li>
-                                          			<li><a href="/trackCoupons">Coupon Hide & Retrieve Locations</a>
-                                           			</li>
-                                       			</ul>
-                                           </li>
+                                           <li><a href="/couponStats">Coupon Redemptions</a></li>
+                                           <li><a href="/trackCoupons">Coupon Hide & Retrieve Locations</a></li>
                                            
                                        </ul>
                             	</li>
