@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -130,7 +132,17 @@ public class OldwalletController {
 	
 	@RequestMapping(value="/couponStatsFor", method=RequestMethod.GET)
 	public String couponStatsFor(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
-			
+		List<CouponStatistics> csList = couponDAO.getCouponDataByReedeemStatus();
+		JSONArray list = new JSONArray();
+		if(csList.size()>0){
+			for(CouponStatistics cs : csList){
+				JSONObject obj = new JSONObject();
+				obj.put("value",cs.getTotalCouponsCount());
+				obj.put("name",cs.getRedeemStatus());
+				list.add(obj);
+			}
+			modelMap.put("list",list);
+		}
 		return "";
 	}
 	
