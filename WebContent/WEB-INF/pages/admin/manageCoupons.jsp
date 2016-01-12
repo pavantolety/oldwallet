@@ -28,11 +28,13 @@
     <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.1.css" />
     <link href="css/icheck/flat/green.css" rel="stylesheet" />
     <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
-
+    <link href="css/TableTools.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery.min.js"></script>
     <script src="js/nprogress.js"></script>
     <link href="css/datatables/tools/css/dataTables.tableTools.css" rel="stylesheet">
-   
+  	<script type="text/javascript" charset="utf-8" src="ZeroClipboard/ZeroClipboard.js"></script>
+  	<script type="text/javascript" charset="utf-8" src="js/TableTools.js"></script>  
+  	<link href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" /> 
 	
 	
 	<script>
@@ -312,7 +314,8 @@
     <script type="text/javascript" src="js/maps/gdp-data.js"></script>
     <script type="text/javascript" src="js/maps/jquery-jvectormap-world-mill-en.js"></script>
     <script type="text/javascript" src="js/maps/jquery-jvectormap-us-aea-en.js"></script>
-    <script src="js/datatables/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="js/datatables/js/jquery.dataTables.js"></script>-->
     <script src="js/datatables/tools/js/dataTables.tableTools.js"></script>
     <script>
             $(document).ready(function () {
@@ -321,20 +324,22 @@
                     radioClass: 'iradio_flat-green'
                 });
             });
-
             var asInitVals = new Array();
             $(document).ready(function () {
                 var oTable = $('#example').dataTable({
                     "oLanguage": {
                         "sSearch": "Search Coupons:"
                     },
+                    "dom": 'T<"clear">lfrtip',
+                    "tableTools": {
+                        "sSwfPath": "../swf/copy_csv_xls_pdf.swf"
+                    },
                     "aoColumnDefs": [
                         {
                             'bSortable': false,
                             'aTargets': [0]
                         } //disables sorting for column one
-            ],
-                    
+            		],
                 });
                 $("tfoot input").keyup(function () {
                     /* Filter on the column based on the index of this element's parent <th> */
