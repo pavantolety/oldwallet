@@ -29,12 +29,30 @@
     <link href="css/icheck/flat/green.css" rel="stylesheet" />
     <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
     <link href="css/TableTools.css" rel="stylesheet" type="text/css" />
+   	<link href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" /> 
+   	<link href="css/datatables/tools/css/dataTables.tableTools.css" rel="stylesheet">
+   		<link href="css/jquery.datetimepicker.css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script src="js/nprogress.js"></script>
-    <link href="css/datatables/tools/css/dataTables.tableTools.css" rel="stylesheet">
   	<script type="text/javascript" charset="utf-8" src="ZeroClipboard/ZeroClipboard.js"></script>
   	<script type="text/javascript" charset="utf-8" src="js/TableTools.js"></script>  
-  	<link href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" /> 
+      <script src="js/bootstrap.min.js"></script>
+        <script src="js/custom.js"></script>
+    <!-- gauge js -->
+    <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
+    <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>
+    <!-- chart js -->
+    <script src="js/chartjs/chart.min.js"></script>
+    <!-- bootstrap progress js -->
+    <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
+    <!-- icheck -->
+    <script src="js/icheck/icheck.min.js"></script>
+    <!-- daterangepicker -->
+    <script type="text/javascript" src="js/moment.min2.js"></script>
+    <script type="text/javascript" src="js/datepicker/jquery.datetimepicker.js"></script>
+
+  
 	
 	
 	<script>
@@ -93,8 +111,6 @@
                                            <li><a href="/adminHome"><i class="fa fa-upload"></i>Upload Coupons</a>
                                            </li>
                                            <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
-                                           </li>
-                                           <li><a href="/downloadData"><i class="fa fa-download"></i>Download Coupon Data</a>
                                            </li>
                                        </ul>
                             	</li>
@@ -180,30 +196,11 @@
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
-                                <div class="x_title">
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a href="#"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                
+                               
                                 <div class="x_content">
                                     <table id="example" class="table table-striped responsive-utilities jambo_table col-md-12">
                                         <thead>
                                             <tr class="headings">
-                                            	<th></th>
                                                 <th>COUPON CODE </th>
                                                 <th>COUPON VALUE</th>
                                                 <th>START DATE </th>
@@ -211,7 +208,7 @@
                                                 <th>STATUS</th>
                                                 <th>AVAILABLE REDEMPTIONS</th>
                                                 <th>COMPLETED REDEMPTIONS</th>
-                                               
+                                                <th>ACTION</th>
                                                
                                             </tr>
                                         </thead>
@@ -219,9 +216,6 @@
                                         <tbody>
                                         	<c:forEach var="couponList" items="${couponList}" >
                                             <tr class="even pointer">
-                                                <td class="a-center ">
-                                                    <input type="checkbox" class="tableflat">
-                                                </td>
                                                 <td class=" "><c:out value="${couponList.couponCode}" /></td>
                                                 <td class=" "><c:out value="${couponList.couponValue}" /></td>
                                                <td class=" "><c:out value="${couponList.validFrom}" /></td>
@@ -230,6 +224,13 @@
                                                 <td class=" "><c:out value="${couponList.availableRedemptions}" /></td>
                                                 
                                                 <td class=" "><c:out value="${couponList.completedRedemptions}" /></td>
+                                                
+                                                <td class=" ">
+                                                <c:if test="${couponList.redeemStatus eq 'NEW' && couponList.completedRedemptions == 0}">
+                                                <button id="edit" class="btn btn-success" onclick="editCoupon('${couponList.couponCode}','${couponList.couponValue}','${couponList.validFrom}','${couponList.validTo}','${couponList.redeemStatus}','${couponList.availableRedemptions}','${couponList.completedRedemptions}')">EDIT</button>
+                                                  </c:if>
+                                                </td>
+                                              
                                             </tr>
                                           </c:forEach>
                                         </tbody>
@@ -247,14 +248,117 @@
 
                     <script type="text/javascript">
                         $(document).ready(function () {
-                            $('#birthday').daterangepicker({
-                                singleDatePicker: true,
-                                calender_style: "picker_4"
-                            }, function (start, end, label) {
-                                console.log(start.toISOString(), end.toISOString(), label);
-                            });
+                       
                         });
+                        function editCoupon(code,v,f,t,s,a,c){
+                        	$("#couponCode").val(code),
+                        	$('#datetimepicker1').datetimepicker({
+                        		formatTime:'H:i',
+                        		formatDate:'m.d.Y',
+                        		defaultTime:'10:00',
+                        		format:'d-m-Y H:i:s',
+                        		timepickerScrollbar:false
+                        	});
+                        	$('#datetimepicker2').datetimepicker({
+                        		formatTime:'H:i',
+                        		formatDate:'m.d.Y',
+                        		defaultTime:'10:00',
+                        		format:'d-m-Y H:i:s',
+                        		timepickerScrollbar:false
+                        	});
+
+                        	$("#myModalLabel").html(code);
+                        	$("#availableRedemptions").val(a);
+                        	$("#couponValue").val(v);
+                        	$("#redeemStatus").val(s);
+                        	$("#datetimepicker1").val(f);
+                        	$("#datetimepicker2").val(t);
+                        	$('#copuonEdit').modal('show');
+                        }
+                         
+                        function saveCouponData(){
+                        	var couponData = {
+                        			couponCode:$("#couponCode").val(),
+                        	availableRedemptions : $("#availableRedemptions").val(),
+                        	couponValue : $("#couponValue").val(),
+                        	redeemStatus: $("#redeemStatus").val(),
+                        	validFrom:$("#datetimepicker1").val(),
+                        	validTo:$("#datetimepicker2").val()
+                        	};
+                        	//alert(JSON.stringify(couponData));
+                        	$.ajax({
+                    			type:'POST',
+                    			url:'/saveCouponData.json',
+                    			data:couponData,
+                    			success:function(data) {
+                    			if(data.status =="success"){
+                    		   $('<div class="alert alert-success"><strong>Coupon Data Saved</strong></div>').appendTo("#toastMessage");
+                         	
+                    	         $(".alert").delay(200).addClass("in").fadeOut(3000);
+                    			}else{
+                    				
+                    			}
+                    			}
+                    			});
+                        }
                     </script>
+                       <div class="modal fade bs-example-modal-lg"  id="copuonEdit" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Coupon Value <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="hidden" id="couponCode" name="couponCode" >
+                                                <input type="text" id="couponValue" name="couponValue" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Start Date <span class="required">*</span>
+                                            </label>
+                                            <input type="text" value="" id="datetimepicker1"  name = "validFrom" required="required" class="form-control col-md-7 col-xs-12" readonly/>            
+                                        </div>
+                                       <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">End Date <span class="required">*</span>
+                                            </label>
+                                            <input type="text" value="" id="datetimepicker2" name="validTo" required="required" class="form-control col-md-7 col-xs-12" readonly />            
+                                        </div>
+                       
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="redeemStatus" name="redeemStatus" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Available Redemption <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="availableRedemptions"  name="availableRedemptions"  class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                         <div id="toastMessage"></div>
+                                    </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onclick="saveCouponData()">Save changes</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                  </div>
                 <!-- /page content -->
                  <!-- footer content -->
@@ -278,23 +382,7 @@
         <div id="notif-group" class="tabbed_notifications"></div>
     </div>
 
-    <script src="js/bootstrap.min.js"></script>
 
-    <!-- gauge js -->
-    <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
-    <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>
-    <!-- chart js -->
-    <script src="js/chartjs/chart.min.js"></script>
-    <!-- bootstrap progress js -->
-    <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
-    <!-- icheck -->
-    <script src="js/icheck/icheck.min.js"></script>
-    <!-- daterangepicker -->
-    <script type="text/javascript" src="js/moment.min.js"></script>
-    <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
-
-    <script src="js/custom.js"></script>
 
     <!-- flot js -->
     <!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->

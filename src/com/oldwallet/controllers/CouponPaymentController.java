@@ -1,5 +1,7 @@
 package com.oldwallet.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -51,6 +53,27 @@ public class CouponPaymentController {
 	
 	private static Logger log = Logger.getLogger(CouponPaymentController.class);
 	
+	
+	@RequestMapping(value="/saveCouponData", method=RequestMethod.POST)
+	public void saveCouponData(ModelMap modelMap, Coupon coupon) throws ParseException {
+		log.debug("Beginning Of Validating Coupon ::: "+coupon);
+				
+		if(coupon!=null ) {
+			  SimpleDateFormat format1 =  new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+		      SimpleDateFormat format2 =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		      coupon.setValidFrom(format2.format(format1.parse(coupon.getValidFrom())));
+		      coupon.setValidTo(format2.format(format1.parse(coupon.getValidTo())));
+		      boolean  isUpdated = couponDAO.updateCouponData(coupon);
+		      if(isUpdated){
+		    	  modelMap.put("status", "success");
+		    	 
+		      }else{
+		    	  modelMap.put("status", "failure");
+		      }
+			
+		}
+		
+	}
 	@RequestMapping(value="/validateCoupon", method=RequestMethod.POST)
 	public void validateCoupon(ModelMap modelMap, Coupon coupon) {
 		log.debug("Beginning Of Validating Coupon ::: "+coupon);

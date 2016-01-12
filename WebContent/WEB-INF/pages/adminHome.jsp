@@ -84,8 +84,6 @@
                                            </li>
                                            <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
                                            </li>
-                                           <li><a href="/downloadData"><i class="fa fa-download"></i>Download Coupon Data</a>
-                                           </li>
                                        </ul>
                             	</li>
                             	<li><a><i class="fa fa-edit"></i>Dashboard<span class="fa fa-chevron-down"></span></a>

@@ -81,8 +81,6 @@
                                            </li>
                                            <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
                                            </li>
-                                           <li><a href="/downloadData"><i class="fa fa-download"></i>Download Coupon Data</a>
-                                           </li>
                                        </ul>
                             	</li>
                             	<li><a><i class="fa fa-edit"></i>Dashboard<span class="fa fa-chevron-down"></span></a>
@@ -154,27 +152,48 @@
                 <div class="">
    			
                     <div class="row top_tiles" style="margin: 10px 0;">
-                        <div class="col-md-3 col-sm-3 col-xs-6 tile">
+                        <!-- <div class="col-md-3 col-sm-3 col-xs-6 tile">
                             <span>Total Coupons</span>
                             <h2>${couponCount}</h2>
                             <span class="sparkline_one" style="height: 160px;">
                     <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                 </span>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6 tile">
+                        </div> -->
+                        <!-- <div class="col-md-3 col-sm-3 col-xs-6 tile">
                             <span>Total Amount</span>
                             <h2>$ ${couponAmount }</h2>
                             <span class="sparkline_two" style="height: 160px;">
                     <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                 </span>
+                        </div> -->
+                        <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-user"></i> Total Coupons</span>
+                            <div class="count green">${couponCount}</div>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6 tile">
-                            <span>Total Locations</span>
-                            <h2>73</h2>
-                            <span class="sparkline_one" style="height: 160px;">
-                    <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                </span>
+                    </div>
+                          <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-user"></i> Total Amount</span>
+                            <div class="count green">$ ${couponAmount }</div>
                         </div>
+                    </div>
+                    <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-user"></i> Redeemed Coupons</span>
+                            <div class="count green">${redeemedCount}</div>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-user"></i> Redeemed Amount</span>
+                            <div class="count green">$ ${redeemedAmount }</div>
+                        </div>
+                    </div>
                 
                     </div>
                     </div>
@@ -207,21 +226,7 @@
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Redemption Status</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a href="#"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
+   
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -236,21 +241,6 @@
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Mobile Devices</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a href="#"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -266,21 +256,6 @@
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Event Shares</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a href="#"><i class="fa fa-chevron-up"></i></a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">

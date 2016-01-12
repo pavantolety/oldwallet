@@ -94,7 +94,7 @@ public class OldwalletController {
 		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
 		if(adminSession != null){
 			 List<Coupon> couponList = couponDAO.getCouponData();
-			    if(couponList.size()>0){
+			    if(couponList.size()>0 && couponList != null){
 			     System.out.println("Going to data table :::");
 			     modelMap.put("couponList" , couponList);
 			    }

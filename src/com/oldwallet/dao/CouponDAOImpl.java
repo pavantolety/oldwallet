@@ -1,5 +1,7 @@
 package com.oldwallet.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,9 @@ public class CouponDAOImpl implements CouponDAO{
 	public static final String GET_TOTAL_REDEEMED_COUNT = "SELECT COUNT(COUPON_CODE) AS REDEEMED_COUNT  FROM COUPONS WHERE REDEEM_STATUS='REDEEMED'" ;
 	
 	public static final String GET_COUPON_DATA_BY_REDEEM_STATUS = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT ,REDEEM_STATUS FROM COUPONS GROUP BY REDEEM_STATUS";
+	
+	public static final String UPDATE_COUPON_BY_COUPON_CODE="UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW' AND VALID_TO>=NOW()";
+	
 	private JdbcTemplate jdbcTemplate;
 	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
 
@@ -45,6 +50,15 @@ public class CouponDAOImpl implements CouponDAO{
 	        this.jdbcTemplate = new JdbcTemplate(dataSource);
 	    }
 	
+	 public boolean updateCouponData(Coupon coupon){
+	  boolean isUpdated = false;
+
+	   int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,coupon.getCouponValue(),coupon.getRedeemStatus(),coupon.getValidFrom(),coupon.getValidTo(),coupon.getAvailableRedemptions(),coupon.getCouponCode());
+	   if(result>0) {
+	    isUpdated = true;
+	   }
+	   return isUpdated;
+	  }
 	@Override
 	public Coupon getCouponByCode(String couponCode) {
 		log.debug("Beginning of getCouponByCode ::: ");
@@ -103,10 +117,24 @@ public class CouponDAOImpl implements CouponDAO{
 		   coupon.setValidityPeriod(map.get("VALIDITY_PERIOD").toString());
 		  }
 		  if(map.get("VALID_FROM")!=null){
-		   coupon.setValidFrom(map.get("VALID_FROM").toString());
+			  SimpleDateFormat format1 =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		      SimpleDateFormat format2 =  new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+		      try {
+				coupon.setValidFrom(format2.format(format1.parse(map.get("VALID_FROM").toString())));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		  }
 		  if(map.get("VALID_TO")!=null){
-		   coupon.setValidTo(map.get("VALID_TO").toString());
+			  SimpleDateFormat format1 =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		      SimpleDateFormat format2 =  new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+		      try {
+				coupon.setValidTo(format2.format(format1.parse(map.get("VALID_TO").toString())));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		  }
 		System.out.println("corporation::"+coupon);	
 		return coupon;
@@ -143,7 +171,7 @@ public class CouponDAOImpl implements CouponDAO{
 	   return couponList;
 	  }else{
 	  
-	  return null;
+	  return new ArrayList<Coupon>();
 	  }
 	 }
 

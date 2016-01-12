@@ -524,7 +524,6 @@ if ( typeof $.fn.dataTable == "function" && typeof $.fn.dataTableExt.sVersion !=
 }
 else
 {
-	alert( "Warning: TableTools requires DataTables 1.5 beta 9 or greater - "+
-		"www.datatables.net/download");
+	//alert( "Warning: TableTools requires DataTables 1.5 beta 9 or greater - www.datatables.net/download");
 }
 })(jQuery);
