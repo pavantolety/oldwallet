@@ -36,6 +36,7 @@ public class CouponDAOImpl implements CouponDAO{
 	
 	public static final String GET_TOTAL_REDEEMED_COUNT = "SELECT COUNT(COUPON_CODE) AS REDEEMED_COUNT  FROM COUPONS WHERE REDEEM_STATUS='REDEEMED'" ;
 	
+	public static final String GET_COUPON_DATA_BY_REDEEM_STATUS = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT ,REDEEM_STATUS FROM COUPONS GROUP BY REDEEM_STATUS";
 	private JdbcTemplate jdbcTemplate;
 	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
 
@@ -200,7 +201,9 @@ public CouponStatistics retriveCouponStatistics(Map<String,Object> map){
 	  if(map.get("REDEEMED_COUNT")!=null) {
 			cs.setRedeemedCouponCount(Long.parseLong(map.get("REDEEMED_COUNT").toString()));
 		}
-	  
+	  if(map.get("REDEEM_STATUS")!=null) {
+			cs.setRedeemStatus(map.get("REDEEM_STATUS").toString());
+		}
 	return cs;
 }
 @Override
@@ -251,6 +254,20 @@ public CouponStatistics getReedmedAmount() {
 			csList.add(retriveCouponStatistics(map));
 		}
 		return csList.get(0);
+	}
+	return null;
+}
+
+@Override
+public List<CouponStatistics> getCouponDataByReedeemStatus() {
+	
+	List<Map<String, Object>> mapList =jdbcTemplate.queryForList(GET_COUPON_DATA_BY_REDEEM_STATUS);
+	List<CouponStatistics> csList =  new ArrayList<CouponStatistics>();
+	if(mapList.size()>0){
+		for(Map<String,Object> map : mapList){
+			csList.add(retriveCouponStatistics(map));
+		}
+		return csList;
 	}
 	return null;
 }

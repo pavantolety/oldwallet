@@ -6,6 +6,15 @@ public class CouponStatistics {
 	private double totalCouponAmount;
 	private double totalRedeemedAmount;
 	private long redeemedCouponCount;
+	private String redeemStatus;
+	
+	
+	public String getRedeemStatus() {
+		return redeemStatus;
+	}
+	public void setRedeemStatus(String redeemStatus) {
+		this.redeemStatus = redeemStatus;
+	}
 	public long getTotalCouponsCount() {
 		return totalCouponsCount;
 	}

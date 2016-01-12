@@ -25,6 +25,8 @@ public interface CouponDAO {
 	public CouponStatistics getTotalCouponAmount();
 
 	public CouponStatistics getReedmedAmount();
+
+	public List<CouponStatistics> getCouponDataByReedeemStatus();
 	
 	
 

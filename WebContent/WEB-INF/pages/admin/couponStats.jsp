@@ -472,7 +472,11 @@
     </script>
     <!-- skycons -->
     <script>
-    var myChart = echarts.init(document.getElementById('echart_pie'), theme);
+    	 var myChart = echarts.init(document.getElementById('echart_pie'), theme);
+    	$.ajax({
+			type:'GET',
+			url:'/couponStatsFor.json',
+			success:function(data) {
     myChart.setOption({
         tooltip: {
             trigger: 'item',
@@ -483,7 +487,7 @@
             //x: 'left',
             x: 'center',
             y: 'bottom',
-            data: ['New', 'Redeemed', 'Expired',]
+            data: ['NEW', 'REDEEMED', 'EXPIRED',]
         },
         toolbox: {
             show: true,
@@ -515,24 +519,13 @@
                 type: 'pie',
                 radius: '55%',
                 center: ['50%', '48%'], //left,top
-                data: [
-					{
-					    value: 745,
-					    name: 'New'
-					},
-                    {
-                        value: 215,
-                        name: 'Redeemed'
-                    },
-                    {
-                        value: 98,
-                        name: 'Expired'
-                    }
-            ]
+                data: data.list
         }
     ]
     });
-    
+	}
+	});
+ 
     var myChart1 = echarts.init(document.getElementById('echart_pie1'), theme);
     myChart1.setOption({
         tooltip: {
