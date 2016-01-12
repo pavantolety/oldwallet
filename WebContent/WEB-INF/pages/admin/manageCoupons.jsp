@@ -325,10 +325,6 @@
             var asInitVals = new Array();
             $(document).ready(function () {
                 var oTable = $('#example').dataTable({
-                	dom:'Bfrtip',
-                	buttons: [
-                	            'copy', 'csv', 'excel', 'pdf', 'print'
-                	        ],
                     "oLanguage": {
                         "sSearch": "Search Coupons:"
                     },
