@@ -32,7 +32,10 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/nprogress.js"></script>
     <link href="css/datatables/tools/css/dataTables.tableTools.css" rel="stylesheet">
-    <script>
+   
+	
+	
+	<script>
         NProgress.start();
     </script>
     
@@ -322,8 +325,12 @@
             var asInitVals = new Array();
             $(document).ready(function () {
                 var oTable = $('#example').dataTable({
+                	dom:'Bfrtip',
+                	buttons: [
+                	            'copy', 'csv', 'excel', 'pdf', 'print'
+                	        ],
                     "oLanguage": {
-                        "sSearch": "Search all columns:"
+                        "sSearch": "Search Coupons:"
                     },
                     "aoColumnDefs": [
                         {
