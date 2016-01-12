@@ -292,7 +292,7 @@ public class CouponPaymentController {
 						
 				    }
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
-					//smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
+					smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
 					}
 					modelMap.put("action", "success");
 					modelMap.put("message", "success");

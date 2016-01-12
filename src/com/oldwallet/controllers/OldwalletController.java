@@ -128,6 +128,12 @@ public class OldwalletController {
 		return "/adminLogin";
 	}
 	
+	@RequestMapping(value="/couponStatsFor", method=RequestMethod.GET)
+	public String couponStatsFor(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
+			
+		return "";
+	}
+	
 	@RequestMapping(value="/downloadData", method=RequestMethod.GET)
 	public String downloadData(ModelMap modelMap,AdminLogin adminLogin,HttpSession session) {
 		AdminSession adminSession=(AdminSession)session.getAttribute("adminSession");
