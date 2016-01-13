@@ -172,6 +172,7 @@
         			type:'GET',
         			url:'/getTrackedCouponsMap.json',
         			success:function(data) {
+        				alert(JSON.stringify(data));
         				var markerImage = new google.maps.MarkerImage(imageUrl,
         			              new google.maps.Size(24, 32));
         				   for (var i = 0; i < data.mapData1.length; ++i) {

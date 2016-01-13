@@ -21,7 +21,7 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	
 	public static final String CREATE_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,COUPON_VALUE,COUPON_HIDE_LOCATION,REDEEM_STATUS,VALIDITY_PERIOD,VALID_FROM,VALID_TO,AVAILABLE_REDEMPTIONS,COUNTRY_CODE)VALUES(?,?,?,?,?,?,?,?,?)";
 	
-	public static final String GET_TRACKING_COUPON_DATA = "SELECT COUNT(COUPON_CODE)AS COUPON_COUNT,COUPON_HIDE_LOCATION AS LOCATION,COUNTRY_CODE AS C_CODE,REDEEM_STATUS FROM COUPONS GROUP BY COUNTRY_CODE ,REDEEM_STATUS";
+	public static final String GET_TRACKING_COUPON_DATA = "SELECT COUNT(COUPON_CODE)AS COUPON_COUNT,COUPON_HIDE_LOCATION AS LOCATION,COUNTRY_CODE AS C_CODE,REDEEM_STATUS,COMPLETED_REDEMPTIONS,REDEEMED_BY FROM COUPONS GROUP BY COUNTRY_CODE ,REDEEM_STATUS";
 	private JdbcTemplate jdbcTemplate;
 
 	 @Autowired
@@ -89,7 +89,12 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 		if(map.get("REDEEM_STATUS")!=null){
 			coupon.setReedemStatus(map.get("REDEEM_STATUS").toString());
 			}
-		
+		if(map.get("REDEEMED_BY")!=null){
+			coupon.setReedemedBy(map.get("REDEEMED_BY").toString());
+			}
+		if(map.get("COMPLETED_REDEMPTIONS")!=null){
+			coupon.setCompletedRedemptions(Long.parseLong(map.get("COMPLETED_REDEMPTIONS").toString()));
+			}
 		if(map.get("C_CODE")!=null){
 			coupon.setCountryCode(map.get("C_CODE").toString());
 		}

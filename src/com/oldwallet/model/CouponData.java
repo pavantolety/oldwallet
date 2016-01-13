@@ -21,8 +21,19 @@ public class CouponData {
 	private String countryCode;
 	private long couponCount;
 	private long availableRedemptions;
+	private long completedRedemptions;
 	private String redeemedLocation;
 	private String redeemedLocationCode;
+
+	
+	
+	public long getCompletedRedemptions() {
+		return completedRedemptions;
+	}
+
+	public void setCompletedRedemptions(long completedRedemptions) {
+		this.completedRedemptions = completedRedemptions;
+	}
 
 	public String getRedeemedLocation() {
 		return redeemedLocation;

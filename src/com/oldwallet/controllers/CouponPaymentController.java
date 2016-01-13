@@ -257,13 +257,15 @@ public class CouponPaymentController {
 					transaction2.setLongitude(couponPayment.getLongitude());
 					
 					Coupon coupon =  couponDAO.getCouponByCode(transaction2.getCouponCode());
-					
+					LOGGER.debug("TRANS COUPON CODE >>>>>>>>>>>>>>>>>>>>"+transaction2.getCouponCode());
 					if(coupon!=null){
-						
-							if(coupon.getRedeemedBy()==null){
+						LOGGER.debug("email address >>>>>>>>>>>>>>>>>>"+coupon.getRedeemedBy());
+						LOGGER.debug("email address size  >>>>>>>>>>>>>>>>>>"+coupon.getRedeemedBy().length());
+							if(coupon.getRedeemedBy().isEmpty()){
 								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
 								transactionDAO.UpdateTransaction(transaction2);
 								String redeemKey  = AuthenticationUtils.generateTokenForAuthentication();
+								LOGGER.debug("email >?????????????????????"+transaction2.getUserEmail());
 								coupon.setRedeemedBy(transaction2.getUserEmail());
 								coupon.setCouponCode(transaction2.getCouponCode());
 								coupon.setRedeemKey(redeemKey);

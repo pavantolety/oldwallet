@@ -54,7 +54,7 @@ public class DataRetievar {
 		return value;		
 	}
 	
-	public static String getDateValueInString(String columnName, Map<String, Object> map) {
+/*	public static String getDateValueInString(String columnName, Map<String, Object> map) {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat format2 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 		try {
@@ -63,6 +63,6 @@ public class DataRetievar {
 			e.printStackTrace();
 		}
 		return format2.toString();
-	}
+	}*/
 
 }

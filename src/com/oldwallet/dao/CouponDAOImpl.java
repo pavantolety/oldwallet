@@ -1,5 +1,7 @@
 package com.oldwallet.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,7 @@ public class CouponDAOImpl implements CouponDAO {
 
 	public static final String GET_TOTAL_REDEEMED_AMOUNT = "SELECT SUM(COUPON_VALUE) AS REDEEMED_COUPON_AMOUNT  FROM TRANSACTION";
 
-	public static final String GET_TOTAL_REDEEMED_COUNT = "SELECT COUNT(COUPON_CODE) AS REDEEMED_COUNT  FROM COUPONS WHERE REDEEM_STATUS='REDEEMED'";
+	public static final String GET_TOTAL_REDEEMED_COUNT = "SELECT COUNT(DISTINCT COUPON_CODE) AS REDEEMED_COUNT ,STATUS AS REDEEM_STATUS FROM TRANSACTION WHERE STATUS='COMPLETE'";
 
 	public static final String GET_COUPON_DATA_BY_REDEEM_STATUS = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT ,REDEEM_STATUS FROM COUPONS GROUP BY REDEEM_STATUS";
 
@@ -81,7 +83,8 @@ public class CouponDAOImpl implements CouponDAO {
 		LOGGER.debug("Beginnig of retrieveCoupon ::");
 
 		Coupon coupon = new Coupon();
-
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format2 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 		coupon.setCouponId(DataRetievar.getLongValue("COUPON_ID", map));
 		coupon.setEventId(DataRetievar.getLongValue("EVENT_ID", map));
 		coupon.setCouponCode(DataRetievar.getStringValue("COUPON_CODE", map));
@@ -91,11 +94,32 @@ public class CouponDAOImpl implements CouponDAO {
 		coupon.setRedeemedBy(DataRetievar.getStringValue("REDEEMED_BY", map));
 		coupon.setAvailableRedemptions(DataRetievar.getIntValue("AVAILABLE_REDEMPTIONS", map));
 		coupon.setCompletedRedemptions(DataRetievar.getIntValue("COMPLETED_REDEMPTIONS", map));
-		coupon.setRedeemedDate(DataRetievar.getDateValueInString("REDEEMED_DATE", map));
 		coupon.setLocation(DataRetievar.getStringValue("", map));
 		coupon.setValidityPeriod(DataRetievar.getStringValue("", map));
-		coupon.setValidFrom(DataRetievar.getDateValueInString("VALID_FROM", map));
-		coupon.setValidTo(DataRetievar.getDateValueInString("VALID_TO", map));
+		try {
+			if(map.get("REDEEMED_DATE")!=null) {
+			coupon.setRedeemedDate(format2.format(format1.parse(map.get("REDEEMED_DATE").toString())));
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(map.get("VALID_FROM")!=null) {
+			try {
+				coupon.setValidFrom(format2.format(format1.parse(map.get("VALID_FROM").toString())));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		if(map.get("VALID_TO")!=null) {
+			try {
+				coupon.setValidTo(format2.format(format1.parse(map.get("VALID_TO").toString())));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
 
 		LOGGER.debug("End of retrieveCoupon ::");
 

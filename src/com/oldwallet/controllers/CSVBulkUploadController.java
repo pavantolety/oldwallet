@@ -30,10 +30,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CSVBulkUploadDAO;
+import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.enums.CouponStatus;
 import com.oldwallet.model.CouponData;
+import com.oldwallet.model.CouponStatistics;
 import com.oldwallet.model.ExceptionObj;
 import com.oldwallet.model.GoogleResponse;
 import com.oldwallet.model.LatLong;
@@ -54,6 +56,9 @@ public class CSVBulkUploadController {
 	
 	@Autowired
 	ExceptionObjDAO exceptionObjDAO;
+	
+	@Autowired
+	CouponDAO couponDAO;
 	
 private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadController.class);
 	
@@ -146,6 +151,7 @@ private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadController.cl
 	 	        	 if(couponData.getReedemStatus().equalsIgnoreCase(CouponStatus.NEW.toString())){
 	 	        		 JSONObject obj = new JSONObject();
 	 	        		LOGGER.debug("LOCATION :::::::::::::::"+couponData.getCouponHideLocation());
+	 	        		LOGGER.debug("completd"+couponData.getCompletedRedemptions());
 	 	        		 LatLong lt =  getLatLongByAddress(couponData.getCouponHideLocation());
 	 	        		 obj.put("code",couponData.getCountryCode());
 		 	        	 obj.put("name", couponData.getCouponHideLocation());
@@ -153,7 +159,7 @@ private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadController.cl
 		 	        	 obj.put("latitude",lt.getLat());
 		 	        	 obj.put("logitude", lt.getLonngi());
 		 	        	  list1.add(obj);
-	 	        	 }else if(couponData.getReedemStatus().equalsIgnoreCase(CouponStatus.REDEEMED.toString())){
+	 	        	 }else if(!couponData.getReedemedBy().isEmpty()){
 	 	        		 List<Transaction>  transactionList = transactionDAO.getRedeemedCouponData();
 	 	        		 if(transactionList.size()>0){
 	 	        		 for(Transaction  tr : transactionList){
@@ -166,8 +172,8 @@ private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadController.cl
 	 	        			list2.add(obj2);
 	 	        		 }
 	 	        		 }
-	 	        		
 	 	        		 }
+	 	        		 
 	 	        	
 	 	        	 }
 	         
