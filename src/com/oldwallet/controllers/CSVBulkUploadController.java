@@ -151,7 +151,7 @@ private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadController.cl
 	 	        	 if(couponData.getReedemStatus().equalsIgnoreCase(CouponStatus.NEW.toString())){
 	 	        		 JSONObject obj = new JSONObject();
 	 	        		LOGGER.debug("LOCATION :::::::::::::::"+couponData.getCouponHideLocation());
-	 	        		LOGGER.debug("completd"+couponData.getCompletedRedemptions());
+	 	        		LOGGER.debug("email"+couponData.getReedemedBy());
 	 	        		 LatLong lt =  getLatLongByAddress(couponData.getCouponHideLocation());
 	 	        		 obj.put("code",couponData.getCountryCode());
 		 	        	 obj.put("name", couponData.getCouponHideLocation());
@@ -159,10 +159,13 @@ private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadController.cl
 		 	        	 obj.put("latitude",lt.getLat());
 		 	        	 obj.put("logitude", lt.getLonngi());
 		 	        	  list1.add(obj);
-	 	        	 }else if(!couponData.getReedemedBy().isEmpty()){
+	 	        	 }
+	 	        		 LOGGER.debug("NOT EMPTY>>>>>>>>>>>>>>>>>");
 	 	        		 List<Transaction>  transactionList = transactionDAO.getRedeemedCouponData();
+	 	        		LOGGER.debug("NOT EMPTY>>>>>>>>>>>>>>>>>");
 	 	        		 if(transactionList.size()>0){
 	 	        		 for(Transaction  tr : transactionList){
+	 	        			LOGGER.debug("NOT EMPTY>>>>>>>>>>>>>>>>>");
 	 	        			JSONObject obj2 = new JSONObject();
 	 	        			obj2.put("code",couponData.getCountryCode());
 	 	        			obj2.put("name", couponData.getCouponHideLocation());
@@ -172,9 +175,6 @@ private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadController.cl
 	 	        			list2.add(obj2);
 	 	        		 }
 	 	        		 }
-	 	        		 }
-	 	        		 
-	 	        	
 	 	        	 }
 	         
 	 	        }	 
