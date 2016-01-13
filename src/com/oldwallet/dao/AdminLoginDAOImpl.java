@@ -12,51 +12,45 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.AdminLogin;
-import com.oldwallet.model.Coupon;
+import com.oldwallet.util.DataRetievar;
 
 @Repository
-public class AdminLoginDAOImpl implements AdminLoginDAO{
-	
+public class AdminLoginDAOImpl implements AdminLoginDAO {
+
 	public static final String GET_ADMIN_DETAILS = "SELECT ID, EMAIL_ADDRESS, PASSWORD FROM ADMIN_LOGIN WHERE EMAIL_ADDRESS=?";
 
 	private JdbcTemplate jdbcTemplate;
-	
-	private static Logger log = Logger.getLogger(CouponDAOImpl.class);
 
-	 @Autowired
-	    public void setDataSource(DataSource dataSource) {
-	        this.jdbcTemplate = new JdbcTemplate(dataSource);
-	    }
-	 
-	 @Override
-	 public AdminLogin getAdminByEmailAddress(String emailAddress){
-		 List<AdminLogin> adminDetailsList =  new  ArrayList<AdminLogin>();
-			List<Map<String, Object>> adminList = jdbcTemplate.queryForList(GET_ADMIN_DETAILS,emailAddress);
-			if(adminList.size()>0){				
+	private static final Logger log = Logger.getLogger(CouponDAOImpl.class);
+
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	@Override
+	public AdminLogin getAdminByEmailAddress(String emailAddress) {
+		log.debug("Begining of getAdminByEmailAddress ::");
+		List<AdminLogin> adminDetailsList = new ArrayList<AdminLogin>();
+		List<Map<String, Object>> adminList = jdbcTemplate.queryForList(GET_ADMIN_DETAILS, emailAddress);
+		if (!adminList.isEmpty()) {
 			for (Map<String, Object> map : adminList) {
 				adminDetailsList.add(retrieveAdmin(map));
-				}
-			return adminDetailsList.get(0);
-			} else {				
-				return null;
 			}
-		 
-	 }
+			return adminDetailsList.get(0);
+		} else {
+			return null;
+		}
+
+	}
 
 	private AdminLogin retrieveAdmin(Map<String, Object> map) {
-		
-		AdminLogin adminLogin = new AdminLogin();	
 
-		if(map.get("ID")!=null){
-			adminLogin.setId(Long.parseLong(map.get("ID").toString()));
-		}
-		if(map.get("EMAIL_ADDRESS")!= null){
-			adminLogin.setEmailAddress(map.get("EMAIL_ADDRESS").toString());
-		}
-		if(map.get("PASSWORD")!= null){
-			adminLogin.setPassword(map.get("PASSWORD").toString());
-		}
-		
+		AdminLogin adminLogin = new AdminLogin();
+
+		adminLogin.setEmailAddress(DataRetievar.getStringValue("EMAIL_ADDRESS",map));
+		adminLogin.setId(DataRetievar.getLongValue("ID", map));
+
 		return adminLogin;
 	}
 }
