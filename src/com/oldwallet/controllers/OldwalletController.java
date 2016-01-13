@@ -45,11 +45,10 @@ public class OldwalletController {
 
 	@RequestMapping(value = { "/", "/index" })
 	public String index() {
-
 		return "index";
 	}
 
-	@RequestMapping(value = { "/dashboard" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard() {
 		return "dashboard";
 	}

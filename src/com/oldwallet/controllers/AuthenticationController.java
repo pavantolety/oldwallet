@@ -19,12 +19,12 @@ public class AuthenticationController {
 	AdminLoginDAO adminLoginDAO;
 
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
-	public String adminLogin(ModelMap modelMap) {
+	public String adminLogin() {
 		return "/adminLogin";
 	}
 
 	@RequestMapping(value = "/adminLogout", method = RequestMethod.GET)
-	public String logout(ModelMap modelMap, AdminLogin adminLogin,HttpSession session) {
+	public String logout(AdminLogin adminLogin,HttpSession session) {
 
 		session.removeAttribute("adminSession");
 
