@@ -36,7 +36,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	private static final String GET_MONTHLY_REDEEMED_COUPONS_COUNT = "SELECT MONTH(TRANSACTION_UPDATION) MONTH, COUNT(*) COUNT FROM TRANSACTION GROUP BY MONTH(TRANSACTION_UPDATION)";
 	private static final String GET_MONTHLY_NEW_COUPONS_COUNT = "SELECT MONTH(VALID_FROM) AS MONTH, COUNT(1) AS TOTAL_COUPONS_COUNT FROM COUPONS GROUP BY MONTH(VALID_FROM)";
 	private static final String GET_MONTHLY_EXPIRED_COUPONS_COUNT = "SELECT MONTH(VALID_FROM) AS MONTH, COUNT(1) AS EXPIRED_COUPONS_COUNT FROM COUPONS WHERE REDEEM_STATUS LIKE ? GROUP BY MONTH(VALID_FROM)";
-	public static final  String UPDATE_COUPON = "UPDATE COUPONS SET REDEEMED_BY=?,COMPLETED_REDEMPTIONS=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
+	public static final  String UPDATE_COUPON = "UPDATE COUPONS SET REDEEMED_BY=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
 	public static final  String UPDATE_REFERRAL_COUPON = "UPDATE COUPONS SET COMPLETED_REDEMPTIONS=? WHERE COUPON_CODE=?";
 	public static final  String UPDATE_COUPON_DATA = "UPDATE COUPONS SET REDEEM_STATUS=? WHERE COUPON_CODE=?";
 	private static final String GET_TRANSACTION_BY_EMAIL = "SELECT TRANSACTION_ID, EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE,LATITUDE,LONGITUDE,  TRANSACTION_CODE, TRANSACTION_CREATION, TRANSACTION_UPDATION, STATUS FROM TRANSACTION WHERE USER_EMAIL=? AND EVENT_ID=?";
@@ -61,7 +61,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		int result = jdbcTemplate.update(UPDATE_TRANSACTION, transaction.getStatus(),transaction.getLatitude(),transaction.getLongitude(),transaction.getTransactionCode());
 		if(result>0) {
 			isUpdated = true;
-			int result1 = jdbcTemplate.update(UPDATE_COUPON,transaction.getUserEmail(),transaction.getCompletedRedemptions()+1, transaction.getCouponCode());
+			int result1 = jdbcTemplate.update(UPDATE_COUPON,transaction.getUserEmail(), transaction.getCouponCode());
 			if(result1>0) {
 				log.debug("COUPON UPDATED ::");
 			} else {
