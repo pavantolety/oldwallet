@@ -42,7 +42,7 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW' AND VALID_TO>=NOW()";
 
 	private JdbcTemplate jdbcTemplate;
-	private static final Logger log = Logger.getLogger(CouponDAOImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(CouponDAOImpl.class);
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
@@ -61,24 +61,24 @@ public class CouponDAOImpl implements CouponDAO {
 
 	@Override
 	public Coupon getCouponByCode(String couponCode) {
-		log.debug("Beginning of getCouponByCode ::: ");
+		LOGGER.debug("Beginning of getCouponByCode ::: ");
 		List<Coupon> couponList = new ArrayList<Coupon>();
 		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(VALIDATE_COUPON, couponCode);
-		if (coupon.size() > 0) {
-			log.debug("Calid Coupon is available ::: ");
+		if (!coupon.isEmpty()) {
+			LOGGER.debug("Calid Coupon is available ::: ");
 			for (Map<String, Object> map : coupon) {
 				couponList.add(retrieveCoupon(map));
 			}
 			return couponList.get(0);
 		} else {
-			log.debug("NO valid coupons available ::: ");
+			LOGGER.debug("NO valid coupons available ::: ");
 			return null;
 		}
 	}
 
 	private Coupon retrieveCoupon(Map<String, Object> map) {
 
-		log.debug("Beginnig of retrieveCoupon ::");
+		LOGGER.debug("Beginnig of retrieveCoupon ::");
 
 		Coupon coupon = new Coupon();
 
@@ -97,7 +97,7 @@ public class CouponDAOImpl implements CouponDAO {
 		coupon.setValidFrom(DataRetievar.getDateValueInString("VALID_FROM", map));
 		coupon.setValidTo(DataRetievar.getDateValueInString("VALID_TO", map));
 
-		log.debug("End of retrieveCoupon ::");
+		LOGGER.debug("End of retrieveCoupon ::");
 
 		return coupon;
 	}
@@ -116,7 +116,7 @@ public class CouponDAOImpl implements CouponDAO {
 	public boolean isCouponExists(String couponCode) {
 		boolean isExists = false;
 		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(IS_COUPON_EXISTS, couponCode);
-		if (coupon.size() > 0) {
+		if (!coupon.isEmpty()) {
 			isExists = true;
 		}
 		return isExists;
@@ -238,9 +238,9 @@ public class CouponDAOImpl implements CouponDAO {
 			for (Map<String, Object> map : mapList) {
 				csList.add(retriveCouponStatistics(map));
 			}
-			return csList;
-		}
-		return null;
+			
+		} 
+		return csList;
 	}
 
 }

@@ -37,13 +37,11 @@ import com.oldwallet.model.CouponPayment;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.AuthenticationUtils;
+import com.oldwallet.util.SMSUtil;
 import com.oldwallet.util.paypal.Configuration;
 
 @Controller
 public class CouponPaymentController {
-	
-	@Autowired
-	SMSController smsController;
 	
 	@Autowired
 	CouponDAO couponDAO;
@@ -315,7 +313,7 @@ public class CouponPaymentController {
 						
 				    }
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
-					smsController.sendSMS(modelMap, couponPayment.getMobile(),transaction2.getCouponValue(), session);
+						SMSUtil.sendSMS(couponPayment.getMobile(),transaction2.getCouponValue());
 					}
 					modelMap.put("action", "success");
 					modelMap.put("message", "success");
