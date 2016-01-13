@@ -19,7 +19,7 @@ public class SMSUtil {
 	
 public static String sendSMS(String mobile, String amount) {
 		
-		LOGGER.debug("Begining of sendSMS ::");		
+		LOGGER.debug("Begining of sendSMS ::");
 
 		TwilioRestClient client = new TwilioRestClient(SystemParams.TWILIO_ACCOUNT_ID, SystemParams.TWILIO_AUTH_TOKEN);
 
@@ -36,6 +36,7 @@ public static String sendSMS(String mobile, String amount) {
 			LOGGER.debug("smsStatus :: "+sms.getStatus());
 		} catch (TwilioRestException e) {
 			e.printStackTrace();
+			
 		}
 		return "";
 	}

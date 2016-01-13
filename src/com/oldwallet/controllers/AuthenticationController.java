@@ -24,8 +24,7 @@ public class AuthenticationController {
 	}
 
 	@RequestMapping(value = "/adminLogout", method = RequestMethod.GET)
-	public String logout(ModelMap modelMap, AdminLogin adminLogin,
-			HttpSession session) {
+	public String logout(ModelMap modelMap, AdminLogin adminLogin,HttpSession session) {
 
 		session.removeAttribute("adminSession");
 
@@ -34,16 +33,18 @@ public class AuthenticationController {
 
 	@RequestMapping(value = "/adminSubmit", method = { RequestMethod.POST, RequestMethod.GET })
 	public String getAdminHome(ModelMap modelMap, AdminLogin adminLogin, HttpSession session) {
+		
+		String returnURI = "/adminLogin";
 
 		AdminLogin validAdmin = adminLoginDAO.getAdminByEmailAddress(adminLogin.getEmailAddress());
-		AdminSession adminSession = AuthenticationHelper.populateAdminSession(adminLogin, validAdmin);
-		session.setAttribute("adminSession", adminSession);
-		if (validAdmin != null) {
-			return "/adminHome";
+		if(validAdmin!= null) {
+			returnURI = "/adminHome";
+			AdminSession adminSession = AuthenticationHelper.populateAdminSession(adminLogin);
+			session.setAttribute("adminSession", adminSession);			
+		} else {
+			modelMap.put("status", "error");
+			modelMap.put("message", "Please give valid Credentials");
 		}
-		modelMap.put("status", "error");
-		modelMap.put("message", "Please give valid Credentials");
-
-		return "/adminLogin";
+		return returnURI;
 	}
 }
