@@ -30,7 +30,7 @@ public class AdminLoginDAOImpl implements AdminLoginDAO {
 
 	@Override
 	public AdminLogin getAdminByEmailAddress(String emailAddress) {
-		log.debug("Begining of getAdminByEmailAddress ::");
+		log.debug("Beginning of getAdminByEmailAddress ::");
 		List<AdminLogin> adminDetailsList = new ArrayList<AdminLogin>();
 		List<Map<String, Object>> adminList = jdbcTemplate.queryForList(GET_ADMIN_DETAILS, emailAddress);
 		if (!adminList.isEmpty()) {

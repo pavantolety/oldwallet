@@ -11,11 +11,11 @@ public interface CouponDAO {
 	public Coupon getCouponByCode(String couponCode);
 
 	public boolean updateCoupon(String couponCode);
-	
+
 	public boolean updateCouponData(Coupon coupon);
-	
+
 	public boolean isCouponExists(String couponCode);
-	
+
 	public List<Coupon> getCouponData();
 
 	public UserToken getRedeemKey(String redeemKey);
@@ -29,8 +29,5 @@ public interface CouponDAO {
 	public CouponStatistics getReedmedAmount();
 
 	public List<CouponStatistics> getCouponDataByReedeemStatus();
-	
-	
 
-	
 }
