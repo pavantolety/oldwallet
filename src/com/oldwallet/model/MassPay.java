@@ -1,19 +1,19 @@
 package com.oldwallet.model;
 
 public class MassPay {
-	
+
 	private String emailAddress1;
 	private String emailAddress2;
 	private String emailAddress3;
 	private String emailAddress4;
 	private String emailAddress5;
-	
+
 	private String amount1;
 	private String amount2;
 	private String amount3;
 	private String amount4;
 	private String amount5;
-	
+
 	private String currencyCode1;
 	private String currencyCode2;
 	private String currencyCode3;
@@ -60,7 +60,7 @@ public class MassPay {
 		this.emailAddress5 = emailAddress5;
 	}
 
-		public String getAmount1() {
+	public String getAmount1() {
 		return amount1;
 	}
 
@@ -100,7 +100,7 @@ public class MassPay {
 		this.amount5 = amount5;
 	}
 
-		public String getCurrencyCode1() {
+	public String getCurrencyCode1() {
 		return currencyCode1;
 	}
 
@@ -139,9 +139,4 @@ public class MassPay {
 	public void setCurrencyCode5(String currencyCode5) {
 		this.currencyCode5 = currencyCode5;
 	}
-
-	
-
-	
-	
 }

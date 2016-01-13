@@ -1,38 +1,36 @@
 package com.oldwallet.model;
 
 public class Coupon {
-	
+
 	private long couponId;
-	
+
 	private long eventId;
-	
+
 	private String couponCode;
-	
+
 	private String couponValue;
-	
+
 	private String couponHideLocation;
-	
+
 	private String redeemStatus;
-	
+
 	private String redeemedBy;
-	
+
 	private int availableRedemptions;
-	
+
 	private int completedRedemptions;
-	
+
 	private String validFrom;
-	
+
 	private String validTo;
-	
+
 	private String redeemedDate;
-	
-	 private String location;
-	 
-	 private String validityPeriod;	
-	 
-	 private String redeemKey;
-	 
-	 
+
+	private String location;
+
+	private String validityPeriod;
+
+	private String redeemKey;
 
 	public String getRedeemKey() {
 		return redeemKey;

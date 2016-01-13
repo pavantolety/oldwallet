@@ -1,9 +1,9 @@
 package com.oldwallet.model;
 
 public class MonthlyRedeemCouponsCount {
-	
+
 	private String month;
-	
+
 	private String count;
 
 	public String getMonth() {

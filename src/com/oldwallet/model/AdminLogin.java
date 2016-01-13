@@ -1,11 +1,11 @@
 package com.oldwallet.model;
 
 public class AdminLogin {
-	
+
 	private long id;
-	
+
 	private String emailAddress;
-	
+
 	private String password;
 
 	public long getId() {
@@ -31,7 +31,5 @@ public class AdminLogin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 }

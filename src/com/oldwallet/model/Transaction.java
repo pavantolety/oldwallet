@@ -15,16 +15,12 @@ public class Transaction {
 	private String userEmail;
 	private String userMobile;
 	private String status;
-    private String latitude;
-    private String longitude;
-    private int availableRedemptions;
-    private long couponCount;
-    private int completedRedemptions;
-    
-    
-    
-    
-    
+	private String latitude;
+	private String longitude;
+	private int availableRedemptions;
+	private long couponCount;
+	private int completedRedemptions;
+
 	public int getCompletedRedemptions() {
 		return completedRedemptions;
 	}
@@ -48,8 +44,6 @@ public class Transaction {
 	public void setAvailableRedemptions(int availableRedemptions) {
 		this.availableRedemptions = availableRedemptions;
 	}
-
-
 
 	public String getLatitude() {
 		return latitude;

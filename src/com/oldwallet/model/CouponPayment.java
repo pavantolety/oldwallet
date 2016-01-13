@@ -11,10 +11,6 @@ public class CouponPayment {
 	private String mobile;
 	private String latitude;
 	private String longitude;
-	
-	
-	
-	
 
 	public String getLatitude() {
 		return latitude;
