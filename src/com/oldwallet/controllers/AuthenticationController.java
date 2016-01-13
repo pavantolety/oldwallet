@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.AdminLoginDAO;
 import com.oldwallet.model.AdminLogin;
 import com.oldwallet.model.AdminSession;
@@ -20,25 +21,25 @@ public class AuthenticationController {
 
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
 	public String adminLogin() {
-		return "/adminLogin";
+		return PageView.ADMINLOGIN;
 	}
 
 	@RequestMapping(value = "/adminLogout", method = RequestMethod.GET)
-	public String logout(AdminLogin adminLogin,HttpSession session) {
+	public String logout(HttpSession session) {
 
 		session.removeAttribute("adminSession");
 
-		return "/adminLogin";
+		return PageView.ADMINLOGIN;
 	}
 
 	@RequestMapping(value = "/adminSubmit", method = { RequestMethod.POST, RequestMethod.GET })
 	public String getAdminHome(ModelMap modelMap, AdminLogin adminLogin, HttpSession session) {
 		
-		String returnURI = "/adminLogin";
+		String returnURI = PageView.ADMINLOGIN;
 
 		AdminLogin validAdmin = adminLoginDAO.getAdminByEmailAddress(adminLogin.getEmailAddress());
 		if(validAdmin!= null) {
-			returnURI = "/adminHome";
+			returnURI = PageView.ADMINHOME;
 			AdminSession adminSession = AuthenticationHelper.populateAdminSession(adminLogin);
 			session.setAttribute("adminSession", adminSession);			
 		} else {

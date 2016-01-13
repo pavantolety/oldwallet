@@ -26,12 +26,14 @@ import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
 import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
 import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
+import com.oldwallet.config.SystemParams;
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponDAO;
-import com.oldwallet.model.AdminLogin;
+import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.model.AdminSession;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
+import com.oldwallet.model.ExceptionObj;
 import com.oldwallet.model.MassPay;
 import com.oldwallet.util.paypal.Configuration;
 
@@ -41,7 +43,11 @@ public class OldwalletController {
 	@Autowired
 	CouponDAO couponDAO;
 	
+	@Autowired
+	ExceptionObjDAO exceptionObjDAO;
+	
 	private static final Logger LOGGER = Logger.getLogger(OldwalletController.class);
+	AdminSession adminSession = null;
 
 	@RequestMapping(value = { "/", "/index" })
 	public String index() {
@@ -64,75 +70,81 @@ public class OldwalletController {
 	}
 
 	@RequestMapping(value = "/massPay", method = RequestMethod.GET)
-	public String massPay(AdminLogin adminLogin, HttpSession session) {
-		AdminSession adminSession = (AdminSession) session.getAttribute("adminSession");
+	public String massPay(HttpSession session) {
+		adminSession = (AdminSession) session.getAttribute("adminSession");
 		if (adminSession != null) {
 			return PageView.MASSPAY;
 		}
-		return "/adminLogin";
+		return PageView.ADMINLOGIN;
 	}
 
 	@RequestMapping(value = "/trackCoupons", method = RequestMethod.GET)
-	public String trackCoupons(AdminLogin adminLogin, HttpSession session) {
-		AdminSession adminSession = (AdminSession) session.getAttribute("adminSession");
+	public String trackCoupons(HttpSession session) {
+		adminSession = (AdminSession) session.getAttribute("adminSession");
 		if (adminSession != null) {
 			return PageView.TRACKCOUPONS;
 		}
-		return "/adminLogin";
+		return PageView.ADMINLOGIN;
 	}
 
 	@RequestMapping(value = "/adminHome", method = RequestMethod.GET)
-	public String adminHome(AdminLogin adminLogin, HttpSession session) {
-		AdminSession adminSession = (AdminSession) session.getAttribute("adminSession");
+	public String adminHome(HttpSession session) {
+		adminSession = (AdminSession) session.getAttribute("adminSession");
 		if (adminSession != null) {
 			return PageView.ADMINHOME;
 		}
-		return "/adminLogin";
+		return PageView.ADMINLOGIN;
 	}
 
 	@RequestMapping(value = "/manageCoupons", method = RequestMethod.GET)
-	public String manageCoupons(ModelMap modelMap, AdminLogin adminLogin, HttpSession session) {
-		AdminSession adminSession = (AdminSession) session.getAttribute("adminSession");
+	public String manageCoupons(ModelMap modelMap, HttpSession session) {
+		adminSession = (AdminSession) session.getAttribute("adminSession");
 		if (adminSession != null) {
 			List<Coupon> couponList = couponDAO.getCouponData();
-			if (couponList != null && couponList.size() > 0) {
+			if (!couponList.isEmpty()) {
 				LOGGER.debug("Going to data table :::");
 				modelMap.put("couponList", couponList);
 			}
 			return PageView.MANAGECOUPONS;
 		}
-		return "/adminLogin";
+		return PageView.ADMINLOGIN;
 	}
 
 	@RequestMapping(value = "/couponStats", method = RequestMethod.GET)
-	public String couponStats(ModelMap modelMap, AdminLogin adminLogin, HttpSession session) {
-		AdminSession adminSession = (AdminSession) session.getAttribute("adminSession");
+	public String couponStats(ModelMap modelMap, HttpSession session) {
+		adminSession = (AdminSession) session.getAttribute("adminSession");
 		if (adminSession != null) {
 			CouponStatistics cs1 = couponDAO.getTotalCouponCount();
 			CouponStatistics cs2 = couponDAO.getRedeemedCount();
 			CouponStatistics cs3 = couponDAO.getTotalCouponAmount();
 			CouponStatistics cs4 = couponDAO.getReedmedAmount();
-			if (cs1 != null) {
+			if(cs1 != null) {
+				modelMap.put("couponCount", cs1.getTotalCouponsCount());
+			}
+			if(cs2 != null) {
+				modelMap.put("redeemedCount", cs2.getRedeemedCouponCount());
+			}
+			if(cs3 != null) {
+				modelMap.put("couponAmount", cs3.getTotalCouponAmount());
+			}
+			if(cs4 != null) {
 				long percentage = Math.round((cs4.getTotalRedeemedAmount() / cs3.getTotalCouponAmount()) * 100);
 				DecimalFormat df = new DecimalFormat("#.00");
-				String percentageVal = df.format(percentage);
-				modelMap.put("couponCount", cs1.getTotalCouponsCount());
-				modelMap.put("redeemedCount", cs2.getRedeemedCouponCount());
-				modelMap.put("couponAmount", cs3.getTotalCouponAmount());
+				String percentageVal = df.format(percentage);				
 				modelMap.put("redeemedAmount", cs4.getTotalRedeemedAmount());
 				modelMap.put("percentageVal", percentageVal);
-			}
+			}			
 			return PageView.COUPONSTATS;
 		}
-		return "/adminLogin";
+		return PageView.ADMINLOGIN;
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/couponStatsFor", method = RequestMethod.GET)
-	public String couponStatsFor(ModelMap modelMap, AdminLogin adminLogin, HttpSession session) {
+	public String couponStatsFor(ModelMap modelMap) {
 		List<CouponStatistics> csList = couponDAO.getCouponDataByReedeemStatus();
 		JSONArray list = new JSONArray();
-		if (csList.size() > 0) {
+		if (!csList.isEmpty()) {
 			for (CouponStatistics cs : csList) {
 				JSONObject obj = new JSONObject();
 				obj.put("value", cs.getTotalCouponsCount());
@@ -145,12 +157,12 @@ public class OldwalletController {
 	}
 
 	@RequestMapping(value = "/downloadData", method = RequestMethod.GET)
-	public String downloadData(AdminLogin adminLogin, HttpSession session) {
-		AdminSession adminSession = (AdminSession) session.getAttribute("adminSession");
+	public String downloadData(HttpSession session) {
+		adminSession = (AdminSession) session.getAttribute("adminSession");
 		if (adminSession != null) {
 			return PageView.DOWNLOADDATA;
 		}
-		return "/adminLogin";
+		return PageView.ADMINLOGIN;
 	}
 
 	@RequestMapping(value = "/facebook", method = RequestMethod.GET)
@@ -178,7 +190,7 @@ public class OldwalletController {
 	}
 
 	@RequestMapping(value = "/sendMassPayment", method = RequestMethod.POST)
-	public String sendMassPayment(ModelMap modelMap, MassPay massPay, HttpSession session) {
+	public String sendMassPayment(ModelMap modelMap, MassPay massPay) {
 		LOGGER.debug("Begining of sendMassPayment() ::::"+ massPay.getAmount1() + ", " + massPay.getEmailAddress1());
 		String returnPage = "error";
 		MassPayReq req = new MassPayReq();
@@ -186,11 +198,11 @@ public class OldwalletController {
 		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
 
 		BasicAmountType amount1 = null;
-		if (massPay.getCurrencyCode1() != null && massPay.getCurrencyCode1().equalsIgnoreCase("USD")) {
+		if (massPay.getCurrencyCode1() != null && SystemParams.MASS_PAY_DEFAULT_CURRENCY_CODE.equalsIgnoreCase(massPay.getCurrencyCode1())) {
 			amount1 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()), massPay.getAmount1());
 		}
 		BasicAmountType amount2 = null;
-		if (massPay.getCurrencyCode1() != null && massPay.getCurrencyCode1().equalsIgnoreCase("USD")) {
+		if (massPay.getCurrencyCode1() != null && SystemParams.MASS_PAY_DEFAULT_CURRENCY_CODE.equalsIgnoreCase(massPay.getCurrencyCode1())) {
 			amount2 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()), massPay.getAmount1());
 		}
 		MassPayRequestItemType item1 = null;
@@ -209,20 +221,12 @@ public class OldwalletController {
 				massPayItem.add(item2);
 			}
 		}
-		if (massPayItem.size() > 0) {
+		if (!massPayItem.isEmpty()) {
 			MassPayRequestType reqType = new MassPayRequestType(massPayItem);
 			reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
-			req.setMassPayRequest(reqType);
+			req.setMassPayRequest(reqType);			
+			Map<String, String> configurationMap = Configuration.getAcctAndConfig();
 
-			// Configuration map containing signature credentials and other
-			// required configuration.
-			// For a full list of configuration parameters refer in wiki page.
-			// (https://github.com/paypal/sdk-core-java/wiki/SDK-Configuration-Parameters)
-			Map<String, String> configurationMap = Configuration
-					.getAcctAndConfig();
-
-			// Creating service wrapper object to make an API call by loading
-			// configuration map.
 			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
 
 			try {
@@ -230,24 +234,28 @@ public class OldwalletController {
 				if (resp != null) {
 					modelMap.addAttribute("lastReq", service.getLastRequest());
 					modelMap.addAttribute("lastResp", service.getLastResponse());
-					if (resp.getAck().toString().equalsIgnoreCase("SUCCESS")) {
+					if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
 						Map<Object, Object> map = new LinkedHashMap<Object, Object>();
 						map.put("Ack", resp.getAck());
 						modelMap.addAttribute("map", map);
-						// response.sendRedirect(this.getServletContext().getContextPath()+"/Response.jsp");
 						LOGGER.debug("Success :: " + resp.toString());
 						return "success";
 					} else {
 						modelMap.addAttribute("Error", resp.getErrors());
 						LOGGER.debug(resp.getErrors().toString());
-						// response.sendRedirect(this.getServletContext().getContextPath()+"/Error.jsp");
 						return "error";
 					}
 				}
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				LOGGER.info(e);
 				e.printStackTrace();
+				ExceptionObj exceptionObj = new ExceptionObj();
+				exceptionObj.setExceptionMessage(e.getMessage());
+				exceptionObj.setExceptionName("MassPay Exception");
+				exceptionObj.setExceptionSourceFile("OldWalletController.java");
+				exceptionObj.setExceptionSourceMethod("sendMassPayment");
+				exceptionObjDAO.saveException(exceptionObj);
 			}
 		} else {
 			modelMap.put("action", "Error");
