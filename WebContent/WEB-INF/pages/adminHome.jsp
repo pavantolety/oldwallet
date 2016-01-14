@@ -84,6 +84,8 @@
                                            </li>
                                            <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
                                            </li>
+                                           <li><a href="/createCoupon"><i class="fa fa-wrench"></i>Manage Coupons</a>
+                                           </li>
                                        </ul>
                             	</li>
                             	<li><a><i class="fa fa-edit"></i>Dashboard<span class="fa fa-chevron-down"></span></a>

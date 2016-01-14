@@ -158,7 +158,7 @@ public class OldwalletController {
 		return "";
 	}
 
-	@RequestMapping(value = "/createCoupons", method = RequestMethod.GET)
+	@RequestMapping(value = "/createCoupon", method = RequestMethod.GET)
 	public String createCoupons(HttpSession session) {
 		adminSession = (AdminSession) session.getAttribute("adminSession");
 		if (adminSession != null) {

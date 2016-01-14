@@ -2,8 +2,6 @@ package com.oldwallet.constraints;
 
 public interface PageView {
 
-	String REDEEM = "screens/redeem";
-
 	String TERMSOFUSE = "screens/terms";
 
 	String THANKYOU = "screens/thankYou";
@@ -25,9 +23,11 @@ public interface PageView {
 	String ADMINHOME = "adminHome";
 
 	String ADMINLOGIN = "adminLogin";
+	
+	String USERLOGIN = "userLogin";
 
 	String FACEBOOK = "facebook";
 
-	String CREATECOUPONS = "generateCoupon";
+	String CREATECOUPONS = "admin/createCoupon";
 
 }

@@ -77,9 +77,11 @@
                             <ul class="nav side-menu">
                             	<li><a><i class="fa fa-gamepad"></i>Coupon Management<span class="fa fa-chevron-down"></span></a>
                            			<ul class="nav child_menu" style="display: none">
-                                           <li><a href="/adminHome"><i class="fa fa-upload"></i>Upload Coupons</a>
+                                            <li><a href="/adminHome"><i class="fa fa-upload"></i>Upload Coupons</a>
                                            </li>
                                            <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
+                                           </li>
+                                           <li><a href="/createCoupon"><i class="fa fa-credit-card"></i>Manage Coupons</a>
                                            </li>
                                        </ul>
                             	</li>
@@ -205,7 +207,7 @@
 											 <span class="progressText" style="text-align:center;"><h5 id="monthDiff"></h5></span>
 											<span class="progressText" style="color:black;"><h5>$ ${redeemedAmount} <span class="" style="color:black;margin:39%;">${percentageVal }%</span><span class="pull-right"style="color:black">$ ${couponAmount}</span></h5></span>
 											<div class="progress">
-						  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+						  <div class="progress-bar" role="progressbar" role="progressbar"
 						  aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${percentageVal }%">
 						    
 						  </div>
