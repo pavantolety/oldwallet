@@ -45,6 +45,13 @@ import com.oldwallet.util.paypal.Configuration;
 @Controller
 public class CouponPaymentController {
 	
+	private static final Logger LOGGER = Logger.getLogger(CouponPaymentController.class);
+	private static final String STATUS = "status";
+	private static final String ACTION = "action";
+	private static final String MESSAGE = "message";
+	private static final String NEW = "NEW";
+	private static final String SUCCESS = "success";
+	
 	@Autowired
 	CouponDAO couponDAO;
 	
@@ -53,12 +60,6 @@ public class CouponPaymentController {
 	
 	@Autowired
 	ExceptionObjDAO exceptionObjDAO;
-	
-	private static Logger LOGGER = Logger.getLogger(CouponPaymentController.class);
-	private static final String STATUS = "status";
-	private static final String ACTION = "action";
-	private static final String MESSAGE = "message";
-	
 	
 	@RequestMapping(value="/saveCouponData", method=RequestMethod.POST)
 	public void saveCouponData(ModelMap modelMap, Coupon coupon) throws ParseException {
@@ -71,7 +72,7 @@ public class CouponPaymentController {
 		      coupon.setValidTo(format2.format(format1.parse(coupon.getValidTo())));
 		      boolean  isUpdated = couponDAO.updateCouponData(coupon);
 		      if(isUpdated){
-		    	  modelMap.put(STATUS, "success");
+		    	  modelMap.put(STATUS, SUCCESS);
 		    	 
 		      }else{
 		    	  modelMap.put(STATUS, "failure");
@@ -91,7 +92,7 @@ public class CouponPaymentController {
 			Coupon validCoupon = couponDAO.getCouponByCode(coupon.getCouponCode());
 
 			if(validCoupon!=null) {
-				if(validCoupon.getAvailableRedemptions() >0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+				if(validCoupon.getAvailableRedemptions() >0 && NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())){
 				LOGGER.debug("Coupon VALID :::");
 				modelMap.put("coupon", validCoupon);
 				modelMap.put(ACTION, "valid");
@@ -119,13 +120,13 @@ public class CouponPaymentController {
 	}
 	
 	@RequestMapping(value = "/redeemedKey" , method = RequestMethod.GET)
-	public String getCouponValidation(ModelMap  modelMap ,Coupon coupon,HttpServletRequest request){
+	public String getCouponValidation(ModelMap  modelMap ,Coupon coupon){
 		LOGGER.debug("Beginnig of ValidCoupon Response ::");
 	        UserToken userToken = couponDAO.getRedeemKey(coupon.getRedeemKey());
 	        if(userToken!=null){
 			Coupon validCoupon = couponDAO.getCouponByCode(userToken.getCouponCode());
 			if(validCoupon!=null) {
-				if(validCoupon.getAvailableRedemptions() >0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+				if(validCoupon.getAvailableRedemptions() >0 && NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())){
 					//User entered a valid coupon.
 					LOGGER.debug("Coupon VALID :::");
 					modelMap.put("coupon", validCoupon);
@@ -141,7 +142,7 @@ public class CouponPaymentController {
 				LOGGER.debug("Coupon is Valid ::");
 				
 				modelMap.put("coupon", validCoupon);
-				modelMap.put(ACTION, "success");
+				modelMap.put(ACTION, SUCCESS);
 				modelMap.put(MESSAGE, "Valid Coupon");
 			} else {
 				//user entered expired coupon.			
@@ -163,7 +164,7 @@ public class CouponPaymentController {
 		if(couponCode!= null && couponCode!= "" && couponCode.length()>4) {
 			Coupon validCoupon = couponDAO.getCouponByCode(couponCode);
 			if(validCoupon!=null) {
-				if(validCoupon.getAvailableRedemptions() >0 && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+				if(validCoupon.getAvailableRedemptions() >0 && NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())){
 					LOGGER.debug("Coupon VALID :::");
 					modelMap.put("coupon", validCoupon);
 					modelMap.put(ACTION, "valid");
@@ -177,7 +178,7 @@ public class CouponPaymentController {
 				LOGGER.debug("Coupon is Valid ::");				
 				
 				modelMap.put("coupon", validCoupon);
-				modelMap.put(ACTION, "success");
+				modelMap.put(ACTION, SUCCESS);
 				modelMap.put(MESSAGE, "Valid Coupon");
 			} else {			
 				modelMap.put(ACTION, "error");
@@ -245,11 +246,11 @@ public class CouponPaymentController {
 			if (resp != null) {
 				modelMap.addAttribute("lastReq", service.getLastRequest());
 				modelMap.addAttribute("lastResp", service.getLastResponse());
-				if (resp.getAck().toString().equalsIgnoreCase("SUCCESS")) {
+				if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
 					Map<Object, Object> map = new LinkedHashMap<Object, Object>();
 					map.put("Ack", resp.getAck());
 					modelMap.addAttribute("map", map);
-					LOGGER.debug("Success :: "+resp.toString());
+					LOGGER.debug("Response Success :: "+resp.toString());
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
 					transaction2.setStatus("COMPLETE");
 					LOGGER.debug("email is "+transaction2.getUserEmail() );
@@ -294,15 +295,13 @@ public class CouponPaymentController {
 						cp.setEmailAddress(transaction3.getUserEmail());
 						cp.setCurrencyCode(SystemParams.MASS_PAY_DEFAULT_CURRENCY_CODE);
 						cp.setAmount(validCoupon.getCouponValue());
-						boolean isSuccess = sendSuperUserPayment(cp);
-						LOGGER.debug("IS-SUCCESS"+isSuccess);
 						
 				    }
 					if(couponPayment.getMobile()!=null && couponPayment.getMobile().length()>4) {
 						SMSUtil.sendSMS(couponPayment.getMobile(),transaction2.getCouponValue());
 					}
-					modelMap.put(ACTION, "success");
-					modelMap.put(MESSAGE, "success");
+					modelMap.put(ACTION, SUCCESS);
+					modelMap.put(MESSAGE, SUCCESS);
 				} else {
 					modelMap.addAttribute("Error", resp.getErrors());
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
@@ -334,77 +333,6 @@ public class CouponPaymentController {
 			
 		}
 		
-	}
+	}	
 	
-	public boolean sendSuperUserPayment( CouponPayment couponPayment) {
-		
-		LOGGER.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
-		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress(),NumberUtils.toLong(couponPayment.getEventId()));
-		boolean isSent = false;
-
-		LOGGER.debug("trans//////////"+transactionDetails.getEventId());
-		MassPayReq req = new MassPayReq();
-
-		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
-		
-		BasicAmountType amount = new BasicAmountType(CurrencyCodeType.fromValue(couponPayment.getCurrencyCode()),couponPayment.getAmount());
-		
-		MassPayRequestItemType item = new MassPayRequestItemType(amount);
-		
-		item.setReceiverEmail(couponPayment.getEmailAddress());
-		massPayItem.add(item);
-		
-		MassPayRequestType reqType = new MassPayRequestType(massPayItem);
-		reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
-		req.setMassPayRequest(reqType);
-		Map<String,String> configurationMap =  Configuration.getAcctAndConfig();
-		PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
-		
-		try {
-			String transactionCode = UUID.randomUUID().toString().replaceAll("-", "");
-			LOGGER.debug("EventId ::: "+couponPayment.getEventId());
-			LOGGER.debug("CouponId ::: "+couponPayment.getCouponId());
-			LOGGER.debug("CouponCode ::: "+couponPayment.getCouponCode());
-			LOGGER.debug("Amount ::: "+couponPayment.getAmount());
-			LOGGER.debug("Tran ::: "+transactionCode);
-			
-			Transaction transaction = new Transaction();
-			transaction.setCouponCode(couponPayment.getCouponCode());
-			transaction.setCouponId(couponPayment.getCouponId());
-			transaction.setCouponValue(couponPayment.getAmount());
-			transaction.setEventId(couponPayment.getEventId());
-			transaction.setTransactionCode(transactionCode);
-			transaction.setUserEmail(couponPayment.getEmailAddress());
-			transaction.setUserMobile(couponPayment.getMobile());
-			
-			MassPayResponseType resp = service.massPay(req);
-			if (resp != null) {
-				
-				if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
-					Map<Object, Object> map = new LinkedHashMap<Object, Object>();
-					map.put("Ack", resp.getAck());
-					LOGGER.debug("Success :: "+resp.toString());				
-					isSent = true;
-				} else {
-	
-					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
-					transaction2.setStatus("ERROR");
-					transactionDAO.UpdateTransaction(transaction2);
-					LOGGER.debug(resp.getErrors().toString());
-					isSent = false;
-				}
-			}
-		
-		} catch (Exception e) {
-			LOGGER.info(e);
-			ExceptionObj exceptionObj = new ExceptionObj();
-			exceptionObj.setExceptionMessage(e.getMessage());
-			exceptionObj.setExceptionName("MassPay Exception");
-			exceptionObj.setExceptionSourceFile("CouponPaymentController.java");
-			exceptionObj.setExceptionSourceMethod("sendSuperUserPayment");
-			exceptionObjDAO.saveException(exceptionObj);
-		}
-
-		return isSent;
-	}
 }

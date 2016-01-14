@@ -271,12 +271,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 			log.debug("There is transaction ::: ");
 		    for (Map<String, Object> map : mapList) {
 			transactionList.add(retrieveForRedeemedData(map));
-			}
+			}		
+		} 
 		return transactionList;
-		} else {
-			log.debug("NO valid coupons available ::: ");
-			return null;
-		}
 	}
 
 	@Override
