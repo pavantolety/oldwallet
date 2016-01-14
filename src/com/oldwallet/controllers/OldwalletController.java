@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class OldwalletController {
 	ExceptionObjDAO exceptionObjDAO;
 	
 	private static final Logger LOGGER = Logger.getLogger(OldwalletController.class);
+	
 	AdminSession adminSession = null;
 
 	@RequestMapping(value = { "/", "/index" })
@@ -189,6 +191,7 @@ public class OldwalletController {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/sendMassPayment", method = RequestMethod.POST)
 	public String sendMassPayment(ModelMap modelMap, MassPay massPay) {
 		LOGGER.debug("Begining of sendMassPayment() ::::"+ massPay.getAmount1() + ", " + massPay.getEmailAddress1());
@@ -248,8 +251,7 @@ public class OldwalletController {
 				}
 
 			} catch (Exception e) {
-				LOGGER.info(e);
-				e.printStackTrace();
+				LOGGER.log(Priority.ERROR, e);
 				ExceptionObj exceptionObj = new ExceptionObj();
 				exceptionObj.setExceptionMessage(e.getMessage());
 				exceptionObj.setExceptionName("MassPay Exception");

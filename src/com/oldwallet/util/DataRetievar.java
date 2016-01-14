@@ -1,10 +1,12 @@
 package com.oldwallet.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
-public class DataRetievar {
+public final class DataRetievar {
+	
+	private DataRetievar() {
+		
+	}
 	
 	public static String getStringValue(String columnName, Map<String, Object> map) {
 		String value = "";
@@ -53,16 +55,5 @@ public class DataRetievar {
 		}		
 		return value;		
 	}
-	
-/*	public static String getDateValueInString(String columnName, Map<String, Object> map) {
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat format2 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-		try {
-			format2.format(format1.parse(map.get(columnName).toString()));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return format2.toString();
-	}*/
 
 }

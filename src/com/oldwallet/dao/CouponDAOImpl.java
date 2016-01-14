@@ -9,12 +9,14 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
+import com.oldwallet.model.ExceptionObj;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.DataRetievar;
 
@@ -50,6 +52,9 @@ public class CouponDAOImpl implements CouponDAO {
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	
+	@Autowired
+	ExceptionObjDAO exceptionObjDAO;
 
 	public boolean updateCouponData(Coupon coupon) {
 		boolean isUpdated = false;
@@ -78,6 +83,7 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private Coupon retrieveCoupon(Map<String, Object> map) {
 
 		LOGGER.debug("Beginnig of retrieveCoupon ::");
@@ -101,23 +107,38 @@ public class CouponDAOImpl implements CouponDAO {
 			coupon.setRedeemedDate(format2.format(format1.parse(map.get("REDEEMED_DATE").toString())));
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Priority.ERROR, "Exception ::"+e.toString());
+			ExceptionObj exceptionObj = new ExceptionObj();
+			exceptionObj.setExceptionMessage(e.getMessage());
+			exceptionObj.setExceptionName("REDEEMED_DATE Exception");
+			exceptionObj.setExceptionSourceFile("CouponDAOImpl.java");
+			exceptionObj.setExceptionSourceMethod("retrieveCoupon");
+			exceptionObjDAO.saveException(exceptionObj);
 		}
 		if(map.get("VALID_FROM")!=null) {
 			try {
 				coupon.setValidFrom(format2.format(format1.parse(map.get("VALID_FROM").toString())));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(Priority.ERROR, "Exception ::"+e.toString());
+				ExceptionObj exceptionObj = new ExceptionObj();
+				exceptionObj.setExceptionMessage(e.getMessage());
+				exceptionObj.setExceptionName("VALID_FROM Exception");
+				exceptionObj.setExceptionSourceFile("CouponDAOImpl.java");
+				exceptionObj.setExceptionSourceMethod("retrieveCoupon");
+				exceptionObjDAO.saveException(exceptionObj);
 			}
 			}
 		if(map.get("VALID_TO")!=null) {
 			try {
 				coupon.setValidTo(format2.format(format1.parse(map.get("VALID_TO").toString())));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(Priority.ERROR, "Exception ::"+e.toString());
+				ExceptionObj exceptionObj = new ExceptionObj();
+				exceptionObj.setExceptionMessage(e.getMessage());
+				exceptionObj.setExceptionName("VALID_TO Exception");
+				exceptionObj.setExceptionSourceFile("CouponDAOImpl.java");
+				exceptionObj.setExceptionSourceMethod("retrieveCoupon");
+				exceptionObjDAO.saveException(exceptionObj);
 			}
 			}
 
