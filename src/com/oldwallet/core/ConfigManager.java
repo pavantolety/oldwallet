@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import com.paypal.core.Constants;
 import com.paypal.sdk.util.ResourceLoader;
@@ -56,6 +58,8 @@ public class ConfigManager {
 	 * Default {@link Properties}
 	 */
 	private static final Properties DEFAULT_PROPERTIES;
+	
+	private static final Logger LOGGER = Logger.getLogger(ConfigManager.class);
 
 	// Initialize DEFAULT_PROPERTIES
 	static {
@@ -76,6 +80,7 @@ public class ConfigManager {
 	/**
 	 * Private constructor
 	 */
+	@SuppressWarnings("deprecation")
 	private ConfigManager() {
 		/*
 		 * Load configuration for default 'sdk_config.properties'
@@ -88,9 +93,10 @@ public class ConfigManager {
 			properties.load(inputStream);
 			setPropertyLoaded(true);
 		} catch (IOException e) {
+			LOGGER.log(Priority.ERROR, e);
 			throw new RuntimeException(e);
 		} catch (Exception e){
-			e.printStackTrace();
+			LOGGER.log(Priority.ERROR, e);
 		}
 	}
 
@@ -134,6 +140,7 @@ public class ConfigManager {
 	 *
 	 * @return Combined {@link Properties}
 	 */
+	@SuppressWarnings("deprecation")
 	public static Properties combineDefaultProperties(
 			Properties receivedProperties) {
 		Properties combinedProperties = new Properties(getDefaultProperties());
@@ -141,10 +148,9 @@ public class ConfigManager {
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
 			try {
 				receivedProperties.store(bos, null);
-				combinedProperties.load(new ByteArrayInputStream(bos
-						.toByteArray()));
+				combinedProperties.load(new ByteArrayInputStream(bos.toByteArray()));
 			} catch (IOException e) {
-				// TODO return defaultProperties
+				LOGGER.log(Priority.ERROR, e);
 			}
 		}
 		return combinedProperties;
