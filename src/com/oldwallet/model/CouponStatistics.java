@@ -47,5 +47,4 @@ public class CouponStatistics {
 	public void setRedeemedCouponCount(long redeemedCouponCount) {
 		this.redeemedCouponCount = redeemedCouponCount;
 	}
-
 }
