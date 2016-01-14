@@ -11,27 +11,27 @@ public interface TransactionDAO {
 
 	public boolean initTransaction(Transaction transaction);
 
-	public boolean UpdateTransaction(Transaction transaction);
-	
+	public boolean updateTransaction(Transaction transaction);
+
 	public boolean updateCoupon(String couponCode);
-	
-	public boolean UpdateRedeemedTrasaction(Transaction transaction);
+
+	public boolean updateRedeemedTrasaction(Transaction transaction);
 
 	public Transaction getTransactionDetailsById(String transId);
-	
-	public Transaction getTransactionDetailsByEmail(String email,long eventId);
-	
+
+	public Transaction getTransactionDetailsByEmail(String email, long eventId);
+
 	public List<MonthlyRedeemCouponsCount> getRedeemedCouponsCountByMonth();
-	
+
 	public List<MonthlyRedeemCouponsCount> getCouponsCount();
-	
+
 	public List<MonthlyCouponsCount> getMonthlyCouponsCount();
-	
+
 	public List<MonthlyCouponsCount> getExpiredMonthlyCouponsCount();
 
 	public boolean updateTransactionByEmail(Transaction transaction);
-	
+
 	public List<Transaction> getRedeemedCouponData();
-	
-	public boolean  createRedeemKey(Coupon coupon);
+
+	public boolean createRedeemKey(Coupon coupon);
 }

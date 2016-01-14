@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
@@ -196,7 +195,7 @@ public class CouponPaymentController {
 	}
 	
 	@RequestMapping(value="/getCouponAmount", method=RequestMethod.POST)
-	public void sendMassPayment(ModelMap modelMap, CouponPayment couponPayment, HttpSession session) {
+	public void sendMassPayment(ModelMap modelMap, CouponPayment couponPayment) {
 		
 		LOGGER.debug("Begining of sendMassPayment() ::::"+couponPayment.getAmount()+", "+couponPayment.getEmailAddress());
 		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress(),NumberUtils.toLong(couponPayment.getEventId()));
@@ -204,7 +203,7 @@ public class CouponPaymentController {
 		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment.getCouponCode());
 
 		if(validCoupon!=null) {
-		if(validCoupon.getCompletedRedemptions()<validCoupon.getAvailableRedemptions() && validCoupon.getRedeemStatus().equalsIgnoreCase("NEW")){
+		if(validCoupon.getCompletedRedemptions()<validCoupon.getAvailableRedemptions() && validCoupon.getRedeemStatus().equalsIgnoreCase(NEW)){
 		if(transactionDetails==null){
 
 		MassPayReq req = new MassPayReq();
@@ -264,7 +263,7 @@ public class CouponPaymentController {
 						LOGGER.debug("email address size  >>>>>>>>>>>>>>>>>>"+coupon.getRedeemedBy().length());
 							if(coupon.getRedeemedBy().isEmpty()){
 								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
-								transactionDAO.UpdateTransaction(transaction2);
+								transactionDAO.updateTransaction(transaction2);
 								String redeemKey  = AuthenticationUtils.generateTokenForAuthentication();
 								LOGGER.debug("email >?????????????????????"+transaction2.getUserEmail());
 								coupon.setRedeemedBy(transaction2.getUserEmail());
@@ -277,7 +276,7 @@ public class CouponPaymentController {
 								    modelMap.put("refferedUser", "false");
 							}else{
 								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
-								transactionDAO.UpdateRedeemedTrasaction(transaction2);
+								transactionDAO.updateRedeemedTrasaction(transaction2);
 								modelMap.put("refferedUser", "true");
 							}
 					
@@ -306,7 +305,7 @@ public class CouponPaymentController {
 					modelMap.addAttribute("Error", resp.getErrors());
 					Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
 					transaction2.setStatus("ERROR");
-					transactionDAO.UpdateTransaction(transaction2);
+					transactionDAO.updateTransaction(transaction2);
 					LOGGER.debug(resp.getErrors().toString());
 					modelMap.put(ACTION, "error");
 					modelMap.put(MESSAGE, "Please check your Coupon Code");

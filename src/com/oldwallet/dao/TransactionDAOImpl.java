@@ -21,14 +21,8 @@ import com.oldwallet.util.DataRetievar;
 
 @Repository
 public class TransactionDAOImpl implements TransactionDAO {
-
-	private JdbcTemplate jdbcTemplate;
-	private static Logger log = Logger.getLogger(TransactionDAOImpl.class);
-
-	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+	
+	private static Logger LOGGER = Logger.getLogger(TransactionDAOImpl.class);
 	
 	private static final String INIT_TRANSACTION = "INSERT INTO TRANSACTION(EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE, TRANSACTION_CODE, STATUS) VALUES(?,?,?,?,?,?,?,'INIT')";
 	private static final String UPDATE_TRANSACTION = "UPDATE TRANSACTION SET TRANSACTION_UPDATION=NOW(), STATUS=?,LATITUDE=?,LONGITUDE=? WHERE TRANSACTION_CODE=?";
@@ -36,13 +30,22 @@ public class TransactionDAOImpl implements TransactionDAO {
 	private static final String GET_MONTHLY_REDEEMED_COUPONS_COUNT = "SELECT MONTH(TRANSACTION_UPDATION) MONTH, COUNT(*) COUNT FROM TRANSACTION GROUP BY MONTH(TRANSACTION_UPDATION)";
 	private static final String GET_MONTHLY_NEW_COUPONS_COUNT = "SELECT MONTH(VALID_FROM) AS MONTH, COUNT(1) AS TOTAL_COUPONS_COUNT FROM COUPONS GROUP BY MONTH(VALID_FROM)";
 	private static final String GET_MONTHLY_EXPIRED_COUPONS_COUNT = "SELECT MONTH(VALID_FROM) AS MONTH, COUNT(1) AS EXPIRED_COUPONS_COUNT FROM COUPONS WHERE REDEEM_STATUS LIKE ? GROUP BY MONTH(VALID_FROM)";
-	public static final  String UPDATE_COUPON = "UPDATE COUPONS SET REDEEMED_BY=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
-	public static final  String UPDATE_REFERRAL_COUPON = "UPDATE COUPONS SET COMPLETED_REDEMPTIONS=? WHERE COUPON_CODE=?";
-	public static final  String UPDATE_COUPON_DATA = "UPDATE COUPONS SET REDEEM_STATUS=? WHERE COUPON_CODE=?";
+	private static final String UPDATE_COUPON = "UPDATE COUPONS SET REDEEMED_BY=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
+	private static final String UPDATE_REFERRAL_COUPON = "UPDATE COUPONS SET COMPLETED_REDEMPTIONS=? WHERE COUPON_CODE=?";
+	private static final String UPDATE_COUPON_DATA = "UPDATE COUPONS SET REDEEM_STATUS=? WHERE COUPON_CODE=?";
 	private static final String GET_TRANSACTION_BY_EMAIL = "SELECT TRANSACTION_ID, EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE,LATITUDE,LONGITUDE,  TRANSACTION_CODE, TRANSACTION_CREATION, TRANSACTION_UPDATION, STATUS FROM TRANSACTION WHERE USER_EMAIL=? AND EVENT_ID=?";
 	private static final String UPDATE_TRANSACTION_BY_EMAIL = "UPDATE TRANSACTION SET COUPON_VALUE=?  WHERE USER_EMAIL=?";
 	private static final String  GET_REDEEMED_COUPON_DATA = "SELECT  COUNT(DISTINCT COUPON_CODE) AS COUPON_COUNT, LATITUDE, LONGITUDE FROM TRANSACTION GROUP BY LONGITUDE,LATITUDE";
 	private static final String CREATE_USER_TOKEN_FOR_SHARE = "INSERT INTO USER_TOKENS (TOKEN , COUPON_CODE, USER_EMAIL, DATE_CREATED) VALUES(?,?,?,NOW())";
+	
+	private JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	
 	@Override
 	public boolean initTransaction(Transaction transaction) {
 		boolean isInserted = false;
@@ -55,34 +58,35 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	@Transactional
-	public boolean UpdateTransaction(Transaction transaction) {
-		log.debug("Begining of transaction Update :: "+transaction.getUserEmail());
+	public boolean updateTransaction(Transaction transaction) {
+		LOGGER.debug("Begining of transaction Update :: "+transaction.getUserEmail());
 		boolean isUpdated = false;
 		int result = jdbcTemplate.update(UPDATE_TRANSACTION, transaction.getStatus(),transaction.getLatitude(),transaction.getLongitude(),transaction.getTransactionCode());
 		if(result>0) {
 			isUpdated = true;
 			int result1 = jdbcTemplate.update(UPDATE_COUPON,transaction.getUserEmail(), transaction.getCouponCode());
 			if(result1>0) {
-				log.debug("COUPON UPDATED ::");
+				LOGGER.debug("COUPON UPDATED ::");
 			} else {
-				log.debug("COUPON UPDATION FAILED ::");
+				LOGGER.debug("COUPON UPDATION FAILED ::");
 			}
 		}
 		return isUpdated;
 	}
+	
 	@Override
 	@Transactional
-	public boolean UpdateRedeemedTrasaction(Transaction transaction) {
-		log.debug("Begining of transaction Update :: "+transaction.getUserEmail());
+	public boolean updateRedeemedTrasaction(Transaction transaction) {
+		LOGGER.debug("Begining of transaction Update :: "+transaction.getUserEmail());
 		boolean isUpdated = false;
 		int result = jdbcTemplate.update(UPDATE_TRANSACTION, transaction.getStatus(),transaction.getLatitude(),transaction.getLongitude(), transaction.getTransactionCode());
 		if(result>0) {
 			isUpdated = true;
 			int result1 = jdbcTemplate.update(UPDATE_REFERRAL_COUPON,transaction.getCompletedRedemptions()+1, transaction.getCouponCode());
 			if(result1>0) {
-				log.debug("COUPON UPDATED ::");
+				LOGGER.debug("COUPON UPDATED ::");
 			} else {
-				log.debug("COUPON UPDATION FAILED ::");
+				LOGGER.debug("COUPON UPDATION FAILED ::");
 			}
 		}
 		return isUpdated;
@@ -102,17 +106,17 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public Transaction getTransactionDetailsById(String transCode) {
-		log.debug("Begining of getTransaction :: "+transCode);
+		LOGGER.debug("Begining of getTransaction :: "+transCode);
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		List<Map<String, Object>> transactionMap = jdbcTemplate.queryForList(GET_TRANSACTION_BY_CODE,transCode);
-		if(transactionMap.size()>0){
-			log.debug("There is transaction ::: ");
+		if(!transactionMap.isEmpty()){
+			LOGGER.debug("There is transaction ::: ");
 		for (Map<String, Object> map : transactionMap) {
 			transactions.add(retrieveTransaction(map));
 			}
 		return transactions.get(0);
 		} else {
-			log.debug("NO valid coupons available ::: ");
+			LOGGER.debug("NO valid coupons available ::: ");
 			return null;
 		}
 		
@@ -122,14 +126,14 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		List<Map<String, Object>> transactionMap = jdbcTemplate.queryForList(GET_TRANSACTION_BY_EMAIL,email,eventId);
-		if(transactionMap.size()>0){
-			log.debug("There is transaction ::: ");
+		if(!transactionMap.isEmpty()){
+			LOGGER.debug("There is transaction ::: ");
 		for (Map<String, Object> map : transactionMap) {
 			transactions.add(retrieveTransaction(map));
 			}
 		return transactions.get(0);
 		} else {
-			log.debug("NO valid coupons available ::: ");
+			LOGGER.debug("NO valid coupons available ::: ");
 			return null;
 		}
 		
@@ -137,7 +141,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	private Transaction retrieveTransaction(Map<String, Object> map) {
-		log.debug("Beginning of Transaction Retrieve");
+		LOGGER.debug("Beginning of Transaction Retrieve");
 		Transaction transaction = new Transaction();
 		
 		transaction.setCouponCode(DataRetievar.getStringValue("COUPON_CODE", map));
@@ -155,34 +159,34 @@ public class TransactionDAOImpl implements TransactionDAO {
 		transaction.setUserEmail(DataRetievar.getStringValue("USER_EMAIL", map));
 		transaction.setUserMobile(DataRetievar.getStringValue("USER_MOBILE", map));
 		
-		log.debug("End of Transaction Retrieve");
+		LOGGER.debug("End of Transaction Retrieve");
 		return transaction;
 	}
 	private Transaction retrieveForRedeemedData(Map<String, Object> map) {
-		log.debug("Beginning of Transaction Retrieve");
+		LOGGER.debug("Beginning of Transaction Retrieve");
 		Transaction transaction = new Transaction();
-		log.debug("latititude >>>>>>>>>>"+DataRetievar.getStringValue("LATITUDE", map));
+		LOGGER.debug("latititude >>>>>>>>>>"+DataRetievar.getStringValue("LATITUDE", map));
 		transaction.setCouponCount(DataRetievar.getLongValue("COUPON_COUNT", map));
 		transaction.setLatitude(DataRetievar.getStringValue("LATITUDE", map));
 		transaction.setLongitude(DataRetievar.getStringValue("LONGITUDE", map));
 
 		
 		
-		log.debug("End of Transaction Retrieve");
+		LOGGER.debug("End of Transaction Retrieve");
 		return transaction;
 	}
 	@Override
 	public List<MonthlyRedeemCouponsCount> getRedeemedCouponsCountByMonth() {
 		List<MonthlyRedeemCouponsCount> redeemsCount = new ArrayList<MonthlyRedeemCouponsCount>();
 		List<Map<String, Object>> redeemedCouponsCount = jdbcTemplate.queryForList(GET_MONTHLY_REDEEMED_COUPONS_COUNT);
-		if(redeemedCouponsCount.size()>0){
-			log.debug("There is transaction ::: ");
+		if(!redeemedCouponsCount.isEmpty()){
+			LOGGER.debug("There is transaction ::: ");
 		for (Map<String, Object> map : redeemedCouponsCount) {
 			redeemsCount.add(retrieveRedeemedCount(map));
 			}
 		return redeemsCount;
 		} else {
-			log.debug("NO valid coupons available ::: ");
+			LOGGER.debug("NO valid coupons available ::: ");
 			return null;
 		}
 	}
@@ -207,14 +211,14 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 		List<MonthlyCouponsCount> totalCount = new ArrayList<MonthlyCouponsCount>();
 		List<Map<String, Object>> newCouponsCount = jdbcTemplate.queryForList(GET_MONTHLY_NEW_COUPONS_COUNT);
-		if(newCouponsCount.size()>0){
-			log.debug("There is transaction ::: ");
+		if(!newCouponsCount.isEmpty()){
+			LOGGER.debug("There is transaction ::: ");
 		for (Map<String, Object> map : newCouponsCount) {
 			totalCount.add(retrieveCouponsCount(map));
 			}
 		return totalCount;
 		} else {
-			log.debug("NO valid coupons available ::: ");
+			LOGGER.debug("NO valid coupons available ::: ");
 			return null;
 		}
 	}
@@ -233,14 +237,14 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 		List<MonthlyCouponsCount> totalCount = new ArrayList<MonthlyCouponsCount>();
 		List<Map<String, Object>> newCouponsCount = jdbcTemplate.queryForList(GET_MONTHLY_EXPIRED_COUPONS_COUNT,CouponStatus.REDEEMED.toString());
-		if(newCouponsCount.size()>0){
-			log.debug("There is transaction ::: ");
+		if(!newCouponsCount.isEmpty()){
+			LOGGER.debug("There is transaction ::: ");
 		for (Map<String, Object> map : newCouponsCount) {
 			totalCount.add(retrieveExspiredCouponsCount(map));
 			}
 		return totalCount;
 		} else {
-			log.debug("NO valid coupons available ::: ");
+			LOGGER.debug("NO valid coupons available ::: ");
 			return null;
 		}
 	}
@@ -267,8 +271,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public List<Transaction> getRedeemedCouponData() {
 		List<Transaction> transactionList  =  new ArrayList<Transaction>();
 		List<Map<String , Object>> mapList = jdbcTemplate.queryForList(GET_REDEEMED_COUPON_DATA);
-		if(mapList.size()>0){
-			log.debug("There is transaction ::: ");
+		if(!mapList.isEmpty()){
+			LOGGER.debug("There is transaction ::: ");
 		    for (Map<String, Object> map : mapList) {
 			transactionList.add(retrieveForRedeemedData(map));
 			}		
@@ -278,16 +282,13 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public boolean createRedeemKey(Coupon coupon) {
-		boolean isCreated =  false;
-		         int i  = jdbcTemplate.update(CREATE_USER_TOKEN_FOR_SHARE,coupon.getRedeemKey(),coupon.getCouponCode(),coupon.getRedeemedBy());
-		if(i>0){
+		boolean isCreated = false;
+		int i = jdbcTemplate.update(CREATE_USER_TOKEN_FOR_SHARE,
+				coupon.getRedeemKey(), coupon.getCouponCode(),
+				coupon.getRedeemedBy());
+		if (i > 0) {
 			isCreated = true;
 		}
 		return isCreated;
 	}
-
-
-	
-
-
 }

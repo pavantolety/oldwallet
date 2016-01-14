@@ -44,10 +44,11 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String GET_COUPON_DATA_BY_REDEEM_STATUS = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT ,REDEEM_STATUS FROM COUPONS GROUP BY REDEEM_STATUS";
 
 	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW' AND VALID_TO>=NOW()";
-
-	private JdbcTemplate jdbcTemplate;
+	
 	private static final Logger LOGGER = Logger.getLogger(CouponDAOImpl.class);
 
+	private JdbcTemplate jdbcTemplate;
+	
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -58,7 +59,6 @@ public class CouponDAOImpl implements CouponDAO {
 
 	public boolean updateCouponData(Coupon coupon) {
 		boolean isUpdated = false;
-
 		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE, coupon.getCouponValue(), coupon.getRedeemStatus(), coupon.getValidFrom(), coupon.getValidTo(), coupon.getAvailableRedemptions(), coupon.getCouponCode());
 		if (result > 0) {
 			isUpdated = true;
@@ -177,7 +177,6 @@ public class CouponDAOImpl implements CouponDAO {
 			}
 			return couponList;
 		} else {
-
 			return new ArrayList<Coupon>();
 		}
 	}
@@ -190,9 +189,7 @@ public class CouponDAOImpl implements CouponDAO {
 			for (Map<String, Object> map : mapList) {
 				userToken.add(retriveUserToken(map));
 			}
-
 			return userToken.get(0);
-
 		} else {
 			return null;
 		}
@@ -282,8 +279,7 @@ public class CouponDAOImpl implements CouponDAO {
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				csList.add(retriveCouponStatistics(map));
-			}
-			
+			}			
 		} 
 		return csList;
 	}
