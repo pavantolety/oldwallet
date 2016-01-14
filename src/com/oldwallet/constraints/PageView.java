@@ -27,5 +27,7 @@ public interface PageView {
 	String ADMINLOGIN = "adminLogin";
 
 	String FACEBOOK = "facebook";
+	
+	String CREATECOUPONS = "generateCoupon";
 
 }
