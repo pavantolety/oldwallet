@@ -32,16 +32,20 @@ public class AuthenticationController {
 		return PageView.ADMINLOGIN;
 	}
 
-	@RequestMapping(value = "/adminSubmit", method = { RequestMethod.POST, RequestMethod.GET })
-	public String getAdminHome(ModelMap modelMap, AdminLogin adminLogin, HttpSession session) {
-		
+	@RequestMapping(value = "/adminSubmit", method = { RequestMethod.POST,
+			RequestMethod.GET })
+	public String getAdminHome(ModelMap modelMap, AdminLogin adminLogin,
+			HttpSession session) {
+
 		String returnURI = PageView.ADMINLOGIN;
 
-		AdminLogin validAdmin = adminLoginDAO.getAdminByEmailAddress(adminLogin.getEmailAddress());
-		if(validAdmin!= null) {
+		AdminLogin validAdmin = adminLoginDAO.getAdminByEmailAddress(adminLogin
+				.getEmailAddress());
+		if (validAdmin != null) {
 			returnURI = PageView.ADMINHOME;
-			AdminSession adminSession = AuthenticationHelper.populateAdminSession(adminLogin);
-			session.setAttribute("adminSession", adminSession);			
+			AdminSession adminSession = AuthenticationHelper
+					.populateAdminSession(adminLogin);
+			session.setAttribute("adminSession", adminSession);
 		} else {
 			modelMap.put("status", "error");
 			modelMap.put("message", "Please give valid Credentials");

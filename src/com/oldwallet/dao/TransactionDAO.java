@@ -23,8 +23,6 @@ public interface TransactionDAO {
 
 	public List<MonthlyRedeemCouponsCount> getRedeemedCouponsCountByMonth();
 
-	public List<MonthlyRedeemCouponsCount> getCouponsCount();
-
 	public List<MonthlyCouponsCount> getMonthlyCouponsCount();
 
 	public List<MonthlyCouponsCount> getExpiredMonthlyCouponsCount();

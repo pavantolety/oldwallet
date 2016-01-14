@@ -18,10 +18,11 @@ import com.oldwallet.util.DataRetievar;
 public class AdminLoginDAOImpl implements AdminLoginDAO {
 
 	public static final String GET_ADMIN_DETAILS = "SELECT ID, EMAIL_ADDRESS, PASSWORD FROM ADMIN_LOGIN WHERE EMAIL_ADDRESS=?";
-	
-	private static final Logger LOGGER = Logger.getLogger(AdminLoginDAOImpl.class);
 
-	private JdbcTemplate jdbcTemplate;	
+	private static final Logger LOGGER = Logger
+			.getLogger(AdminLoginDAOImpl.class);
+
+	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
@@ -32,7 +33,8 @@ public class AdminLoginDAOImpl implements AdminLoginDAO {
 	public AdminLogin getAdminByEmailAddress(String emailAddress) {
 		LOGGER.debug("Beginning of getAdminByEmailAddress ::");
 		List<AdminLogin> adminDetailsList = new ArrayList<AdminLogin>();
-		List<Map<String, Object>> adminList = jdbcTemplate.queryForList(GET_ADMIN_DETAILS, emailAddress);
+		List<Map<String, Object>> adminList = jdbcTemplate.queryForList(
+				GET_ADMIN_DETAILS, emailAddress);
 		if (!adminList.isEmpty()) {
 			for (Map<String, Object> map : adminList) {
 				adminDetailsList.add(retrieveAdmin(map));
@@ -48,7 +50,8 @@ public class AdminLoginDAOImpl implements AdminLoginDAO {
 
 		AdminLogin adminLogin = new AdminLogin();
 
-		adminLogin.setEmailAddress(DataRetievar.getStringValue("EMAIL_ADDRESS",map));
+		adminLogin.setEmailAddress(DataRetievar.getStringValue("EMAIL_ADDRESS",
+				map));
 		adminLogin.setId(DataRetievar.getLongValue("ID", map));
 
 		return adminLogin;

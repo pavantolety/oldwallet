@@ -27,24 +27,24 @@ import org.springframework.web.multipart.MultipartFile;
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CSVBulkUploadDAO;
 import com.oldwallet.dao.CouponDAO;
-import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.enums.CouponStatus;
 import com.oldwallet.model.CouponData;
-import com.oldwallet.model.ExceptionObj;
 import com.oldwallet.model.GoogleResponse;
 import com.oldwallet.model.LatLong;
 import com.oldwallet.model.Result;
 import com.oldwallet.model.Transaction;
+import com.oldwallet.util.ExceptionObjUtil;
 import com.opencsv.CSVReader;
 
 @Controller
 public class CSVBulkUploadController {
-	
-	private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadController.class);
-	
+
+	private static final Logger LOGGER = Logger
+			.getLogger(CSVBulkUploadController.class);
+
 	private static final String STATUS = "status";
-	
+
 	private static final String URL = "http://maps.googleapis.com/maps/api/geocode/json";
 
 	@Autowired
@@ -54,15 +54,11 @@ public class CSVBulkUploadController {
 	TransactionDAO transactionDAO;
 
 	@Autowired
-	ExceptionObjDAO exceptionObjDAO;
-
-	@Autowired
 	CouponDAO couponDAO;
-	
-	ExceptionObj exceptionObj = null;
 
 	@SuppressWarnings({ "deprecation" })
-	@RequestMapping(value = "/csvBulkUpload", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/csvBulkUpload", method = { RequestMethod.GET,
+			RequestMethod.POST })
 	public String bulkUpload(ModelMap modelMap, CouponData couponData) {
 		MultipartFile multipartFile = couponData.getFile();
 		boolean uploaded = false;
@@ -73,11 +69,12 @@ public class CSVBulkUploadController {
 			} catch (IOException ioe) {
 				LOGGER.log(Priority.ERROR, ioe);
 			}
-			
-			if (content!=null && content.length > 0) {
+
+			if (content != null && content.length > 0) {
 				InputStream is = null;
 				is = new ByteArrayInputStream(content);
-				CSVReader reader = new CSVReader(new BufferedReader(new InputStreamReader(is)), ',', '\'', 1);
+				CSVReader reader = new CSVReader(new BufferedReader(
+						new InputStreamReader(is)), ',', '\'', 1);
 				String[] nextLine;
 				try {
 					while ((nextLine = reader.readNext()) != null) {
@@ -91,33 +88,38 @@ public class CSVBulkUploadController {
 								couponData1.setCouponHideLocation(nextLine[3]);
 								couponData1.setReedemStatus(nextLine[4]);
 								couponData1.setValidityPeriod(nextLine[5]);
-								SimpleDateFormat format1 = new SimpleDateFormat("MM-dd-yyyy");
-								SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-								couponData1.setValidFrom(format2.format(format1.parse(nextLine[6])));
-								couponData1.setValidTo(format2.format(format1.parse(nextLine[7])));
-								couponData1.setAvailableRedemptions(Long.parseLong(nextLine[8]));
+								SimpleDateFormat format1 = new SimpleDateFormat(
+										"MM-dd-yyyy");
+								SimpleDateFormat format2 = new SimpleDateFormat(
+										"yyyy-MM-dd");
+								couponData1.setValidFrom(format2.format(format1
+										.parse(nextLine[6])));
+								couponData1.setValidTo(format2.format(format1
+										.parse(nextLine[7])));
+								couponData1.setAvailableRedemptions(Long
+										.parseLong(nextLine[8]));
 
-								uploaded = csvBulkUploadDAO.createCouponData(couponData1);
+								uploaded = csvBulkUploadDAO
+										.createCouponData(couponData1);
 								if (!uploaded) {
-									modelMap.put(STATUS, "Upload Failed!,Data is already uploaded");
+									modelMap.put(STATUS,
+											"Upload Failed!,Data is already uploaded");
 								}
 							} catch (DuplicateKeyException de) {
 								LOGGER.log(Priority.ERROR, de);
-								exceptionObj = new ExceptionObj();
-								exceptionObj.setExceptionMessage(de.getMessage());
-								exceptionObj.setExceptionName("csvBulkUpload Exception");
-								exceptionObj.setExceptionSourceFile("CSVBulkUploadController.java");
-								exceptionObj.setExceptionSourceMethod("bulkUpload");
-								exceptionObjDAO.saveException(exceptionObj);
+								ExceptionObjUtil.saveException(
+										"csvBulkUpload Exception",
+										de.getMessage(),
+										"CSVBulkUploadController.java",
+										"bulkUpload");
 
 							} catch (Exception e) {
 								LOGGER.log(Priority.ERROR, e);
-								exceptionObj = new ExceptionObj();
-								exceptionObj.setExceptionMessage(e.getMessage());
-								exceptionObj.setExceptionName("csvBulkUpload Exception");
-								exceptionObj.setExceptionSourceFile("CSVBulkUploadController.java");
-								exceptionObj.setExceptionSourceMethod("bulkUpload");
-								exceptionObjDAO.saveException(exceptionObj);
+								ExceptionObjUtil.saveException(
+										"csvBulkUpload Exception",
+										e.getMessage(),
+										"CSVBulkUploadController.java",
+										"bulkUpload");
 							}
 							LOGGER.debug("BREAK :: ");
 						}
@@ -144,8 +146,9 @@ public class CSVBulkUploadController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getTrackedCouponsMap", method = RequestMethod.GET)
-	public void getTrackedCouponsMap(ModelMap modelMap)	throws Exception {
-		List<CouponData> coupnDataList = csvBulkUploadDAO.getCouponTrackingData();
+	public void getTrackedCouponsMap(ModelMap modelMap) throws Exception {
+		List<CouponData> coupnDataList = csvBulkUploadDAO
+				.getCouponTrackingData();
 		LOGGER.debug("Data  for tracking>>>>>>>>>>>>>>");
 		JSONArray list1 = new JSONArray();
 		JSONArray list2 = new JSONArray();
@@ -153,12 +156,15 @@ public class CSVBulkUploadController {
 			for (CouponData couponData : coupnDataList) {
 
 				if (couponData.getCountryCode() != null) {
-					LOGGER.debug(STATUS+" :: "+couponData.getReedemStatus());
-					if (couponData.getReedemStatus().equalsIgnoreCase(CouponStatus.NEW.toString())) {
+					LOGGER.debug(STATUS + " :: " + couponData.getReedemStatus());
+					if (couponData.getReedemStatus().equalsIgnoreCase(
+							CouponStatus.NEW.toString())) {
 						JSONObject obj = new JSONObject();
-						LOGGER.debug("LOCATION :: "+couponData.getCouponHideLocation());
+						LOGGER.debug("LOCATION :: "
+								+ couponData.getCouponHideLocation());
 						LOGGER.debug("email" + couponData.getReedemedBy());
-						LatLong lt = getLatLongByAddress(couponData.getCouponHideLocation());
+						LatLong lt = getLatLongByAddress(couponData
+								.getCouponHideLocation());
 						obj.put("code", couponData.getCountryCode());
 						obj.put("name", couponData.getCouponHideLocation());
 						obj.put("value", couponData.getCouponCount());
@@ -166,7 +172,8 @@ public class CSVBulkUploadController {
 						obj.put("logitude", lt.getLonngi());
 						list1.add(obj);
 					}
-					List<Transaction> transactionList = transactionDAO.getRedeemedCouponData();
+					List<Transaction> transactionList = transactionDAO
+							.getRedeemedCouponData();
 					if (!transactionList.isEmpty()) {
 						for (Transaction tr : transactionList) {
 							LOGGER.debug("NOT EMPTY ::");
@@ -189,19 +196,24 @@ public class CSVBulkUploadController {
 
 	public LatLong getLatLongByAddress(String address) throws IOException {
 		LatLong lt = null;
-		URL url = new URL(URL + "?address="+ URLEncoder.encode(address, "UTF-8") + "&sensor=false");
+		URL url = new URL(URL + "?address="
+				+ URLEncoder.encode(address, "UTF-8") + "&sensor=false");
 		URLConnection conn = url.openConnection();
 
 		InputStream in = conn.getInputStream();
 		ObjectMapper mapper = new ObjectMapper();
-		GoogleResponse res = (GoogleResponse) mapper.readValue(in,GoogleResponse.class);
+		GoogleResponse res = (GoogleResponse) mapper.readValue(in,
+				GoogleResponse.class);
 		in.close();
 		if ("OK".equalsIgnoreCase(res.getStatus())) {
 			for (Result result : res.getResults()) {
 				lt = new LatLong();
-				LOGGER.debug("Lattitude of address is :: "+result.getGeometry().getLocation().getLat());
-				LOGGER.debug("Longitude of address is :: "+result.getGeometry().getLocation().getLng());
-				LOGGER.debug("Location is :: "+result.getGeometry().getLocation_type());
+				LOGGER.debug("Lattitude of address is :: "
+						+ result.getGeometry().getLocation().getLat());
+				LOGGER.debug("Longitude of address is :: "
+						+ result.getGeometry().getLocation().getLng());
+				LOGGER.debug("Location is :: "
+						+ result.getGeometry().getLocation_type());
 
 				lt.setLat(result.getGeometry().getLocation().getLat());
 				lt.setLonngi(result.getGeometry().getLocation().getLng());

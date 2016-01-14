@@ -30,12 +30,11 @@ import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 import com.oldwallet.config.SystemParams;
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponDAO;
-import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.model.AdminSession;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
-import com.oldwallet.model.ExceptionObj;
 import com.oldwallet.model.MassPay;
+import com.oldwallet.util.ExceptionObjUtil;
 import com.oldwallet.util.paypal.Configuration;
 
 @Controller
@@ -43,12 +42,10 @@ public class OldwalletController {
 
 	@Autowired
 	CouponDAO couponDAO;
-	
-	@Autowired
-	ExceptionObjDAO exceptionObjDAO;
-	
-	private static final Logger LOGGER = Logger.getLogger(OldwalletController.class);
-	
+
+	private static final Logger LOGGER = Logger
+			.getLogger(OldwalletController.class);
+
 	AdminSession adminSession = null;
 
 	@RequestMapping(value = { "/", "/index" })
@@ -120,22 +117,24 @@ public class OldwalletController {
 			CouponStatistics cs2 = couponDAO.getRedeemedCount();
 			CouponStatistics cs3 = couponDAO.getTotalCouponAmount();
 			CouponStatistics cs4 = couponDAO.getReedmedAmount();
-			if(cs1 != null) {
+			if (cs1 != null) {
 				modelMap.put("couponCount", cs1.getTotalCouponsCount());
 			}
-			if(cs2 != null) {
+			if (cs2 != null) {
 				modelMap.put("redeemedCount", cs2.getRedeemedCouponCount());
 			}
-			if(cs3 != null) {
+			if (cs3 != null) {
 				modelMap.put("couponAmount", cs3.getTotalCouponAmount());
 			}
-			if(cs4 != null) {
-				long percentage = Math.round((cs4.getTotalRedeemedAmount() / cs3.getTotalCouponAmount()) * 100);
+			if (cs4 != null) {
+				long percentage = Math
+						.round((cs4.getTotalRedeemedAmount() / cs3
+								.getTotalCouponAmount()) * 100);
 				DecimalFormat df = new DecimalFormat("#.00");
-				String percentageVal = df.format(percentage);				
+				String percentageVal = df.format(percentage);
 				modelMap.put("redeemedAmount", cs4.getTotalRedeemedAmount());
 				modelMap.put("percentageVal", percentageVal);
-			}			
+			}
 			return PageView.COUPONSTATS;
 		}
 		return PageView.ADMINLOGIN;
@@ -144,7 +143,8 @@ public class OldwalletController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/couponStatsFor", method = RequestMethod.GET)
 	public String couponStatsFor(ModelMap modelMap) {
-		List<CouponStatistics> csList = couponDAO.getCouponDataByReedeemStatus();
+		List<CouponStatistics> csList = couponDAO
+				.getCouponDataByReedeemStatus();
 		JSONArray list = new JSONArray();
 		if (!csList.isEmpty()) {
 			for (CouponStatistics cs : csList) {
@@ -194,43 +194,55 @@ public class OldwalletController {
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/sendMassPayment", method = RequestMethod.POST)
 	public String sendMassPayment(ModelMap modelMap, MassPay massPay) {
-		LOGGER.debug("Begining of sendMassPayment() ::::"+ massPay.getAmount1() + ", " + massPay.getEmailAddress1());
+		LOGGER.debug("Begining of sendMassPayment() ::::"
+				+ massPay.getAmount1() + ", " + massPay.getEmailAddress1());
 		String returnPage = "error";
 		MassPayReq req = new MassPayReq();
 
 		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
 
 		BasicAmountType amount1 = null;
-		if (massPay.getCurrencyCode1() != null && SystemParams.MASS_PAY_DEFAULT_CURRENCY_CODE.equalsIgnoreCase(massPay.getCurrencyCode1())) {
-			amount1 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()), massPay.getAmount1());
+		if (massPay.getCurrencyCode1() != null
+				&& SystemParams.MASS_PAY_DEFAULT_CURRENCY_CODE
+						.equalsIgnoreCase(massPay.getCurrencyCode1())) {
+			amount1 = new BasicAmountType(CurrencyCodeType.fromValue(massPay
+					.getCurrencyCode1()), massPay.getAmount1());
 		}
 		BasicAmountType amount2 = null;
-		if (massPay.getCurrencyCode1() != null && SystemParams.MASS_PAY_DEFAULT_CURRENCY_CODE.equalsIgnoreCase(massPay.getCurrencyCode1())) {
-			amount2 = new BasicAmountType(CurrencyCodeType.fromValue(massPay.getCurrencyCode1()), massPay.getAmount1());
+		if (massPay.getCurrencyCode1() != null
+				&& SystemParams.MASS_PAY_DEFAULT_CURRENCY_CODE
+						.equalsIgnoreCase(massPay.getCurrencyCode1())) {
+			amount2 = new BasicAmountType(CurrencyCodeType.fromValue(massPay
+					.getCurrencyCode1()), massPay.getAmount1());
 		}
 		MassPayRequestItemType item1 = null;
 		MassPayRequestItemType item2 = null;
 		if (amount1 != null) {
 			item1 = new MassPayRequestItemType(amount1);
-			if (massPay.getEmailAddress1() != null && massPay.getEmailAddress1().length() > 1) {
+			if (massPay.getEmailAddress1() != null
+					&& massPay.getEmailAddress1().length() > 1) {
 				item1.setReceiverEmail(massPay.getEmailAddress1());
 				massPayItem.add(item1);
 			}
 		}
 		if (amount2 != null) {
 			item2 = new MassPayRequestItemType(amount2);
-			if (massPay.getEmailAddress2() != null && massPay.getEmailAddress2().length() > 1) {
+			if (massPay.getEmailAddress2() != null
+					&& massPay.getEmailAddress2().length() > 1) {
 				item2.setReceiverEmail(massPay.getEmailAddress2());
 				massPayItem.add(item2);
 			}
 		}
 		if (!massPayItem.isEmpty()) {
 			MassPayRequestType reqType = new MassPayRequestType(massPayItem);
-			reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
-			req.setMassPayRequest(reqType);			
-			Map<String, String> configurationMap = Configuration.getAcctAndConfig();
+			reqType.setReceiverType(ReceiverInfoCodeType
+					.fromValue("EmailAddress"));
+			req.setMassPayRequest(reqType);
+			Map<String, String> configurationMap = Configuration
+					.getAcctAndConfig();
 
-			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(
+					configurationMap);
 
 			try {
 				MassPayResponseType resp = service.massPay(req);
@@ -252,12 +264,9 @@ public class OldwalletController {
 
 			} catch (Exception e) {
 				LOGGER.log(Priority.ERROR, e);
-				ExceptionObj exceptionObj = new ExceptionObj();
-				exceptionObj.setExceptionMessage(e.getMessage());
-				exceptionObj.setExceptionName("MassPay Exception");
-				exceptionObj.setExceptionSourceFile("OldWalletController.java");
-				exceptionObj.setExceptionSourceMethod("sendMassPayment");
-				exceptionObjDAO.saveException(exceptionObj);
+				ExceptionObjUtil.saveException("MassPay Exception",
+						e.getMessage(), "OldWalletController.java",
+						"sendMassPayment");
 			}
 		} else {
 			modelMap.put("action", "Error");

@@ -20,7 +20,7 @@ import com.twilio.sdk.resource.instance.Account;
 public final class SMSUtil {
 
 	private static final Logger LOGGER = Logger.getLogger(SMSUtil.class);
-	
+
 	private SMSUtil() {
 		LOGGER.info("Private constructor of SMSUtil class ::");
 	}
@@ -33,7 +33,8 @@ public final class SMSUtil {
 
 		LOGGER.debug("Begining of sendSMS ::");
 
-		TwilioRestClient client = new TwilioRestClient(SystemParams.TWILIO_ACCOUNT_ID, SystemParams.TWILIO_AUTH_TOKEN);
+		TwilioRestClient client = new TwilioRestClient(
+				SystemParams.TWILIO_ACCOUNT_ID, SystemParams.TWILIO_AUTH_TOKEN);
 
 		Account account = client.getAccount();
 
@@ -46,7 +47,8 @@ public final class SMSUtil {
 				+ amount + " is successfully credited to your Paypal account."));
 
 		try {
-			com.twilio.sdk.resource.instance.Message sms = messageFactory.create(params);
+			com.twilio.sdk.resource.instance.Message sms = messageFactory
+					.create(params);
 			LOGGER.debug("smsStatus :: " + sms.getStatus());
 		} catch (TwilioRestException e) {
 			LOGGER.log(Priority.ERROR, e);

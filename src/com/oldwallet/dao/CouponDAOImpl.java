@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
-import com.oldwallet.model.ExceptionObj;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.DataRetievar;
+import com.oldwallet.util.ExceptionObjUtil;
 
 @Repository
 public class CouponDAOImpl implements CouponDAO {
@@ -44,22 +44,22 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String GET_COUPON_DATA_BY_REDEEM_STATUS = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT ,REDEEM_STATUS FROM COUPONS GROUP BY REDEEM_STATUS";
 
 	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW' AND VALID_TO>=NOW()";
-	
+
 	private static final Logger LOGGER = Logger.getLogger(CouponDAOImpl.class);
 
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-	
-	@Autowired
-	ExceptionObjDAO exceptionObjDAO;
 
 	public boolean updateCouponData(Coupon coupon) {
 		boolean isUpdated = false;
-		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE, coupon.getCouponValue(), coupon.getRedeemStatus(), coupon.getValidFrom(), coupon.getValidTo(), coupon.getAvailableRedemptions(), coupon.getCouponCode());
+		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,
+				coupon.getCouponValue(), coupon.getRedeemStatus(),
+				coupon.getValidFrom(), coupon.getValidTo(),
+				coupon.getAvailableRedemptions(), coupon.getCouponCode());
 		if (result > 0) {
 			isUpdated = true;
 		}
@@ -70,7 +70,8 @@ public class CouponDAOImpl implements CouponDAO {
 	public Coupon getCouponByCode(String couponCode) {
 		LOGGER.debug("Beginning of getCouponByCode ::: ");
 		List<Coupon> couponList = new ArrayList<Coupon>();
-		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(VALIDATE_COUPON, couponCode);
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(
+				VALIDATE_COUPON, couponCode);
 		if (!coupon.isEmpty()) {
 			LOGGER.debug("Calid Coupon is available ::: ");
 			for (Map<String, Object> map : coupon) {
@@ -95,52 +96,47 @@ public class CouponDAOImpl implements CouponDAO {
 		coupon.setEventId(DataRetievar.getLongValue("EVENT_ID", map));
 		coupon.setCouponCode(DataRetievar.getStringValue("COUPON_CODE", map));
 		coupon.setCouponValue(DataRetievar.getStringValue("COUPON_VALUE", map));
-		coupon.setRedeemStatus(DataRetievar.getStringValue("REDEEM_STATUS", map));
-		coupon.setCouponHideLocation(DataRetievar.getStringValue("COUPON_HIDE_LOCATION", map));
+		coupon.setRedeemStatus(DataRetievar
+				.getStringValue("REDEEM_STATUS", map));
+		coupon.setCouponHideLocation(DataRetievar.getStringValue(
+				"COUPON_HIDE_LOCATION", map));
 		coupon.setRedeemedBy(DataRetievar.getStringValue("REDEEMED_BY", map));
-		coupon.setAvailableRedemptions(DataRetievar.getIntValue("AVAILABLE_REDEMPTIONS", map));
-		coupon.setCompletedRedemptions(DataRetievar.getIntValue("COMPLETED_REDEMPTIONS", map));
+		coupon.setAvailableRedemptions(DataRetievar.getIntValue(
+				"AVAILABLE_REDEMPTIONS", map));
+		coupon.setCompletedRedemptions(DataRetievar.getIntValue(
+				"COMPLETED_REDEMPTIONS", map));
 		coupon.setLocation(DataRetievar.getStringValue("", map));
 		coupon.setValidityPeriod(DataRetievar.getStringValue("", map));
 		try {
-			if(map.get("REDEEMED_DATE")!=null) {
-			coupon.setRedeemedDate(format2.format(format1.parse(map.get("REDEEMED_DATE").toString())));
+			if (map.get("REDEEMED_DATE") != null) {
+				coupon.setRedeemedDate(format2.format(format1.parse(map.get(
+						"REDEEMED_DATE").toString())));
 			}
 		} catch (ParseException e) {
-			LOGGER.log(Priority.ERROR, "Exception ::"+e.toString());
-			ExceptionObj exceptionObj = new ExceptionObj();
-			exceptionObj.setExceptionMessage(e.getMessage());
-			exceptionObj.setExceptionName("REDEEMED_DATE Exception");
-			exceptionObj.setExceptionSourceFile("CouponDAOImpl.java");
-			exceptionObj.setExceptionSourceMethod("retrieveCoupon");
-			exceptionObjDAO.saveException(exceptionObj);
+			LOGGER.log(Priority.ERROR, e);
+			ExceptionObjUtil.saveException("REDEEMED_DATE Exception",
+					e.getMessage(), "CouponDAOImpl.java", "retrieveCoupon");
 		}
-		if(map.get("VALID_FROM")!=null) {
+		if (map.get("VALID_FROM") != null) {
 			try {
-				coupon.setValidFrom(format2.format(format1.parse(map.get("VALID_FROM").toString())));
+				coupon.setValidFrom(format2.format(format1.parse(map.get(
+						"VALID_FROM").toString())));
 			} catch (ParseException e) {
-				LOGGER.log(Priority.ERROR, "Exception ::"+e.toString());
-				ExceptionObj exceptionObj = new ExceptionObj();
-				exceptionObj.setExceptionMessage(e.getMessage());
-				exceptionObj.setExceptionName("VALID_FROM Exception");
-				exceptionObj.setExceptionSourceFile("CouponDAOImpl.java");
-				exceptionObj.setExceptionSourceMethod("retrieveCoupon");
-				exceptionObjDAO.saveException(exceptionObj);
+				LOGGER.log(Priority.ERROR, e);
+				ExceptionObjUtil.saveException("VALID_FROM Exception",
+						e.getMessage(), "CouponDAOImpl.java", "retrieveCoupon");
 			}
-			}
-		if(map.get("VALID_TO")!=null) {
+		}
+		if (map.get("VALID_TO") != null) {
 			try {
-				coupon.setValidTo(format2.format(format1.parse(map.get("VALID_TO").toString())));
+				coupon.setValidTo(format2.format(format1.parse(map.get(
+						"VALID_TO").toString())));
 			} catch (ParseException e) {
-				LOGGER.log(Priority.ERROR, "Exception ::"+e.toString());
-				ExceptionObj exceptionObj = new ExceptionObj();
-				exceptionObj.setExceptionMessage(e.getMessage());
-				exceptionObj.setExceptionName("VALID_TO Exception");
-				exceptionObj.setExceptionSourceFile("CouponDAOImpl.java");
-				exceptionObj.setExceptionSourceMethod("retrieveCoupon");
-				exceptionObjDAO.saveException(exceptionObj);
+				LOGGER.log(Priority.ERROR, e);
+				ExceptionObjUtil.saveException("VALID_TO Exception",
+						e.getMessage(), "CouponDAOImpl.java", "retrieveCoupon");
 			}
-			}
+		}
 
 		LOGGER.debug("End of retrieveCoupon ::");
 
@@ -160,7 +156,8 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean isCouponExists(String couponCode) {
 		boolean isExists = false;
-		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(IS_COUPON_EXISTS, couponCode);
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(
+				IS_COUPON_EXISTS, couponCode);
 		if (!coupon.isEmpty()) {
 			isExists = true;
 		}
@@ -170,7 +167,8 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public List<Coupon> getCouponData() {
 		List<Coupon> couponList = new ArrayList<Coupon>();
-		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_COUPON_VALUES);
+		List<Map<String, Object>> mapList = jdbcTemplate
+				.queryForList(GET_COUPON_VALUES);
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				couponList.add(retrieveCoupon(map));
@@ -184,7 +182,8 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public UserToken getRedeemKey(String redeemKey) {
 		List<UserToken> userToken = new ArrayList<UserToken>();
-		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_USER_TOKEN_VALUES, redeemKey);
+		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(
+				GET_USER_TOKEN_VALUES, redeemKey);
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				userToken.add(retriveUserToken(map));
@@ -199,7 +198,8 @@ public class CouponDAOImpl implements CouponDAO {
 
 		UserToken userToken = new UserToken();
 
-		userToken.setCouponCode(DataRetievar.getStringValue("COUPON_CODE", map));
+		userToken
+				.setCouponCode(DataRetievar.getStringValue("COUPON_CODE", map));
 		userToken.setRequestId(DataRetievar.getLongValue("REQUEST_ID", map));
 		userToken.setToken(DataRetievar.getStringValue("TOKEN", map));
 		userToken.setUserEmail(DataRetievar.getStringValue("USER_EMAIL", map));
@@ -210,18 +210,23 @@ public class CouponDAOImpl implements CouponDAO {
 	public CouponStatistics retriveCouponStatistics(Map<String, Object> map) {
 		CouponStatistics cs = new CouponStatistics();
 
-		cs.setRedeemedCouponCount(DataRetievar.getLongValue("REDEEMED_COUNT",map));
+		cs.setRedeemedCouponCount(DataRetievar.getLongValue("REDEEMED_COUNT",
+				map));
 		cs.setRedeemStatus(DataRetievar.getStringValue("REDEEM_STATUS", map));
-		cs.setTotalCouponAmount(DataRetievar.getDoubleValue("TOTAL_COUPON_AMOUNT", map));
-		cs.setTotalCouponsCount(DataRetievar.getLongValue("TOTAL_COUPON_COUNT",map));
-		cs.setTotalRedeemedAmount(DataRetievar.getDoubleValue("REDEEMED_COUPON_AMOUNT", map));
+		cs.setTotalCouponAmount(DataRetievar.getDoubleValue(
+				"TOTAL_COUPON_AMOUNT", map));
+		cs.setTotalCouponsCount(DataRetievar.getLongValue("TOTAL_COUPON_COUNT",
+				map));
+		cs.setTotalRedeemedAmount(DataRetievar.getDoubleValue(
+				"REDEEMED_COUPON_AMOUNT", map));
 
 		return cs;
 	}
 
 	@Override
 	public CouponStatistics getTotalCouponCount() {
-		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_TOTAL_COUPON_COUNT);
+		List<Map<String, Object>> mapList = jdbcTemplate
+				.queryForList(GET_TOTAL_COUPON_COUNT);
 		List<CouponStatistics> csList = new ArrayList<CouponStatistics>();
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
@@ -234,7 +239,8 @@ public class CouponDAOImpl implements CouponDAO {
 
 	@Override
 	public CouponStatistics getRedeemedCount() {
-		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_TOTAL_REDEEMED_COUNT);
+		List<Map<String, Object>> mapList = jdbcTemplate
+				.queryForList(GET_TOTAL_REDEEMED_COUNT);
 		List<CouponStatistics> csList = new ArrayList<CouponStatistics>();
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
@@ -247,7 +253,8 @@ public class CouponDAOImpl implements CouponDAO {
 
 	@Override
 	public CouponStatistics getTotalCouponAmount() {
-		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_TOTAL_COUPON_AMOUNT);
+		List<Map<String, Object>> mapList = jdbcTemplate
+				.queryForList(GET_TOTAL_COUPON_AMOUNT);
 		List<CouponStatistics> csList = new ArrayList<CouponStatistics>();
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
@@ -260,7 +267,8 @@ public class CouponDAOImpl implements CouponDAO {
 
 	@Override
 	public CouponStatistics getReedmedAmount() {
-		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_TOTAL_REDEEMED_AMOUNT);
+		List<Map<String, Object>> mapList = jdbcTemplate
+				.queryForList(GET_TOTAL_REDEEMED_AMOUNT);
 		List<CouponStatistics> csList = new ArrayList<CouponStatistics>();
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
@@ -274,13 +282,14 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public List<CouponStatistics> getCouponDataByReedeemStatus() {
 
-		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_COUPON_DATA_BY_REDEEM_STATUS);
+		List<Map<String, Object>> mapList = jdbcTemplate
+				.queryForList(GET_COUPON_DATA_BY_REDEEM_STATUS);
 		List<CouponStatistics> csList = new ArrayList<CouponStatistics>();
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				csList.add(retriveCouponStatistics(map));
-			}			
-		} 
+			}
+		}
 		return csList;
 	}
 

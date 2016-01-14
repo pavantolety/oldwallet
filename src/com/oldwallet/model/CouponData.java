@@ -25,8 +25,6 @@ public class CouponData {
 	private String redeemedLocation;
 	private String redeemedLocationCode;
 
-	
-	
 	public long getCompletedRedemptions() {
 		return completedRedemptions;
 	}

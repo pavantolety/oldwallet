@@ -11,9 +11,9 @@ import com.oldwallet.model.ExceptionObj;
 @Repository
 public class ExceptionObjDAOImpl implements ExceptionObjDAO {
 
-		private static final String SAVE_EXCEPTION = "INSERT INTO EXCEPTIONS_AUDIT_LOG (EXCEPTION_NAME, EXCEPTION_MESSAGE, EXCEPTION_SOURCE_FILE, EXCEPTION-SOURCE_METHOD) VALUES(?,?,?,?)";
-		
-		private JdbcTemplate jdbcTemplate;
+	private static final String SAVE_EXCEPTION = "INSERT INTO EXCEPTIONS_AUDIT_LOG (EXCEPTION_NAME, EXCEPTION_MESSAGE, EXCEPTION_SOURCE_FILE, EXCEPTION-SOURCE_METHOD) VALUES(?,?,?,?)";
+
+	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
@@ -23,7 +23,11 @@ public class ExceptionObjDAOImpl implements ExceptionObjDAO {
 	@Override
 	public boolean saveException(ExceptionObj exceptionObj) {
 		boolean isInserted = false;
-		int result = jdbcTemplate.update(SAVE_EXCEPTION, exceptionObj.getExceptionName(), exceptionObj.getExceptionMessage(), exceptionObj.getExceptionSourceFile(), exceptionObj.getExceptionSourceMethod());
+		int result = jdbcTemplate.update(SAVE_EXCEPTION,
+				exceptionObj.getExceptionName(),
+				exceptionObj.getExceptionMessage(),
+				exceptionObj.getExceptionSourceFile(),
+				exceptionObj.getExceptionSourceMethod());
 		if (result > 0) {
 			isInserted = true;
 		}

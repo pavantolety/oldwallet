@@ -23,11 +23,11 @@ public interface PageView {
 	String COUPONSTATS = "admin/couponStats";
 
 	String ADMINHOME = "adminHome";
-	
+
 	String ADMINLOGIN = "adminLogin";
 
 	String FACEBOOK = "facebook";
-	
+
 	String CREATECOUPONS = "generateCoupon";
 
 }

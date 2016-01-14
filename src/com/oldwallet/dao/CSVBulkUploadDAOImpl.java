@@ -14,37 +14,36 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.CouponData;
-import com.oldwallet.model.ExceptionObj;
 import com.oldwallet.util.DataRetievar;
+import com.oldwallet.util.ExceptionObjUtil;
 
 @Repository
 public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 
-	private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadDAOImpl.class);
-	
-	public static final String GET_COUPON_DATA_BY_CODE= "SELECT * FROM COUPONS WHERE COUPON_CODE=?";
-	
+	private static final Logger LOGGER = Logger
+			.getLogger(CSVBulkUploadDAOImpl.class);
+
+	public static final String GET_COUPON_DATA_BY_CODE = "SELECT * FROM COUPONS WHERE COUPON_CODE=?";
+
 	public static final String CREATE_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,COUPON_VALUE,COUPON_HIDE_LOCATION,REDEEM_STATUS,VALIDITY_PERIOD,VALID_FROM,VALID_TO,AVAILABLE_REDEMPTIONS,COUNTRY_CODE)VALUES(?,?,?,?,?,?,?,?,?)";
-	
+
 	public static final String GET_TRACKING_COUPON_DATA = "SELECT COUNT(COUPON_CODE)AS COUPON_COUNT,COUPON_HIDE_LOCATION AS LOCATION,COUNTRY_CODE AS C_CODE,REDEEM_STATUS,COMPLETED_REDEMPTIONS,REDEEMED_BY FROM COUPONS GROUP BY COUNTRY_CODE ,REDEEM_STATUS";
-	
+
 	private JdbcTemplate jdbcTemplate;
-	
-	@Autowired
-	ExceptionObjDAO exceptionObjDAO;
 
 	@Autowired
-	   public void setDataSource(DataSource dataSource) {
-	        this.jdbcTemplate = new JdbcTemplate(dataSource);
-	    }
-	
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
 	@Override
-	public boolean  getCouponData(String couponCode) {
+	public boolean getCouponData(String couponCode) {
 		boolean isThere = false;
-		List<Map<String,Object>> myList = jdbcTemplate.queryForList(GET_COUPON_DATA_BY_CODE,couponCode);
-		 if(!myList.isEmpty()){
-			 isThere = true;
-		 }		
+		List<Map<String, Object>> myList = jdbcTemplate.queryForList(
+				GET_COUPON_DATA_BY_CODE, couponCode);
+		if (!myList.isEmpty()) {
+			isThere = true;
+		}
 		return isThere;
 	}
 
@@ -67,20 +66,13 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 			}
 		} catch (DuplicateKeyException de) {
 			LOGGER.log(Priority.ERROR, de);
-			ExceptionObj exceptionObj = new ExceptionObj();
-			exceptionObj.setExceptionMessage(de.getMessage());
-			exceptionObj.setExceptionName("Duplicate Key in CouponData Exception");
-			exceptionObj.setExceptionSourceFile("CSVBulkDAOImpl.java");
-			exceptionObj.setExceptionSourceMethod("createCouponData");
-			exceptionObjDAO.saveException(exceptionObj);
+			ExceptionObjUtil.saveException(
+					"Duplicate Key in CouponData Exception", de.getMessage(),
+					"CSVBulkDAOImpl.java", "createCouponData");
 		} catch (Exception e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObj exceptionObj = new ExceptionObj();
-			exceptionObj.setExceptionMessage(e.getMessage());
-			exceptionObj.setExceptionName("Coupon Data Exception");
-			exceptionObj.setExceptionSourceFile("CSVBulkDAOImpl.java");
-			exceptionObj.setExceptionSourceMethod("createCouponData");
-			exceptionObjDAO.saveException(exceptionObj);
+			ExceptionObjUtil.saveException("Coupon Data Exception",
+					e.getMessage(), "CSVBulkDAOImpl.java", "createCouponData");
 		}
 		return created;
 	}
@@ -89,28 +81,32 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	public List<CouponData> getCouponTrackingData() {
 		List<CouponData> couponDataList = new ArrayList<CouponData>();
 
-		List<Map<String, Object>> myList = jdbcTemplate.queryForList(GET_TRACKING_COUPON_DATA);
+		List<Map<String, Object>> myList = jdbcTemplate
+				.queryForList(GET_TRACKING_COUPON_DATA);
 		if (!myList.isEmpty()) {
 			for (Map<String, Object> map : myList) {
 				couponDataList.add(retrieveCouponTrackData(map));
-			}			
+			}
 		}
 		return couponDataList;
 	}
-	
+
 	private CouponData retrieveCouponTrackData(Map<String, Object> map) {
-		
+
 		CouponData coupon = new CouponData();
-		
+
 		coupon.setCouponCount(DataRetievar.getLongValue("COUPON_COUNT", map));
 		coupon.setLocation(DataRetievar.getStringValue("LOCATION", map));
-		coupon.setCouponHideLocation(DataRetievar.getStringValue("LOCATION", map));
+		coupon.setCouponHideLocation(DataRetievar.getStringValue("LOCATION",
+				map));
 		coupon.setRedeemedLocation(DataRetievar.getStringValue("", map));
-		coupon.setReedemStatus(DataRetievar.getStringValue("REDEEM_STATUS", map));
+		coupon.setReedemStatus(DataRetievar
+				.getStringValue("REDEEM_STATUS", map));
 		coupon.setReedemedBy(DataRetievar.getStringValue("REDEEMED_BY", map));
-		coupon.setCompletedRedemptions(DataRetievar.getLongValue("COMPLETED_REDEMPTIONS", map));
+		coupon.setCompletedRedemptions(DataRetievar.getLongValue(
+				"COMPLETED_REDEMPTIONS", map));
 		coupon.setCountryCode(DataRetievar.getStringValue("C_CODE", map));
-	
+
 		return coupon;
 	}
 
