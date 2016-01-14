@@ -158,11 +158,11 @@ public class OldwalletController {
 		return "";
 	}
 
-	@RequestMapping(value = "/downloadData", method = RequestMethod.GET)
-	public String downloadData(HttpSession session) {
+	@RequestMapping(value = "/createCoupons", method = RequestMethod.GET)
+	public String createCoupons(HttpSession session) {
 		adminSession = (AdminSession) session.getAttribute("adminSession");
 		if (adminSession != null) {
-			return PageView.DOWNLOADDATA;
+			return PageView.CREATECOUPONS;
 		}
 		return PageView.ADMINLOGIN;
 	}
