@@ -22,7 +22,7 @@ import com.oldwallet.util.DataRetievar;
 @Repository
 public class TransactionDAOImpl implements TransactionDAO {
 
-	private static Logger LOGGER = Logger.getLogger(TransactionDAOImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(TransactionDAOImpl.class);
 
 	private static final String INIT_TRANSACTION = "INSERT INTO TRANSACTION(EVENT_ID, COUPON_ID, COUPON_CODE, COUPON_VALUE, USER_EMAIL, USER_MOBILE, TRANSACTION_CODE, STATUS) VALUES(?,?,?,?,?,?,?,'INIT')";
 	private static final String UPDATE_TRANSACTION = "UPDATE TRANSACTION SET TRANSACTION_UPDATION=NOW(), STATUS=?,LATITUDE=?,LONGITUDE=? WHERE TRANSACTION_CODE=?";
@@ -125,7 +125,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 		List<Map<String, Object>> transactionMap = jdbcTemplate.queryForList(
 				GET_TRANSACTION_BY_CODE, transCode);
 		if (!transactionMap.isEmpty()) {
-			LOGGER.debug("There is transaction ::: ");
 			for (Map<String, Object> map : transactionMap) {
 				transactions.add(retrieveTransaction(map));
 			}
@@ -207,7 +206,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 		List<Map<String, Object>> redeemedCouponsCount = jdbcTemplate
 				.queryForList(GET_MONTHLY_REDEEMED_COUPONS_COUNT);
 		if (!redeemedCouponsCount.isEmpty()) {
-			LOGGER.debug("There is transaction ::: ");
 			for (Map<String, Object> map : redeemedCouponsCount) {
 				redeemsCount.add(retrieveRedeemedCount(map));
 			}
@@ -232,7 +230,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 		List<Map<String, Object>> newCouponsCount = jdbcTemplate
 				.queryForList(GET_MONTHLY_NEW_COUPONS_COUNT);
 		if (!newCouponsCount.isEmpty()) {
-			LOGGER.debug("There is transaction ::: ");
 			for (Map<String, Object> map : newCouponsCount) {
 				totalCount.add(retrieveCouponsCount(map));
 			}
@@ -259,7 +256,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 				GET_MONTHLY_EXPIRED_COUPONS_COUNT,
 				CouponStatus.REDEEMED.toString());
 		if (!newCouponsCount.isEmpty()) {
-			LOGGER.debug("There is transaction ::: ");
 			for (Map<String, Object> map : newCouponsCount) {
 				totalCount.add(retrieveExspiredCouponsCount(map));
 			}
@@ -295,7 +291,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 		List<Map<String, Object>> mapList = jdbcTemplate
 				.queryForList(GET_REDEEMED_COUPON_DATA);
 		if (!mapList.isEmpty()) {
-			LOGGER.debug("There is transaction ::: ");
 			for (Map<String, Object> map : mapList) {
 				transactionList.add(retrieveForRedeemedData(map));
 			}

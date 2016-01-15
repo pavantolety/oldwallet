@@ -30,11 +30,9 @@ import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 import com.oldwallet.config.SystemParams;
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponDAO;
-import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponPayment;
-import com.oldwallet.model.ExceptionObj;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.AuthenticationUtils;
@@ -47,10 +45,18 @@ public class CouponPaymentController {
 
 	private static final Logger LOGGER = Logger.getLogger(CouponPaymentController.class);
 	private static final String STATUS = "status";
+	private static final String COUPON = "coupon";
 	private static final String ACTION = "action";
 	private static final String MESSAGE = "message";
 	private static final String NEW = "NEW";
+	private static final String ERROR = "error";
+	private static final String VALID = "valid";
+	private static final String INVALID = "invalid";
+	private static final String EXPIRED = "expired";
 	private static final String SUCCESS = "success";
+	private static final String INVALID_COUPON = "Invalid Coupon";	
+	private static final String EXPIRED_COUPON = "Coupon Code Expired or Event Closed.!";
+	private static final String VALID_COUPON = "You have entered a valid coupon.!";
 
 	@Autowired
 	CouponDAO couponDAO;
@@ -95,32 +101,27 @@ public class CouponPaymentController {
 
 				if (validCoupon != null) {
 					if (validCoupon.getAvailableRedemptions() > 0
-							&& NEW.equalsIgnoreCase(validCoupon
-									.getRedeemStatus())) {
-						LOGGER.debug("Coupon VALID :::");
-						modelMap.put("coupon", validCoupon);
-						modelMap.put(ACTION, "valid");
-						modelMap.put(MESSAGE,
-								"You have entered a valid coupon.!");
+							&& NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())) {
+						modelMap.put(COUPON, validCoupon);
+						modelMap.put(ACTION, VALID);
+						modelMap.put(MESSAGE, VALID_COUPON);
 					} else {
 
-						modelMap.put(ACTION, "expired");
-						modelMap.put(MESSAGE,
-								"Coupon Code Expired or Event Closed.!");
+						modelMap.put(ACTION, EXPIRED);
+						modelMap.put(MESSAGE, EXPIRED_COUPON);
 					}
 				} else {
-					modelMap.put(ACTION, "expired");
-					modelMap.put(MESSAGE,
-							"Coupon Code Expired or Event Closed.!");
+					modelMap.put(ACTION, EXPIRED);
+					modelMap.put(MESSAGE, EXPIRED_COUPON);
 				}
 			} else {
 				LOGGER.debug("Coupon INVALID :::");
-				modelMap.put(ACTION, "invalid");
-				modelMap.put(MESSAGE, "Coupon Code is Expired.!");
+				modelMap.put(ACTION, INVALID);
+				modelMap.put(MESSAGE, EXPIRED_COUPON);
 			}
 
 		} else {
-			modelMap.put(ACTION, "error");
+			modelMap.put(ACTION, ERROR);
 			modelMap.put(MESSAGE, "Please enter a coupon.");
 		}
 
@@ -137,73 +138,65 @@ public class CouponPaymentController {
 				if (validCoupon.getAvailableRedemptions() > 0
 						&& NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())) {
 					// User entered a valid coupon.
-					LOGGER.debug("Coupon VALID :::");
-					modelMap.put("coupon", validCoupon);
-					modelMap.put(ACTION, "valid");
-					modelMap.put(MESSAGE, "You have entered a valid coupon.!");
+					modelMap.put(COUPON, validCoupon);
+					modelMap.put(ACTION, VALID);
+					modelMap.put(MESSAGE, VALID_COUPON);
 					return PageView.THANKYOU;
 				} else {
-					modelMap.put(ACTION, "expired");
-					modelMap.put(MESSAGE,
-							"Coupon Code Expired or Event Closed.!");
+					modelMap.put(ACTION, EXPIRED);
+					modelMap.put(MESSAGE, EXPIRED_COUPON);
 
 				}
 
 				LOGGER.debug("Coupon is Valid ::");
 
-				modelMap.put("coupon", validCoupon);
+				modelMap.put(COUPON, validCoupon);
 				modelMap.put(ACTION, SUCCESS);
 				modelMap.put(MESSAGE, "Valid Coupon");
 			} else {
 				// user entered expired coupon.
-				modelMap.put(ACTION, "error");
-				modelMap.put(MESSAGE, "Invalid Coupon");
+				modelMap.put(ACTION, ERROR);
+				modelMap.put(MESSAGE, INVALID_COUPON);
 			}
 		} else {
-			modelMap.put(ACTION, "error");
-			modelMap.put(MESSAGE, "Invalid Coupon");
+			modelMap.put(ACTION, ERROR);
+			modelMap.put(MESSAGE, INVALID_COUPON);
 		}
 
 		return PageView.THANKYOU;
 	}
 
-	@RequestMapping(value = "/valid", method = { RequestMethod.POST,
-			RequestMethod.GET })
-	public String validCouponResponse(ModelMap modelMap, Coupon coupon,
-			HttpServletRequest request) {
+	@RequestMapping(value = "/valid", method = { RequestMethod.POST, RequestMethod.GET })
+	public String validCouponResponse(ModelMap modelMap, Coupon coupon, HttpServletRequest request) {
 		LOGGER.debug("Beginnig of ValidCoupon Response ::");
 		String couponCode = coupon.getCouponCode();
 		if (couponCode != null && couponCode != "" && couponCode.length() > 4) {
 			Coupon validCoupon = couponDAO.getCouponByCode(couponCode);
 			if (validCoupon != null) {
-				if (validCoupon.getAvailableRedemptions() > 0
-						&& NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())) {
-					LOGGER.debug("Coupon VALID :::");
-					modelMap.put("coupon", validCoupon);
-					modelMap.put(ACTION, "valid");
-					modelMap.put(MESSAGE, "You have entered a valid coupon.!");
+				if (validCoupon.getAvailableRedemptions() > 0 && NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())) {
+					modelMap.put(COUPON, validCoupon);
+					modelMap.put(ACTION, VALID);
+					modelMap.put(MESSAGE, VALID_COUPON);
 					return PageView.THANKYOU;
 				} else {
-					modelMap.put(ACTION, "expired");
-					modelMap.put(MESSAGE,
-							"Coupon Code Expired or Event Closed.!");
+					modelMap.put(ACTION, EXPIRED);
+					modelMap.put(MESSAGE, EXPIRED_COUPON);
 				}
 
 				LOGGER.debug("Coupon is Valid ::");
 
-				modelMap.put("coupon", validCoupon);
+				modelMap.put(COUPON, validCoupon);
 				modelMap.put(ACTION, SUCCESS);
 				modelMap.put(MESSAGE, "Valid Coupon");
 			} else {
-				modelMap.put(ACTION, "error");
-				modelMap.put(MESSAGE, "Invalid Coupon");
+				modelMap.put(ACTION, ERROR);
+				modelMap.put(MESSAGE, INVALID_COUPON);
 			}
 		} else {
-			modelMap.put(ACTION, "error");
-			modelMap.put(MESSAGE, "Invalid coupon");
+			modelMap.put(ACTION, ERROR);
+			modelMap.put(MESSAGE, INVALID_COUPON);
 		}
-		LOGGER.debug("End of ValidCoupon Response :>>>>>>:"
-				+ request.getMethod());
+		LOGGER.debug("End of ValidCoupon Response :>>>>>>:"+ request.getMethod());
 		if ("GET" == request.getMethod()) {
 			return "index";
 		}
@@ -380,14 +373,12 @@ public class CouponPaymentController {
 								modelMap.put(MESSAGE, SUCCESS);
 							} else {
 								modelMap.addAttribute("Error", resp.getErrors());
-								Transaction transaction2 = transactionDAO
-										.getTransactionDetailsById(transactionCode);
+								Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
 								transaction2.setStatus("ERROR");
 								transactionDAO.updateTransaction(transaction2);
 								LOGGER.debug(resp.getErrors().toString());
-								modelMap.put(ACTION, "error");
-								modelMap.put(MESSAGE,
-										"Please check your Coupon Code");
+								modelMap.put(ACTION, ERROR);
+								modelMap.put(MESSAGE, "Please check your Coupon Code");
 							}
 						}
 
@@ -399,8 +390,7 @@ public class CouponPaymentController {
 					}
 				} else {
 					modelMap.put(ACTION, "already");
-					modelMap.put(MESSAGE,
-							"Email is already Used for this coupon!");
+					modelMap.put(MESSAGE, "Email is already Used for this coupon!");
 				}
 			}
 		} else {
