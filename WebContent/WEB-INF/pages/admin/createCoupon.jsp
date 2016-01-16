@@ -103,23 +103,6 @@
 
                     </div>
                     <!-- /sidebar menu -->
-
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <!-- /menu footer buttons -->
                 </div>
             </div>
             
@@ -174,11 +157,11 @@
 		                                <div class="x_content">
 		                                    <div class="col-md-2">
 		                                        <p>Coupon Count</p>
-		                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-displayPrevious=true data-fgColor="#26B99A" value="1">
+		                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="250" data-displayPrevious=true data-fgColor="#26B99A" value="1">
 		                                    </div>
 		                                    <div class="col-md-2">
 		                                        <p>Coupon Length</p>
-		                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-displayPrevious=true data-fgColor="#26B99A" value="1">
+		                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="15" data-displayPrevious=true data-fgColor="#26B99A" value="1">
 		                                    </div>
 		                                     <div class="form-group col-md-8">
 		                                     	<div class="col-md-12 col-sm-12 col-xs-12">
@@ -209,6 +192,7 @@
 	                                            <select class="form-control">
 		                                            <option>Alpha Numeric</option>
 		                                            <option>Numeric</option>
+		                                            <option>Character</option>
 	                                            </select>
 	                                            
 	                                        </div>
@@ -217,10 +201,10 @@
 	                                            <input type="text" class="form-control" id="inputSuccess3" placeholder="Length">
 	                                            
 	                                        </div>
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 	                                            <input type="text" class="form-control" name="code1" id="inputSuccess3" placeholder="Code">
 	                                            
-	                                        </div>
+	                                        </div> -->
 	                                        
 	                                        <div class="form-group">
 	                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -247,6 +231,7 @@
 	                                            <select class="form-control">
 		                                            <option>Alpha Numeric</option>
 		                                            <option>Numeric</option>
+		                                            <option>Character</option>
 	                                            </select>
 	                                            
 	                                        </div>
@@ -255,10 +240,10 @@
 	                                            <input type="text" class="form-control" id="inputSuccess3" placeholder="Length">
 	                                            
 	                                        </div>
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 	                                            <input type="text" class="form-control" name="code2" id="inputSuccess3" placeholder="Code">
 	                                            
-	                                        </div>
+	                                        </div> -->
 	                                        
 	                                        <div class="form-group">
 	                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -285,6 +270,7 @@
 	                                            <select class="form-control">
 		                                            <option>Alpha Numeric</option>
 		                                            <option>Numeric</option>
+		                                            <option>Character</option>
 	                                            </select>
 	                                            
 	                                        </div>
@@ -293,10 +279,10 @@
 	                                            <input type="text" class="form-control" id="inputSuccess3" placeholder="Length">
 	                                            
 	                                        </div>
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 	                                            <input type="text" class="form-control" name="code3" id="inputSuccess3" placeholder="Code" oninput="generateFullName();">
 	                                            
-	                                        </div>
+	                                        </div> -->
 	                                        
 	                                        <div class="form-group">
 	                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">

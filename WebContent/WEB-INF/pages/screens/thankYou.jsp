@@ -205,7 +205,7 @@
                                            <div class="col-md-3 col-sm-3 col-xs-6"></div>                  
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             <label class="control-label pull-left">Mobile :<span class="required">*</span>                            </label>
-                                                <input type="tel" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12" data-parsley-minlength="6"  data-parsley-maxlength="15" parsley-pattern-message="Please enter a valid mobile phone number." placeholder="Add Number with Country Code" pattern="^[{+}][0-9]{10,15}$"/>	
+                                                <input type="text" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12" required="required" data-parsley-minlength="6"  data-parsley-maxlength="15" parsley-pattern-message="Please enter a valid mobile phone number." placeholder="Add Number with Country Code" pattern="^[{+}][0-9]{10,15}$"/>	
                                                 										
                                             </div>
                                         </div>

@@ -102,23 +102,6 @@
 
                     </div>
                     <!-- /sidebar menu -->
-
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <!-- /menu footer buttons -->
                 </div>
             </div>
 
@@ -170,7 +153,7 @@
                                     <form class="form-horizontal form-label-left input_mask" method="POST" action="/sendMassPayment">
 
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress1" placeholder="Email Id" required="required">
+                                            <input type="email" class="form-control" id="inputSuccess2" name="emailAddress1" placeholder="Email Id" required="required">
                                             
                                         </div>
 										<div class="col-md-4 col-sm-4 col-xs-12 form-group ">
@@ -183,7 +166,7 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="emailAddress2" placeholder="Email Id" required="required">
+                                            <input type="email" class="form-control" id="inputSuccess2" name="emailAddress2" placeholder="Email Id" required="required">
                                             
                                         </div>
 										<div class="col-md-4 col-sm-4 col-xs-12 form-group ">
@@ -194,7 +177,7 @@
                                             <input type="text" class="form-control" id="inputSuccess3" name="currencyCode2" placeholder="Currency Code" required="required">
                                             
                                         </div>
-                                        <div class="ln_solid"></div>
+                                        
                                         <div class="form-group">
                                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                                 <button type="reset" class="btn btn-primary">Cancel</button>
