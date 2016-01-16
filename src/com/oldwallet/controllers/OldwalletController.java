@@ -58,11 +58,6 @@ public class OldwalletController {
 		return "dashboard";
 	}
 
-	@RequestMapping(value = "/redeem", method = RequestMethod.GET)
-	public String redeem() {
-		return PageView.REDEEM;
-	}
-
 	@RequestMapping(value = "/thankYou", method = RequestMethod.GET)
 	public String thankYou() {
 		return PageView.THANKYOU;
@@ -186,7 +181,7 @@ public class OldwalletController {
 			modelMap.put("status", "failure");
 			modelMap.put("error", "Invalid Coupon");
 			modelMap.put("message", "Please use valid coupon code to redeem...");
-			return PageView.REDEEM;
+			return "/index";
 		}
 
 	}

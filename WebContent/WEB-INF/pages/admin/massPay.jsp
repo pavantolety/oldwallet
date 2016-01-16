@@ -84,13 +84,13 @@
                                            </li>
                                            <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
                                            </li>
-                                           <li><a href="/createCoupon"><i class="fa fa-credit-card"></i>Manage Coupons</a>
+                                           <li><a href="/createCoupon"><i class="fa fa-credit-card"></i>Generate Coupons</a>
                                            </li>
                                        </ul>
                             	</li>
-                            	<li><a><i class="fa fa-edit"></i>Dashboard<span class="fa fa-chevron-down"></span></a>
+                            	<li><a><i class="fa fa-dashboard"></i>Dashboard<span class="fa fa-chevron-down"></span></a>
                             		<ul class="nav child_menu" style="display: none">
-                                           <li><a href="/couponStats"><i class="fa fa-dashboard"></i>Coupon Redemptions</a></li>
+                                           <li><a href="/couponStats"><i class="fa fa-pie-chart"></i>Coupon Redemptions</a></li>
                                            <li><a href="/trackCoupons"><i class="fa fa-map-marker"></i>Coupon Hide & Retrieve Locations</a></li>
                                            
                                        </ul>
@@ -231,7 +231,7 @@
                 <!-- /footer content -->
 
         </div>
-
+		</div>
     </div>
 
     <div id="custom_notifications" class="custom-notifications dsp_none">
