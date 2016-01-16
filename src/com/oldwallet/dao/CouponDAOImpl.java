@@ -46,6 +46,11 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW' AND VALID_TO>=NOW()";
 
 	private static final Logger LOGGER = Logger.getLogger(CouponDAOImpl.class);
+	
+	private static final String FILE_NAME = "CouponDAOImpl.java";
+	
+	private static final String RETRIEVE_COUPON = "retrieveCoupon";
+	
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -115,7 +120,7 @@ public class CouponDAOImpl implements CouponDAO {
 		} catch (ParseException e) {
 			LOGGER.log(Priority.ERROR, e);
 			ExceptionObjUtil.saveException("REDEEMED_DATE Exception",
-					e.getMessage(), "CouponDAOImpl.java", "retrieveCoupon");
+					e.getMessage(),FILE_NAME ,RETRIEVE_COUPON );
 		}
 		if (map.get("VALID_FROM") != null) {
 			try {
@@ -124,7 +129,7 @@ public class CouponDAOImpl implements CouponDAO {
 			} catch (ParseException e) {
 				LOGGER.log(Priority.ERROR, e);
 				ExceptionObjUtil.saveException("VALID_FROM Exception",
-						e.getMessage(), "CouponDAOImpl.java", "retrieveCoupon");
+						e.getMessage(), FILE_NAME ,RETRIEVE_COUPON );
 			}
 		}
 		if (map.get("VALID_TO") != null) {
@@ -134,7 +139,7 @@ public class CouponDAOImpl implements CouponDAO {
 			} catch (ParseException e) {
 				LOGGER.log(Priority.ERROR, e);
 				ExceptionObjUtil.saveException("VALID_TO Exception",
-						e.getMessage(), "CouponDAOImpl.java", "retrieveCoupon");
+						e.getMessage(),FILE_NAME , RETRIEVE_COUPON);
 			}
 		}
 

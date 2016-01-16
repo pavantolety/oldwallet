@@ -7,11 +7,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.oldwallet.config.SystemParams;
-import com.oldwallet.dao.ExceptionObjDAO;
-import com.oldwallet.model.ExceptionObj;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;
@@ -24,9 +21,6 @@ public final class SMSUtil {
 	private SMSUtil() {
 		LOGGER.info("Private constructor of SMSUtil class ::");
 	}
-
-	@Autowired
-	static ExceptionObjDAO exceptionObjDAO;
 
 	@SuppressWarnings("deprecation")
 	public static String sendSMS(String mobile, String amount) {
@@ -52,13 +46,7 @@ public final class SMSUtil {
 			LOGGER.debug("smsStatus :: " + sms.getStatus());
 		} catch (TwilioRestException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObj exceptionObj = new ExceptionObj();
-			exceptionObj.setExceptionMessage(e.getMessage());
-			exceptionObj.setExceptionName("SMS Exception");
-			exceptionObj.setExceptionSourceFile("SMSUtil.java");
-			exceptionObj.setExceptionSourceMethod("sendSMS");
-			exceptionObjDAO.saveException(exceptionObj);
-
+			ExceptionObjUtil.saveException("SMS Exception", e.getMessage(), "SMSUtil.java", "sendSMS");
 		}
 		return "";
 	}

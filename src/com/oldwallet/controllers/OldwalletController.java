@@ -40,13 +40,12 @@ import com.oldwallet.util.paypal.Configuration;
 @Controller
 public class OldwalletController {
 
-	@Autowired
-	CouponDAO couponDAO;
-
-	private static final Logger LOGGER = Logger
-			.getLogger(OldwalletController.class);
+	private static final Logger LOGGER = Logger.getLogger(OldwalletController.class);
 
 	AdminSession adminSession = null;
+	
+	@Autowired
+	CouponDAO couponDAO;
 
 	@RequestMapping(value = { "/", "/index" })
 	public String index() {

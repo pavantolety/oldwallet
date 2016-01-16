@@ -29,5 +29,8 @@ public interface PageView {
 	String FACEBOOK = "facebook";
 
 	String CREATECOUPONS = "admin/createCoupon";
+	
+	String REDEEM = "screens/redeem";
+
 
 }
