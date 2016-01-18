@@ -184,15 +184,7 @@
                     </script>
                  </div>
                 <!-- /page content -->
-                 <!-- footer content -->
-                <footer>
-                    <div class="">
-                        <p class="pull-right"><span class="lead"></span>
-                        </p>
-                    </div>
-                    <div class="clearfix"></div>
-                </footer>
-                <!-- /footer content -->
+                 
 			</div>
         </div>
 
