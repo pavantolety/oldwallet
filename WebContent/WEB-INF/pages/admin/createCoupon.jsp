@@ -150,28 +150,29 @@
 		                        <div class="col-md-12">
 		                            <div class="x_panel">
 		                                <div class="x_title">
-		                                    <h2>Coupon Configuration</h2>
-		                                    
+		                                    <h2>Coupon Configuration</h2>		                                    
 		                                    <div class="clearfix"></div>
 		                                </div>
 		                                <div class="x_content">
-		                                    <div class="col-md-2">
-		                                        <p>Coupon Count</p>
-		                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="250" data-displayPrevious=true data-fgColor="#26B99A" value="1">
-		                                    </div>
-		                                    <div class="col-md-2">
-		                                        <p>Coupon Length</p>
-		                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="15" data-displayPrevious=true data-fgColor="#26B99A" value="1">
-		                                    </div>
-		                                     <div class="form-group col-md-8">
-		                                     	<div class="col-md-12 col-sm-12 col-xs-12">
-	                                            	<label class="control-label col-md-3 col-sm-3 col-xs-12">Coupon Code:</label>	                                            
-	                                                <input type="text" id="couponCode" required="required" class="form-control col-md-7 col-xs-12">
-	                                                <button class="btn btn-primary" type="submit">Generate Coupons</button>
-	                                            </div>
-	                                            
-                                        	</div>
-                                        	
+		                                	<form name="couponConfig" method="post">
+			                                    <div class="col-md-2">
+			                                        <p>Coupon Count</p>
+			                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="250" data-displayPrevious=true data-fgColor="#26B99A" name="couponCount" id="couponCount" value="1">
+			                                    </div>
+			                                    <div class="col-md-2">
+			                                        <p>Coupon Length</p>
+			                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="15" data-displayPrevious=true data-fgColor="#26B99A" name="couponLength" id="couponLength" value="1">
+			                                    </div>
+			                                     <div class="form-group col-md-8">
+			                                     	<div class="col-md-12 col-sm-12 col-xs-12">
+		                                            	<label class="control-label col-md-3 col-sm-3 col-xs-12">Coupon Code:</label>	                                            
+		                                                <input type="text" name="couponCode" id="couponCode" required="required" class="form-control col-md-7 col-xs-12" readonly>
+		                                                <button class="btn btn-primary" type="submit">Generate Coupons</button>
+		                                                <button class="btn btn-primary" type="submit">Download Coupons</button>
+		                                            </div>
+		                                            
+	                                        	</div>
+                                        	</form>                                        	
 		                                </div>
 		                            </div>
 		                        </div>
@@ -189,7 +190,7 @@
 	                                    <form class="form-horizontal form-label-left input_mask">
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <select class="form-control">
+	                                            <select class="form-control" name="typeA" id="typeA">
 		                                            <option>Alpha Numeric</option>
 		                                            <option>Numeric</option>
 		                                            <option>Character</option>
@@ -198,7 +199,7 @@
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" id="inputSuccess3" placeholder="Length">
+	                                            <input type="text" class="form-control" name="typeALength" id="typeALength" placeholder="Length">
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -228,7 +229,7 @@
 	                                    <form class="form-horizontal form-label-left input_mask">
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <select class="form-control">
+	                                            <select class="form-control" name="typeB" id="typeB">
 		                                            <option>Alpha Numeric</option>
 		                                            <option>Numeric</option>
 		                                            <option>Character</option>
@@ -237,7 +238,7 @@
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" id="inputSuccess3" placeholder="Length">
+	                                            <input type="text" class="form-control" name="typeBLength" id="typeBLength" placeholder="Length">
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -267,7 +268,7 @@
 	                                    <form class="form-horizontal form-label-left input_mask">
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <select class="form-control">
+	                                            <select class="form-control" name="typeC" id="typeC">
 		                                            <option>Alpha Numeric</option>
 		                                            <option>Numeric</option>
 		                                            <option>Character</option>
@@ -276,7 +277,7 @@
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" id="inputSuccess3" placeholder="Length">
+	                                            <input type="text" class="form-control" name="typeCLength" id="typeCLength" placeholder="Length">
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -297,6 +298,13 @@
 	                         </div>
 	                         
 		               </div>
+		               <div id="toastMessage"></div>
+		                <div class="form-group">
+                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                 <button type="submit" class="btn btn-success pull-right" onclick="generateCouponData()">Submit Configuration</button>
+                                 
+                             </div>
+                         </div>
 	               </div>
 	           </div>
 	        </div>
@@ -319,16 +327,6 @@
     <!-- knob -->
     <script src="js/knob/jquery.knob.min.js"></script>
     <!-- knob -->
-    <script type="text/javascript">
-	   function generateFullName()
-	   {
-	        document.getElementById('couponCode').value = 
-	        document.getElementById('code1').value +
-	        document.getElementById('code2').value + 
-	        document.getElementById('code3').value;
-	
-	   }
-	</script>
     <script>
         $(function ($) {
 
@@ -428,6 +426,54 @@
                 }
             });
         });
+    </script>
+    <script>
+    $('.masterSelect').on('change', function() {
+        $('.hiddenOptions select').removeClass("active");
+        $('.hiddenOptions select').eq($(this).val()).addClass("active");
+
+        showValue();
+    });
+
+    $('.hiddenOptions select').on('change', function() {
+        showValue();
+    });
+
+    $('.masterSelect').trigger('change'); //set initial value on load
+
+    function showValue()
+    {
+        console.log($('.hiddenOptions select.active').val());
+    }
+    </script>
+    <script>
+    function generateCouponData(){
+    	var couponData = {
+    			couponCount:$("#couponCount").val(),
+    			couponLength:$("#couponLength").val(),
+		    	typeA : $("#typeA").val(),
+		    	typeALength : $("#typeALength").val(),
+		    	typeB : $("#typeB").val(),
+		    	typeBLength : $("#typeBLength").val(),
+		    	typeC : $("#typeC").val(),
+		    	typeCLength : $("#typeCLength").val(),
+    	};
+    	//alert(JSON.stringify(couponData));
+    	$.ajax({
+			type:'POST',
+			url:'/saveConfiguration.json',
+			data:couponData,
+			success:function(data) {
+			if(data.status =="success"){
+		   $('<div class="alert alert-success"><strong>Coupon Data Saved</strong></div>').appendTo("#toastMessage");
+     	
+	         $(".alert").delay(200).addClass("in").fadeOut(3000);
+			}else{
+				
+			}
+			}
+			});
+    }
     </script>
 	</body>
 </html>
