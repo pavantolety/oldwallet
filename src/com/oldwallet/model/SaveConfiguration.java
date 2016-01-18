@@ -8,15 +8,15 @@ public class SaveConfiguration {
 
 	private String typeA;
 
-	private long typeALength;
+	private int typeALength;
 	
 	private String typeB;
 	
-	private long typeBLength;
+	private int typeBLength;
 	
 	private String typeC;
 	
-	private long typeCLength;
+	private int typeCLength;
 
 	public long getCouponCount() {
 		return couponCount;
@@ -42,11 +42,11 @@ public class SaveConfiguration {
 		this.typeA = typeA;
 	}
 
-	public long getTypeALength() {
+	public int getTypeALength() {
 		return typeALength;
 	}
 
-	public void setTypeALength(long typeALength) {
+	public void setTypeALength(int typeALength) {
 		this.typeALength = typeALength;
 	}
 
@@ -58,11 +58,11 @@ public class SaveConfiguration {
 		this.typeB = typeB;
 	}
 
-	public long getTypeBLength() {
+	public int getTypeBLength() {
 		return typeBLength;
 	}
 
-	public void setTypeBLength(long typeBLength) {
+	public void setTypeBLength(int typeBLength) {
 		this.typeBLength = typeBLength;
 	}
 
@@ -74,11 +74,13 @@ public class SaveConfiguration {
 		this.typeC = typeC;
 	}
 
-	public long getTypeCLength() {
+	public int getTypeCLength() {
 		return typeCLength;
 	}
 
-	public void setTypeCLength(long typeCLength) {
+	public void setTypeCLength(int typeCLength) {
 		this.typeCLength = typeCLength;
 	}
+
+
 }

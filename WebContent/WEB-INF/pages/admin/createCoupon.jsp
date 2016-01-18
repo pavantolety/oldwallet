@@ -166,7 +166,7 @@
 			                                     <div class="form-group col-md-8">
 			                                     	<div class="col-md-12 col-sm-12 col-xs-12">
 		                                            	<label class="control-label col-md-3 col-sm-3 col-xs-12">Coupon Code:</label>	                                            
-		                                                <input type="text" name="couponCode" id="couponCode" required="required" class="form-control col-md-7 col-xs-12" readonly>
+		                                                <input type="text" name="couponCode" id="couponCode" required="required" class="form-control col-md-7 col-xs-12" value="${SampleCoupons}" readonly>
 		                                                <button class="btn btn-primary" type="submit">Generate Coupons</button>
 		                                                <button class="btn btn-primary" type="submit">Download Coupons</button>
 		                                            </div>
@@ -191,9 +191,9 @@
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 	                                            <select class="form-control" name="typeA" id="typeA">
-		                                            <option>Alpha Numeric</option>
-		                                            <option>Numeric</option>
-		                                            <option>Character</option>
+		                                            <option value="AlphaNumeric">Alpha Numeric</option>
+		                                            <option value="Numeric">Numeric</option>
+		                                            <option value="Character">Character</option>
 	                                            </select>
 	                                            
 	                                        </div>
@@ -230,9 +230,9 @@
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 	                                            <select class="form-control" name="typeB" id="typeB">
-		                                            <option>Alpha Numeric</option>
-		                                            <option>Numeric</option>
-		                                            <option>Character</option>
+		                                            <option value="AlphaNumeric">Alpha Numeric</option>
+		                                            <option value="Numeric">Numeric</option>
+		                                            <option value="Character">Character</option>
 	                                            </select>
 	                                            
 	                                        </div>
@@ -269,9 +269,9 @@
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 	                                            <select class="form-control" name="typeC" id="typeC">
-		                                            <option>Alpha Numeric</option>
-		                                            <option>Numeric</option>
-		                                            <option>Character</option>
+		                                            <option value="AlphaNumeric">Alpha Numeric</option>
+		                                            <option value="Numeric">Numeric</option>
+		                                            <option value="Character">Character</option>
 	                                            </select>
 	                                            
 	                                        </div>

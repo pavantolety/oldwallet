@@ -6,5 +6,5 @@ public interface GenerateCouponDAO {
 	
 	public boolean saveConfiguration(SaveConfiguration saveConfiguration);
 	
-	public SaveConfiguration getDataById(long requestId);
+	public boolean storeCoupons(String couponCode);
 }

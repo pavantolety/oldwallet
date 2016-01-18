@@ -24,7 +24,7 @@ public class GenerateCouponDAOImpl implements GenerateCouponDAO{
 	
 	public static final String GENERATE_COUPON = "INSERT INTO CREATE_COUPONS (COUPON_COUNT,COUPON_LENGTH,TYPE_A,TYPE_A_LENGTH,TYPE_B,TYPE_B_LENGTH,TYPE_C,TYPE_C_LENGTH,REQUEST_DATE)VALUES(?,?,?,?,?,?,?,?,NOW())";
 	
-	public static final String GET_COUPON_BY_REQUEST_ID = "SELECT COUPON_COUNT,COUPON_LENGTH,TYPE_A,TYPE_A_LENGTH,TYPE_B,TYPE_B_LENGTH,TYPE_C,TYPE_C_LENGTH FROM CREATE_COUPONS WHERE REQUEST_ID=?";
+	public static final String STORE_COUPONS = "INSERT INTO GENERATED_COUPONS (COUPON_CODE,GENERATE_REQUEST_DATE)VALUES(?,NOW())";
 	
 	private JdbcTemplate jdbcTemplate;
 
@@ -49,38 +49,14 @@ public class GenerateCouponDAOImpl implements GenerateCouponDAO{
 	}
 
 	@Override
-	public SaveConfiguration getDataById(long requestId) {
+	public boolean storeCoupons(String couponCode) {
 		// TODO Auto-generated method stub
-		LOGGER.debug("Begining of getTransaction :: " + requestId);
-		List<SaveConfiguration> coupons = new ArrayList<SaveConfiguration>();
-		List<Map<String, Object>> generateCoupons = jdbcTemplate.queryForList(
-				GET_COUPON_BY_REQUEST_ID, requestId);
-		if (!generateCoupons.isEmpty()) {
-			for (Map<String, Object> map : generateCoupons) {
-				coupons.add(retrieveCoupons(map));
-			}
-			return coupons.get(0);
-		} else {
-			LOGGER.debug("NO valid data available ::: ");
-			return null;
+		boolean isInserted = false;
+		int result = jdbcTemplate.update(STORE_COUPONS,couponCode);
+		if (result > 0) {
+			isInserted = true;
 		}
-	}
-	
-	private SaveConfiguration retrieveCoupons(Map<String, Object> map) {
-		LOGGER.debug("Beginning of Generate Coupons Retrieve");
-		SaveConfiguration generateCoupon = new SaveConfiguration();
-
-		generateCoupon.setCouponCount(DataRetievar.getIntValue("COUPON_COUNT",map));
-		generateCoupon.setCouponLength(DataRetievar.getIntValue("COUPON_LENGTH", map));
-		generateCoupon.setTypeA(DataRetievar.getStringValue("TYPE_A", map));
-		generateCoupon.setTypeALength(DataRetievar.getIntValue("TYPE_A_LENGTH", map));
-		generateCoupon.setTypeB(DataRetievar.getStringValue("TYPE_B", map));
-		generateCoupon.setTypeBLength(DataRetievar.getIntValue("TYPE_B_LENGTH",	map));
-		generateCoupon.setTypeC(DataRetievar.getStringValue("TYPE_C", map));
-		generateCoupon.setTypeCLength(DataRetievar.getIntValue("TYPE_C_LENGTH", map));
-
-		LOGGER.debug("End of Generate Coupons Retrieve");
-		return generateCoupon;
+		return isInserted;
 	}
 	
 	
