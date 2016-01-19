@@ -155,24 +155,25 @@
 		                                </div>
 		                                <div class="x_content">
 		                                	<form name="couponConfig" method="post">
-			                                    <div class="col-md-2">
-			                                        <p>Coupon Count</p>
-			                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="250" data-displayPrevious=true data-fgColor="#26B99A" name="couponCount" id="couponCount" value="1">
+			                                    <div class="col-md-3">
+			                                        <p>Coupon Count<small>(Maximum 100 Coupons)</small></p>
+			                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="100" data-displayPrevious=true data-fgColor="#26B99A" name="couponCount" id="couponCount" value="1">
 			                                    </div>
-			                                    <div class="col-md-2">
+			                                    <!-- <div class="col-md-2">
 			                                        <p>Coupon Length</p>
 			                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="15" data-displayPrevious=true data-fgColor="#26B99A" name="couponLength" id="couponLength" value="1">
-			                                    </div>
+			                                    </div> -->
 			                                     <div class="form-group col-md-8">
 			                                     	<div class="col-md-12 col-sm-12 col-xs-12">
-		                                            	<label class="control-label col-md-3 col-sm-3 col-xs-12">Coupon Code:</label>	                                            
-		                                                <input type="text" name="couponCode" id="couponCode" required="required" class="form-control col-md-7 col-xs-12" value="${SampleCoupons}" readonly>
-		                                                <button class="btn btn-primary" type="submit">Generate Coupons</button>
-		                                                <button class="btn btn-primary" type="submit">Download Coupons</button>
+		                                            	<!-- <label class="control-label col-md-3 col-sm-3 col-xs-12">Coupon Code:</label> -->	                                            
+		                                                
+		                                                
+		                                                <!-- <button class="btn btn-primary" type="submit">Download Coupons</button> -->
 		                                            </div>
 		                                            
 	                                        	</div>
-                                        	</form>                                        	
+                                        	</form>
+                                        	<button class="btn btn-primary" type="submit">Generate Coupons</button>                                        	
 		                                </div>
 		                            </div>
 		                        </div>
@@ -296,15 +297,15 @@
 	                                </div>
 	                            </div>
 	                         </div>
-	                         
-		               </div>
-		               <div id="toastMessage"></div>
+	                         <div id="toastMessage"></div>
 		                <div class="form-group">
                              <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                  <button type="submit" class="btn btn-success pull-right" onclick="generateCouponData()">Submit Configuration</button>
                                  
                              </div>
                          </div>
+		               </div>
+		               
 	               </div>
 	           </div>
 	        </div>
