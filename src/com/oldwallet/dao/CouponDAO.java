@@ -15,6 +15,8 @@ public interface CouponDAO {
 	public boolean updateCouponData(Coupon coupon);
 
 	public boolean isCouponExists(String couponCode);
+	
+	public boolean createGeneratedCouponData(Coupon coupon);
 
 	public List<Coupon> getCouponData();
 

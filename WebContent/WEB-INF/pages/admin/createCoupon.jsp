@@ -464,7 +464,7 @@
 			url:'/saveConfiguration.json',
 			data:couponData,
 			success:function(data) {
-			if(data.status =="success"){
+			if(data.result =="success"){
 		   $('<div class="alert alert-success"><strong>Coupon Data Saved</strong></div>').appendTo("#toastMessage");
      	
 	         $(".alert").delay(200).addClass("in").fadeOut(3000);

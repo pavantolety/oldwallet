@@ -51,6 +51,8 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	private static final String RETRIEVE_COUPON = "retrieveCoupon";
 	
+	private static final String CREATE_GENERATED_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,REDEEM_STATUS) VALUES (?,?)";
+	
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -296,6 +298,16 @@ public class CouponDAOImpl implements CouponDAO {
 			}
 		}
 		return csList;
+	}
+
+	@Override
+	public boolean createGeneratedCouponData(Coupon coupon) {
+		boolean isCreated =  false;
+		int i =  jdbcTemplate.update(CREATE_GENERATED_COUPON_DATA,coupon.getCouponCode(),coupon.getRedeemStatus());
+		if(i>0){
+			isCreated = true;
+		}
+		return isCreated;
 	}
 
 }
