@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -77,6 +78,7 @@ public class CouponDAOImpl implements CouponDAO {
 	public Coupon getCouponByCode(String couponCode) {
 		LOGGER.debug("Beginning of getCouponByCode ::: ");
 		List<Coupon> couponList = new ArrayList<Coupon>();
+		
 		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(
 				VALIDATE_COUPON, couponCode);
 		if (!coupon.isEmpty()) {
@@ -84,11 +86,19 @@ public class CouponDAOImpl implements CouponDAO {
 			for (Map<String, Object> map : coupon) {
 				couponList.add(retrieveCoupon(map));
 			}
-			return couponList.get(0);
-		} else {
-			LOGGER.debug("NO valid coupons available ::: ");
-			return null;
+			if(couponList.size()>0){
+				
+				boolean matched =  BCrypt.checkpw(couponCode, couponList.get(0).getCouponCode());
+				if(matched){
+					return couponList.get(0);
+				}else{
+					LOGGER.debug("NO valid coupons available ::: ");
+					return null;
+				}
+			}
+			
 		}
+		return null;
 	}
 
 	@SuppressWarnings("deprecation")
