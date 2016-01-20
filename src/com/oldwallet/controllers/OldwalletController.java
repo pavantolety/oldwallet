@@ -160,7 +160,12 @@ public class OldwalletController {
 		}
 		return PageView.ADMINLOGIN;
 	}
-
+	
+	@RequestMapping(value = "/fundsManagement", method = RequestMethod.GET)
+	public String fundsManagement() {
+		return PageView.FUNDSMANAGEMENT;
+	}
+	
 	@RequestMapping(value = "/facebook", method = RequestMethod.GET)
 	public String facebook() {
 		return PageView.FACEBOOK;

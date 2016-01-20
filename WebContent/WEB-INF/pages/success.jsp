@@ -23,7 +23,7 @@
     <link href="css/user.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- select2 -->
@@ -181,7 +181,7 @@
 															<h5>Get money for sharing this on your social media </h5><br>									
 															<a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>																													
 															&nbsp;&nbsp;
-															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>											   
+															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>											   
 															
 														</div>
 													</div>

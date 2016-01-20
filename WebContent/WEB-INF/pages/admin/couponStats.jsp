@@ -77,12 +77,14 @@
                             <ul class="nav side-menu">
                             	<li><a><i class="fa fa-gamepad"></i>Coupon Management<span class="fa fa-chevron-down"></span></a>
                            			<ul class="nav child_menu" style="display: none">
-                                            <li><a href="/adminHome"><i class="fa fa-upload"></i>Upload Coupons</a>
-                                           </li>
-                                           <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
+                                           <li><a href="/adminHome"><i class="fa fa-upload"></i>Upload Coupons</a>
                                            </li>
                                            <li><a href="/createCoupon"><i class="fa fa-credit-card"></i>Generate Coupons</a>
                                            </li>
+                                           <li><a href="/fundsManagement"><i class="fa fa-money"></i>Funds Allocation</a>
+                                           </li>
+                                           <li><a href="/manageCoupons"><i class="fa fa-wrench"></i>Manage Coupons</a>
+                                           </li>    
                                        </ul>
                             	</li>
                             	<li><a><i class="fa fa-dashboard"></i>Dashboard<span class="fa fa-chevron-down"></span></a>

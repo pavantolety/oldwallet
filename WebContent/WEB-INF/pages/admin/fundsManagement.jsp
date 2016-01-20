@@ -143,171 +143,128 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Create Coupons</h3>
+                            <h3>Funds Allocation</h3>
                         </div>
                     </div>
                     <div class="clearfix"></div>
 		             <div class="row">
 		             	 <!-- form input knob -->
-		                        <div class="col-md-12">
-		                            <div class="x_panel">
-		                                <div class="x_title">
-		                                    <h2>Coupon Configuration</h2>		                                    
-		                                    <div class="clearfix"></div>
-		                                </div>
-		                                <div class="x_content">
-		                                	<form name="couponConfig" method="post">
-			                                    <div class="col-md-3">
-			                                        <p>Coupon Count<small>(Maximum 100 Coupons)</small></p>
-			                                        <input class="knob" data-width="100" data-height="120" data-cursor=true data-fgColor="#34495E" name="couponCount" id="couponCount" value="1">
-			                                    </div>
-			                                    <!-- <div class="col-md-2">
-			                                        <p>Coupon Length</p>
-			                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="15" data-displayPrevious=true data-fgColor="#26B99A" name="couponLength" id="couponLength" value="1">
-			                                    </div> -->
-			                                     <div class="form-group col-md-8">
-			                                     	<div class="col-md-12 col-sm-12 col-xs-12">
-		                                            	<!-- <label class="control-label col-md-3 col-sm-3 col-xs-12">Coupon Code:</label> -->	                                            
-		                                                
-		                                                
-		                                                <!-- <button class="btn btn-primary" type="submit">Download Coupons</button> -->
-		                                            </div>
-		                                            
-	                                        	</div>
-                                        	</form>
-                                        	<!-- <button class="btn btn-primary" type="submit">Generate Coupons</button> -->                                        	
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!-- /form input knob -->
+		                        <div class="col-md-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Manage Coupon Values</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+								 <div class="x_content">
+                                    <div class="col-md-2">
+                                        <p>Coupon Count</p>
+                                        <input class="knob" data-width="100" data-height="120" data-min="-100" data-displayPrevious=true data-fgColor="#26B99A" value="93">
+                                    </div>
+									<div class="col-md-2">
+                                        <p>Coupon Value</p>
+                                        <input class="knob" data-width="100" data-height="120" data-min="-100" data-max="10000"data-displayPrevious=true data-fgColor="#26B99A" value="10000">
+                                    </div>
+								</div>
+                                <div class="x_content">
+                                    <br />
+										
+                                    <form class="form-horizontal form-label-left input_mask">
+										
+										
+                                        <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <label>Name of Prize:</label><input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Jackpot">                                            
+                                        </div>
+
+                                         <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <label>Quantity:</label><input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="4">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <label>Amount per Coupon:</label><input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$500">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <label>Total Value:</label><input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$2000">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Bumper Bonanza">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="4">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$250">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$1000">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Super Bonanza">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="5">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$200">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$1000">                                            
+                                        </div>
+										
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Super Prize">                                            
+                                        </div>
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="40">                                            
+                                        </div>
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$100">                                            
+                                        </div>
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$4000">                                            
+                                        </div>
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Lottery">                                            
+                                        </div>
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="40">                                            
+                                        </div>
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$50">                                            
+                                        </div>
+										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$2000">                                            
+                                        </div>
+										<div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+										</div>
+										<div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+										</div>
+										<div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+										</div>
+                                        <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+                                            Grand Total:<input type="text" class="form-control" id="inputSuccess2" placeholder="First Name" value="$10000" readonly>  
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                <button type="submit" class="btn btn-danger">Delete Row</button>
+                                                <button type="submit" class="btn btn-primary">Add Row</button>
+												<button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
 		                    </div>
-		                    <div class="row">
-	                        <div class="col-md-4 col-xs-12">
-	                            <div class="x_panel">
-	                                <div class="x_title">
-	                                    <h2>Part 1</h2>
-	                                    <div class="clearfix"></div>
-	                                </div>
-	                                <div class="x_content">
-	                                    
-	                                    <form class="form-horizontal form-label-left input_mask">
-	
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <select class="form-control" name="typeA" id="typeA">
-		                                            <option value="AlphaNumeric">Alpha Numeric</option>
-		                                            <option value="Numeric">Numeric</option>
-		                                            <option value="Character">Character</option>
-	                                            </select>
-	                                            
-	                                        </div>
-	
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeALength" id="typeALength" placeholder="Length">
-	                                            
-	                                        </div>
-	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="code1" id="inputSuccess3" placeholder="Code">
-	                                            
-	                                        </div> -->
-	                                        
-	                                        <div class="form-group">
-	                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-	                                                <button type="reset" class="btn btn-primary">Cancel</button>
-	                                                
-	                                            </div>
-	                                        </div>
-	
-	                                    </form>
-	                                </div>
-	                            </div>
-	                         </div>
-	                         <div class="col-md-4 col-xs-12">
-	                            <div class="x_panel">
-	                                <div class="x_title">
-	                                   <h2>Part 2</h2>
-	                                    <div class="clearfix"></div>
-	                                </div>
-	                                <div class="x_content">
-	                                    
-	                                    <form class="form-horizontal form-label-left input_mask">
-	
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <select class="form-control" name="typeB" id="typeB">
-		                                            <option value="AlphaNumeric">Alpha Numeric</option>
-		                                            <option value="Numeric">Numeric</option>
-		                                            <option value="Character">Character</option>
-	                                            </select>
-	                                            
-	                                        </div>
-	
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeBLength" id="typeBLength" placeholder="Length">
-	                                            
-	                                        </div>
-	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="code2" id="inputSuccess3" placeholder="Code">
-	                                            
-	                                        </div> -->
-	                                        
-	                                        <div class="form-group">
-	                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-	                                                <button type="reset" class="btn btn-primary">Cancel</button>
-	                                               
-	                                            </div>
-	                                        </div>
-	
-	                                    </form>
-	                                </div>
-	                            </div>
-	                         </div>
-	                         <div class="col-md-4 col-xs-12">
-	                            <div class="x_panel">
-	                                <div class="x_title">
-	                                    <h2>Part 3</h2>
-	                                    <div class="clearfix"></div>
-	                                </div>
-	                                <div class="x_content">
-	                                    
-	                                    <form class="form-horizontal form-label-left input_mask">
-	
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <select class="form-control" name="typeC" id="typeC">
-		                                            <option value="AlphaNumeric">Alpha Numeric</option>
-		                                            <option value="Numeric">Numeric</option>
-		                                            <option value="Character">Character</option>
-	                                            </select>
-	                                            
-	                                        </div>
-	
-	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeCLength" id="typeCLength" placeholder="Length">
-	                                            
-	                                        </div>
-	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="code3" id="inputSuccess3" placeholder="Code" oninput="generateFullName();">
-	                                            
-	                                        </div> -->
-	                                        
-	                                        <div class="form-group">
-	                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-	                                                <button type="reset" class="btn btn-primary">Cancel</button>
-	                                                
-	                                            </div>
-	                                        </div>
-	
-	                                    </form>
-	                                </div>
-	                            </div>
-	                         </div>
-		                <div class="form-group">
-                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                              	
-                                 <button type="submit" class="btn btn-success pull-right" onclick="generateCouponData()">Submit Configuration</button>
-                                 
-                             </div>
-                         </div>
-		               </div>
-		               <div id="toastMessage"></div>
 	               </div>
 	           </div>
 	        </div>
@@ -447,35 +404,6 @@
     function showValue()
     {
         console.log($('.hiddenOptions select.active').val());
-    }
-    </script>
-    <script>
-    function generateCouponData(){
-    	var couponData = {
-    			couponCount:$("#couponCount").val(),
-    			couponLength:$("#couponLength").val(),
-		    	typeA : $("#typeA").val(),
-		    	typeALength : $("#typeALength").val(),
-		    	typeB : $("#typeB").val(),
-		    	typeBLength : $("#typeBLength").val(),
-		    	typeC : $("#typeC").val(),
-		    	typeCLength : $("#typeCLength").val(),
-    	};
-    	//alert(JSON.stringify(couponData));
-    	$.ajax({
-			type:'POST',
-			url:'/saveConfiguration.json',
-			data:couponData,
-			success:function(data) {
-			if(data.result =="success"){
-		   $('<div class="alert alert-success"><strong>Coupon Data Saved</strong></div>').appendTo("#toastMessage");
-     	
-	         $(".alert").delay(200).addClass("in").fadeOut(3000);
-			}else{
-				
-			}
-			}
-			});
     }
     </script>
 	</body>

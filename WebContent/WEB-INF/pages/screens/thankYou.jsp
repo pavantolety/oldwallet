@@ -25,7 +25,7 @@
     <link href="css/user.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- select2 -->
@@ -341,7 +341,7 @@
 						}else if(data.action == "success" && data.refferedUser=="false"){
 							var url = "https://localhost:8089/redeemedKey?redeemKey="+data.redeemKey;
 							var liveUrlFB = "https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com/redeemedKey?redeemKey="+data.redeemKey;
-							var liveUrlTwt = "http://ec2-52-10-32-150.us-west-2.compute.amazonaws.com/redeemedKey?redeemKey="+data.redeemKey;
+							var liveUrlTwt = "https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com/redeemedKey?redeemKey="+data.redeemKey;
 							$('#thankYouDiv').empty();
 		$('<div class="right_col" role="main">\
            <div class="page-title">\

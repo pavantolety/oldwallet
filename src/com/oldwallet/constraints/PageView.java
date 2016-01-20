@@ -19,6 +19,8 @@ public interface PageView {
 	String DOWNLOADDATA = "admin/downloadData";
 
 	String COUPONSTATS = "admin/couponStats";
+	
+	String FUNDSMANAGEMENT = "admin/fundsManagement";
 
 	String ADMINHOME = "adminHome";
 

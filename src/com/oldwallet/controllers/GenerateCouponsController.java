@@ -1,7 +1,13 @@
 package com.oldwallet.controllers;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,7 @@ import com.oldwallet.enums.CouponStatus;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.SaveConfiguration;
 import com.oldwallet.util.CouponCodeUtil;
+import com.oldwallet.util.EncryptCouponUtil;
 
 @Controller
 public class GenerateCouponsController {
@@ -35,13 +42,30 @@ public class GenerateCouponsController {
 		boolean result=generateCouponDAO.saveConfiguration(saveConfiguration);
 		if(result==true){
 			List<String> coupons= CouponCodeUtil.generateCoupons(saveConfiguration);
-			
-			System.out.println(coupons);
 			Iterator<String> itr =  coupons.iterator();
 			while(itr.hasNext()){
 				Coupon c =  new Coupon();
-				String securedEncryptCouponCode =  BCrypt.hashpw(itr.next(),BCrypt.gensalt(12));
-				c.setCouponCode(securedEncryptCouponCode);
+				String securedEncryptCouponCode;
+				try {
+					securedEncryptCouponCode = EncryptCouponUtil.enccd(itr.next());
+					c.setCouponCode(securedEncryptCouponCode);
+				} catch (InvalidKeyException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalBlockSizeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (BadPaddingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchPaddingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				c.setRedeemStatus(CouponStatus.NEW.toString());
 			    couponDAO.createGeneratedCouponData(c);
 			}

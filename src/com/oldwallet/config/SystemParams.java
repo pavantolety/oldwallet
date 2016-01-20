@@ -11,4 +11,6 @@ public interface SystemParams {
 	public static final String TWILIO_SMS_NUMBER = "855-851-3299";
 	public static final String MASS_PAY_DEFAULT_CURRENCY_CODE = "USD";
 	public static final String DEVICE_IP_FOR_PAYPAL = "127.0.0.1";
+	public static final String SECRET_KEY = "OL2199E5PA601100";
+	public static final String ENCRYP_ALGO = "AES";
 }

@@ -1,11 +1,17 @@
 package com.oldwallet.dao;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -19,6 +25,7 @@ import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.DataRetievar;
+import com.oldwallet.util.EncryptCouponUtil;
 import com.oldwallet.util.ExceptionObjUtil;
 
 @Repository
@@ -64,13 +71,23 @@ public class CouponDAOImpl implements CouponDAO {
 
 	public boolean updateCouponData(Coupon coupon) {
 		boolean isUpdated = false;
-		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,
-				coupon.getCouponValue(), coupon.getRedeemStatus(),
-				coupon.getValidFrom(), coupon.getValidTo(),
-				coupon.getAvailableRedemptions(), coupon.getCouponCode());
-		if (result > 0) {
-			isUpdated = true;
+		try {
+			String encypCode = EncryptCouponUtil.enccd(coupon.getCouponCode());
+			int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,
+					coupon.getCouponValue(), coupon.getRedeemStatus(),
+					coupon.getValidFrom(), coupon.getValidTo(),
+					coupon.getAvailableRedemptions(),encypCode);
+			if (result > 0) {
+				isUpdated = true;
+			}
+		} catch (InvalidKeyException | IllegalBlockSizeException
+				| BadPaddingException | NoSuchAlgorithmException
+				| NoSuchPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
 		return isUpdated;
 	}
 
@@ -111,7 +128,15 @@ public class CouponDAOImpl implements CouponDAO {
 		SimpleDateFormat format2 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 		coupon.setCouponId(DataRetievar.getLongValue("COUPON_ID", map));
 		coupon.setEventId(DataRetievar.getLongValue("EVENT_ID", map));
-		coupon.setCouponCode(DataRetievar.getStringValue("COUPON_CODE", map));
+		
+		try {
+			coupon.setCouponCode(EncryptCouponUtil.deccd(DataRetievar.getStringValue("COUPON_CODE", map)));
+		} catch (InvalidKeyException | NoSuchAlgorithmException
+				| NoSuchPaddingException | IllegalBlockSizeException
+				| BadPaddingException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		coupon.setCouponValue(DataRetievar.getStringValue("COUPON_VALUE", map));
 		coupon.setRedeemStatus(DataRetievar
 				.getStringValue("REDEEM_STATUS", map));
@@ -319,5 +344,7 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 		return isCreated;
 	}
+
+
 
 }
