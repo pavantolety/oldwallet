@@ -71,20 +71,13 @@ public class CouponDAOImpl implements CouponDAO {
 
 	public boolean updateCouponData(Coupon coupon) {
 		boolean isUpdated = false;
-		try {
-			String encypCode = EncryptCouponUtil.enccd(coupon.getCouponCode());
-			int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,
-					coupon.getCouponValue(), coupon.getRedeemStatus(),
-					coupon.getValidFrom(), coupon.getValidTo(),
-					coupon.getAvailableRedemptions(),encypCode);
-			if (result > 0) {
-				isUpdated = true;
-			}
-		} catch (InvalidKeyException | IllegalBlockSizeException
-				| BadPaddingException | NoSuchAlgorithmException
-				| NoSuchPaddingException e) {
-			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("Exception in Updating Coupon", e.getMessage(), "CouponDAOImpl.java", "updateCouponData");
+		String encypCode = EncryptCouponUtil.enccd(coupon.getCouponCode());
+		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,
+				coupon.getCouponValue(), coupon.getRedeemStatus(),
+				coupon.getValidFrom(), coupon.getValidTo(),
+				coupon.getAvailableRedemptions(),encypCode);
+		if (result > 0) {
+			isUpdated = true;
 		}
 		
 		
@@ -129,14 +122,7 @@ public class CouponDAOImpl implements CouponDAO {
 		coupon.setCouponId(DataRetievar.getLongValue("COUPON_ID", map));
 		coupon.setEventId(DataRetievar.getLongValue("EVENT_ID", map));
 		
-		try {
-			coupon.setCouponCode(EncryptCouponUtil.deccd(DataRetievar.getStringValue("COUPON_CODE", map)));
-		} catch (InvalidKeyException | NoSuchAlgorithmException
-				| NoSuchPaddingException | IllegalBlockSizeException
-				| BadPaddingException | IOException e1) {
-			LOGGER.log(Priority.ERROR, e1);
-			ExceptionObjUtil.saveException("Exception in retrieving Coupon", e1.getMessage(), FILE_NAME, RETRIEVE_COUPON);
-		}
+		coupon.setCouponCode(EncryptCouponUtil.deccd(DataRetievar.getStringValue("COUPON_CODE", map)));
 		coupon.setCouponValue(DataRetievar.getStringValue("COUPON_VALUE", map));
 		coupon.setRedeemStatus(DataRetievar
 				.getStringValue("REDEEM_STATUS", map));
