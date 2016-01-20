@@ -83,8 +83,8 @@ public class CouponDAOImpl implements CouponDAO {
 		} catch (InvalidKeyException | IllegalBlockSizeException
 				| BadPaddingException | NoSuchAlgorithmException
 				| NoSuchPaddingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Priority.ERROR, e);
+			ExceptionObjUtil.saveException("Exception in Updating Coupon", e.getMessage(), "CouponDAOImpl.java", "updateCouponData");
 		}
 		
 		
@@ -134,8 +134,8 @@ public class CouponDAOImpl implements CouponDAO {
 		} catch (InvalidKeyException | NoSuchAlgorithmException
 				| NoSuchPaddingException | IllegalBlockSizeException
 				| BadPaddingException | IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LOGGER.log(Priority.ERROR, e1);
+			ExceptionObjUtil.saveException("Exception in retrieving Coupon", e1.getMessage(), FILE_NAME, RETRIEVE_COUPON);
 		}
 		coupon.setCouponValue(DataRetievar.getStringValue("COUPON_VALUE", map));
 		coupon.setRedeemStatus(DataRetievar

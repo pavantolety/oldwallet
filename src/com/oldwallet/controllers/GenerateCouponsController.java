@@ -9,7 +9,8 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import org.mindrot.jbcrypt.BCrypt;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,12 +25,15 @@ import com.oldwallet.model.Coupon;
 import com.oldwallet.model.SaveConfiguration;
 import com.oldwallet.util.CouponCodeUtil;
 import com.oldwallet.util.EncryptCouponUtil;
+import com.oldwallet.util.ExceptionObjUtil;
 
 @Controller
 public class GenerateCouponsController {
 	
 	private static final String RESULT = "result";
 	private static final String MESSAGE = "message";
+	
+	private static final Logger LOGGER = Logger.getLogger(GenerateCouponsController.class);
 	
 	@Autowired
 	GenerateCouponDAO generateCouponDAO;
@@ -50,20 +54,20 @@ public class GenerateCouponsController {
 					securedEncryptCouponCode = EncryptCouponUtil.enccd(itr.next());
 					c.setCouponCode(securedEncryptCouponCode);
 				} catch (InvalidKeyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Priority.ERROR, e);
+					ExceptionObjUtil.saveException("InvalidKeyException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
 				} catch (IllegalBlockSizeException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Priority.ERROR, e);
+					ExceptionObjUtil.saveException("IllegalBlockSizeException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
 				} catch (BadPaddingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Priority.ERROR, e);
+					ExceptionObjUtil.saveException("BadPaddingException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
 				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Priority.ERROR, e);
+					ExceptionObjUtil.saveException("NoSuchAlgorithmException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
 				} catch (NoSuchPaddingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Priority.ERROR, e);
+					ExceptionObjUtil.saveException("NoSuchPaddingException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
 				}
 				
 				c.setRedeemStatus(CouponStatus.NEW.toString());
