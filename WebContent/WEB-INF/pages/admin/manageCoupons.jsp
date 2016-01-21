@@ -190,7 +190,7 @@
                                         <thead>
                                             <tr class="headings">
                                                 <th>COUPON CODE </th>
-                                                <th>COUPON VALUE</th>
+                                               <!--  <th>COUPON VALUE</th> -->
                                                 <!-- <th>START DATE </th>
                                                 <th>END DATE</th> -->
                                                 <th>STATUS</th>
@@ -205,7 +205,7 @@
                                         	<c:forEach var="couponList" items="${couponList}" >
                                             <tr class="even pointer">
                                                 <td class=" "><c:out value="${couponList.couponCode}" /></td>
-                                                <td class=" "><c:out value="${couponList.couponValue}" /></td>
+                                               <%--  <td class=" "><c:out value="${couponList.couponValue}" /></td> --%>
                                                <%-- <td class=" "><c:out value="${couponList.validFrom}" /></td>
                                                 <td class=" "><c:out value="${couponList.validTo}" /></td> --%>
                                                  <td class=" "><c:out value="${couponList.redeemStatus}" /></td>

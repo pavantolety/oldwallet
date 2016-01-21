@@ -442,7 +442,7 @@ public class CouponPaymentController {
 
 				CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
 				param.setClientID("ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7");
-				param.setClientSecret("EDQnymeCJyDoV4--B1s1oc1T4l454jkyIZxgT_2llP0XQmuKuzrGgbsjvh2RlSETs6kMwwbCA59vMZ5m");
+				param.setClientSecret("ELLrRWufa7Jt5n-QIeJiijdMTUs5Qxq4ZPycUbnKsJGqmxQFeD5GOJNR5QY2GVC5EIe_3tuQo-Qitc-Y");
 				param.setCode(paypalResponse.getCode());
 				LOGGER.info("CODE ::: "+paypalResponse.getCode());
 
@@ -466,6 +466,7 @@ public class CouponPaymentController {
 				} catch (PayPalRESTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return "/redeemSuccess";
 				}	
 				
 				MassPayReq req = new MassPayReq();

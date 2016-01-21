@@ -178,8 +178,8 @@
 										
 											<h4>Congratulations...!</h4>
 											<h4>You can redeem $<c:out value="${coupon.couponValue}"/> using your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.</h4>
-											<a href="${redirectUrl}" ><img src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png" /></a>
-												<h4>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h4>
+											<a href="${redirectUrl}" ><img class="hvr-grow" src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png" /></a>
+											<%-- <h4>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h4> --%>
 																				
 										
 											<div id="errorMessage"></div>
@@ -201,21 +201,21 @@
                                             </div>
                                         </div> --%>
                                        
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                       <!--  <div class="col-md-12 col-sm-12 col-xs-12">
                                            <div class="col-md-3 col-sm-3 col-xs-6"></div>                  
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             <label class="control-label pull-left">Mobile :<span class="required">*</span>                            </label>
                                                 <input type="text" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12" required="required" data-parsley-minlength="6"  data-parsley-maxlength="15" parsley-pattern-message="Please enter a valid mobile phone number." placeholder="Add Number with Country Code" pattern="^[{+}][0-9]{10,15}$"/>	
                                                 										
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="ln_solid"></div>
                                         
                                                                                      
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                           <!--  <div class="col-md-12 col-sm-12 col-xs-12">
                                             <br/>
                                                 <button onclick="redeemAmount()" id="sendPayment" class="btn btn-success hvr-grow">Redeem Amount</button>
-                                            </div>	
+                                            </div>	 -->
                                         
                            
 											</div>

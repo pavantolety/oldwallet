@@ -77,6 +77,9 @@ public class GenerateCouponsController {
 				for(FundAllocation fundAllocationData : fundAllocation){
 					System.out.println("1"+fundAllocationData.getCategoryCode());
 					System.out.println("2"+fundAllocationData.getCouponValue());
+					if(fundAllocationData !=null){
+					couponDAO.createFundAllocation(fundAllocationData);
+					}
 				}
 			}
 		}

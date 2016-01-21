@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
+import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.DataRetievar;
 import com.oldwallet.util.EncryptCouponUtil;
@@ -56,7 +57,8 @@ public class CouponDAOImpl implements CouponDAO {
 	private static final String CREATE_GENERATED_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,REDEEM_STATUS) VALUES (?,?)";
 	
 	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' WHERE COUPON_CODE=?";
-
+    
+	public static final String  CREATE_FUND_ALLOCATION = "INSERT INTO FUND_ALLOCATION(CATEGORY_CODE,TOTAL_COUPON_COUNT,COUPON_VALUE) VALUES(?,?,?)"; 
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
@@ -345,6 +347,16 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 		
 		return isBlocked;
+	}
+
+	@Override
+	public boolean createFundAllocation(FundAllocation fundAllocation) {
+		boolean isCreated =  false;
+		int i = jdbcTemplate.update(CREATE_FUND_ALLOCATION,fundAllocation.getCategoryCode(),fundAllocation.getTotalCouponCount(),fundAllocation.getCouponValue());
+		if(i>0){
+			isCreated = true;
+		}
+		return isCreated;
 	}
 
 

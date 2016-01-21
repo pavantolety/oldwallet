@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
+import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.UserToken;
 
 public interface CouponDAO {
@@ -11,6 +12,8 @@ public interface CouponDAO {
 	public Coupon getCouponByCode(String couponCode);
 	
 	public Coupon getEncCouponByCode(String couponCode);
+	
+	public boolean createFundAllocation(FundAllocation fundAllocation);
 
 	public boolean updateCoupon(String couponCode);
 
