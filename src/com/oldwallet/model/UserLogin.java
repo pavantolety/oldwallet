@@ -10,6 +10,10 @@ public class UserLogin {
 	
 	private String amount;
 
+
+
+
+
 	public String getId() {
 		return id;
 	}

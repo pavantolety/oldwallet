@@ -33,7 +33,7 @@
     <link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
     
     <script src="js/jquery.min.js"></script>
-
+	<script src="js/jquery.form.min.js"></script>
     <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -167,7 +167,7 @@
 								</div>
                                 <div class="x_content">
                                     <br />
-                                    <form name="fundAllocationForm" id="fundAlloctionForm" action="/addFundAllocation.json" method="POST">
+                                    <form name="fundAllocationForm" id="fundAllocationForm" modelattribute="fundAllocationForm"  action="/addFundAllocation.json" method="POST">
 										 <table class="table table-bordered" id="fundTable">
                                         <thead>
                                             <tr>
@@ -190,7 +190,7 @@
                                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                                 <button  class="btn btn-danger"  onclick="deleteRow()">Delete Row</button>
                                                 <button class="btn btn-primary" onclick="addRow()">Add Row</button>
-												<button  class="btn btn-success">Submit</button>
+												<button  class="btn btn-success" onclick="submitFund()">Submit</button>
                                             </div>
                                         </div>
                              
@@ -221,9 +221,18 @@
     <script src="js/knob/jquery.knob.min.js"></script>
     <!-- knob -->
     <script>
+    function submitFund(){
+    	  $('#fundAllocationForm').ajaxSubmit({
+   	       success : function(data)
+   	        {
+   	    	   
+   	        }
+    	  });
+    }
     function deleteRow(){
         if(cn!=0){
     	$("#tba"+(parseInt(cn)-1)).remove();
+    	
     	cn--;
     	if(cn==0){
     		$("#totalAmount").val("");
@@ -233,7 +242,7 @@
     var cn = 0;
     function addRow(){
     	
-	$('<tr id="tba'+cn+'"><td><select class="select2_multiple form-control" name="couponPrize'+cn+'" id="couponPrize'+cn+'" onchange="block(this,'+cn+')"><option value=""></option><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select></td><td><input type="number" class="form-control " name="couponCount'+cn+'" id="couponCount'+cn+'" onkeyup="multy('+cn+')" placeholder="Count" > </td><td><input type="number" class="form-control " name="couponAmount'+cn+'" id="couponAmount'+cn+'" onkeyup="multy('+cn+')" placeholder="$ Amount" > </td><td><input type="number" class="form-control" name="totalAmount'+cn+'" id="totalAmount'+cn+'" placeholder="$ Amount" > </td></tr>').appendTo("#fundTable tbody");
+	$('<tr id="tba'+cn+'"><td><select class="select2_multiple form-control" name="fundAllocation['+cn+'].categoryCode" id="couponPrize'+cn+'" onchange="block(this,'+cn+')"><option value=""></option><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select></td><td><input type="number" class="form-control " name="fundAllocation['+cn+'].totalCouponCount" id="couponCount'+cn+'" onkeyup="multy('+cn+')" placeholder="Count" > </td><td><input type="number" class="form-control " name="fundAllocation['+cn+'].couponValue" id="couponAmount'+cn+'" onkeyup="multy('+cn+')" placeholder="$ Amount" > </td><td><input type="number" class="form-control" name="totalAmount'+cn+'" id="totalAmount'+cn+'" placeholder="$ Amount" disabled> </td></tr>').appendTo("#fundTable tbody");
     
     cn++;
     }
@@ -263,7 +272,7 @@
     		count++;
     		if(count>1){
     			$("#couponPrize"+i).val("");
-    			alert("value is alerady choosen");
+    			alert("value is already choosen");
     		}
     	}
     	}
