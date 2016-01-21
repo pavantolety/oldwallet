@@ -222,14 +222,18 @@
     <!-- knob -->
     <script>
     function deleteRow(){
-    	c--;
-    	$("#fundTable tr:nth-last-child(2)").remove();
-    	
+        if(cn!=0){
+    	$("#tba"+(parseInt(cn)-1)).remove();
+    	cn--;
+    	if(cn==0){
+    		$("#totalAmount").val("");
+    	}
+    	}    	
     }
     var cn = 0;
     function addRow(){
     	
-	$('<tr><td><select class="select2_multiple form-control" name="couponPrize'+cn+'" id="couponPrize'+cn+'"><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select></td><td><input type="number" class="form-control " name="couponCount'+cn+'" id="couponCount'+cn+'" onkeyup="multy('+cn+')" placeholder="Count" > </td><td><input type="number" class="form-control " name="couponAmount'+cn+'" id="couponAmount'+cn+'" onkeyup="multy('+cn+')" placeholder="$ Amount" > </td><td><input type="number" class="form-control" name="totalAmount'+cn+'" id="totalAmount'+cn+'" placeholder="$ Amount" > </td></tr>').appendTo("#fundTable tbody");
+	$('<tr id="tba'+cn+'"><td><select class="select2_multiple form-control" name="couponPrize'+cn+'" id="couponPrize'+cn+'" onchange="block(this,'+cn+')"><option value=""></option><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select></td><td><input type="number" class="form-control " name="couponCount'+cn+'" id="couponCount'+cn+'" onkeyup="multy('+cn+')" placeholder="Count" > </td><td><input type="number" class="form-control " name="couponAmount'+cn+'" id="couponAmount'+cn+'" onkeyup="multy('+cn+')" placeholder="$ Amount" > </td><td><input type="number" class="form-control" name="totalAmount'+cn+'" id="totalAmount'+cn+'" placeholder="$ Amount" > </td></tr>').appendTo("#fundTable tbody");
     
     cn++;
     }
@@ -246,8 +250,24 @@
     			  j +=  parseFloat($("#totalAmount"+i).val());
     			}
     			$("#totalAmount").val(j);
+    		}else{
+    			$("#totalAmount").val("");
     		}
 
+    }
+    function block(va,c){
+    	if(c>=1){
+    	var count = 0;
+    	for(i=0;i<=cn;i++){
+    	if(va[va.selectedIndex].value == $("#couponPrize"+i).val()){
+    		count++;
+    		if(count>1){
+    			$("#couponPrize"+i).val("");
+    			alert("value is alerady choosen");
+    		}
+    	}
+    	}
+    	}
     }
         $(function ($) {
 
