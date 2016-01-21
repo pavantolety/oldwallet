@@ -178,14 +178,14 @@
 										
 											<h4>Congratulations...!</h4>
 											<h4>You can redeem $<c:out value="${coupon.couponValue}"/> using your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.</h4>
-											<a href="https://www.sandbox.paypal.com/webapps/auth/protocol/openidconnect/v1/authorize?client_id=ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7&response_type=code&scope=openid%20email&redirect_uri=http://localhost:9090/redeemed" ><img src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png" /></a>
+											<a href="${redirectUrl}" ><img src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png" /></a>
 												<h4>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h4>
 																				
 										
 											<div id="errorMessage"></div>
 										
 										
-                                        <div class="col-md-12 col-sm-12 col-xs-12" >
+                                       <%--  <div class="col-md-12 col-sm-12 col-xs-12" >
                                         	<div class="col-md-3 col-sm-3 col-xs-6"></div>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             <br/>
@@ -199,7 +199,7 @@
                                                 <input type="hidden" id="eventId" name="eventId" value="<c:out value="${coupon.eventId}"/>" required="required" class="form-control col-md-7 col-xs-12">
                                                 <input type="hidden" id="currencyCode" name="currencyCode" value="USD" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
-                                        </div>
+                                        </div> --%>
                                        
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                            <div class="col-md-3 col-sm-3 col-xs-6"></div>                  

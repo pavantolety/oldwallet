@@ -47,6 +47,7 @@ import com.oldwallet.util.AuthenticationUtils;
 import com.oldwallet.util.ExceptionObjUtil;
 import com.oldwallet.util.SMSUtil;
 import com.oldwallet.util.paypal.Configuration;
+import com.paypal.core.ClientCredentials;
 import com.paypal.core.rest.APIContext;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.exception.ClientActionRequiredException;
@@ -57,6 +58,7 @@ import com.paypal.exception.MissingCredentialException;
 import com.paypal.exception.SSLConfigurationException;
 import com.paypal.sdk.exceptions.OAuthException;
 import com.paypal.sdk.openidconnect.CreateFromAuthorizationCodeParameters;
+import com.paypal.sdk.openidconnect.Session;
 import com.paypal.sdk.openidconnect.Tokeninfo;
 import com.paypal.sdk.openidconnect.Userinfo;
 import com.paypal.sdk.openidconnect.UserinfoParameters;
@@ -192,10 +194,25 @@ public class CouponPaymentController {
 				session.setAttribute("userSession", userSession);
 				boolean isBlocked = couponDAO.blockCouponCode(Ccoupon);
 				LOGGER.info("isBlocked :: "+isBlocked);
-				
+				Map<String, String> configurationMap = new HashMap<String, String>();
+				configurationMap.put("mode", "sandbox");
+
+				APIContext apiContext = new APIContext();
+				apiContext.setConfigurationMap(configurationMap);
+
+				List<String> scopelist = new ArrayList<String>();
+				scopelist.add("openid");
+				scopelist.add("email");
+				String redirectURI = "http://localhost:9090/redeemed";
+
+				ClientCredentials clientCredentials = new ClientCredentials();
+				clientCredentials.setClientID("ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7");
+
+				String redirectUrl = Session.getRedirectURL(redirectURI, scopelist, apiContext, clientCredentials); 
 					modelMap.put(COUPON, Ccoupon);
 					modelMap.put(ACTION, VALID);
 					modelMap.put(MESSAGE, VALID_COUPON);
+					modelMap.put("redirectUrl", redirectUrl);
 					return PageView.THANKYOU;
 				} else {
 					modelMap.put(ACTION, EXPIRED);
