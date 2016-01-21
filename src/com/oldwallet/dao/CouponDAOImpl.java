@@ -51,7 +51,7 @@ public class CouponDAOImpl implements CouponDAO {
 
 	public static final String GET_COUPON_DATA_BY_REDEEM_STATUS = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT ,REDEEM_STATUS FROM COUPONS GROUP BY REDEEM_STATUS";
 
-	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW' AND VALID_TO>=NOW()";
+	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW'";
 
 	private static final Logger LOGGER = Logger.getLogger(CouponDAOImpl.class);
 	
@@ -107,6 +107,23 @@ public class CouponDAOImpl implements CouponDAO {
 				}
 			}
 			
+		}
+		return null;
+	}
+
+	@Override
+	public Coupon getEncCouponByCode(String couponCode) {
+		
+		List<Coupon> couponList = new ArrayList<Coupon>();
+		String encCode =  EncryptCouponUtil.enccd(couponCode);
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(VALIDATE_COUPON, encCode);
+		if (!coupon.isEmpty()) {
+			LOGGER.debug("Calid Coupon is available ::: ");
+			for (Map<String, Object> map : coupon) {
+				couponList.add(retrieveCoupon(map));
+			}
+		
+			return couponList.get(0);
 		}
 		return null;
 	}

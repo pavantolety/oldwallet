@@ -9,6 +9,8 @@ import com.oldwallet.model.UserToken;
 public interface CouponDAO {
 
 	public Coupon getCouponByCode(String couponCode);
+	
+	public Coupon getEncCouponByCode(String couponCode);
 
 	public boolean updateCoupon(String couponCode);
 

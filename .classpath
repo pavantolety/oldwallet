@@ -96,6 +96,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/merchantsdk-2.13.117.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jbcrypt-0.3m.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/opencsv-3.6.jar"/>
-	<classpathentry kind="lib" path="D:/Bitbucket Workspace/OldWallet/WebContent/WEB-INF/lib/adaptiveaccountssdk-2.4.106.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/adaptiveaccountssdk-2.4.106.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

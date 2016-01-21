@@ -167,104 +167,36 @@
 								</div>
                                 <div class="x_content">
                                     <br />
-										
-                                    <form class="form-horizontal form-label-left input_mask">
-										
-										
-                                        <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <label>Name of Prize:</label><input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Jackpot">                                            
-                                        </div>
-
-                                         <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <label>Quantity:</label><input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="4">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <label>Amount per Coupon:</label><input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$500">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <label>Total Value:</label><input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$2000">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Bumper Bonanza">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="4">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$250">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$1000">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Super Bonanza">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="5">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$200">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$1000">                                            
-                                        </div>
-										
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Super Prize">                                            
-                                        </div>
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="40">                                            
-                                        </div>
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$100">                                            
-                                        </div>
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$4000">                                            
-                                        </div>
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="Lottery">                                            
-                                        </div>
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="40">                                            
-                                        </div>
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$50">                                            
-                                        </div>
-										 <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control " id="inputSuccess2" placeholder="First Name" value="$2000">                                            
-                                        </div>
-										<div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-										</div>
-										<div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-										</div>
-										<div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-										</div>
-                                        <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                                            Grand Total:<input type="text" class="form-control" id="inputSuccess2" placeholder="First Name" value="$10000" readonly>  
-                                        </div>
-                                        <div class="form-group">
+										 <table class="table table-bordered" id="fundTable">
+                                        <thead>
+                                            <tr>
+                                             
+                                                <th>Name of Prize</th>
+                                                <th>Coupon Count</th>
+                                                <th>Coupon Value</th>
+                                                <th>Total Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                     
+                                        </tbody>
+                                        <tfoot>
+						    			<tr><td></td><td></td><td></td><td><input id="totalAmount" class="form-control" type="number" disabled required=required></td></tr>
+						    			</tfoot>
+                                    </table>
+                      
+                                   <div class="form-group">
                                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                                <button type="submit" class="btn btn-danger">Delete Row</button>
-                                                <button type="submit" class="btn btn-primary">Add Row</button>
-												<button type="submit" class="btn btn-success">Submit</button>
+                                                <button  class="btn btn-danger"  onclick="deleteRow()">Delete Row</button>
+                                                <button class="btn btn-primary" onclick="addRow()">Add Row</button>
+												<button  class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
-
-                                    </form>
+                             
                                 </div>
                             </div>
                     </div>
-		                    </div>
+		           </div>
 	               </div>
 	           </div>
 	        </div>
@@ -288,6 +220,25 @@
     <script src="js/knob/jquery.knob.min.js"></script>
     <!-- knob -->
     <script>
+    function deleteRow(){
+    	$("#fundTable tr:nth-last-child(2)").remove();
+    }
+    function addRow(){
+    			  $('<tr>\
+					<td>\
+                    <select class="select2_multiple form-control">\
+                    <option value="A">Jackpot</option>\
+                    <option value="A">Bumper Bonanza</option>\
+                    <option value="A">Super Bonanza</option>\
+                    <option value="A">Super Prize</option>\
+                    <option value="A">Lottery</option>\
+                     </select>\
+                      </td>\
+                      <td><input type="number" class="form-control " id="inputSuccess2" placeholder="$ Amount" > </td>\
+                      <td><input type="number" class="form-control " id="inputSuccess2" placeholder="$ Amount" > </td>\
+                      <td><input type="number" class="form-control " id="inputSuccess2" placeholder="$ Amount" > </td>\
+                  </tr>').appendTo("#fundTable tbody");
+    }
         $(function ($) {
 
             $(".knob").knob({

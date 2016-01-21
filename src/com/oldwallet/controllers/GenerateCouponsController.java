@@ -53,22 +53,10 @@ public class GenerateCouponsController {
 				try {
 					securedEncryptCouponCode = EncryptCouponUtil.enccd(itr.next());
 					c.setCouponCode(securedEncryptCouponCode);
-				} catch (InvalidKeyException e) {
+				} catch (Exception e) {
 					LOGGER.log(Priority.ERROR, e);
-					ExceptionObjUtil.saveException("InvalidKeyException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
-				} catch (IllegalBlockSizeException e) {
-					LOGGER.log(Priority.ERROR, e);
-					ExceptionObjUtil.saveException("IllegalBlockSizeException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
-				} catch (BadPaddingException e) {
-					LOGGER.log(Priority.ERROR, e);
-					ExceptionObjUtil.saveException("BadPaddingException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
-				} catch (NoSuchAlgorithmException e) {
-					LOGGER.log(Priority.ERROR, e);
-					ExceptionObjUtil.saveException("NoSuchAlgorithmException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
-				} catch (NoSuchPaddingException e) {
-					LOGGER.log(Priority.ERROR, e);
-					ExceptionObjUtil.saveException("NoSuchPaddingException", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
-				}
+					ExceptionObjUtil.saveException("Exception", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
+				} 
 				
 				c.setRedeemStatus(CouponStatus.NEW.toString());
 			    couponDAO.createGeneratedCouponData(c);

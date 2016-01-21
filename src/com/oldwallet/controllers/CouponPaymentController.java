@@ -94,16 +94,10 @@ public class CouponPaymentController {
 		LOGGER.debug("Beginning Of Validating Coupon ::: " + coupon);
 
 		if (coupon != null && coupon.getCouponCode() != null) {
-			boolean isExists = couponDAO.isCouponExists(coupon.getCouponCode());
-			if (isExists) {
 				LOGGER.debug("Coupon Exists :::");
-				Coupon validCoupon = couponDAO.getCouponByCode(coupon
-						.getCouponCode());
-
-				if (validCoupon != null) {
-					if (validCoupon.getAvailableRedemptions() > 0
-							&& NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())) {
-						modelMap.put(COUPON, validCoupon);
+				Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
+				if (Ccoupon!=null) {
+					    modelMap.put(COUPON, Ccoupon);
 						modelMap.put(ACTION, VALID);
 						modelMap.put(MESSAGE, VALID_COUPON);
 					} else {
@@ -111,20 +105,14 @@ public class CouponPaymentController {
 						modelMap.put(ACTION, EXPIRED);
 						modelMap.put(MESSAGE, EXPIRED_COUPON);
 					}
-				} else {
-					modelMap.put(ACTION, EXPIRED);
-					modelMap.put(MESSAGE, EXPIRED_COUPON);
-				}
+			
 			} else {
 				LOGGER.debug("Coupon INVALID :::");
 				modelMap.put(ACTION, INVALID);
 				modelMap.put(MESSAGE, EXPIRED_COUPON);
 			}
 
-		} else {
-			modelMap.put(ACTION, ERROR);
-			modelMap.put(MESSAGE, "Please enter a coupon.");
-		}
+		
 
 	}
 
@@ -172,10 +160,9 @@ public class CouponPaymentController {
 		LOGGER.debug("Beginnig of ValidCoupon Response ::");
 		String couponCode = coupon.getCouponCode();
 		if (couponCode != null && couponCode != "" && couponCode.length() > 4) {
-			Coupon validCoupon = couponDAO.getCouponByCode(couponCode);
-			if (validCoupon != null) {
-				if (validCoupon.getAvailableRedemptions() > 0 && NEW.equalsIgnoreCase(validCoupon.getRedeemStatus())) {
-					modelMap.put(COUPON, validCoupon);
+			Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
+			if (Ccoupon!=null) {
+					modelMap.put(COUPON, Ccoupon);
 					modelMap.put(ACTION, VALID);
 					modelMap.put(MESSAGE, VALID_COUPON);
 					return PageView.THANKYOU;
@@ -183,16 +170,6 @@ public class CouponPaymentController {
 					modelMap.put(ACTION, EXPIRED);
 					modelMap.put(MESSAGE, EXPIRED_COUPON);
 				}
-
-				LOGGER.debug("Coupon is Valid ::");
-
-				modelMap.put(COUPON, validCoupon);
-				modelMap.put(ACTION, SUCCESS);
-				modelMap.put(MESSAGE, "Valid Coupon");
-			} else {
-				modelMap.put(ACTION, ERROR);
-				modelMap.put(MESSAGE, INVALID_COUPON);
-			}
 		} else {
 			modelMap.put(ACTION, ERROR);
 			modelMap.put(MESSAGE, INVALID_COUPON);
