@@ -162,7 +162,16 @@ public class OldwalletController {
 	}
 	
 	@RequestMapping(value = "/fundsManagement", method = RequestMethod.GET)
-	public String fundsManagement() {
+	public String fundsManagement(ModelMap modelMap) {
+		  
+		List<Coupon> coupon   = couponDAO.getCouponData();
+		
+		if(coupon.size()>0){
+			modelMap.put("totalCount",coupon.size());
+		}else{
+			modelMap.put("totalCount",0);
+		}
+		
 		return PageView.FUNDSMANAGEMENT;
 	}
 	

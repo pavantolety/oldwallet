@@ -158,15 +158,16 @@
 								 <div class="x_content">
                                     <div class="col-md-2">
                                         <p>Coupon Count</p>
-                                        <input class="knob" data-width="100" data-height="120" data-min="-100" data-displayPrevious=true data-fgColor="#26B99A" value="93">
+                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" readonly>
                                     </div>
 									<div class="col-md-2">
                                         <p>Coupon Value</p>
-                                        <input class="knob" data-width="100" data-height="120" data-min="-100" data-max="10000"data-displayPrevious=true data-fgColor="#26B99A" value="10000">
+                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-displayPrevious=true data-fgColor="#26B99A" value="0" readonly>
                                     </div>
 								</div>
                                 <div class="x_content">
                                     <br />
+                                    <form name="fundAllocationForm" id="fundAlloctionForm" action="/addFundAllocation.json" method="POST">
 										 <table class="table table-bordered" id="fundTable">
                                         <thead>
                                             <tr>
@@ -184,7 +185,7 @@
 						    			<tr><td></td><td></td><td></td><td><input id="totalAmount" class="form-control" type="number" disabled required=required></td></tr>
 						    			</tfoot>
                                     </table>
-                      
+                                    </form>
                                    <div class="form-group">
                                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                                 <button  class="btn btn-danger"  onclick="deleteRow()">Delete Row</button>
@@ -221,23 +222,32 @@
     <!-- knob -->
     <script>
     function deleteRow(){
+    	c--;
     	$("#fundTable tr:nth-last-child(2)").remove();
+    	
     }
+    var cn = 0;
     function addRow(){
-    			  $('<tr>\
-					<td>\
-                    <select class="select2_multiple form-control">\
-                    <option value="A">Jackpot</option>\
-                    <option value="A">Bumper Bonanza</option>\
-                    <option value="A">Super Bonanza</option>\
-                    <option value="A">Super Prize</option>\
-                    <option value="A">Lottery</option>\
-                     </select>\
-                      </td>\
-                      <td><input type="number" class="form-control " id="inputSuccess2" placeholder="$ Amount" > </td>\
-                      <td><input type="number" class="form-control " id="inputSuccess2" placeholder="$ Amount" > </td>\
-                      <td><input type="number" class="form-control " id="inputSuccess2" placeholder="$ Amount" > </td>\
-                  </tr>').appendTo("#fundTable tbody");
+    	
+	$('<tr><td><select class="select2_multiple form-control" name="couponPrize'+cn+'" id="couponPrize'+cn+'"><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select></td><td><input type="number" class="form-control " name="couponCount'+cn+'" id="couponCount'+cn+'" onkeyup="multy('+cn+')" placeholder="Count" > </td><td><input type="number" class="form-control " name="couponAmount'+cn+'" id="couponAmount'+cn+'" onkeyup="multy('+cn+')" placeholder="$ Amount" > </td><td><input type="number" class="form-control" name="totalAmount'+cn+'" id="totalAmount'+cn+'" placeholder="$ Amount" > </td></tr>').appendTo("#fundTable tbody");
+    
+    cn++;
+    }
+    function multy(c){
+    	
+			var j = 0 ;
+    		var cc = $("#couponCount"+c).val();
+    		var ca = $("#couponAmount"+c).val();
+    		if(ca!=0 && cc!=0){
+    			var total = $("#totalAmount").val();
+    			var ta = parseFloat(cc)*parseFloat(ca);
+    			$("#totalAmount"+c).val(ta);
+    			for(i=0;i<cn;i++){
+    			  j +=  parseFloat($("#totalAmount"+i).val());
+    			}
+    			$("#totalAmount").val(j);
+    		}
+
     }
         $(function ($) {
 
