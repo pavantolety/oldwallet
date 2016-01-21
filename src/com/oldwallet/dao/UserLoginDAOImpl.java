@@ -51,7 +51,7 @@ public class UserLoginDAOImpl implements UserLoginDAO{
 		UserLogin userLogin = new UserLogin();
 
 		userLogin.setEmailAddress(DataRetievar.getStringValue("EMAIL_ADDRESS",map));
-		userLogin.setId(DataRetievar.getLongValue("ID", map));
+		userLogin.setId(DataRetievar.getStringValue("ID", map));
 
 		return userLogin;
 	}

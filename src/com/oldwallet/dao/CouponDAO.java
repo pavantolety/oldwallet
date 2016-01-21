@@ -33,5 +33,7 @@ public interface CouponDAO {
 	public CouponStatistics getReedmedAmount();
 
 	public List<CouponStatistics> getCouponDataByReedeemStatus();
+	
+	public boolean blockCouponCode(Coupon coupon);
 
 }

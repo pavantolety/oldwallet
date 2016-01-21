@@ -1,17 +1,11 @@
 package com.oldwallet.dao;
 
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -30,6 +24,8 @@ import com.oldwallet.util.ExceptionObjUtil;
 
 @Repository
 public class CouponDAOImpl implements CouponDAO {
+	
+	private static final Logger LOGGER = Logger.getLogger(CouponDAOImpl.class);
 
 	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE EVENT_ID IN(SELECT EVENT_ID FROM EVENTS WHERE EVENT_STATUS LIKE 'NEW') AND REDEEM_STATUS LIKE 'NEW' AND COUPON_CODE=? AND VALID_TO >= NOW()";
 
@@ -52,8 +48,6 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String GET_COUPON_DATA_BY_REDEEM_STATUS = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT ,REDEEM_STATUS FROM COUPONS GROUP BY REDEEM_STATUS";
 
 	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW'";
-
-	private static final Logger LOGGER = Logger.getLogger(CouponDAOImpl.class);
 	
 	private static final String FILE_NAME = "CouponDAOImpl.java";
 	
@@ -61,6 +55,7 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	private static final String CREATE_GENERATED_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,REDEEM_STATUS) VALUES (?,?)";
 	
+	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' WHERE COUPON_CODE=?";
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -72,15 +67,10 @@ public class CouponDAOImpl implements CouponDAO {
 	public boolean updateCouponData(Coupon coupon) {
 		boolean isUpdated = false;
 		String encypCode = EncryptCouponUtil.enccd(coupon.getCouponCode());
-		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,
-				coupon.getCouponValue(), coupon.getRedeemStatus(),
-				coupon.getValidFrom(), coupon.getValidTo(),
-				coupon.getAvailableRedemptions(),encypCode);
+		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,coupon.getCouponValue(), coupon.getRedeemStatus(),coupon.getValidFrom(), coupon.getValidTo(),coupon.getAvailableRedemptions(),encypCode);
 		if (result > 0) {
 			isUpdated = true;
-		}
-		
-		
+		}		
 		return isUpdated;
 	}
 
@@ -105,8 +95,7 @@ public class CouponDAOImpl implements CouponDAO {
 					LOGGER.debug("NO valid coupons available ::: ");
 					return null;
 				}
-			}
-			
+			}			
 		}
 		return null;
 	}
@@ -121,8 +110,7 @@ public class CouponDAOImpl implements CouponDAO {
 			LOGGER.debug("Calid Coupon is available ::: ");
 			for (Map<String, Object> map : coupon) {
 				couponList.add(retrieveCoupon(map));
-			}
-		
+			}		
 			return couponList.get(0);
 		}
 		return null;
@@ -141,8 +129,7 @@ public class CouponDAOImpl implements CouponDAO {
 		
 		coupon.setCouponCode(EncryptCouponUtil.deccd(DataRetievar.getStringValue("COUPON_CODE", map)));
 		coupon.setCouponValue(DataRetievar.getStringValue("COUPON_VALUE", map));
-		coupon.setRedeemStatus(DataRetievar
-				.getStringValue("REDEEM_STATUS", map));
+		coupon.setRedeemStatus(DataRetievar.getStringValue("REDEEM_STATUS", map));
 		coupon.setCouponHideLocation(DataRetievar.getStringValue(
 				"COUPON_HIDE_LOCATION", map));
 		coupon.setRedeemedBy(DataRetievar.getStringValue("REDEEMED_BY", map));
@@ -346,6 +333,18 @@ public class CouponDAOImpl implements CouponDAO {
 			isCreated = true;
 		}
 		return isCreated;
+	}
+
+	@Override
+	public boolean blockCouponCode(Coupon coupon) {
+		boolean isBlocked = false;
+		
+		int i = jdbcTemplate.update(BLOCK_COUPON, coupon.getCouponCode());
+		if(i>0) {
+			isBlocked = true;
+		}
+		
+		return isBlocked;
 	}
 
 
