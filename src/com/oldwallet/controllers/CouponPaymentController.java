@@ -1,8 +1,10 @@
 package com.oldwallet.controllers;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.xml.sax.SAXException;
 
 import urn.ebay.api.PayPalAPI.MassPayReq;
 import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
@@ -34,6 +38,7 @@ import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponPayment;
+import com.oldwallet.model.PaypalOAuthResponse;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.model.UserLogin;
 import com.oldwallet.model.UserSession;
@@ -42,6 +47,19 @@ import com.oldwallet.util.AuthenticationUtils;
 import com.oldwallet.util.ExceptionObjUtil;
 import com.oldwallet.util.SMSUtil;
 import com.oldwallet.util.paypal.Configuration;
+import com.paypal.core.rest.APIContext;
+import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.exception.ClientActionRequiredException;
+import com.paypal.exception.HttpErrorException;
+import com.paypal.exception.InvalidCredentialException;
+import com.paypal.exception.InvalidResponseDataException;
+import com.paypal.exception.MissingCredentialException;
+import com.paypal.exception.SSLConfigurationException;
+import com.paypal.sdk.exceptions.OAuthException;
+import com.paypal.sdk.openidconnect.CreateFromAuthorizationCodeParameters;
+import com.paypal.sdk.openidconnect.Tokeninfo;
+import com.paypal.sdk.openidconnect.Userinfo;
+import com.paypal.sdk.openidconnect.UserinfoParameters;
 
 @Controller
 public class CouponPaymentController {
@@ -167,10 +185,13 @@ public class CouponPaymentController {
 			if (Ccoupon!=null) {
 				UserLogin userLogin = new UserLogin();
 				
-				userLogin.setId(UUID.randomUUID().toString());
+				userLogin.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 				userLogin.setAmount(Ccoupon.getCouponValue());
+				userLogin.setCouponCode(coupon.getCouponCode());
 				UserSession userSession = AuthenticationHelper.populateUserSession(userLogin);
 				session.setAttribute("userSession", userSession);
+				boolean isBlocked = couponDAO.blockCouponCode(Ccoupon);
+				LOGGER.info("isBlocked :: "+isBlocked);
 				
 					modelMap.put(COUPON, Ccoupon);
 					modelMap.put(ACTION, VALID);
@@ -194,15 +215,10 @@ public class CouponPaymentController {
 	@RequestMapping(value = "/getCouponAmount", method = RequestMethod.POST)
 	public void sendMassPayment(ModelMap modelMap, CouponPayment couponPayment) {
 
-		LOGGER.debug("Begining of sendMassPayment() ::::"
-				+ couponPayment.getAmount() + ", "
-				+ couponPayment.getEmailAddress());
-		Transaction transactionDetails = transactionDAO
-				.getTransactionDetailsByEmail(couponPayment.getEmailAddress(),
-						NumberUtils.toLong(couponPayment.getEventId()));
+		LOGGER.debug("Begining of sendMassPayment() ::::"+ couponPayment.getAmount() + ", "+ couponPayment.getEmailAddress());
+		Transaction transactionDetails = transactionDAO.getTransactionDetailsByEmail(couponPayment.getEmailAddress(),NumberUtils.toLong(couponPayment.getEventId()));
 
-		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment
-				.getCouponCode());
+		Coupon validCoupon = couponDAO.getCouponByCode(couponPayment.getCouponCode());
 
 		if (validCoupon != null) {
 			if (validCoupon.getCompletedRedemptions() < validCoupon
@@ -214,10 +230,7 @@ public class CouponPaymentController {
 
 					List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
 
-					BasicAmountType amount = new BasicAmountType(
-							CurrencyCodeType.fromValue(couponPayment
-									.getCurrencyCode()),
-							couponPayment.getAmount());
+					BasicAmountType amount = new BasicAmountType(CurrencyCodeType.fromValue(couponPayment.getCurrencyCode()),couponPayment.getAmount());
 
 					MassPayRequestItemType item = new MassPayRequestItemType(
 							amount);
@@ -388,5 +401,167 @@ public class CouponPaymentController {
 		}
 
 	}
+	
+	@RequestMapping(value="/redeemed", method=RequestMethod.GET)
+	public String redeemed(ModelMap modelMap, PaypalOAuthResponse paypalResponse, HttpSession session) {
+		String returnURL = "/redeemFailed";
+		String emailAddress = null;
+		
+		UserSession userSession = (UserSession) session.getAttribute("userSession");
+		LOGGER.info("userSession :: "+userSession);
+		
+		if(userSession != null) {
+			LOGGER.info("UserSession is not null ::");
+			userSession.setAmount("100");
+			Coupon validCoupon = couponDAO.getEncCouponByCode(userSession.getCouponCode());
+			LOGGER.info("validCoupon ::"+validCoupon);
+			if(validCoupon!= null) {
+				LOGGER.info("validCoupon is not null ::");
+				Map<String, String> configurationMap = new HashMap<String, String>();
+				configurationMap.put("mode", "sandbox");
+
+				APIContext apiContext = new APIContext();
+				apiContext.setConfigurationMap(configurationMap);
+
+				CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
+				param.setClientID("ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7");
+				param.setClientSecret("EDQnymeCJyDoV4--B1s1oc1T4l454jkyIZxgT_2llP0XQmuKuzrGgbsjvh2RlSETs6kMwwbCA59vMZ5m");
+				param.setCode(paypalResponse.getCode());
+				LOGGER.info("CODE ::: "+paypalResponse.getCode());
+
+				Tokeninfo info = null;
+				try {
+					info = Tokeninfo.createFromAuthorizationCode(apiContext, param);
+					LOGGER.info("Going to authentication ::");
+					if(info != null) {
+						LOGGER.info("Authentication is success ::");
+						String accessToken = info.getAccessToken();
+						UserinfoParameters param2 = new UserinfoParameters();
+						param2.setAccessToken(accessToken);
+						LOGGER.info("Going to userInfo ::");
+						Userinfo userInfo = Userinfo.getUserinfo(apiContext, param2);
+						LOGGER.info("UserInfo ::"+userInfo);
+						userSession.setEmailAddress(userInfo.getEmail());
+						emailAddress  = userInfo.getEmail();
+						LOGGER.info("EMAIL ADDRESS :: "+userInfo.getEmail());
+						LOGGER.info("EMAIL ADDRESS :: "+emailAddress);
+						}
+				} catch (PayPalRESTException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+				
+				MassPayReq req = new MassPayReq();
+
+				List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
+
+				BasicAmountType amount = new BasicAmountType(CurrencyCodeType.fromValue("USD"),userSession.getAmount());
+
+				MassPayRequestItemType item = new MassPayRequestItemType(amount);
+
+				item.setReceiverEmail(userSession.getEmailAddress());
+				
+				massPayItem.add(item);
+
+				MassPayRequestType reqType = new MassPayRequestType(massPayItem);
+				reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
+				req.setMassPayRequest(reqType);
+				
+				PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+				String transactionCode = UUID.randomUUID().toString();
+				Transaction transaction = new Transaction();
+				
+				transaction.setCouponCode(userSession.getCouponCode());
+				transaction.setCouponId(validCoupon.getCouponId()+"");
+				transaction.setCouponValue(userSession.getAmount());
+				transaction.setEventId(validCoupon.getEventId()+"");
+				transaction.setTransactionCode(transactionCode);
+				transaction.setUserEmail(emailAddress);
+				
+				transactionDAO.initTransaction(transaction);
+				
+				MassPayResponseType resp = null;
+				try {
+					resp = service.massPay(req);
+				} catch (SSLConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidCredentialException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (HttpErrorException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidResponseDataException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClientActionRequiredException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MissingCredentialException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OAuthException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				LOGGER.info("RESPONSE FROM MASSPAY :: "+resp);
+				if (resp != null) {
+					modelMap.addAttribute("lastReq",service.getLastRequest());
+					modelMap.addAttribute("lastResp",service.getLastResponse());
+					
+					if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
+						Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+						map.put("Ack", resp.getAck());
+						modelMap.addAttribute("map", map);
+						LOGGER.debug("Response Success :: "+ resp.toString());
+						Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
+						transaction2.setStatus("COMPLETE");
+						LOGGER.debug("email is "+ transaction2.getUserEmail());
+						returnURL = "/redeemSuccess";
+						Coupon coupon = couponDAO.getCouponByCode(transaction2.getCouponCode());
+						LOGGER.debug("TRANS COUPON CODE >>>>>>>>>>>>>>>>>>>>"+ transaction2.getCouponCode());
+						if (coupon != null) {
+							LOGGER.debug("email address >>>>>>>>>>>>>>>>>>"+ coupon.getRedeemedBy());
+							LOGGER.debug("email address size  >>>>>>>>>>>>>>>>>>"+ coupon.getRedeemedBy().length());
+							if (coupon.getRedeemedBy().isEmpty()) {
+								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
+								transactionDAO.updateTransaction(transaction2);
+								String redeemKey = AuthenticationUtils.generateTokenForAuthentication();
+								LOGGER.debug("email >?????????????????????"+ transaction2.getUserEmail());
+								coupon.setRedeemedBy(transaction2.getUserEmail());
+								coupon.setCouponCode(transaction2.getCouponCode());
+								coupon.setRedeemKey(redeemKey);
+								boolean isCreated = transactionDAO.createRedeemKey(coupon);
+								if (isCreated) {
+									modelMap.put("redeemKey", redeemKey);
+								}
+								modelMap.put("refferedUser", "false");
+							} else {
+								transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
+								transactionDAO.updateRedeemedTrasaction(transaction2);
+								modelMap.put("refferedUser", "true");
+							}
+						}
+			}
+		}
+			}
+		}
+		return returnURL;
+	}
+			
 
 }
