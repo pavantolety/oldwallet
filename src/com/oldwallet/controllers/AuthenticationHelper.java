@@ -21,8 +21,11 @@ public final class AuthenticationHelper {
 	
 	public static UserSession populateUserSession(UserLogin userLogin) {
 		UserSession userSession = new UserSession();
+		
 		userSession.setId(userLogin.getId());
 		userSession.setEmailAddress(userLogin.getEmailAddress());
+		userSession.setCouponCode(userLogin.getCouponCode());
+		userSession.setAmount(userLogin.getAmount());
 
 		return userSession;
 	}

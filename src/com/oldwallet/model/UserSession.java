@@ -6,14 +6,19 @@ public class UserSession implements Serializable{
 
 	private static final long serialVersionUID = 614203144845463226L;
 
-	private long id;
+	private String id;
+	
 	private String emailAddress;
 
-	public long getId() {
+	private String couponCode;
+	
+	private String amount;
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -24,4 +29,25 @@ public class UserSession implements Serializable{
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
+
+	public String getCouponCode() {
+		return couponCode;
+	}
+
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }

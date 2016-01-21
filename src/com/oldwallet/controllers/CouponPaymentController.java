@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
@@ -34,6 +35,8 @@ import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponPayment;
 import com.oldwallet.model.Transaction;
+import com.oldwallet.model.UserLogin;
+import com.oldwallet.model.UserSession;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.AuthenticationUtils;
 import com.oldwallet.util.ExceptionObjUtil;
@@ -156,12 +159,19 @@ public class CouponPaymentController {
 	}
 
 	@RequestMapping(value = "/valid", method = { RequestMethod.POST, RequestMethod.GET })
-	public String validCouponResponse(ModelMap modelMap, Coupon coupon, HttpServletRequest request) {
+	public String validCouponResponse(ModelMap modelMap, Coupon coupon, HttpServletRequest request, HttpSession session) {
 		LOGGER.debug("Beginnig of ValidCoupon Response ::");
 		String couponCode = coupon.getCouponCode();
 		if (couponCode != null && couponCode != "" && couponCode.length() > 4) {
 			Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
 			if (Ccoupon!=null) {
+				UserLogin userLogin = new UserLogin();
+				
+				userLogin.setId(UUID.randomUUID().toString());
+				userLogin.setAmount(Ccoupon.getCouponValue());
+				UserSession userSession = AuthenticationHelper.populateUserSession(userLogin);
+				session.setAttribute("userSession", userSession);
+				
 					modelMap.put(COUPON, Ccoupon);
 					modelMap.put(ACTION, VALID);
 					modelMap.put(MESSAGE, VALID_COUPON);
