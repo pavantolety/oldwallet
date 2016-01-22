@@ -48,7 +48,7 @@ public class GenerateCouponsController {
 				Coupon c =  new Coupon();
 				String securedEncryptCouponCode;
 				try {
-					securedEncryptCouponCode = EncryptCouponUtil.enccd(itr.next());
+					securedEncryptCouponCode = EncryptCouponUtil.enccd(itr.next().toUpperCase());
 					c.setCouponCode(securedEncryptCouponCode);
 				} catch (Exception e) {
 					LOGGER.log(Priority.ERROR, e);
