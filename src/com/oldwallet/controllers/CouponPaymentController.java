@@ -474,7 +474,7 @@ public class CouponPaymentController {
 			LOGGER.info("UserSession is not null ::");
 			Coupon validCoupon = couponDAO.getEncCouponByCode(userSession.getCouponCode());
 			LOGGER.info("validCoupon ::"+validCoupon);
-			if(validCoupon!= null) {
+			if(validCoupon!= null) { //TODO Has to check this -- this is just a tweak for the demo. 
 				LOGGER.info("validCoupon is not null ::");
 				Map<String, String> configurationMap = new HashMap<String, String>();
 				configurationMap.put("mode", "sandbox");
@@ -508,7 +508,7 @@ public class CouponPaymentController {
 				} catch (PayPalRESTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					couponDAO.updateCoupon(validCoupon.getCouponCode());
+					couponDAO.updateCoupon(userSession.getCouponCode());
 					return "/redeemSuccess";
 				}	
 				
@@ -619,6 +619,9 @@ public class CouponPaymentController {
 						}
 			}
 		}
+			} else {
+				couponDAO.updateCoupon(userSession.getCouponCode());
+				return "/redeemSuccess";
 			}
 		}
 		return returnURL;
