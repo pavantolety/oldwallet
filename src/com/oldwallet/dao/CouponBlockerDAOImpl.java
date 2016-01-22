@@ -4,16 +4,18 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.UserSession;
 
+@Repository
 public class CouponBlockerDAOImpl implements CouponBlockerDAO {
 	
 	private static final String INSERT_COUPON_BLOCKER = "INSERT INTO COUPON_BLOCKER(USER_SESSION, COUPON_CODE) VALUES(?,?)";
 	
 	private static final String UPDATE_COUPON_BLOCKER = "UPDATE COUPON_BLOCKER SET STATUS = 'REDEEMED' WHERE USER_SESSION = ?";
 	
-	private static final String UPDATE_COUPON_BLOCKER_JOB = "UPDATE COUPONS SET STATUS = 'NEW' WHERE DATE_CREATED < (NOW() - INTERVAL 10 MINUTE) AND STATUS LIKE 'BLOCKED'";
+	private static final String UPDATE_COUPON_BLOCKER_JOB = "UPDATE COUPONS SET REDEEM_STATUS = 'NEW' WHERE REDEEM_STATUS LIKE 'BLOCKED' AND DATE_BLOCKED < (NOW() - INTERVAL 10 MINUTE)";
 	
 	private JdbcTemplate jdbcTemplate;
 

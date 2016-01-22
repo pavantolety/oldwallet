@@ -249,10 +249,8 @@ public class CouponPaymentController {
      
 	private Coupon asignValueToCoupon(String couponCode) {
 		List<Long> cateIdList = couponDAO.getAllCategories();
-		
-		Random random =  new Random();
 		Coupon coupon =  new Coupon();
-	    Collections.shuffle(cateIdList, random);
+	    Collections.shuffle(cateIdList);
 	    
 	    for(int i= 0;i<=cateIdList.size();i++){
 	    	long id =  cateIdList.get(0);

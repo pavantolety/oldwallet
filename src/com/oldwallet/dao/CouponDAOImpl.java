@@ -57,9 +57,9 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	private static final String CREATE_GENERATED_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,REDEEM_STATUS) VALUES (?,?)";
 	
-	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' WHERE COUPON_CODE=?";
+	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' , DATE_BLOCKED = NOW() WHERE COUPON_CODE=?";
     
-	public static final String  CREATE_FUND_ALLOCATION = "INSERT INTO FUND_ALLOCATION(CATEGORY_CODE,TOTAL_COUPON_COUNT,COUPON_VALUE,AVAILABLE_COUNT) VALUES(?,?,,?,?)"; 
+	public static final String  CREATE_FUND_ALLOCATION = "INSERT INTO FUND_ALLOCATION(CATEGORY_CODE,TOTAL_COUPON_COUNT,COUPON_VALUE,AVAILABLE_COUNT) VALUES(?,?,?,?)"; 
 	
 	public static final String GET_FUND_ALLOCATION = "SELECT * FROM FUND_ALLOCATION";
 	
@@ -377,7 +377,8 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public List<Long> getAllCategories() {
 	     List<Long> list = new ArrayList<Long>();
-	     List<Map<String,Object>> mapList =  jdbcTemplate.queryForList(GET_FUND_ALLOCATION);
+	     List<Map<String,Object>> mapList =  jdbcTemplate.queryForList("SELECT  * FROM FUND_ALLOCATION");
+	     System.out.println("map list size>>>>>>>>>>>>>>>"+mapList.size());
 	     if(mapList.size()>0){
 	    	 for(Map<String , Object> map :mapList){
 	    		 list.add(retriveFundId(map));
@@ -388,7 +389,9 @@ public class CouponDAOImpl implements CouponDAO {
 	}
     
 	 public long retriveFundId(Map<String,Object> map){
+		
 		 long fundId = DataRetievar.getLongValue("FUND_ID", map);
+		 System.out.println("fundIDDD>>>>>>>>>>"+fundId);
 		 return fundId;
 	 }
 	@Override
