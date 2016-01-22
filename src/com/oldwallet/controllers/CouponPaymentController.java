@@ -1,23 +1,28 @@
 package com.oldwallet.controllers;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+//import javax.security.cert.X509Certificate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,15 +31,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.xml.sax.SAXException;
-
-import urn.ebay.api.PayPalAPI.MassPayReq;
-import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
-import urn.ebay.api.PayPalAPI.MassPayRequestType;
-import urn.ebay.api.PayPalAPI.MassPayResponseType;
-import urn.ebay.api.PayPalAPI.PayPalAPIInterfaceServiceService;
-import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
-import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
-import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
 import com.oldwallet.config.SystemParams;
 import com.oldwallet.constraints.PageView;
@@ -68,6 +64,16 @@ import com.paypal.sdk.openidconnect.Session;
 import com.paypal.sdk.openidconnect.Tokeninfo;
 import com.paypal.sdk.openidconnect.Userinfo;
 import com.paypal.sdk.openidconnect.UserinfoParameters;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import urn.ebay.api.PayPalAPI.MassPayReq;
+import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
+import urn.ebay.api.PayPalAPI.MassPayRequestType;
+import urn.ebay.api.PayPalAPI.MassPayResponseType;
+import urn.ebay.api.PayPalAPI.PayPalAPIInterfaceServiceService;
+import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
+import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
+import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
 @Controller
 public class CouponPaymentController {
@@ -194,6 +200,7 @@ public class CouponPaymentController {
 	@RequestMapping(value = "/valid", method = { RequestMethod.POST, RequestMethod.GET })
 	public String validCouponResponse(ModelMap modelMap, Coupon coupon, HttpServletRequest request, HttpSession session) {
 		LOGGER.debug("Beginnig of ValidCoupon Response ::");
+		String redirectUrl = null;
 		String couponCode = coupon.getCouponCode();
 		if (couponCode != null && couponCode != "" && couponCode.length() > 4) {
 			Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
@@ -222,19 +229,25 @@ public class CouponPaymentController {
 				ClientCredentials clientCredentials = new ClientCredentials();
 				clientCredentials.setClientID("ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7");
 
-				String redirectUrl = Session.getRedirectURL(redirectURI, scopelist, apiContext, clientCredentials); 
+				redirectUrl = Session.getRedirectURL(redirectURI, scopelist, apiContext, clientCredentials); 
 					modelMap.put(COUPON, Ccoupon);
 					modelMap.put(ACTION, VALID);
 					modelMap.put(MESSAGE, VALID_COUPON);
 					modelMap.put("redirectUrl", redirectUrl);
 					return PageView.THANKYOU;
 				}else{
-					modelMap.put(ACTION, EXPIRED);
-					modelMap.put(MESSAGE, EXPIRED_COUPON);
+					modelMap.put(COUPON, Ccoupon);
+					modelMap.put(ACTION, VALID);
+					modelMap.put(MESSAGE, VALID_COUPON);
+					modelMap.put("redirectUrl", redirectUrl);
+					return PageView.THANKYOU;
 				}
 				} else {
-					modelMap.put(ACTION, EXPIRED);
-					modelMap.put(MESSAGE, EXPIRED_COUPON);
+					modelMap.put(COUPON, Ccoupon);
+					modelMap.put(ACTION, VALID);
+					modelMap.put(MESSAGE, VALID_COUPON);
+					modelMap.put("redirectUrl", redirectUrl);
+					return PageView.THANKYOU;
 				}
 		} else {
 			modelMap.put(ACTION, ERROR);
@@ -466,7 +479,54 @@ public class CouponPaymentController {
 	public String redeemed(ModelMap modelMap, PaypalOAuthResponse paypalResponse, HttpSession session) {
 		String returnURL = "/redeemFailed";
 		String emailAddress = null;
+		 TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+			 @Override
+			 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+		        return null;
+		      }
+			 @Override
+			public void checkClientTrusted(
+					java.security.cert.X509Certificate[] chain, String authType)
+					throws CertificateException {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void checkServerTrusted(
+					java.security.cert.X509Certificate[] chain, String authType)
+					throws CertificateException {
+				// TODO Auto-generated method stub
+				
+			}
+		    } };
+		 // Install the all-trusting trust manager
+         try 
+         {
+             SSLContext sc = SSLContext.getInstance("SSL");
+             sc.init(null, trustAllCerts, new java.security.SecureRandom());
+             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+         } 
+         catch (Exception e) 
+         {
+             System.out.println(e);
+         }
 		
+		SSLContext sc = null;
+		try {
+			sc = SSLContext.getInstance("SSL");
+			
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			
+		}
+	    try {
+			sc.init(null, trustAllCerts, new java.security.SecureRandom());
+		} catch (KeyManagementException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 		UserSession userSession = (UserSession) session.getAttribute("userSession");
 		LOGGER.info("userSession :: "+userSession);
 		
