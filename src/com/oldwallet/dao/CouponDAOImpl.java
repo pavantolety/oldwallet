@@ -34,6 +34,8 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String VALIDATE_BLOCKED_COUPON = "SELECT * FROM COUPONS WHERE EVENT_ID IN(SELECT EVENT_ID FROM EVENTS WHERE EVENT_STATUS LIKE 'NEW') AND REDEEM_STATUS LIKE 'BLOCKED' AND COUPON_CODE=? AND VALID_TO >= NOW()";
 
 	public static final String UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
+	
+	public static final String UPDATE_COUPON_VALUE = "UPDATE COUPONS SET COUPON_VALUE=? WHERE COUPON_CODE=?";
 
 	public static final String IS_COUPON_EXISTS = "SELECT * FROM COUPONS WHERE COUPON_CODE = ?";
 
@@ -438,6 +440,8 @@ public class CouponDAOImpl implements CouponDAO {
 		boolean isUpdated = false;
 		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION_BY_ID,(NumberUtils.toLong(fundAllocation.getAvailableCount())-1),fundAllocation.getFundId());
 		if(i>0){
+			String encCode =  EncryptCouponUtil.enccd(fundAllocation.getCouponCode());
+			jdbcTemplate.update(UPDATE_COUPON_VALUE,fundAllocation.getCouponValue(),encCode);
 			isUpdated = true;
 		}
 		return isUpdated;

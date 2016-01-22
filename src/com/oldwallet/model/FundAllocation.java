@@ -8,7 +8,7 @@ public class FundAllocation {
 	private String couponValue;
 	private String redeemedCount;
 	private String availableCount;
-	
+	private String couponCode;
 	
 	public FundAllocation(){
 		
@@ -24,6 +24,7 @@ public class FundAllocation {
 		this.availableCount =  availableCount;
 		
 	}
+	
 	public long getFundId() {
 		return fundId;
 	}
@@ -60,6 +61,12 @@ public class FundAllocation {
 	}
 	public void setAvailableCount(String availableCount) {
 		this.availableCount = availableCount;
+	}
+	public String getCouponCode() {
+		return couponCode;
+	}
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
 	}
 	
 	
