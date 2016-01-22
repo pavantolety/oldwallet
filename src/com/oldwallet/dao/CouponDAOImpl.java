@@ -30,6 +30,8 @@ public class CouponDAOImpl implements CouponDAO {
 	private static final Logger LOGGER = Logger.getLogger(CouponDAOImpl.class);
 
 	public static final String VALIDATE_COUPON = "SELECT * FROM COUPONS WHERE EVENT_ID IN(SELECT EVENT_ID FROM EVENTS WHERE EVENT_STATUS LIKE 'NEW') AND REDEEM_STATUS LIKE 'NEW' AND COUPON_CODE=? AND VALID_TO >= NOW()";
+	
+	public static final String VALIDATE_BLOCKED_COUPON = "SELECT * FROM COUPONS WHERE EVENT_ID IN(SELECT EVENT_ID FROM EVENTS WHERE EVENT_STATUS LIKE 'NEW') AND REDEEM_STATUS LIKE 'BLOCKED' AND COUPON_CODE=? AND VALID_TO >= NOW()";
 
 	public static final String UPDATE_COUPON = "UPDATE COUPONS SET REDEEM_STATUS=?,REDEEMED_DATE=NOW() WHERE COUPON_CODE=?";
 
@@ -117,7 +119,7 @@ public class CouponDAOImpl implements CouponDAO {
 		String encCode =  EncryptCouponUtil.enccd(couponCode);
 		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(VALIDATE_COUPON, encCode);
 		if (!coupon.isEmpty()) {
-			LOGGER.debug("Calid Coupon is available ::: ");
+			LOGGER.debug("Valid Coupon is available getEncCouponByCode ::: ");
 			for (Map<String, Object> map : coupon) {
 				couponList.add(retrieveCoupon(map));
 			}		
@@ -125,7 +127,21 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 		return null;
 	}
-
+	@Override
+	public Coupon getEncBlockedCouponByCode(String couponCode) {
+		
+		List<Coupon> couponList = new ArrayList<Coupon>();
+		String encCode =  EncryptCouponUtil.enccd(couponCode);
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(VALIDATE_BLOCKED_COUPON, encCode);
+		if (!coupon.isEmpty()) {
+			LOGGER.debug("Valid Coupon is available getEncCouponByCode ::: ");
+			for (Map<String, Object> map : coupon) {
+				couponList.add(retrieveCoupon(map));
+			}		
+			return couponList.get(0);
+		}
+		return null;
+	}
 	@SuppressWarnings("deprecation")
 	private Coupon retrieveCoupon(Map<String, Object> map) {
 
@@ -426,6 +442,8 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 		return isUpdated;
 	}
+
+	
 
 
 

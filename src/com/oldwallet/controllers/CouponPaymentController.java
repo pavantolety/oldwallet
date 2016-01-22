@@ -1,9 +1,14 @@
 package com.oldwallet.controllers;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.Security;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,8 +19,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 //import javax.security.cert.X509Certificate;
@@ -23,6 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -31,6 +53,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.xml.sax.SAXException;
+
+import urn.ebay.api.PayPalAPI.MassPayReq;
+import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
+import urn.ebay.api.PayPalAPI.MassPayRequestType;
+import urn.ebay.api.PayPalAPI.MassPayResponseType;
+import urn.ebay.api.PayPalAPI.PayPalAPIInterfaceServiceService;
+import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
+import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
+import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
 import com.oldwallet.config.SystemParams;
 import com.oldwallet.constraints.PageView;
@@ -64,16 +95,6 @@ import com.paypal.sdk.openidconnect.Session;
 import com.paypal.sdk.openidconnect.Tokeninfo;
 import com.paypal.sdk.openidconnect.Userinfo;
 import com.paypal.sdk.openidconnect.UserinfoParameters;
-import org.apache.commons.lang3.math.NumberUtils;
-
-import urn.ebay.api.PayPalAPI.MassPayReq;
-import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
-import urn.ebay.api.PayPalAPI.MassPayRequestType;
-import urn.ebay.api.PayPalAPI.MassPayResponseType;
-import urn.ebay.api.PayPalAPI.PayPalAPIInterfaceServiceService;
-import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
-import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
-import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
 @Controller
 public class CouponPaymentController {
@@ -107,6 +128,7 @@ public class CouponPaymentController {
 	public void updateCouponBlocker(){
 		couponBlockerDAO.updateCouponBlockerJob();
 	}
+  
 	@RequestMapping(value = "/saveCouponData", method = RequestMethod.POST)
 	public void saveCouponData(ModelMap modelMap, Coupon coupon)
 			throws ParseException {
@@ -132,24 +154,26 @@ public class CouponPaymentController {
 	}
 
 	@RequestMapping(value = "/validateCoupon", method = RequestMethod.POST)
-	public void validateCoupon(ModelMap modelMap, Coupon coupon) {
+	public void validateCoupon(ModelMap modelMap, Coupon coupon, HttpServletRequest request, HttpSession session) {
 		LOGGER.debug("Beginning Of Validating Coupon ::: " + coupon);
 
 		if (coupon != null && coupon.getCouponCode() != null) {
-				LOGGER.debug("Coupon Exists :::");
+				LOGGER.debug("Coupon VALUE ENTERED :::");
 				Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
 				if (Ccoupon!=null) {
+					LOGGER.debug("Coupon VALID :::");
+					//validCouponResponse(modelMap, Ccoupon, request, session);
 					    modelMap.put(COUPON, Ccoupon);
 						modelMap.put(ACTION, VALID);
 						modelMap.put(MESSAGE, VALID_COUPON);
 					} else {
-
+						LOGGER.debug("Coupon INVALID :::");
 						modelMap.put(ACTION, EXPIRED);
 						modelMap.put(MESSAGE, EXPIRED_COUPON);
 					}
 			
 			} else {
-				LOGGER.debug("Coupon INVALID :::");
+				LOGGER.debug("NULL COUPON :::");
 				modelMap.put(ACTION, INVALID);
 				modelMap.put(MESSAGE, EXPIRED_COUPON);
 			}
@@ -474,65 +498,62 @@ public class CouponPaymentController {
 		}
 
 	}
-	
+	 public void doTrustToCertificates() throws Exception {
+	        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+	        TrustManager[] trustAllCerts = new TrustManager[]{
+	                new X509TrustManager() {
+	                    public X509Certificate[] getAcceptedIssuers() {
+	                        return null;
+	                    }
+
+	                    public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+	                        return;
+	                    }
+
+	                    public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+	                        return;
+	                    }
+	                }
+	        };
+
+	        SSLContext sc = SSLContext.getInstance("SSL");
+	        sc.init(null, trustAllCerts, new SecureRandom());
+	        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+	        HostnameVerifier hv = new HostnameVerifier() {
+	        	/*@Override
+	            public boolean verify(String urlHostName, SSLSession session) {
+	                if (!urlHostName.equalsIgnoreCase(session.getPeerHost())) {
+	                    System.out.println("Warning: URL host '" + urlHostName + "' is different to SSLSession host '" + session.getPeerHost() + "'.");
+	                }
+	                return true;
+	            }*/
+
+				@Override
+				public boolean verify(String urlHostName, SSLSession session) {
+				     if (!urlHostName.equalsIgnoreCase(session.getPeerHost())) {
+		                    System.out.println("Warning: URL host '" + urlHostName + "' is different to SSLSession host '" + session.getPeerHost() + "'.");
+		                }
+		                return true;
+				}
+	        };
+	        HttpsURLConnection.setDefaultHostnameVerifier(hv);
+	    }
 	@RequestMapping(value="/redeemed", method=RequestMethod.GET)
-	public String redeemed(ModelMap modelMap, PaypalOAuthResponse paypalResponse, HttpSession session) {
+	public String redeemed(ModelMap modelMap, PaypalOAuthResponse paypalResponse, HttpSession session) throws Exception {
 		String returnURL = "/redeemFailed";
 		String emailAddress = null;
-		 TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-			 @Override
-			 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-		        return null;
-		      }
-			 @Override
-			public void checkClientTrusted(
-					java.security.cert.X509Certificate[] chain, String authType)
-					throws CertificateException {
-				// TODO Auto-generated method stub
-				
-			}
-			@Override
-			public void checkServerTrusted(
-					java.security.cert.X509Certificate[] chain, String authType)
-					throws CertificateException {
-				// TODO Auto-generated method stub
-				
-			}
-		    } };
-		 // Install the all-trusting trust manager
-         try 
-         {
-             SSLContext sc = SSLContext.getInstance("SSL");
-             sc.init(null, trustAllCerts, new java.security.SecureRandom());
-             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-         } 
-         catch (Exception e) 
-         {
-             System.out.println(e);
-         }
 		
-		SSLContext sc = null;
-		try {
-			sc = SSLContext.getInstance("SSL");
-			
-		} catch (NoSuchAlgorithmException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			
-		}
-	    try {
-			sc.init(null, trustAllCerts, new java.security.SecureRandom());
-		} catch (KeyManagementException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+		     doTrustToCertificates();//  
+		     URL url = new URL("https://www.sandbox.paypal.com");
+		     HttpURLConnection conn = (HttpURLConnection)url.openConnection(); 
+		     System.out.println("ResponseCoede ="+conn.getResponseCode());
+		  
 		UserSession userSession = (UserSession) session.getAttribute("userSession");
 		LOGGER.info("userSession :: "+userSession);
-		
-		if(userSession != null) {
+		LOGGER.info("COUPON CODE FROM SESSION :: "+userSession.getCouponCode());
+		/*if(userSession != null) {*/
 			LOGGER.info("UserSession is not null ::");
-			Coupon validCoupon = couponDAO.getEncCouponByCode(userSession.getCouponCode());
+			Coupon validCoupon = couponDAO.getEncBlockedCouponByCode(userSession.getCouponCode());
 			LOGGER.info("validCoupon ::"+validCoupon);
 			if(validCoupon!= null) { //TODO Has to check this -- this is just a tweak for the demo. 
 				LOGGER.info("validCoupon is not null ::");
@@ -680,10 +701,10 @@ public class CouponPaymentController {
 			}
 		}
 			} else {
-				couponDAO.updateCoupon(userSession.getCouponCode());
+				//couponDAO.updateCoupon(userSession.getCouponCode());
 				return "/redeemSuccess";
 			}
-		}
+		/*}*/
 		return returnURL;
 	}
 			

@@ -283,7 +283,7 @@
 						url:'/validateCoupon.json',
 						data:coupon,
 						success:function(data) {
-							//alert(JSON.stringify(data));
+							alert(JSON.stringify(data));
 							var action = data.action;
 							//alert(action);
 							if(action=='valid') {
@@ -297,11 +297,11 @@
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">Invalid Coupon Code</b>');
 							}else if(data.action=='expired') {
-								//sweetAlert("Info",data.message,"info");
+								sweetAlert("Info",data.message,"info");
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
 							}else if(data.action=='error') {
-								//sweetAlert("Info",data.message,"info");
+								sweetAlert("Info",data.message,"info");
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
 							}

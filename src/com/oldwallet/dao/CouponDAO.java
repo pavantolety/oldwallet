@@ -13,6 +13,8 @@ public interface CouponDAO {
 	
 	public Coupon getEncCouponByCode(String couponCode);
 	
+	public Coupon getEncBlockedCouponByCode(String couponCode);
+	
 	public FundAllocation  assignValueToCoupon();
 	
 	public List<Long> getAllCategories();
