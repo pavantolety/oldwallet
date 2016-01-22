@@ -13,6 +13,14 @@ public interface CouponDAO {
 	
 	public Coupon getEncCouponByCode(String couponCode);
 	
+	public FundAllocation  assignValueToCoupon();
+	
+	public List<Long> getAllCategories();
+	
+	public FundAllocation getFundByCateId(long id);
+	
+	public boolean updateFundAllocation(FundAllocation fundAllocation);
+	
 	public boolean createFundAllocation(FundAllocation fundAllocation);
 
 	public boolean updateCoupon(String couponCode);

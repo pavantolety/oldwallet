@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.mindrot.jbcrypt.BCrypt;
@@ -58,7 +59,14 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' WHERE COUPON_CODE=?";
     
-	public static final String  CREATE_FUND_ALLOCATION = "INSERT INTO FUND_ALLOCATION(CATEGORY_CODE,TOTAL_COUPON_COUNT,COUPON_VALUE) VALUES(?,?,?)"; 
+	public static final String  CREATE_FUND_ALLOCATION = "INSERT INTO FUND_ALLOCATION(CATEGORY_CODE,TOTAL_COUPON_COUNT,COUPON_VALUE,AVAILABLE_COUNT) VALUES(?,?,,?,?)"; 
+	
+	public static final String GET_FUND_ALLOCATION = "SELECT * FROM FUND_ALLOCATION";
+	
+	public static final String GET_FUND_ALLOCATION_BY_ID = "SELECT * FROM FUND_ALLOCATION WHERE FUND_ID = ?";
+	
+	public static final String UPDATE_FUND_ALLOCATION_BY_ID = "UPDATE FUND_ALLOCATION SET AVAILABLE_COUNT = ? WHERE FUND_ID = ?";
+	
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
@@ -180,7 +188,8 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean updateCoupon(String couponCode) {
 		boolean isUpdated = false;
-		int result = jdbcTemplate.update(UPDATE_COUPON, "EXPIRED", couponCode);
+		String enccCouponCode =  EncryptCouponUtil.enccd(couponCode);
+		int result = jdbcTemplate.update(UPDATE_COUPON, "REDEEMED", enccCouponCode);
 		if (result > 0) {
 			isUpdated = true;
 		}
@@ -340,8 +349,8 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean blockCouponCode(Coupon coupon) {
 		boolean isBlocked = false;
-		
-		int i = jdbcTemplate.update(BLOCK_COUPON, coupon.getCouponCode());
+		String enccCouponcode =  EncryptCouponUtil.enccd(coupon.getCouponCode());
+		int i = jdbcTemplate.update(BLOCK_COUPON, enccCouponcode);
 		if(i>0) {
 			isBlocked = true;
 		}
@@ -352,11 +361,67 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean createFundAllocation(FundAllocation fundAllocation) {
 		boolean isCreated =  false;
-		int i = jdbcTemplate.update(CREATE_FUND_ALLOCATION,fundAllocation.getCategoryCode(),fundAllocation.getTotalCouponCount(),fundAllocation.getCouponValue());
+		int i = jdbcTemplate.update(CREATE_FUND_ALLOCATION,fundAllocation.getCategoryCode(),fundAllocation.getTotalCouponCount(),fundAllocation.getCouponValue(),fundAllocation.getTotalCouponCount());
 		if(i>0){
 			isCreated = true;
 		}
 		return isCreated;
+	}
+
+	@Override
+	public FundAllocation assignValueToCoupon() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Long> getAllCategories() {
+	     List<Long> list = new ArrayList<Long>();
+	     List<Map<String,Object>> mapList =  jdbcTemplate.queryForList(GET_FUND_ALLOCATION);
+	     if(mapList.size()>0){
+	    	 for(Map<String , Object> map :mapList){
+	    		 list.add(retriveFundId(map));
+	    	 }
+	    	 return list;
+	     }
+		return null;
+	}
+    
+	 public long retriveFundId(Map<String,Object> map){
+		 long fundId = DataRetievar.getLongValue("FUND_ID", map);
+		 return fundId;
+	 }
+	@Override
+	public FundAllocation getFundByCateId(long id) {
+		List<FundAllocation>  fa = new ArrayList<FundAllocation>();
+		List<Map<String,Object>> mapList  = jdbcTemplate.queryForList(GET_FUND_ALLOCATION_BY_ID,id);
+		if(mapList.size()>0){
+			for(Map<String,Object> map :mapList){
+				fa.add(retriveFundAllocation(map));
+			}
+			return fa.get(0);
+		}
+		return null;
+	}
+    public FundAllocation retriveFundAllocation(Map<String,Object> map){
+    	FundAllocation fa=  new FundAllocation();
+    	fa.setFundId(DataRetievar.getLongValue("FUND_ID", map));
+    	fa.setCategoryCode(DataRetievar.getStringValue("CATEGORY_CODE", map));
+    	fa.setCouponValue(DataRetievar.getStringValue("COUPON_VALUE", map));
+    	fa.setTotalCouponCount(DataRetievar.getStringValue("TOTAL_COUPON_COUNT", map));
+    	fa.setRedeemedCount(DataRetievar.getStringValue("REDEEMED_COUNT", map));
+    	fa.setAvailableCount(DataRetievar.getStringValue("AVAILABLE_COUNT", map));
+    	
+    	return fa;
+    }
+	@Override
+	public boolean updateFundAllocation(FundAllocation fundAllocation) {
+		boolean isUpdated = false;
+		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION_BY_ID,(NumberUtils.toLong(fundAllocation.getAvailableCount())-1),fundAllocation.getFundId());
+		if(i>0){
+			isUpdated = true;
+		}
+		return isUpdated;
 	}
 
 

@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +20,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,10 +38,12 @@ import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
 import com.oldwallet.config.SystemParams;
 import com.oldwallet.constraints.PageView;
+import com.oldwallet.dao.CouponBlockerDAO;
 import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponPayment;
+import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.PaypalOAuthResponse;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.model.UserLogin;
@@ -87,7 +93,14 @@ public class CouponPaymentController {
 	@Autowired
 	TransactionDAO transactionDAO;
 
-
+    @Autowired
+    CouponBlockerDAO couponBlockerDAO;
+     
+  @Scheduled(cron="0 0/5 * * * *")
+	@RequestMapping(value = "updateCouponBlocker")
+	public void updateCouponBlocker(){
+		couponBlockerDAO.updateCouponBlockerJob();
+	}
 	@RequestMapping(value = "/saveCouponData", method = RequestMethod.POST)
 	public void saveCouponData(ModelMap modelMap, Coupon coupon)
 			throws ParseException {
@@ -186,13 +199,14 @@ public class CouponPaymentController {
 			Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
 			if (Ccoupon!=null) {
 				UserLogin userLogin = new UserLogin();
-				
+				Coupon coupon2 = asignValueToCoupon(Ccoupon.getCouponCode());
+				if(coupon2!=null){
 				userLogin.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-				userLogin.setAmount(Ccoupon.getCouponValue());
-				userLogin.setCouponCode(coupon.getCouponCode());
+				userLogin.setAmount(coupon2.getCouponValue());
+				userLogin.setCouponCode(coupon2.getCouponCode());
 				UserSession userSession = AuthenticationHelper.populateUserSession(userLogin);
 				session.setAttribute("userSession", userSession);
-				boolean isBlocked = couponDAO.blockCouponCode(Ccoupon);
+				boolean isBlocked = couponDAO.blockCouponCode(coupon2);
 				LOGGER.info("isBlocked :: "+isBlocked);
 				Map<String, String> configurationMap = new HashMap<String, String>();
 				configurationMap.put("mode", "sandbox");
@@ -214,6 +228,10 @@ public class CouponPaymentController {
 					modelMap.put(MESSAGE, VALID_COUPON);
 					modelMap.put("redirectUrl", redirectUrl);
 					return PageView.THANKYOU;
+				}else{
+					modelMap.put(ACTION, EXPIRED);
+					modelMap.put(MESSAGE, EXPIRED_COUPON);
+				}
 				} else {
 					modelMap.put(ACTION, EXPIRED);
 					modelMap.put(MESSAGE, EXPIRED_COUPON);
@@ -227,6 +245,33 @@ public class CouponPaymentController {
 			return "index";
 		}
 		return PageView.THANKYOU;
+	}
+     
+	private Coupon asignValueToCoupon(String couponCode) {
+		List<Long> cateIdList = couponDAO.getAllCategories();
+		
+		Random random =  new Random();
+		Coupon coupon =  new Coupon();
+	    Collections.shuffle(cateIdList, random);
+	    
+	    for(int i= 0;i<=cateIdList.size();i++){
+	    	long id =  cateIdList.get(0);
+	    	FundAllocation fa = couponDAO.getFundByCateId(id);
+	    	if(fa!=null){
+	    		
+	    		coupon.setCouponCode(couponCode);
+	    		coupon.setCouponValue(fa.getCouponValue());
+	    		
+	    		couponDAO.updateFundAllocation(fa);
+	    		
+	    		
+	    		break ;
+	    	}else{
+	    		continue;
+	    	}
+	    }
+	   
+		return coupon;
 	}
 
 	@RequestMapping(value = "/getCouponAmount", method = RequestMethod.POST)
@@ -429,7 +474,6 @@ public class CouponPaymentController {
 		
 		if(userSession != null) {
 			LOGGER.info("UserSession is not null ::");
-			userSession.setAmount("100");
 			Coupon validCoupon = couponDAO.getEncCouponByCode(userSession.getCouponCode());
 			LOGGER.info("validCoupon ::"+validCoupon);
 			if(validCoupon!= null) {
@@ -466,6 +510,7 @@ public class CouponPaymentController {
 				} catch (PayPalRESTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					couponDAO.updateCoupon(validCoupon.getCouponCode());
 					return "/redeemSuccess";
 				}	
 				
