@@ -1,39 +1,38 @@
 package com.oldwallet.controllers;
 
-import java.io.IOException;
+import java.security.SecureRandom;
+import java.security.Security;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import urn.ebay.api.PayPalAPI.MassPayReq;
+import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
+import urn.ebay.api.PayPalAPI.MassPayRequestType;
+import urn.ebay.api.PayPalAPI.MassPayResponseType;
+import urn.ebay.api.PayPalAPI.PayPalAPIInterfaceServiceService;
+import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
+import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
+import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 import com.oldwallet.util.paypal.Configuration;
-import com.paypal.core.ClientCredentials;
-import com.paypal.core.rest.APIContext;
-import com.paypal.exception.ClientActionRequiredException;
-import com.paypal.exception.HttpErrorException;
-import com.paypal.exception.InvalidCredentialException;
-import com.paypal.exception.InvalidResponseDataException;
-import com.paypal.exception.MissingCredentialException;
-import com.paypal.exception.SSLConfigurationException;
-import com.paypal.sdk.exceptions.OAuthException;
-import com.paypal.sdk.openidconnect.Session;
-import com.paypal.svcs.services.AdaptiveAccountsService;
-import com.paypal.svcs.types.aa.AccountIdentifierType;
-import com.paypal.svcs.types.aa.GetVerifiedStatusRequest;
-import com.paypal.svcs.types.aa.GetVerifiedStatusResponse;
-import com.paypal.svcs.types.common.RequestEnvelope;
 @Controller
 public class TestClass {
 
-	@RequestMapping(value="/test", method= RequestMethod.GET)
+/*	@RequestMapping(value="/test", method= RequestMethod.GET)
 public void verifyEmailAddress(ModelMap modelMap, String emailAddress, HttpServletRequest request) {
 		
 	  	// GetVerifiedStatus Request
@@ -108,5 +107,69 @@ public void verifyEmailAddress(ModelMap modelMap, String emailAddress, HttpServl
 		
 		
 	
+	}*/
+
+	@RequestMapping(value="/massPayTest", method= RequestMethod.GET)
+	public void massPayTest() {
+		System.out.println("Beginning Of massPayTest ::");
+		MassPayReq req = new MassPayReq();
+
+		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
+
+		BasicAmountType amount1 =  new BasicAmountType(CurrencyCodeType.fromValue("USD"), "10");
+		
+		MassPayRequestItemType item1 = null;
+			item1 = new MassPayRequestItemType(amount1);
+			item1.setReceiverEmail("syam@edvenswa.com");
+			massPayItem.add(item1);
+			
+		if (!massPayItem.isEmpty()) {
+			MassPayRequestType reqType = new MassPayRequestType(massPayItem);
+			reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
+			req.setMassPayRequest(reqType);
+			Map<String, String> configurationMap = Configuration.getAcctAndConfig();
+
+			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+			try {
+				System.out.println("Calling Mass Pay API ::");
+				//System.setProperty("socketSecureFactory", "com.paypal.sdk.core.DefaultSSLFactory");
+				
+					    
+					    MassPayResponseType resp = service.massPay(req);
+				if (resp != null) {
+					System.out.println("lastReq"+service.getLastRequest());
+					System.out.println("lastResp"+service.getLastResponse());
+					if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
+						Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+						map.put("Ack", resp.getAck());
+						System.out.println("map"+map);
+						System.out.println("Success :: " + resp.toString());
+					} else {
+						System.out.println("Error"+resp.getErrors());
+						System.out.println(resp.getErrors().toString());
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();				
+			}
+		} else {
+			System.out.println("action ::"+" Error");
+			System.out.println("message ::"+" Unable to process your request");
+		}
+			
+		
 	}
+	
+	
+	
+	public static void main(String args[]) {
+		TestClass testObject = new TestClass();
+		
+		
+        
+		testObject.massPayTest();
+	}
+
 }

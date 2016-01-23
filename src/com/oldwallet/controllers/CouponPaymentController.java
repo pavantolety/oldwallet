@@ -332,6 +332,7 @@ public class CouponPaymentController {
 								emailAddress  = userInfo.getEmail();
 								LOGGER.info("EMAIL ADDRESS :: "+userInfo.getEmail());
 								LOGGER.info("EMAIL ADDRESS :: "+emailAddress);
+								boolean isAmountCredited = transferAmountToPaypalUser(emailAddress, userSession.getAmount());
 								}
 						} catch (PayPalRESTException e) {
 							e.printStackTrace();
@@ -350,6 +351,60 @@ public class CouponPaymentController {
 				e.printStackTrace();
 			}
 			return returnURL;
+	}
+
+	private boolean transferAmountToPaypalUser(String emailAddress,String amount) {
+
+		LOGGER.debug("Beginning Of massPayTest ::");
+		
+		boolean isAmountCredited = false;
+		
+		MassPayReq req = new MassPayReq();
+
+		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
+
+		BasicAmountType amount1 =  new BasicAmountType(CurrencyCodeType.fromValue("USD"), amount);
+		
+		MassPayRequestItemType item1 = null;
+			item1 = new MassPayRequestItemType(amount1);
+			item1.setReceiverEmail(emailAddress);
+			massPayItem.add(item1);
+			
+		if (!massPayItem.isEmpty()) {
+			MassPayRequestType reqType = new MassPayRequestType(massPayItem);
+			reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
+			req.setMassPayRequest(reqType);
+			Map<String, String> configurationMap = Configuration.getAcctAndConfig();
+
+			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+			try {
+				LOGGER.debug("Calling Mass Pay API ::");
+				MassPayResponseType resp = service.massPay(req);
+				if (resp != null) {
+					LOGGER.debug("lastReq"+service.getLastRequest());
+					LOGGER.debug("lastResp"+service.getLastResponse());
+					if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
+						Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+						map.put("Ack", resp.getAck());
+						LOGGER.debug("map"+map);
+						LOGGER.debug("Success :: " + resp.toString());
+						isAmountCredited = true;
+					} else {
+						LOGGER.debug("Error"+resp.getErrors());
+						LOGGER.debug(resp.getErrors().toString());
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();				
+			}
+		} else {
+			LOGGER.debug("action ::"+" Error");
+			LOGGER.debug("message ::"+" Unable to process your request");
+		}		
+	
+		return isAmountCredited;
 	}
 
 }
