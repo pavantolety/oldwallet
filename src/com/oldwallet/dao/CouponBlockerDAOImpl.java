@@ -15,7 +15,7 @@ public class CouponBlockerDAOImpl implements CouponBlockerDAO {
 	
 	private static final String UPDATE_COUPON_BLOCKER = "UPDATE COUPON_BLOCKER SET STATUS = 'REDEEMED' WHERE USER_SESSION = ?";
 	
-	private static final String UPDATE_COUPON_BLOCKER_JOB = "UPDATE COUPONS SET REDEEM_STATUS = 'NEW' WHERE REDEEM_STATUS LIKE 'BLOCKED' AND DATE_BLOCKED < (NOW() - INTERVAL 10 MINUTE)";
+	private static final String UPDATE_COUPON_BLOCKER_JOB = "UPDATE COUPONS SET COUPON_VALUE= ? ,REDEEM_STATUS = 'NEW' WHERE REDEEM_STATUS LIKE 'BLOCKED' AND DATE_BLOCKED < (NOW() - INTERVAL 10 MINUTE)";
 	
 	private JdbcTemplate jdbcTemplate;
 
@@ -47,7 +47,7 @@ public class CouponBlockerDAOImpl implements CouponBlockerDAO {
 	@Override
 	public boolean updateCouponBlockerJob() {
 		boolean isUpdated = false;
-		int i = jdbcTemplate.update(UPDATE_COUPON_BLOCKER_JOB);
+		int i = jdbcTemplate.update(UPDATE_COUPON_BLOCKER_JOB,0);
 		if(i>0) {
 			isUpdated = true;
 		}
