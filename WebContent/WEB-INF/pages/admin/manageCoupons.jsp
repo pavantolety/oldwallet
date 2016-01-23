@@ -73,6 +73,15 @@
 
 
 <body class="nav-md">
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	 
+	  ga('create', 'UA-72298326-5', 'auto');
+	  ga('send', 'pageview'); 
+	</script>
 
     <div class="container body">
 
@@ -317,7 +326,7 @@
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="hidden" id="couponCode" name="couponCode" >
-                                                <input type="text" id="couponValue" name="couponValue" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="text" id="couponValue" name="couponValue" required="required" class="form-control col-md-7 col-xs-12" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -335,14 +344,14 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input id="redeemStatus" name="redeemStatus" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                                                <input id="redeemStatus" name="redeemStatus" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Available Redemption <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input id="availableRedemptions"  name="availableRedemptions"  class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                                                <input id="availableRedemptions"  name="availableRedemptions"  class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" readonly>
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>

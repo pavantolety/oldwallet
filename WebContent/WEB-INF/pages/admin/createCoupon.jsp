@@ -47,7 +47,15 @@
 </head>
 
 <body class="nav-md">
-
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	 
+	  ga('create', 'UA-72298326-5', 'auto');
+	  ga('send', 'pageview'); 
+	</script>
     <div class="container body">
 
 
@@ -167,10 +175,11 @@
 			                                    </div> -->
 			                                     <div class="form-group col-md-8">
 			                                     	<div class="col-md-12 col-sm-12 col-xs-12">
-		                                            	<!-- <label class="control-label col-md-3 col-sm-3 col-xs-12">Coupon Code:</label> -->	                                            
-		                                                
-		                                                
-		                                                <!-- <button class="btn btn-primary" type="submit">Download Coupons</button> -->
+			                                     		<label>Please Choose Valid date for Coupons:</label>
+		                                            	<div class="input-prepend input-group">
+                                                            <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                            <input type="text" style="width: 200px" name="couponDate" id="CouponDate" class="form-control" value="" />
+                                                        </div>
 		                                            </div>
 		                                            
 	                                        	</div>
@@ -202,7 +211,7 @@
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeALength" id="typeALength" placeholder="Length">
+	                                            <input type="text" class="form-control" name="typeALength" id="typeALength" placeholder="Length" value="4">
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -241,7 +250,7 @@
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeBLength" id="typeBLength" placeholder="Length">
+	                                            <input type="text" class="form-control" name="typeBLength" id="typeBLength" placeholder="Length" value="3">
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -280,7 +289,7 @@
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeCLength" id="typeCLength" placeholder="Length">
+	                                            <input type="text" class="form-control" name="typeCLength" id="typeCLength" placeholder="Length" value="2">
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -324,7 +333,7 @@
     <script src="js/custom.js"></script>
     <!-- daterangepicker -->
     <script type="text/javascript" src="js/moment.min2.js"></script>
-    <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
+   <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
     <!-- input mask -->
     <script src="js/input_mask/jquery.inputmask.js"></script>
     <!-- knob -->
@@ -460,6 +469,7 @@
 		    	typeBLength : $("#typeBLength").val(),
 		    	typeC : $("#typeC").val(),
 		    	typeCLength : $("#typeCLength").val(),
+		    	couponDate:$("#couponDate").val(),
     	};
     	//alert(JSON.stringify(couponData));
     	$.ajax({
@@ -477,6 +487,13 @@
 			}
 			});
     }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#reservation').daterangepicker(null, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+        });
     </script>
 	</body>
 </html>
