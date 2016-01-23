@@ -1,5 +1,7 @@
 package com.oldwallet.controllers;
 
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +18,9 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,6 +28,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.xml.sax.SAXException;
+
+import urn.ebay.api.PayPalAPI.MassPayReq;
+import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
+import urn.ebay.api.PayPalAPI.MassPayRequestType;
+import urn.ebay.api.PayPalAPI.MassPayResponseType;
+import urn.ebay.api.PayPalAPI.PayPalAPIInterfaceServiceService;
+import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
+import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
+import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 
 import urn.ebay.api.PayPalAPI.MassPayReq;
 import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
@@ -39,16 +53,25 @@ import com.oldwallet.dao.CouponBlockerDAO;
 import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.model.Coupon;
+import com.oldwallet.model.CouponPayment;
 import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.PaypalOAuthResponse;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.model.UserLogin;
 import com.oldwallet.model.UserSession;
 import com.oldwallet.model.UserToken;
+
 import com.oldwallet.util.paypal.Configuration;
 import com.paypal.core.ClientCredentials;
 import com.paypal.core.rest.APIContext;
 import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.exception.ClientActionRequiredException;
+import com.paypal.exception.HttpErrorException;
+import com.paypal.exception.InvalidCredentialException;
+import com.paypal.exception.InvalidResponseDataException;
+import com.paypal.exception.MissingCredentialException;
+import com.paypal.exception.SSLConfigurationException;
+import com.paypal.sdk.exceptions.OAuthException;
 import com.paypal.sdk.openidconnect.CreateFromAuthorizationCodeParameters;
 import com.paypal.sdk.openidconnect.Session;
 import com.paypal.sdk.openidconnect.Tokeninfo;

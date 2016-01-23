@@ -174,11 +174,18 @@
 			                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-max="15" data-displayPrevious=true data-fgColor="#26B99A" name="couponLength" id="couponLength" value="1">
 			                                    </div> -->
 			                                     <div class="form-group col-md-8">
-			                                     	<div class="col-md-12 col-sm-12 col-xs-12">
-			                                     		<label>Please Choose Valid date for Coupons:</label>
+			                                     	<div class="col-md-4 col-sm-4 col-xs-12">
+			                                     		<label>Choose coupon Start date:</label>
 		                                            	<div class="input-prepend input-group">
                                                             <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                                            <input type="text" style="width: 200px" name="couponDate" id="CouponDate" class="form-control" value="" />
+                                                            <input type="text" value="" id="datetimepicker1"  name = "startDate" required="required" class="form-control col-md-7 col-xs-12" readonly/>
+                                                        </div>
+		                                            </div>
+		                                            <div class="col-md-4 col-sm-4 col-xs-12">
+			                                     		<label>Choose Coupon End date:</label>
+		                                            	<div class="input-prepend input-group">
+                                                            <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                            <input type="text" value="" id="datetimepicker2"  name = "endDate" required="required" class="form-control col-md-7 col-xs-12" readonly/>
                                                         </div>
 		                                            </div>
 		                                            
@@ -339,6 +346,7 @@
     <!-- knob -->
     <script src="js/knob/jquery.knob.min.js"></script>
     <!-- knob -->
+    <script type="text/javascript" src="js/datepicker/jquery.datetimepicker.js"></script>
     <script>
         $(function ($) {
 
@@ -469,7 +477,8 @@
 		    	typeBLength : $("#typeBLength").val(),
 		    	typeC : $("#typeC").val(),
 		    	typeCLength : $("#typeCLength").val(),
-		    	couponDate:$("#couponDate").val(),
+		    	startDate:$("#startDate").val(),
+		    	endDate:$("#endDate").val(),
     	};
     	//alert(JSON.stringify(couponData));
     	$.ajax({
@@ -488,12 +497,24 @@
 			});
     }
     </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#reservation').daterangepicker(null, function (start, end, label) {
-                console.log(start.toISOString(), end.toISOString(), label);
-            });
-        });
-    </script>
+    <script>
+	    $(document).ready(function () {
+	                        	
+	           	$('#datetimepicker1').datetimepicker({
+	           		formatTime:'H:i',
+	           		formatDate:'m.d.Y',
+	           		defaultTime:'10:00',
+	           		format:'m-d-Y H:i:s',
+	           		timepickerScrollbar:false
+	           	});
+	           	$('#datetimepicker2').datetimepicker({
+	           		formatTime:'H:i',
+	           		formatDate:'m.d.Y',
+	           		defaultTime:'10:00',
+	           		format:'m-d-Y H:i:s',
+	           		timepickerScrollbar:false
+	           	});
+	    });
+       </script>
 	</body>
 </html>
