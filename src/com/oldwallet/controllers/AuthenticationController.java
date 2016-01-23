@@ -38,19 +38,15 @@ public class AuthenticationController {
 		return PageView.ADMINLOGIN;
 	}
 
-	@RequestMapping(value = "/adminSubmit", method = { RequestMethod.POST,
-			RequestMethod.GET })
-	public String getAdminHome(ModelMap modelMap, AdminLogin adminLogin,
-			HttpSession session) {
+	@RequestMapping(value = "/adminSubmit", method = { RequestMethod.POST,RequestMethod.GET })
+	public String getAdminHome(ModelMap modelMap, AdminLogin adminLogin, HttpSession session) {
 
 		String returnURI = PageView.ADMINLOGIN;
 
-		AdminLogin validAdmin = adminLoginDAO.getAdminByEmailAddress(adminLogin
-				.getEmailAddress());
+		AdminLogin validAdmin = adminLoginDAO.getAdminByEmailAddress(adminLogin.getEmailAddress());
 		if (validAdmin != null) {
 			returnURI = PageView.ADMINHOME;
-			AdminSession adminSession = AuthenticationHelper
-					.populateAdminSession(adminLogin);
+			AdminSession adminSession = AuthenticationHelper.populateAdminSession(adminLogin);
 			session.setAttribute("adminSession", adminSession);
 		} else {
 			modelMap.put("status", "error");
@@ -77,12 +73,10 @@ public class AuthenticationController {
 
 		String returnURI = PageView.USERLOGIN;
 
-		UserLogin validUser = userLoginDAO.getUserByEmailAddress(userLogin
-				.getEmailAddress());
+		UserLogin validUser = userLoginDAO.getUserByEmailAddress(userLogin.getEmailAddress());
 		if (validUser != null) {
 			returnURI = "/index";
-			UserSession userSession = AuthenticationHelper
-					.populateUserSession(userLogin);
+			UserSession userSession = AuthenticationHelper.populateUserSession(userLogin);
 			session.setAttribute("userSession", userSession);
 		} else {
 			modelMap.put("status", "error");
@@ -90,4 +84,5 @@ public class AuthenticationController {
 		}
 		return returnURI;
 	}
+	
 }

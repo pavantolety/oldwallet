@@ -38,6 +38,7 @@ public class GenerateCouponsController {
 	@Autowired
 	CouponDAO couponDAO;
 	
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/saveConfiguration", method = RequestMethod.POST)
 	public String saveConfiguration(ModelMap modelMap,SaveConfiguration saveConfiguration) {
 		boolean result=generateCouponDAO.saveConfiguration(saveConfiguration);
