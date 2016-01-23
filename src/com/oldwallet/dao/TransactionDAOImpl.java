@@ -62,8 +62,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	@Transactional
 	public boolean updateTransaction(Transaction transaction) {
-		LOGGER.debug("Begining of transaction Update :: "
-				+ transaction.getUserEmail());
+		LOGGER.debug("Begining of transaction Update :: "+ transaction.getUserEmail());
 		boolean isUpdated = false;
 		int result = jdbcTemplate.update(UPDATE_TRANSACTION,
 				transaction.getStatus(), transaction.getLatitude(),

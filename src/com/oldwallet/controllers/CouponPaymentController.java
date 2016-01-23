@@ -332,7 +332,7 @@ public class CouponPaymentController {
 								emailAddress  = userInfo.getEmail();
 								LOGGER.info("EMAIL ADDRESS :: "+userInfo.getEmail());
 								LOGGER.info("EMAIL ADDRESS :: "+emailAddress);
-								boolean isAmountCredited = transferAmountToPaypalUser(emailAddress, userSession.getAmount());
+								boolean isAmountCredited = transferAmountToPaypalUser(validCoupon, userSession);
 								}
 						} catch (PayPalRESTException e) {
 							e.printStackTrace();
@@ -353,7 +353,7 @@ public class CouponPaymentController {
 			return returnURL;
 	}
 
-	private boolean transferAmountToPaypalUser(String emailAddress,String amount) {
+	private boolean transferAmountToPaypalUser(Coupon coupon,UserSession userSession) {
 
 		LOGGER.debug("Beginning Of massPayTest ::");
 		
@@ -363,11 +363,11 @@ public class CouponPaymentController {
 
 		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
 
-		BasicAmountType amount1 =  new BasicAmountType(CurrencyCodeType.fromValue("USD"), amount);
+		BasicAmountType amount1 =  new BasicAmountType(CurrencyCodeType.fromValue("USD"), coupon.getCouponValue());
 		
 		MassPayRequestItemType item1 = null;
 			item1 = new MassPayRequestItemType(amount1);
-			item1.setReceiverEmail(emailAddress);
+			item1.setReceiverEmail(userSession.getEmailAddress());
 			massPayItem.add(item1);
 			
 		if (!massPayItem.isEmpty()) {
@@ -377,23 +377,37 @@ public class CouponPaymentController {
 			Map<String, String> configurationMap = Configuration.getAcctAndConfig();
 
 			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+			String transCode = UUID.randomUUID().toString().replaceAll("-", "");
+			Transaction transaction = new Transaction();
+			transaction.setCouponCode(coupon.getCouponCode());
+			transaction.setCouponId(coupon.getCouponId()+"");
+			transaction.setCouponValue(coupon.getCouponValue());
+			transaction.setEventId(coupon.getEventId()+"");
+			transaction.setStatus("INIT");
+			transaction.setTransactionCode(transCode);
 
+			transactionDAO.initTransaction(transaction);
 			try {
 				LOGGER.debug("Calling Mass Pay API ::");
 				MassPayResponseType resp = service.massPay(req);
 				if (resp != null) {
 					LOGGER.debug("lastReq"+service.getLastRequest());
 					LOGGER.debug("lastResp"+service.getLastResponse());
+					Transaction transactionObj = transactionDAO.getTransactionDetailsById(transCode);
 					if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
 						Map<Object, Object> map = new LinkedHashMap<Object, Object>();
 						map.put("Ack", resp.getAck());
 						LOGGER.debug("map"+map);
 						LOGGER.debug("Success :: " + resp.toString());
+						transactionObj.setStatus("COMPLETE");
 						isAmountCredited = true;
 					} else {
+						transactionObj.setStatus("ERROR");						
+						isAmountCredited = false;
 						LOGGER.debug("Error"+resp.getErrors());
 						LOGGER.debug(resp.getErrors().toString());
 					}
+					transactionDAO.updateTransaction(transactionObj);
 				}
 
 			} catch (Exception e) {
