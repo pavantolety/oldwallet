@@ -50,7 +50,10 @@ public class Example {
             if (ch==-1) {
                 break;
             }
-            System.out.print((char)ch);
+            
+            //System.out.print((char)ch);
         }
+        String f  = "440zLkCI";
+        System.out.println("faf>>>>>>>>>>>>>>"+f.toUpperCase());
     }
 }

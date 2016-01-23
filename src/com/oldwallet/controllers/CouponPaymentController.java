@@ -105,17 +105,13 @@ public class CouponPaymentController {
 	}
   
 	@RequestMapping(value = "/saveCouponData", method = RequestMethod.POST)
-	public void saveCouponData(ModelMap modelMap, Coupon coupon)
-			throws ParseException {
+	public void saveCouponData(ModelMap modelMap, Coupon coupon)throws ParseException {
 		LOGGER.debug("Beginning Of Validating Coupon ::: " + coupon);
 
 		if (coupon != null) {
-			SimpleDateFormat format1 = new SimpleDateFormat(
-					"MM-dd-yyyy HH:mm:ss");
-			SimpleDateFormat format2 = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss");
-			coupon.setValidFrom(format2.format(format1.parse(coupon
-					.getValidFrom())));
+			SimpleDateFormat format1 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			coupon.setValidFrom(format2.format(format1.parse(coupon.getValidFrom())));
 			coupon.setValidTo(format2.format(format1.parse(coupon.getValidTo())));
 			boolean isUpdated = couponDAO.updateCouponData(coupon);
 			if (isUpdated) {
@@ -137,7 +133,6 @@ public class CouponPaymentController {
 				Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
 				if (Ccoupon!=null) {
 					LOGGER.debug("Coupon VALID :::");
-					//validCouponResponse(modelMap, Ccoupon, request, session);
 					    modelMap.put(COUPON, Ccoupon);
 						modelMap.put(ACTION, VALID);
 						modelMap.put(MESSAGE, VALID_COUPON);
@@ -199,6 +194,10 @@ public class CouponPaymentController {
 	@RequestMapping(value = "/valid", method = { RequestMethod.POST, RequestMethod.GET })
 	public String validCouponResponse(ModelMap modelMap, Coupon coupon, HttpServletRequest request, HttpSession session) {
 		LOGGER.debug("Beginnig of ValidCoupon Response ::");
+		LOGGER.debug("End of ValidCoupon Response :>>>>>>:"+ request.getMethod());
+		if ("GET" == request.getMethod()) {
+			return "index";
+		}
 		String redirectUrl = null;
 		String couponCode = coupon.getCouponCode();
 		if (couponCode != null && couponCode != "" && couponCode.length() > 4) {
@@ -243,21 +242,16 @@ public class CouponPaymentController {
 					return PageView.THANKYOU;
 				}
 				} else {
-					modelMap.put(COUPON, Ccoupon);
-					modelMap.put(ACTION, VALID);
-					modelMap.put(MESSAGE, VALID_COUPON);
-					modelMap.put("redirectUrl", redirectUrl);
-					return PageView.THANKYOU;
+					modelMap.put(ACTION, ERROR);
+					modelMap.put(MESSAGE, INVALID_COUPON);
+					return "index";
 				}
 		} else {
 			modelMap.put(ACTION, ERROR);
 			modelMap.put(MESSAGE, INVALID_COUPON);
-		}
-		LOGGER.debug("End of ValidCoupon Response :>>>>>>:"+ request.getMethod());
-		if ("GET" == request.getMethod()) {
 			return "index";
-		}
-		return PageView.THANKYOU;
+		}		
+		
 	}
      
 	private Coupon asignValueToCoupon(String couponCode) {
