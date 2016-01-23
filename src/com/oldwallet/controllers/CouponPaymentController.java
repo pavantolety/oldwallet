@@ -223,10 +223,10 @@ public class CouponPaymentController {
 				List<String> scopelist = new ArrayList<String>();
 				scopelist.add("openid");
 				scopelist.add("email");
-				String redirectURI = SystemParams.PAYPAL_LIVE_REDIRECT;
+				String redirectURI = SystemParams.PAYPAL_LOCAL_REDIRECT;
 
 				ClientCredentials clientCredentials = new ClientCredentials();
-				clientCredentials.setClientID("ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7");
+				clientCredentials.setClientID(SystemParams.PAYPAL_LOCAL_ID);
 
 				redirectUrl = Session.getRedirectURL(redirectURI, scopelist, apiContext, clientCredentials); 
 					modelMap.put(COUPON, coupon2);
@@ -235,11 +235,9 @@ public class CouponPaymentController {
 					modelMap.put("redirectUrl", redirectUrl);
 					return PageView.THANKYOU;
 				}else{
-					modelMap.put(COUPON, Ccoupon);
-					modelMap.put(ACTION, VALID);
-					modelMap.put(MESSAGE, VALID_COUPON);
-					modelMap.put("redirectUrl", redirectUrl);
-					return PageView.THANKYOU;
+					modelMap.put(ACTION, ERROR);
+					modelMap.put(MESSAGE, INVALID_COUPON);
+					return "index";
 				}
 				} else {
 					modelMap.put(ACTION, ERROR);
@@ -527,8 +525,8 @@ public class CouponPaymentController {
 						apiContext.setConfigurationMap(configurationMap);
 
 						CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
-						param.setClientID("ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7");
-						param.setClientSecret("ELLrRWufa7Jt5n-QIeJiijdMTUs5Qxq4ZPycUbnKsJGqmxQFeD5GOJNR5QY2GVC5EIe_3tuQo-Qitc-Y");
+						param.setClientID(SystemParams.PAYPAL_LIVE_ID);
+						param.setClientSecret(SystemParams.PAYPAL_LIVE_SECRET);
 						param.setCode(paypalResponse.getCode());
 						LOGGER.info("CODE ::: "+paypalResponse.getCode());
 						
