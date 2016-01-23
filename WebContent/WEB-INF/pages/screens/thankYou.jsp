@@ -167,6 +167,18 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
+                    <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
+                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
+                      <h1 style="color:#fff;"><i>YOU'VE IN THE NEW MONEY</i></h1>
+					       <p><h4 style="color:#fff;">Congratulations! Thats's a nice little
+					       chunk of change. Now, log in to 
+					       deposit your New Money into your
+					       PayPal account.</h4></p>                       
+                     </div>
+                     
+                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
+                    </div>  
                     <div class="row" >
                     <div class="col-md-2 col-sm-2 col-xs-2">
                     </div>
@@ -175,8 +187,6 @@
                                 <!-- page content -->								
 									<div class="col-middle">
 										<div class="text-center">
-										
-											<h4>Congratulations...!</h4>
 											<h4>You can redeem $<c:out value="${coupon.couponValue}"/> using your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.</h4>
 											<a href="${redirectUrl}" ><img class="hvr-grow" src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png" /></a>
 											<%-- <h4>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h4> --%>

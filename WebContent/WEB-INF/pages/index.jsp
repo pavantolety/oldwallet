@@ -95,28 +95,24 @@
                         <div class="">
                            <h3><a href="/index"><img src="images/PayPal_btn4.png"  alt="Smiley face" ></a></h3>
                         </div>
-                        <div class="title_right">
-                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                                <!-- <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                                </div> -->
-                            </div>
-                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="row">
-                     <div class="col-md-2 col-sm-2 col-xs-2">
+                    	<div class="col-md-3 col-sm-3 col-xs-3">
                     </div>
-                        <div class="col-md-8 col-sm-8 col-xs-8">
+                    	<div class="col-md-6 col-sm-6 col-xs-6" align="center">
+                    		<h1 style="color:#fff;"><i>YOU'VE FOUND NEW MONEY</i></h1>
+      						<h4 style="color:#fff;">Nice going, Enter your unique code to redeem.</h4>
+                    	</div>
+                    	<div class="col-md-4 col-sm-4 col-xs-4" >
+                    </div>
+                    </div>
+                    <div class="row">
+                     <div class="col-md-3 col-sm-3 col-xs-3">
+                    </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
                             <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Redeem your coupon.</h2>
-                                   
-                                    <div class="clearfix"></div>
-                                </div>
+                                
                                 <div class="x_content">
                                     <br />
                                     <form name="couponValidForm" id="couponValidForm"  action="" data-parsley-validate class="form-horizontal form-label-left" method="post">
@@ -143,7 +139,6 @@
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                <button type="reset" class="btn btn-primary hvr-grow">Reset</button>
                                                 <button type="button" id="redeem_button" class="btn btn-success hvr-grow">Redeem</button>
                                             </div>											
                                         </div>
@@ -283,7 +278,7 @@
 						url:'/validateCoupon.json',
 						data:coupon,
 						success:function(data) {
-							alert(JSON.stringify(data));
+							
 							var action = data.action;
 							//alert(action);
 							if(action=='valid') {

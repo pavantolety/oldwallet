@@ -168,13 +168,13 @@
                         <div class="col-md-8 col-sm-8 col-xs-8">
                             <div class="x_panel">
                                 <!-- page content -->								
-									<div class="col-middle">
+									<!-- <div class="col-middle">
 										<div class="text-center">
 											<h3>You have successfully redeemed your coupon amount to your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.!</h3>
 																					
 										</div>
-									</div>
-									<div class="text-center">
+									</div> -->
+									<!-- <div class="text-center">
 												<form>
 													<div class="col-xs-12 form-group top_search">
 														<div class="form-group">
@@ -186,7 +186,22 @@
 														</div>
 													</div>
 												</form>
-											</div>
+											</div> -->
+								 <div class="col-md-2 col-sm-2 col-xs-2"></div>
+			                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
+			                      <h1 ><i>DONE AND DONE</i></h1>
+			       <p><h4>Getting New Money was easy. Now the hard part? Deciding where to spend it. So feel free to ask your friends by sharing the news. We're sure they'll have some ideas.</h4></p>
+			       </br></br>
+			       <div class="form-group">
+															<h5>Get money for sharing this on your social media </h5><br>									
+															<a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>																													
+															&nbsp;&nbsp;
+															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>											   
+															
+														</div>
+			                     </div>
+			                   
+			                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
 								</div>
 								
 								<!-- /page content -->

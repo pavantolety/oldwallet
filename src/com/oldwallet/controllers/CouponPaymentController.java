@@ -224,7 +224,7 @@ public class CouponPaymentController {
 				List<String> scopelist = new ArrayList<String>();
 				scopelist.add("openid");
 				scopelist.add("email");
-				String redirectURI = "http://localhost:9090/redeemed";
+				String redirectURI = SystemParams.PAYPAL_LIVE_REDIRECT;
 
 				ClientCredentials clientCredentials = new ClientCredentials();
 				clientCredentials.setClientID("ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7");

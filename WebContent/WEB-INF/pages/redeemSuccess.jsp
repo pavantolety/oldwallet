@@ -1,7 +1,5 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,7 +63,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                                     
-                                     <li>
+									 <li>
                                         <a href="metrics.html">Graphs</a>
                                     </li>
                                 </ul> -->
@@ -169,29 +167,44 @@
                     </div>
                         <div class="col-md-8 col-sm-8 col-xs-8">
                             <div class="x_panel">
-                                <!-- page content -->                               
-                                    <div class="col-middle">
-                                        <div class="text-center">
-                                            <h3>You have successfully redeemed your coupon amount to your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.!</h3>
-                                                                                    
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                                <form>
-                                                    <div class="col-xs-12 form-group top_search">
-                                                        <div class="form-group">
-                                                            <h5>Get money for sharing this on your social media </h5><br>                                   
-                                                            <a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>                                                                                                                   
-                                                            &nbsp;&nbsp;
-                                                            <span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>                                               
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                </div>
-                                
-                                <!-- /page content -->
+                                <!-- page content -->								
+									<!-- <div class="col-middle">
+										<div class="text-center">
+											<h3>You have successfully redeemed your coupon amount to your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.!</h3>
+																					
+										</div>
+									</div> -->
+									<!-- <div class="text-center">
+												<form>
+													<div class="col-xs-12 form-group top_search">
+														<div class="form-group">
+															<h5>Get money for sharing this on your social media </h5><br>									
+															<a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>																													
+															&nbsp;&nbsp;
+															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>											   
+															
+														</div>
+													</div>
+												</form>
+											</div> -->
+								 <div class="col-md-2 col-sm-2 col-xs-2"></div>
+			                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
+			                      <h1 style="color:#fff;"><i>DONE AND DONE</i></h1>
+			       <p><h4 style="color:#fff;">Getting New Money was easy. Now the hard part? Deciding where to spend it. So feel free to ask your friends by sharing the news. We're sure they'll have some ideas.</h4></p>
+			       </br></br>
+			       <div class="form-group">
+															<h5>Get money for sharing this on your social media </h5><br>									
+															<a class="fb-share-button" data-href="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-layout="button"></a>																													
+															&nbsp;&nbsp;
+															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>											   
+															
+														</div>
+			                     </div>
+			                   
+			                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
+								</div>
+								
+								<!-- /page content -->
                             </div>
                         </div>
                     </div>
@@ -234,55 +247,55 @@
         <!-- Autocomplete -->
         <script type="text/javascript" src="js/autocomplete/countries.js"></script>
         <script src="js/autocomplete/jquery.autocomplete.js"></script>
-        <script src="https://www.paypalobjects.com/js/external/api.js"></script>
+		<script src="https://www.paypalobjects.com/js/external/api.js"></script>
        
         <script src="js/custom.js"></script>
-         <script>                   
-            $(document).ready(function() {
-            $.ajaxSetup({ cache: true });
-              $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
-                FB.init({
-                  appId: '{530726687101469}',
-                  version: 'v2.5' // or v2.0, v2.1, v2.2, v2.3
-                });     
-                $('#loginbutton,#feedbutton').removeAttr('disabled');
-                FB.getLoginStatus(updateStatusCallback);
-              });
-            }); 
-        </script>
-        <script>
-        (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=530726687101469";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-        </script>
-        <script>
-        (function(d,s,id){
-        var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-            if(!d.getElementById(id)){js=d.createElement(s);
-        js.id=id;
-        js.src=p+'://platform.twitter.com/widgets.js';
-        fjs.parentNode.insertBefore(js,fjs);
-        }
-        }
-        (document, 'script', 'twitter-wjs'))
-        ;
-        </script>
-        <script>
-        paypal.use( ["login"], function(login) {
-          login.render ({
-            "appid": "AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO_-MCI4DQQ4-LWvkDLIN2fGsd",
-            "authend": "sandbox",
-            "scopes": "profile email address phone https://uri.paypal.com/services/paypalattributes",
-            "containerid": "myContainer",
-            "locale": "en-us",
-            "returnurl": "https://devtools-paypal.com"
-          });
-        });
-        </script>
+		 <script>					
+			$(document).ready(function() {
+			$.ajaxSetup({ cache: true });
+			  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+				FB.init({
+				  appId: '{530726687101469}',
+				  version: 'v2.5' // or v2.0, v2.1, v2.2, v2.3
+				});     
+				$('#loginbutton,#feedbutton').removeAttr('disabled');
+				FB.getLoginStatus(updateStatusCallback);
+			  });
+			}); 
+		</script>
+		<script>
+		(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=530726687101469";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		</script>
+		<script>
+		(function(d,s,id){
+		var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+			if(!d.getElementById(id)){js=d.createElement(s);
+		js.id=id;
+		js.src=p+'://platform.twitter.com/widgets.js';
+		fjs.parentNode.insertBefore(js,fjs);
+		}
+		}
+		(document, 'script', 'twitter-wjs'))
+		;
+		</script>
+		<script>
+		paypal.use( ["login"], function(login) {
+		  login.render ({
+			"appid": "AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO_-MCI4DQQ4-LWvkDLIN2fGsd",
+			"authend": "sandbox",
+			"scopes": "profile email address phone https://uri.paypal.com/services/paypalattributes",
+			"containerid": "myContainer",
+			"locale": "en-us",
+			"returnurl": "https://devtools-paypal.com"
+		  });
+		});
+		</script>
 
         <!-- select2 -->
        

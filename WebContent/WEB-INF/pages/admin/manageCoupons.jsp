@@ -191,12 +191,12 @@
                                             <tr class="headings">
                                                 <th>COUPON CODE </th>
 
-                                               <!--  <th>COUPON VALUE</th> -->
+                                                <th>COUPON VALUE</th>
                                                 <!-- <th>START DATE </th>
-=======
+
                                                 <!--<th>COUPON VALUE</th>
                                                  <th>START DATE </th>
->>>>>>> d18e49b6f840df7adbfae663de71c5543e1ad1ff
+
                                                 <th>END DATE</th> -->
                                                 <th>STATUS</th>
                                                 <th>AVAILABLE REDEMPTIONS</th>
@@ -211,7 +211,7 @@
                                             <tr class="even pointer">
                                                 <td class=" "><c:out value="${couponList.couponCode}" /></td>
 
-                                               <%--  <td class=" "><c:out value="${couponList.couponValue}" /></td> --%>
+                                              <td class=" "><c:out value="${couponList.couponValue}" /></td>
                                                <%-- <td class=" "><c:out value="${couponList.validFrom}" /></td>
 
                                                 <%--<td class=" "><c:out value="${couponList.couponValue}" /></td>
