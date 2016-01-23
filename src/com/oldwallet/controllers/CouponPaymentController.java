@@ -298,11 +298,11 @@ public class CouponPaymentController {
 			    UserSession userSession = (UserSession) session.getAttribute("userSession");
 				LOGGER.info("userSession :: "+userSession);
 				LOGGER.info("COUPON CODE FROM SESSION :: "+userSession.getCouponCode());
-				/*if(userSession != null) {*/
+				if(userSession != null) {
 					LOGGER.info("UserSession is not null ::");
 					Coupon validCoupon = couponDAO.getEncBlockedCouponByCode(userSession.getCouponCode());
 					LOGGER.info("validCoupon ::"+validCoupon);
-					if(validCoupon!= null) { //TODO Has to check this -- this is just a tweak for the demo. 
+					if(validCoupon!= null) { 
 						LOGGER.info("validCoupon is not null ::");
 						Map<String, String> configurationMap = new HashMap<String, String>();
 						configurationMap.put("mode", "sandbox");
@@ -311,98 +311,13 @@ public class CouponPaymentController {
 						apiContext.setConfigurationMap(configurationMap);
 
 						CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
-						param.setClientID(SystemParams.PAYPAL_LIVE_ID);
-						param.setClientSecret(SystemParams.PAYPAL_LIVE_SECRET);
+						param.setClientID(SystemParams.PAYPAL_LOCAL_ID);
+						param.setClientSecret(SystemParams.PAYPAL_LOCAL_SECRET);
 						param.setCode(paypalResponse.getCode());
 						LOGGER.info("CODE ::: "+paypalResponse.getCode());
-						
-						/* TEST CODE FOR SENDING MASS PAY*/
-						MassPayReq req = new MassPayReq();
-						LOGGER.info("GOING TO MASS PAY ::");
-						List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
-
-						BasicAmountType amount = new BasicAmountType(CurrencyCodeType.fromValue("USD"),userSession.getAmount());
-						
-						MassPayRequestItemType item = new MassPayRequestItemType(amount);
-						MassPayRequestItemType item2 = new MassPayRequestItemType(amount);
-						MassPayRequestItemType item3 = new MassPayRequestItemType(amount);
-						MassPayRequestItemType item4 = new MassPayRequestItemType(amount);
-
-						item.setReceiverEmail("syam@edvenswa.com");
-						item2.setReceiverEmail("lalithp@gmail.com");
-						item3.setReceiverEmail("malik@gmail.com");
-						item4.setReceiverEmail("kalyan@gmail.com");
-						
-						massPayItem.add(item);
-						massPayItem.add(item2);
-						massPayItem.add(item3);
-						massPayItem.add(item4);
-
-						MassPayRequestType reqType = new MassPayRequestType(massPayItem);
-						reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
-						req.setMassPayRequest(reqType);
-						LOGGER.info("GOING TO MASS PAY REQUEST::"+req);
-						PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
-						
-						MassPayResponseType resp = null;
-						try {
-							LOGGER.info("GOING TO MASS PAY RESPONSE ::");
-							resp = service.massPay(req);
-							
-							LOGGER.info("RESPONSE FROM MASSPAY :: "+resp);
-							if (resp != null) {
-								modelMap.addAttribute("lastReq",service.getLastRequest());
-								modelMap.addAttribute("lastResp",service.getLastResponse());
-								
-								if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
-									Map<Object, Object> map = new LinkedHashMap<Object, Object>();
-									map.put("Ack", resp.getAck());
-									modelMap.addAttribute("map", map);
-									LOGGER.debug("Response Success :: "+ resp.toString());
-									
-									returnURL = "/redeemSuccess";
-									
-						}
-					}
-							
-							
-						} catch (SSLConfigurationException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (InvalidCredentialException e2) {
-							// TODO Auto-generated catch block
-							e2.printStackTrace();
-						} catch (HttpErrorException e3) {
-							// TODO Auto-generated catch block
-							e3.printStackTrace();
-						} catch (InvalidResponseDataException e4) {
-							// TODO Auto-generated catch block
-							e4.printStackTrace();
-						} catch (ClientActionRequiredException e5) {
-							// TODO Auto-generated catch block
-							e5.printStackTrace();
-						} catch (MissingCredentialException e6) {
-							// TODO Auto-generated catch block
-							e6.printStackTrace();
-						} catch (OAuthException e7) {
-							// TODO Auto-generated catch block
-							e7.printStackTrace();
-						} catch (IOException e11) {
-							// TODO Auto-generated catch block
-							e11.printStackTrace();
-						} catch (InterruptedException e8) {
-							// TODO Auto-generated catch block
-							e8.printStackTrace();
-						} catch (ParserConfigurationException e9) {
-							// TODO Auto-generated catch block
-							e9.printStackTrace();
-						} catch (SAXException e10) {
-							// TODO Auto-generated catch block
-							e10.printStackTrace();
-						}
-
 						Tokeninfo info = null;
 						try {
+							LOGGER.info("GOING TO GET ACCESS TOKEN FROM PAYPAL ::");
 							info = Tokeninfo.createFromAuthorizationCode(apiContext, param);
 							LOGGER.info("Going to authentication ::");
 							if(info != null) {
@@ -419,225 +334,22 @@ public class CouponPaymentController {
 								LOGGER.info("EMAIL ADDRESS :: "+emailAddress);
 								}
 						} catch (PayPalRESTException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
-							/*MassPayReq req = new MassPayReq();
-							LOGGER.info("GOING TO MASS PAY ::");
-							List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
-
-							BasicAmountType amount = new BasicAmountType(CurrencyCodeType.fromValue("USD"),userSession.getAmount());
-							
-							MassPayRequestItemType item = new MassPayRequestItemType(amount);
-							MassPayRequestItemType item2 = new MassPayRequestItemType(amount);
-							MassPayRequestItemType item3 = new MassPayRequestItemType(amount);
-							MassPayRequestItemType item4 = new MassPayRequestItemType(amount);
-
-							item.setReceiverEmail("syam@edvenswa.com");
-							item2.setReceiverEmail("lalithp@gmail.com");
-							item3.setReceiverEmail("malik@gmail.com");
-							item4.setReceiverEmail("kalyan@gmail.com");
-							
-							massPayItem.add(item);
-							massPayItem.add(item2);
-							massPayItem.add(item3);
-							massPayItem.add(item4);
-
-							MassPayRequestType reqType = new MassPayRequestType(massPayItem);
-							reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
-							req.setMassPayRequest(reqType);
-							LOGGER.info("GOING TO MASS PAY REQUEST::"+req);
-							PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
-							
-							MassPayResponseType resp = null;
-							try {
-								LOGGER.info("GOING TO MASS PAY RESPONSE ::");
-								resp = service.massPay(req); 
-								
-								LOGGER.info("RESPONSE FROM MASSPAY :: "+resp);
-								if (resp != null) {
-									modelMap.addAttribute("lastReq",service.getLastRequest());
-									modelMap.addAttribute("lastResp",service.getLastResponse());
-									
-									if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
-										Map<Object, Object> map = new LinkedHashMap<Object, Object>();
-										map.put("Ack", resp.getAck());
-										modelMap.addAttribute("map", map);
-										LOGGER.debug("Response Success :: "+ resp.toString());
-										
-										returnURL = "/redeemSuccess";
-										
-							}
-						}
-								
-								
-							} catch (SSLConfigurationException e1) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (InvalidCredentialException e2) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (HttpErrorException e3) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (InvalidResponseDataException e4) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (ClientActionRequiredException e5) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (MissingCredentialException e6) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (OAuthException e7) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (IOException e11) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (InterruptedException e8) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (ParserConfigurationException e9) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (SAXException e10) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}*/
-							
-							couponDAO.updateCoupon(userSession.getCouponCode());
-							return "/redeemSuccess";
-						}	
+							LOGGER.info("EXCEPTION WHILE SSL CONNECT ::");
+						}						
 						
-						/*MassPayReq req = new MassPayReq();
-
-						List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
-
-						BasicAmountType amount = new BasicAmountType(CurrencyCodeType.fromValue("USD"),userSession.getAmount());
-						
-						MassPayRequestItemType item = new MassPayRequestItemType(amount);
-						MassPayRequestItemType item2 = new MassPayRequestItemType(amount);
-						MassPayRequestItemType item3 = new MassPayRequestItemType(amount);
-						MassPayRequestItemType item4 = new MassPayRequestItemType(amount);
-
-						item.setReceiverEmail("syam@edvenswa.com");
-						item2.setReceiverEmail("lalithp@gmail.com");
-						item3.setReceiverEmail("malik@gmail.com");
-						item4.setReceiverEmail("kalyan@gmail.com");
-						
-						massPayItem.add(item);
-						massPayItem.add(item2);
-						massPayItem.add(item3);
-						massPayItem.add(item4);
-
-						MassPayRequestType reqType = new MassPayRequestType(massPayItem);*/
-						reqType.setReceiverType(ReceiverInfoCodeType.fromValue("EmailAddress"));
-						req.setMassPayRequest(reqType);
-						
-						//PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
-
-						String transactionCode = UUID.randomUUID().toString();
-						Transaction transaction = new Transaction();
-						
-						transaction.setCouponCode(userSession.getCouponCode());
-						transaction.setCouponId(validCoupon.getCouponId()+"");
-						transaction.setCouponValue(userSession.getAmount());
-						transaction.setEventId(validCoupon.getEventId()+"");
-						transaction.setTransactionCode(transactionCode);
-						transaction.setUserEmail(emailAddress);
-						
-						transactionDAO.initTransaction(transaction);
-						
-						//MassPayResponseType resp = null;
-						try {
-							resp = service.massPay(req);
-							
-						} catch (SSLConfigurationException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InvalidCredentialException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (HttpErrorException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InvalidResponseDataException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (ClientActionRequiredException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (MissingCredentialException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (OAuthException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (ParserConfigurationException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (SAXException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						LOGGER.info("RESPONSE FROM MASSPAY :: "+resp);
-						if (resp != null) {
-							modelMap.addAttribute("lastReq",service.getLastRequest());
-							modelMap.addAttribute("lastResp",service.getLastResponse());
-							
-							if ("SUCCESS".equalsIgnoreCase(resp.getAck().toString())) {
-								Map<Object, Object> map = new LinkedHashMap<Object, Object>();
-								map.put("Ack", resp.getAck());
-								modelMap.addAttribute("map", map);
-								LOGGER.debug("Response Success :: "+ resp.toString());
-								Transaction transaction2 = transactionDAO.getTransactionDetailsById(transactionCode);
-								transaction2.setStatus("COMPLETE");
-								LOGGER.debug("email is "+ transaction2.getUserEmail());
-								returnURL = "/redeemSuccess";
-								Coupon coupon = couponDAO.getCouponByCode(transaction2.getCouponCode());
-								LOGGER.debug("TRANS COUPON CODE >>>>>>>>>>>>>>>>>>>>"+ transaction2.getCouponCode());
-								if (coupon != null) {
-									LOGGER.debug("email address >>>>>>>>>>>>>>>>>>"+ coupon.getRedeemedBy());
-									LOGGER.debug("email address size  >>>>>>>>>>>>>>>>>>"+ coupon.getRedeemedBy().length());
-									if (coupon.getRedeemedBy().isEmpty()) {
-										transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
-										transactionDAO.updateTransaction(transaction2);
-										String redeemKey = AuthenticationUtils.generateTokenForAuthentication();
-										LOGGER.debug("email >?????????????????????"+ transaction2.getUserEmail());
-										coupon.setRedeemedBy(transaction2.getUserEmail());
-										coupon.setCouponCode(transaction2.getCouponCode());
-										coupon.setRedeemKey(redeemKey);
-										boolean isCreated = transactionDAO.createRedeemKey(coupon);
-										if (isCreated) {
-											modelMap.put("redeemKey", redeemKey);
-										}
-										modelMap.put("refferedUser", "false");
-									} else {
-										transaction2.setCompletedRedemptions(coupon.getCompletedRedemptions());
-										transactionDAO.updateRedeemedTrasaction(transaction2);
-										modelMap.put("refferedUser", "true");
-									}
-								}
-					}
-				}
+					
 					} else {
 					    couponDAO.updateCoupon(userSession.getCouponCode());
 						return "/redeemSuccess";
-					}
-			} catch (Exception e) {
-			    System.out.println(e);
-			}
-		  
+					}			
 		
-		/*}*/
-		return returnURL;
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return returnURL;
 	}
-			
 
 }
