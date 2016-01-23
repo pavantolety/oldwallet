@@ -492,8 +492,8 @@
 		    	typeBLength : $("#typeBLength").val(),
 		    	typeC : $("#typeC").val(),
 		    	typeCLength : $("#typeCLength").val(),
-		    	startDate:$("#startDate").val(),
-		    	endDate:$("#endDate").val(),
+		    	validFrom:$("#validFrom").val(),
+		    	validTo:$("#validTo").val(),
     	};
     	//alert(JSON.stringify(couponData));
     	$.ajax({
