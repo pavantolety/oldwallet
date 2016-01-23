@@ -23,17 +23,32 @@
 
     <!-- Custom styling plus plugins -->
     <link href="css/custom.css" rel="stylesheet">
-    <link href="css/icheck/flat/green.css" rel="stylesheet">
-    <!-- ion_range -->
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/ion.rangeSlider.css" />
-    <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
-
-    <!-- colorpicker -->
-    <link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.1.css" />
+    <link href="css/icheck/flat/green.css" rel="stylesheet" />
+    <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link href="css/TableTools.css" rel="stylesheet" type="text/css" />
+   	<link href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" /> 
+   	<link href="css/datatables/tools/css/dataTables.tableTools.css" rel="stylesheet">
+   		<link href="css/jquery.datetimepicker.css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
-
+    <script src="js/nprogress.js"></script>
+  	<script type="text/javascript" charset="utf-8" src="ZeroClipboard/ZeroClipboard.js"></script>
+  	<script type="text/javascript" charset="utf-8" src="js/TableTools.js"></script>  
+      <script src="js/bootstrap.min.js"></script>
+        <script src="js/custom.js"></script>
+    <!-- gauge js -->
+    <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
+    <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>
+    <!-- chart js -->
+    <script src="js/chartjs/chart.min.js"></script>
+    <!-- bootstrap progress js -->
+    <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
+    <!-- icheck -->
+    <script src="js/icheck/icheck.min.js"></script>
+    <!-- daterangepicker -->
+    <script type="text/javascript" src="js/moment.min2.js"></script>
+    <script type="text/javascript" src="js/datepicker/jquery.datetimepicker.js"></script>
     <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -178,14 +193,14 @@
 			                                     		<label>Choose coupon Start date:</label>
 		                                            	<div class="input-prepend input-group">
                                                             <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                                            <input type="text" value="" id="datetimepicker1"  name = "startDate" required="required" class="form-control col-md-7 col-xs-12" readonly/>
+                                                            <input type="text" value="" id="datetimepicker1"  name = "validFrom" required="required" class="form-control" />
                                                         </div>
 		                                            </div>
 		                                            <div class="col-md-4 col-sm-4 col-xs-12">
 			                                     		<label>Choose Coupon End date:</label>
 		                                            	<div class="input-prepend input-group">
                                                             <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                                            <input type="text" value="" id="datetimepicker2"  name = "endDate" required="required" class="form-control col-md-7 col-xs-12" readonly/>
+                                                            <input type="text" value="" id="datetimepicker2"  name = "validTo" required="required" class="form-control" />
                                                         </div>
 		                                            </div>
 		                                            
