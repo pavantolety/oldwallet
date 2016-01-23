@@ -15,18 +15,15 @@ public final class AuthenticationHelper {
 		AdminSession adminSession = new AdminSession();
 		adminSession.setId(adminLogin.getId());
 		adminSession.setEmailAddress(adminLogin.getEmailAddress());
-
 		return adminSession;
 	}
 	
 	public static UserSession populateUserSession(UserLogin userLogin) {
-		UserSession userSession = new UserSession();
-		
+		UserSession userSession = new UserSession();		
 		userSession.setId(userLogin.getId());
 		userSession.setEmailAddress(userLogin.getEmailAddress());
 		userSession.setCouponCode(userLogin.getCouponCode());
 		userSession.setAmount(userLogin.getAmount());
-
 		return userSession;
 	}
 
