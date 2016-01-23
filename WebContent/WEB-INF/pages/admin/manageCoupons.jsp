@@ -263,14 +263,14 @@
                         		formatTime:'H:i',
                         		formatDate:'m.d.Y',
                         		defaultTime:'10:00',
-                        		format:'d-m-Y H:i:s',
+                        		format:'m-d-Y H:i:s',
                         		timepickerScrollbar:false
                         	});
                         	$('#datetimepicker2').datetimepicker({
                         		formatTime:'H:i',
                         		formatDate:'m.d.Y',
                         		defaultTime:'10:00',
-                        		format:'d-m-Y H:i:s',
+                        		format:'m-d-Y H:i:s',
                         		timepickerScrollbar:false
                         	});
 
@@ -332,12 +332,16 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Start Date <span class="required">*</span>
                                             </label>
-                                            <input type="text" value="" id="datetimepicker1"  name = "validFrom" required="required" class="form-control col-md-7 col-xs-12" readonly/>            
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            	<input type="text" value="" id="datetimepicker1"  name = "validFrom" required="required" class="form-control col-md-7 col-xs-12" readonly/>
+                                            </div>             
                                         </div>
                                        <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">End Date <span class="required">*</span>
                                             </label>
-                                            <input type="text" value="" id="datetimepicker2" name="validTo" required="required" class="form-control col-md-7 col-xs-12" readonly />            
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            	<input type="text" value="" id="datetimepicker2" name="validTo" required="required" class="form-control col-md-7 col-xs-12" readonly />
+                                            </div>            
                                         </div>
                        
                                         <div class="form-group">
