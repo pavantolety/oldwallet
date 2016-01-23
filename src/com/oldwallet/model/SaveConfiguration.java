@@ -17,6 +17,28 @@ public class SaveConfiguration {
 	private String typeC;
 	
 	private int typeCLength;
+	
+	private String validFrom;
+	
+	private String validTo;
+	
+	
+
+	public String getValidFrom() {
+		return validFrom;
+	}
+
+	public void setValidFrom(String validFrom) {
+		this.validFrom = validFrom;
+	}
+
+	public String getValidTo() {
+		return validTo;
+	}
+
+	public void setValidTo(String validTo) {
+		this.validTo = validTo;
+	}
 
 	public long getCouponCount() {
 		return couponCount;

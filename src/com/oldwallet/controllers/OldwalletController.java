@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.FactoryUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.json.simple.JSONArray;
@@ -33,6 +34,7 @@ import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.model.AdminSession;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
+import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.MassPay;
 import com.oldwallet.util.ExceptionObjUtil;
 import com.oldwallet.util.paypal.Configuration;
@@ -162,9 +164,23 @@ public class OldwalletController {
 	public String fundsManagement(ModelMap modelMap) {
 		  
 		List<Coupon> coupon   = couponDAO.getCouponData();
-		
+	    FundAllocation fundAllocation = couponDAO.getFundAllocationData();
+	    
 		if(coupon.size()>0){
 			modelMap.put("totalCount",coupon.size());
+			if(fundAllocation!=null){
+				System.out.println("alocal1"+fundAllocation.getTotalCouponValue());
+				System.out.println("alocal2"+fundAllocation.getTotalFund());
+				if(fundAllocation.getTotalCouponValue()!=0){
+					modelMap.put("totalValue", fundAllocation.getTotalCouponValue());
+					modelMap.put("totalFund", fundAllocation.getTotalFund());
+					modelMap.put("remaining", (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue()));
+				}else {
+					modelMap.put("totalValue", fundAllocation.getTotalCouponValue());
+					modelMap.put("totalFund", fundAllocation.getTotalFund());
+					modelMap.put("remaining", (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue()));
+				}
+			}
 		}else{
 			modelMap.put("totalCount",0);
 		}

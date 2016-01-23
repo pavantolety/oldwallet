@@ -213,7 +213,9 @@
 		                        <!-- /form input knob -->
 		                    </div>
 		                    <div class="row">
+		                     <div id="toastMessage"></div>
 	                        <div class="col-md-4 col-xs-12">
+	                       
 	                            <div class="x_panel">
 	                                <div class="x_title">
 	                                    <h2>Part 1</h2>
@@ -297,6 +299,7 @@
 	                                    <h2>Part 3</h2>
 	                                    <div class="clearfix"></div>
 	                                </div>
+	                                 
 	                                <div class="x_content">
 	                                    
 	                                    <form class="form-horizontal form-label-left input_mask">
@@ -338,7 +341,7 @@
                              </div>
                          </div>
 		               </div>
-		               <div id="toastMessage"></div>
+		              
 	               </div>
 	           </div>
 	        </div>
@@ -492,8 +495,8 @@
 		    	typeBLength : $("#typeBLength").val(),
 		    	typeC : $("#typeC").val(),
 		    	typeCLength : $("#typeCLength").val(),
-		    	validFrom:$("#validFrom").val(),
-		    	validTo:$("#validTo").val(),
+		    	validFrom:$("#datetimepicker1").val(),
+		    	validTo:$("#datetimepicker2").val(),
     	};
     	//alert(JSON.stringify(couponData));
     	$.ajax({

@@ -34,6 +34,7 @@ import com.oldwallet.model.GoogleResponse;
 import com.oldwallet.model.LatLong;
 import com.oldwallet.model.Result;
 import com.oldwallet.model.Transaction;
+import com.oldwallet.util.EncryptCouponUtil;
 import com.oldwallet.util.ExceptionObjUtil;
 import com.opencsv.CSVReader;
 
@@ -79,7 +80,7 @@ public class CSVBulkUploadController {
 						if (nextLine.length > 0) {
 							CouponData couponData1 = new CouponData();
 							try {
-								couponData1.setCouponCode(nextLine[0]);
+								couponData1.setCouponCode(EncryptCouponUtil.enccd(nextLine[0].toUpperCase()));
 								couponData1.setCouponValue(nextLine[1]);
 								couponData1.setCountryCode(nextLine[2]);
 								couponData1.setCouponHideLocation(nextLine[3]);

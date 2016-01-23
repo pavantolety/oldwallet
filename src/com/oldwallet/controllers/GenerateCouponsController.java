@@ -1,5 +1,7 @@
 package com.oldwallet.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,12 +49,28 @@ public class GenerateCouponsController {
 			Iterator<String> itr =  coupons.iterator();
 			while(itr.hasNext()){
 				Coupon c =  new Coupon();
+				SimpleDateFormat format1 = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				try {
+					c.setValidFrom(format2.format(format1.parse(saveConfiguration.getValidFrom())));
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					c.setValidTo(format2.format(format1.parse(saveConfiguration.getValidTo())));
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				String securedEncryptCouponCode;
 				try {
 					securedEncryptCouponCode = EncryptCouponUtil.enccd(itr.next().toUpperCase());
+					
 					c.setCouponCode(securedEncryptCouponCode);
 				} catch (Exception e) {
 					LOGGER.log(Priority.ERROR, e);
+					e.printStackTrace();
 					ExceptionObjUtil.saveException("Exception", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
 				} 
 				
@@ -71,6 +89,7 @@ public class GenerateCouponsController {
 	
 	@RequestMapping(value="/addFundAllocation", method = RequestMethod.POST)
 	public String saveFundForCoupon(ModelMap modelMap,@ModelAttribute("fundAllocationForm") FundAllocationForm fundAllocationForm){
+		boolean isCreated =  false;
 		if(fundAllocationForm!=null){
 			List<FundAllocation> fundAllocation = fundAllocationForm.getFundAllocation();
 			
@@ -79,8 +98,16 @@ public class GenerateCouponsController {
 					System.out.println("1"+fundAllocationData.getCategoryCode());
 					System.out.println("2"+fundAllocationData.getCouponValue());
 					if(fundAllocationData !=null){
-					couponDAO.createFundAllocation(fundAllocationData);
+					isCreated = couponDAO.createFundAllocation(fundAllocationData);
+					
 					}
+				}
+				if(isCreated){
+					modelMap.put(RESULT, "success");
+					modelMap.put(MESSAGE, "Successfully Created");
+				}else{
+					modelMap.put(RESULT, "failure");
+					modelMap.put(MESSAGE, "Successfully Created");
 				}
 			}
 		}

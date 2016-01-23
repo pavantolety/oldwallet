@@ -59,7 +59,7 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	private static final String RETRIEVE_COUPON = "retrieveCoupon";
 	
-	private static final String CREATE_GENERATED_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,REDEEM_STATUS) VALUES (?,?)";
+	private static final String CREATE_GENERATED_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,REDEEM_STATUS,VALID_FROM,VALID_TO) VALUES (?,?,?,?)";
 	
 	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' , DATE_BLOCKED = NOW() WHERE COUPON_CODE=?";
     
@@ -70,6 +70,8 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String GET_FUND_ALLOCATION_BY_ID = "SELECT * FROM FUND_ALLOCATION WHERE FUND_ID = ?";
 	
 	public static final String UPDATE_FUND_ALLOCATION_BY_ID = "UPDATE FUND_ALLOCATION SET AVAILABLE_COUNT = ? WHERE FUND_ID = ?";
+	
+	public static final String GET_REMAINING_TOTAL_VALUE = "SELECT SUM((F.TOTAL_COUPON_COUNT)*(F.COUPON_VALUE)) AS TOTAL_FUND, (SELECT (SUM((F.TOTAL_COUPON_COUNT)*(F.COUPON_VALUE))-SUM(C.COUPON_VALUE)) FROM COUPONS C WHERE REDEEM_STATUS='REDEEMED') AS REMAINING  FROM FUND_ALLOCATION F";
 	
 	private JdbcTemplate jdbcTemplate;
 
@@ -357,7 +359,7 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean createGeneratedCouponData(Coupon coupon) {
 		boolean isCreated =  false;
-		int i =  jdbcTemplate.update(CREATE_GENERATED_COUPON_DATA,coupon.getCouponCode(),coupon.getRedeemStatus());
+		int i =  jdbcTemplate.update(CREATE_GENERATED_COUPON_DATA,coupon.getCouponCode(),coupon.getRedeemStatus(),coupon.getValidFrom(),coupon.getValidTo());
 		if(i>0){
 			isCreated = true;
 		}
@@ -432,6 +434,8 @@ public class CouponDAOImpl implements CouponDAO {
     	fa.setTotalCouponCount(DataRetievar.getStringValue("TOTAL_COUPON_COUNT", map));
     	fa.setRedeemedCount(DataRetievar.getStringValue("REDEEMED_COUNT", map));
     	fa.setAvailableCount(DataRetievar.getStringValue("AVAILABLE_COUNT", map));
+    	fa.setTotalCouponValue(DataRetievar.getDoubleValue("REMAINING", map));
+    	fa.setTotalFund(DataRetievar.getDoubleValue("TOTAL_FUND", map));
     	
     	return fa;
     }
@@ -445,6 +449,19 @@ public class CouponDAOImpl implements CouponDAO {
 			isUpdated = true;
 		}
 		return isUpdated;
+	}
+
+	@Override
+	public FundAllocation getFundAllocationData() {
+		List<FundAllocation> faList =  new ArrayList<FundAllocation>();
+		List<Map<String, Object>> mapList =  jdbcTemplate.queryForList(GET_REMAINING_TOTAL_VALUE);
+		if(mapList.size()>0){
+			for(Map<String,Object> map:mapList){
+				faList.add(retriveFundAllocation(map));
+			}
+			return faList.get(0);
+		}
+		return null;
 	}
 
 	

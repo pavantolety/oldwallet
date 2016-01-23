@@ -171,11 +171,21 @@
                                     </div>
 									<div class="col-md-2">
                                         <p>Coupon Value</p>
-                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-displayPrevious=true data-fgColor="#26B99A" value="0" readonly>
+                                     
+                                        <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 100px;"></canvas>
+                                        <div class="goal-wrapper">
+                                            <span class="gauge-value pull-left">$</span>
+                                            <input type="hidden" id ="t" value="${remaining}">
+                                             <input type="hidden" id ="r" value="${totalFund}">
+                                            <span id="gauge-text" class="gauge-value pull-left"><fmt:formatNumber value="${remaining}"  type="number"/></span>
+                                            <span id="goal-text" class="goal-value pull-right">$<fmt:formatNumber value="${totalFund}"  type="number"/></span>
+                                        </div>
+  									
                                     </div>
 								</div>
                                 <div class="x_content">
                                     <br />
+                                    <div id="messageD"></div>
                                     <form name="fundAllocationForm" id="fundAllocationForm" modelattribute="fundAllocationForm"  action="/addFundAllocation.json" method="POST">
 										 <table class="table table-bordered" id="fundTable">
                                         <thead>
@@ -229,12 +239,23 @@
     <!-- knob -->
     <script src="js/knob/jquery.knob.min.js"></script>
     <!-- knob -->
+      <!-- gauge js -->
+    <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
+    <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>
     <script>
     function submitFund(){
     	  $('#fundAllocationForm').ajaxSubmit({
    	       success : function(data)
    	        {
-   	    	   
+   	    	   if(data.result =="success"){
+   	    		 $('<div class="alert alert-success"><strong>'+data.message+'</strong></div>').appendTo("#messageD");
+              	
+    	         $(".alert").delay(200).addClass("in").fadeOut(3000);
+   	    	   }else{
+   	    		$('<div class="alert alert-success"><strong>'+data.message+'</strong></div>').appendTo("#messageD");
+              	
+   	            $(".alert").delay(200).addClass("in").fadeOut(3000);
+   	    	   }
    	        }
     	  });
     }

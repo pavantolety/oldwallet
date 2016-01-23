@@ -49,4 +49,6 @@ public interface CouponDAO {
 	
 	public boolean blockCouponCode(Coupon coupon);
 
+	public FundAllocation getFundAllocationData();
+
 }

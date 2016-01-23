@@ -285,7 +285,7 @@
                          
                         function saveCouponData(){
                         	var couponData = {
-                        			couponCode:$("#couponCode").val(),
+                        	couponCode:$("#couponCode").val(),
                         	availableRedemptions : $("#availableRedemptions").val(),
                         	couponValue : $("#couponValue").val(),
                         	redeemStatus: $("#redeemStatus").val(),
@@ -299,11 +299,13 @@
                     			data:couponData,
                     			success:function(data) {
                     			if(data.status =="success"){
-                    		   $('<div class="alert alert-success"><strong>Coupon Data Saved</strong></div>').appendTo("#toastMessage");
+                    		   		$('<div class="alert alert-success"><strong>Coupon Data Saved</strong></div>').appendTo("#toastMessage");
                          	
-                    	         $(".alert").delay(200).addClass("in").fadeOut(3000);
+                    	         	$(".alert").delay(200).addClass("in").fadeOut(3000);
                     			}else{
-                    				
+                    				 $('<div class="alert alert-success"><strong>Coupon Data Saved</strong></div>').appendTo("#toastMessage");
+                                  	
+                        	         $(".alert").delay(200).addClass("in").fadeOut(3000);
                     			}
                     			}
                     			});
