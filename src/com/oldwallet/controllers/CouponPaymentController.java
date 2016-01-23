@@ -338,13 +338,7 @@ public class CouponPaymentController {
 							e.printStackTrace();
 							LOGGER.info("EXCEPTION WHILE SSL CONNECT ::");
 						}						
-						
-					
-					} else {
-					    couponDAO.updateCoupon(userSession.getCouponCode());
-						return "/redeemSuccess";
-					}			
-		
+					} 			
 				}
 				
 			}catch(Exception e) {
