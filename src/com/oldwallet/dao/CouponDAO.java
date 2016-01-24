@@ -33,7 +33,7 @@ public interface CouponDAO {
 	
 	public boolean createGeneratedCouponData(Coupon coupon);
 
-	public List<Coupon> getCouponData();
+	public FundAllocation getFundData();
 
 	public UserToken getRedeemKey(String redeemKey);
 
@@ -50,5 +50,11 @@ public interface CouponDAO {
 	public boolean blockCouponCode(Coupon coupon);
 
 	public FundAllocation getFundAllocationData();
+
+	public FundAllocation getFundAllocationDataByCode(String categoryCode);
+
+	public boolean updateFundAllocationData(FundAllocation fundAllocationData);
+
+	List<Coupon> getCouponData();
 
 }
