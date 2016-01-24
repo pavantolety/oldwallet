@@ -44,7 +44,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/oldwalletdb?autoReconnect=true"/>
         <property name="username" value="root"/>
-        <property name="password" value="welcome"/>
+        <property name="password" value="password"/>
     </bean> 
 	
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl"/>
