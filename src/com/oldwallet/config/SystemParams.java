@@ -6,14 +6,13 @@ public interface SystemParams {
 	
 	//public static final String BASEURL = "https://ec2-52-89-91-255.us-west-2.compute.amazonaws.com/";
 
-<<<<<<< HEAD
+
 	//public static final String BASEURL = "http://localhost:8085/";
     public static final String ADMIN_EMAIL="oldwallet@ratemyfortune.com";
     public static final String ADMIN_PASSWORD= "@Oldwallet8";
-=======
+
 	public static final String BASEURL = "http://localhost:9090/";
 
->>>>>>> 9e0394cfe60e7e229e7000cfe40def68c169c9c5
 	public static final String TWILIO_ACCOUNT_ID = "ACb2e73fe6a36429265bbd587a74ae9bb7";
 	public static final String TWILIO_AUTH_TOKEN = "5ee6ef76aeae2121ee06a3d6a90a330e";
 	public static final String TWILIO_SMS_NUMBER = "855-851-3299";
