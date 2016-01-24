@@ -13,11 +13,13 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import com.oldwallet.config.SystemParams;
+import com.oldwallet.dao.ExceptionObjDAO;
 
 public class EncryptCouponUtil {
 	
@@ -30,6 +32,10 @@ public class EncryptCouponUtil {
 	private static final String METHOD_NAME2 = "deccd";
 	
 	private static final String METHOD_NAME3 = "checkcd";
+	
+	@Autowired
+	static
+	ExceptionObjDAO exceptionDAO;
 
 	private EncryptCouponUtil() {
 
@@ -47,21 +53,21 @@ public class EncryptCouponUtil {
 			encrypted = cipher.doFinal(couponCode.getBytes());
 		} catch (NoSuchAlgorithmException  e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("NoSuchAlgorithmException", e.getMessage(), FILE_NAME, METHOD_NAME1);
+			exceptionDAO.saveException("NoSuchAlgorithmException", e.getMessage(), FILE_NAME, METHOD_NAME1);
 		}catch (NoSuchPaddingException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("NoSuchPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME1);
+			exceptionDAO.saveException("NoSuchPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME1);
 		}
 		// encrypt the text
 		catch (InvalidKeyException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("InvalidKeyException", e.getMessage(), FILE_NAME, METHOD_NAME1);
+			exceptionDAO.saveException("InvalidKeyException", e.getMessage(), FILE_NAME, METHOD_NAME1);
 		} catch (IllegalBlockSizeException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("IllegalBlockSizeException", e.getMessage(), FILE_NAME, METHOD_NAME1);
+			exceptionDAO.saveException("IllegalBlockSizeException", e.getMessage(), FILE_NAME, METHOD_NAME1);
 		} catch (BadPaddingException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("BadPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME1);
+			exceptionDAO.saveException("BadPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME1);
 		}
 
 		return new BASE64Encoder().encode(encrypted);
@@ -82,22 +88,22 @@ public class EncryptCouponUtil {
 			decorded = cipher.doFinal(decordedValue);
 		} catch (NoSuchAlgorithmException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("NoSuchAlgorithmException", e.getMessage(), FILE_NAME, METHOD_NAME2);
+			exceptionDAO.saveException("NoSuchAlgorithmException", e.getMessage(), FILE_NAME, METHOD_NAME2);
 		} catch (NoSuchPaddingException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("NoSuchPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME2);
+			exceptionDAO.saveException("NoSuchPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME2);
 		} catch (InvalidKeyException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("InvalidKeyException", e.getMessage(), FILE_NAME, METHOD_NAME2);
+			exceptionDAO.saveException("InvalidKeyException", e.getMessage(), FILE_NAME, METHOD_NAME2);
 		} catch (IOException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("IOException", e.getMessage(), FILE_NAME, METHOD_NAME2);
+			exceptionDAO.saveException("IOException", e.getMessage(), FILE_NAME, METHOD_NAME2);
 		} catch (IllegalBlockSizeException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("IllegalBlockSizeException", e.getMessage(), FILE_NAME, METHOD_NAME2);
+			exceptionDAO.saveException("IllegalBlockSizeException", e.getMessage(), FILE_NAME, METHOD_NAME2);
 		} catch (BadPaddingException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("BadPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME2);
+			exceptionDAO.saveException("BadPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME2);
 		}
 
 		return new String(decorded);
@@ -120,22 +126,22 @@ public class EncryptCouponUtil {
 			}
 		} catch (NoSuchAlgorithmException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("NoSuchAlgorithmException", e.getMessage(), FILE_NAME, METHOD_NAME3);
+			exceptionDAO.saveException("NoSuchAlgorithmException", e.getMessage(), FILE_NAME, METHOD_NAME3);
 		} catch (NoSuchPaddingException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("NoSuchPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME3);
+			exceptionDAO.saveException("NoSuchPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME3);
 		} catch (InvalidKeyException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("InvalidKeyException", e.getMessage(), FILE_NAME, METHOD_NAME3);
+			exceptionDAO.saveException("InvalidKeyException", e.getMessage(), FILE_NAME, METHOD_NAME3);
 		} catch (IOException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("IOException", e.getMessage(), FILE_NAME, METHOD_NAME3);
+			exceptionDAO.saveException("IOException", e.getMessage(), FILE_NAME, METHOD_NAME3);
 		} catch (IllegalBlockSizeException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("IllegalBlockSizeException", e.getMessage(), FILE_NAME, METHOD_NAME3);
+			exceptionDAO.saveException("IllegalBlockSizeException", e.getMessage(), FILE_NAME, METHOD_NAME3);
 		} catch (BadPaddingException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("BadPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME3);
+			exceptionDAO.saveException("BadPaddingException", e.getMessage(), FILE_NAME, METHOD_NAME3);
 		}
 
 		return isDecoded;
