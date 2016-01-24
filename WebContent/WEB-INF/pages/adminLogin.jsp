@@ -117,8 +117,8 @@
                             message: 'Password is required and cannot be empty'
                         },
                   regexp:{
-                    	regexp: /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,15}$/,
-                    	message:'Password must contain atleast one number and one letter and must be minimum 8 characters and maximum 15 characters'
+                    	regexp: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/,
+                    	message:'Password must contain atleast one special character,one number and one letter and must be minimum 8 characters and maximum 15 characters'
                     }
                   }     
                 }               

@@ -2,6 +2,7 @@ package com.oldwallet.controllers;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,13 +19,22 @@ import com.oldwallet.model.UserSession;
 
 @Controller
 public class AuthenticationController {
-
+	private static final Logger LOGGER = Logger.getLogger(AuthenticationController.class);
 	@Autowired
 	AdminLoginDAO adminLoginDAO;
 	
 	@Autowired
 	UserLoginDAO userLoginDAO;
 
+	
+	
+	@RequestMapping(value="/createAdmin")
+	public void createAdmin(){
+		boolean isCreated = userLoginDAO.createAdminUser();
+		
+		LOGGER.info("Amdin>>>>>>>>>"+isCreated);
+	}
+	
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
 	public String adminLogin() {
 		return PageView.ADMINLOGIN;
@@ -43,7 +53,7 @@ public class AuthenticationController {
 
 		String returnURI = PageView.ADMINLOGIN;
 
-		AdminLogin validAdmin = adminLoginDAO.getAdminByEmailAddress(adminLogin.getEmailAddress());
+		AdminLogin validAdmin = adminLoginDAO.getAdminByEmailAddress(adminLogin.getEmailAddress(),adminLogin.getPassword());
 		if (validAdmin != null) {
 			returnURI = PageView.ADMINHOME;
 			AdminSession adminSession = AuthenticationHelper.populateAdminSession(adminLogin);

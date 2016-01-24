@@ -11,13 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.oldwallet.config.SystemParams;
 import com.oldwallet.model.AdminLogin;
 import com.oldwallet.util.DataRetievar;
+import com.oldwallet.util.EncryptCouponUtil;
 
 @Repository
 public class AdminLoginDAOImpl implements AdminLoginDAO {
 
-	public static final String GET_ADMIN_DETAILS = "SELECT ID, EMAIL_ADDRESS, PASSWORD FROM ADMIN_LOGIN WHERE EMAIL_ADDRESS=?";
+	public static final String GET_ADMIN_DETAILS = "SELECT ID, EMAIL_ADDRESS FROM ADMIN_LOGIN WHERE EMAIL_ADDRESS=? AND PASSWORD=?";
 
 	private static final Logger LOGGER = Logger
 			.getLogger(AdminLoginDAOImpl.class);
@@ -30,11 +32,13 @@ public class AdminLoginDAOImpl implements AdminLoginDAO {
 	}
 
 	@Override
-	public AdminLogin getAdminByEmailAddress(String emailAddress) {
+	public AdminLogin getAdminByEmailAddress(String emailAddress,String password) {
 		LOGGER.debug("Beginning of getAdminByEmailAddress ::");
 		List<AdminLogin> adminDetailsList = new ArrayList<AdminLogin>();
+		String getGeneratedSecuredEmailHash =EncryptCouponUtil.enccd(emailAddress);
+		String getGeneratedSecuredPasswordHash = EncryptCouponUtil.enccd(password);
 		List<Map<String, Object>> adminList = jdbcTemplate.queryForList(
-				GET_ADMIN_DETAILS, emailAddress);
+				GET_ADMIN_DETAILS, getGeneratedSecuredEmailHash,getGeneratedSecuredPasswordHash);
 		if (!adminList.isEmpty()) {
 			for (Map<String, Object> map : adminList) {
 				adminDetailsList.add(retrieveAdmin(map));
