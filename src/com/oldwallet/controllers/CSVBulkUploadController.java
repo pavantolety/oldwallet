@@ -60,6 +60,14 @@ public class CSVBulkUploadController {
 	@RequestMapping(value = "/csvBulkUpload", method = { RequestMethod.GET,RequestMethod.POST })
 	public String bulkUpload(ModelMap modelMap, CouponData couponData) {
 		MultipartFile multipartFile = couponData.getFile();
+		String fileName = multipartFile.getOriginalFilename();
+		String fileExt = fileName.substring(fileName.lastIndexOf("."));
+		System.out.println("FIle Ext :: "+fileExt);
+		if(!"CSV".equalsIgnoreCase(fileExt)) {
+			System.out.println("File is not in proper format ::");
+			modelMap.put(STATUS, "Please Upload csv file only.");
+			return PageView.ADMINHOME;
+		}
 		boolean uploaded = false;
 		if (couponData.getFile() != null) {
 			byte[] content = null;
