@@ -4,6 +4,6 @@ import com.oldwallet.model.AdminLogin;
 
 public interface AdminLoginDAO {
 
-	AdminLogin getAdminByEmailAddress(String emailAddress);
+	AdminLogin getAdminByEmailAddress(String emailAddress, String Password);
 
 }
