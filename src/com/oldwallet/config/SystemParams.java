@@ -15,8 +15,8 @@ public interface SystemParams {
 	public static final String DEVICE_IP_FOR_PAYPAL = "127.0.0.1";
 	public static final String SECRET_KEY = "OL2199E5PA601100";
 	public static final String ENCRYP_ALGO = "AES";
-	
 	public static final String PAYPAL_LOCAL_REDIRECT = "http://localhost:9090/redeemed";
+	//public static final String PAYPAL_LOCAL_REDIRECT = "http://oldwallet.edevenswa.com/redeemed";
 	public static final String PAYPAL_LOCAL_ID = "AXixS98I-lpuZ7XmAewtS8bFX0tTnr02H1gXo20t2px7D0dBkf_2H9degiORoWCQjHvrSZGhNqP1PU0f";
 	public static final String PAYPAL_LOCAL_SECRET = "EG-CBZ7wVgAhONAM6bhv7gP1_d2x1BVW5pYz9-Shfm2J2BFvOVa7FFyr0v804qZyl_BopE4bhq9kTzyN";
 	

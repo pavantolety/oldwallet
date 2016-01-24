@@ -319,8 +319,11 @@ public class CouponPaymentController {
 								userSession.setEmailAddress(userInfo.getEmail());
 								emailAddress  = userInfo.getEmail();
 								LOGGER.info("EMAIL ADDRESS :: "+userInfo.getEmail());
-								LOGGER.info("EMAIL ADDRESS :: "+emailAddress);
+								userSession.setEmailAddress(userInfo.getEmail());
 								boolean isAmountCredited = transferAmountToPaypalUser(validCoupon, userSession);
+								if(isAmountCredited){
+									returnURL = "/redeemSuccess";
+								}
 								}
 						} catch (PayPalRESTException e) {
 							e.printStackTrace();
@@ -362,13 +365,13 @@ public class CouponPaymentController {
 			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
 			String transCode = UUID.randomUUID().toString().replaceAll("-", "");
 			Transaction transaction = new Transaction();
-			transaction.setCouponCode(coupon.getCouponCode());
+			transaction.setCouponCode(userSession.getCouponCode());
 			transaction.setCouponId(coupon.getCouponId()+"");
 			transaction.setCouponValue(coupon.getCouponValue());
 			transaction.setEventId(coupon.getEventId()+"");
 			transaction.setStatus("INIT");
 			transaction.setTransactionCode(transCode);
-
+			transaction.setUserEmail(userSession.getEmailAddress());
 			transactionDAO.initTransaction(transaction);
 			try {
 				LOGGER.debug("Calling Mass Pay API ::");
