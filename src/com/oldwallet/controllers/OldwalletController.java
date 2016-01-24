@@ -170,7 +170,13 @@ public class OldwalletController {
 	    
 		if(fundAllocationData!=null){
 			modelMap.put("totalCount",fundAllocationData.getTotalCouponCount());
-			modelMap.put("remainCount",fundAllocationData.getAvailableCount());
+			modelMap.put("remainCount",fundAllocationData.getRedeemedCount());
+			System.out.println("ava>>>>>>>>>>>>"+fundAllocationData.getRedeemedCount());
+			if(fundAllocationData.getRedeemedCount()==""){
+				modelMap.put("remainCount",fundAllocationData.getTotalCouponCount());
+			}else{
+				modelMap.put("remainCount",fundAllocationData.getRedeemedCount());
+			}
 			if(fundAllocation!=null){
 				System.out.println("alocal1"+fundAllocation.getTotalCouponValue());
 				System.out.println("alocal2"+fundAllocation.getTotalFund());

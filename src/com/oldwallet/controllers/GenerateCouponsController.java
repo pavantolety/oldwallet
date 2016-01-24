@@ -106,8 +106,12 @@ public class GenerateCouponsController {
 						if(fd==null){
 					     isCreated = couponDAO.createFundAllocation(fundAllocationData);
 						}else{
-							fd.setAvailableCount((NumberUtils.toLong(fd.getAvailableCount())+NumberUtils.toLong(fundAllocationData.getAvailableCount()))+"");
-							isCreated = couponDAO.updateFundAllocationData(fundAllocationData);
+							fd.setAvailableCount((NumberUtils.toLong(fd.getAvailableCount())+NumberUtils.toLong(fundAllocationData.getTotalCouponCount()))+"");
+							fd.setTotalCouponCount((NumberUtils.toLong(fd.getTotalCouponCount())+NumberUtils.toLong(fundAllocationData.getTotalCouponCount()))+"");
+							fd.setCouponValue((NumberUtils.toLong(fd.getCouponValue())+NumberUtils.toLong(fundAllocationData.getCouponValue()))+"");
+							fd.setRedeemedCount((NumberUtils.toLong(fd.getRedeemedCount())+NumberUtils.toLong(fundAllocationData.getTotalCouponCount()))+"");
+							
+							isCreated = couponDAO.updateFundAllocationData(fd);
 						}
 					
 					}
