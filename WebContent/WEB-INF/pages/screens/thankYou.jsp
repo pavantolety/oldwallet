@@ -76,12 +76,9 @@
                     <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
                      <div class="col-md-8 col-sm-8 col-xs-8" align="center">
-                      <h1><i>YOU'VE IN THE NEW MONEY</i></h1>
-       <p><h4>Congratulations! Thats's a nice little
-       chunk of change. Now, log in to 
-       deposit your New Money into your
-       PayPal account.</h4></p></br>
-                       </br>
+                      <h1><i>YOU'RE IN THE NEW MONEY</i></h1>
+				       <p><h4>Congratulations! Thats's a nice little chunk of change. Now, log in to deposit your New Money into your PayPal account.</h4></p>
+				       </br></br>
                         <img src="images/Capture.JPG" class="img" alt="wallet" />
                         
                        
