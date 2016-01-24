@@ -22,7 +22,6 @@ import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.DataRetievar;
 import com.oldwallet.util.EncryptCouponUtil;
-import com.oldwallet.util.ExceptionObjUtil;
 
 @Repository
 public class CouponDAOImpl implements CouponDAO {
@@ -80,7 +79,10 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String GET_REMAINING_TOTAL_VALUE = "SELECT SUM((F.TOTAL_COUPON_COUNT)*(F.COUPON_VALUE)) AS TOTAL_FUND, (SELECT (SUM((F.TOTAL_COUPON_COUNT)*(F.COUPON_VALUE))-SUM(C.COUPON_VALUE)) FROM COUPONS C WHERE REDEEM_STATUS='REDEEMED') AS REMAINING  FROM FUND_ALLOCATION F";
 	
 	private JdbcTemplate jdbcTemplate;
-
+	
+	@Autowired
+	ExceptionObjDAO exceptionDAO;
+	
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -182,7 +184,7 @@ public class CouponDAOImpl implements CouponDAO {
 			}
 		} catch (ParseException e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("REDEEMED_DATE Exception",
+			exceptionDAO.saveException("REDEEMED_DATE Exception",
 					e.getMessage(),FILE_NAME ,RETRIEVE_COUPON );
 		}
 		if (map.get("VALID_FROM") != null) {
@@ -191,7 +193,7 @@ public class CouponDAOImpl implements CouponDAO {
 						"VALID_FROM").toString())));
 			} catch (ParseException e) {
 				LOGGER.log(Priority.ERROR, e);
-				ExceptionObjUtil.saveException("VALID_FROM Exception",
+				exceptionDAO.saveException("VALID_FROM Exception",
 						e.getMessage(), FILE_NAME ,RETRIEVE_COUPON );
 			}
 		}
@@ -201,7 +203,7 @@ public class CouponDAOImpl implements CouponDAO {
 						"VALID_TO").toString())));
 			} catch (ParseException e) {
 				LOGGER.log(Priority.ERROR, e);
-				ExceptionObjUtil.saveException("VALID_TO Exception",
+				exceptionDAO.saveException("VALID_TO Exception",
 						e.getMessage(),FILE_NAME , RETRIEVE_COUPON);
 			}
 		}

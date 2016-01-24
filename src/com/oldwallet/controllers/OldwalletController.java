@@ -30,12 +30,12 @@ import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 import com.oldwallet.config.SystemParams;
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponDAO;
+import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.model.AdminSession;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
 import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.MassPay;
-import com.oldwallet.util.ExceptionObjUtil;
 import com.oldwallet.util.paypal.Configuration;
 
 @Controller
@@ -47,6 +47,9 @@ public class OldwalletController {
 	
 	@Autowired
 	CouponDAO couponDAO;
+	
+	@Autowired
+	ExceptionObjDAO exceptionDAO;
 
 	@RequestMapping(value = { "/", "/index" })
 	public String index() {
@@ -284,7 +287,7 @@ public class OldwalletController {
 
 			} catch (Exception e) {
 				LOGGER.log(Priority.ERROR, e);
-				ExceptionObjUtil.saveException("MassPay Exception",e.getMessage(), "OldWalletController.java","sendMassPayment");
+				exceptionDAO.saveException("MassPay Exception",e.getMessage(), "OldWalletController.java","sendMassPayment");
 			}
 		} else {
 			modelMap.put("action", "Error");

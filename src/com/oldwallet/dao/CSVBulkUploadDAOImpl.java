@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.CouponData;
 import com.oldwallet.util.DataRetievar;
-import com.oldwallet.util.ExceptionObjUtil;
 
 @Repository
 public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
@@ -30,6 +29,9 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	public static final String GET_TRACKING_COUPON_DATA = "SELECT COUNT(COUPON_CODE)AS COUPON_COUNT,COUPON_HIDE_LOCATION AS LOCATION,COUNTRY_CODE AS C_CODE,REDEEM_STATUS,COMPLETED_REDEMPTIONS,REDEEMED_BY FROM COUPONS GROUP BY COUNTRY_CODE ,REDEEM_STATUS";
 
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	ExceptionObjDAO exceptionDAO;
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
@@ -66,12 +68,12 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 			}
 		} catch (DuplicateKeyException de) {
 			LOGGER.log(Priority.ERROR, de);
-			ExceptionObjUtil.saveException(
+			exceptionDAO.saveException(
 					"Duplicate Key in CouponData Exception", de.getMessage(),
 					"CSVBulkDAOImpl.java", "createCouponData");
 		} catch (Exception e) {
 			LOGGER.log(Priority.ERROR, e);
-			ExceptionObjUtil.saveException("Coupon Data Exception",
+			exceptionDAO.saveException("Coupon Data Exception",
 					e.getMessage(), "CSVBulkDAOImpl.java", "createCouponData");
 		}
 		return created;

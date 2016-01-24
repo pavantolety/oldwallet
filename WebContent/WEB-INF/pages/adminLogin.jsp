@@ -10,19 +10,29 @@
 
     <title>Admin Portal | </title>
 
-    <!-- Bootstrap core CSS -->
+     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/bootstrapValidator.min.css" rel="stylesheet" type='text/css'>
     <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
-      <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="css/user.css" rel="stylesheet">
+    <link href="css/icheck/flat/green.css" rel="stylesheet">
+    <!-- editor -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href="css/editor/index.css" rel="stylesheet">
-    <!-- Custom styling plus plugins -->
-    <link href="css/custom.css" rel="stylesheet">
-    <link href="css/icheck/flat/green.css" rel="stylesheet">
+    <!-- select2 -->
+    <link href="css/select/select2.min.css" rel="stylesheet">
+    
+    <!-- Hover css -->
+	<link rel="stylesheet" href="css/hover-min.css" />
+	
+    <!-- switchery -->
+    <link rel="stylesheet" href="css/switchery/switchery.min.css" />
+	<link rel="stylesheet" href="css/intlTelInput.css">
+    <script src="js/jquery.min.js"></script>
 
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -52,14 +62,24 @@
 	 
 	  ga('create', 'UA-72298326-5', 'auto');
 	  ga('send', 'pageview'); 
-	</script>    
+	</script> 
+	<div class="container body">
+ <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></div>
+  <div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                    <div class="page-title">
+                        <div class="">
+                           <h3><a href="/adminHome"><img src="images/PayPal_btn4.png"  alt="Smiley face" ></a></h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>   
 	<div  class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="col-md-3 col-sm-3 col-xs-3">
-		  		<h3><a href="/adminHome"><img src="images/logo.png" alt="Smiley face" style="width:30%;"></a></h3>
-		  	</div>
-		  	<div class="col-md-6 col-sm-6 col-xs-6">
-	  			<h1 align="center" style="color:white"> <!-- PayPal Drop Wallet Administration --> PayPal goccia Portafoglio Amministrazione </h1>
+			</div>
+		  	<div class="col-md-6 col-sm-6 col-xs-6" align="center">
+	  			<h1 align="center" style="color:white"><i> PayPal Drop Wallet Administration </i></h1>
 	  		</div>
 	  	</div>
   	</div> 
@@ -69,7 +89,7 @@
                 <form name="signUpSubmitForm" action="/adminSubmit" modelAttribute="admin" class="formbox" method="post">					  					
 						<div class="form-group margin-bottom-20" >
 							<div align="center">
-								<h1>Admin Login</h1>
+								<h4 style="color:#34495e">Admin Login</h4>
 							</div>
 						</div>
 						<div class="form-group margin-bottom-20" >
@@ -97,6 +117,8 @@
 				</form> 
 				</div>                    
         </div>
+        </div>
+       </div>
   
 
     <script type="text/javascript">

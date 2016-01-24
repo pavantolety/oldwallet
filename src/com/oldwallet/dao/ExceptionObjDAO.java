@@ -1,8 +1,7 @@
 package com.oldwallet.dao;
 
-import com.oldwallet.model.ExceptionObj;
 
 public interface ExceptionObjDAO {
 
-	public boolean saveException(ExceptionObj exceptionObj);
+	public boolean saveException(String exceptionName,String exceptionMessage, String sourceFile, String sourceMethod);
 }
