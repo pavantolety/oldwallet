@@ -301,7 +301,6 @@
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">Invalid Coupon Code</b>');
 							}else if(data.action=='expired') {
-								sweetAlert("Info",data.message,"info");
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
 							}else if(data.action=='error') {
