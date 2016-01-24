@@ -22,11 +22,12 @@
     <link href="css/animate.min.css" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
-    <link href="css/user.css" rel="stylesheet">
+    <link href="css/redeem.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- select2 -->
     <link href="css/select/select2.min.css" rel="stylesheet">
@@ -62,196 +63,53 @@
 	  ga('send', 'pageview'); 
 	</script>
     <div class="container body">
-<div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="
-    padding-left: 90%;
-"></div>
-<div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
-            <!-- top navigation -->
-            <div class="top_nav">
-
-                <div class="nav_menu">
-                    <nav class="" role="navigation">
-
-                        <ul class="nav navbar-nav navbar-right">
-
-                            <li class="">
-                                <!-- <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    Graph
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                                    
-									 <li>
-                                        <a href="metrics.html">Graphs</a>
-                                    </li>
-                                </ul> -->
-                            </li>
-
-                            <li role="presentation" class="dropdown">
-                                <!-- <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                                            <span>
-                                        <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where... 
-                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                                            <span>
-                                        <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where... 
-                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                                            <span>
-                                        <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where... 
-                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                                            <span>
-                                        <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where... 
-                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a>
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul> -->
-                            </li>
-
-                        </ul>
-                    </nav>
-                </div>
-
-            </div>
-            <!-- /top navigation -->
-
+ <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></div>
+  <div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
             <!-- page content -->
-            <div class="right_col" role="main" id="thankYouDiv">
-
+            <div class="right_col" role="main">
                     <div class="page-title">
-                        <div class="title_left">
-                            <h3><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" ></a></h3>
+                        <div class="">
+                           <h3><a href="/index"><img src="images/PayPal_btn4.png"  alt="Smiley face" ></a></h3>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
                      <div class="col-md-8 col-sm-8 col-xs-8" align="center">
-                      <h1 style="color:#fff;"><i>YOU'VE IN THE NEW MONEY</i></h1>
-					       <p><h4 style="color:#fff;">Congratulations! Thats's a nice little
-					       chunk of change. Now, log in to 
-					       deposit your New Money into your
-					       PayPal account.</h4></p>                       
+                      <h1><i>YOU'VE IN THE NEW MONEY</i></h1>
+       <p><h4>Congratulations! Thats's a nice little
+       chunk of change. Now, log in to 
+       deposit your New Money into your
+       PayPal account.</h4></p></br>
+                       </br>
+                        <img src="images/Capture.JPG" class="img" alt="wallet" />
+                        
+                       
                      </div>
                      
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
-                    </div>  
-                    <div class="row" >
-                    <div class="col-md-2 col-sm-2 col-xs-2">
-                    </div>
-                        <div class="col-md-8 col-sm-8 col-xs-8">
-                            <div class="x_panel">
-                                <!-- page content -->								
-									<div class="col-middle">
-										<div class="text-center">
-											<h4>You can redeem $<c:out value="${coupon.couponValue}"/> using your <img src="images/PayPal_btn5.png" alt="Smiley face" > Account.</h4>
-											<a href="${redirectUrl}" ><img class="hvr-grow" src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png" /></a>
-											<%-- <h4>Please enter PayPal Email Address and Mobile Number to redeem $<c:out value="${coupon.couponValue}"/></h4> --%>
-																				
-										
-											<div id="errorMessage"></div>
-										
-										
-                                       <%--  <div class="col-md-12 col-sm-12 col-xs-12" >
-                                        	<div class="col-md-3 col-sm-3 col-xs-6"></div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <br/>
-                                            <label class="control-label pull-left">Email:<span class="required">*</span></label>
-                                                <input type="email" id="emailAddress" name="emailAddress" required="required" class="form-control col-md-7 col-xs-12">
-                                               <input type="hidden" id="latitude" name="latitude">
-                                                  <input type="hidden" id="longitude" name="longitude">
-                                                <input type="hidden" id="amount" name="amount" value="<c:out value="${coupon.couponValue}"/>" required="required" class="form-control col-md-7 col-xs-12">
-                                                <input type="hidden" id="couponCode" name="couponCode" value="<c:out value="${coupon.couponCode}"/>" required="required" class="form-control col-md-7 col-xs-12">
-                                                <input type="hidden" id="couponId" name="couponId" value="<c:out value="${coupon.couponId}"/>" required="required" class="form-control col-md-7 col-xs-12">
-                                                <input type="hidden" id="eventId" name="eventId" value="<c:out value="${coupon.eventId}"/>" required="required" class="form-control col-md-7 col-xs-12">
-                                                <input type="hidden" id="currencyCode" name="currencyCode" value="USD" required="required" class="form-control col-md-7 col-xs-12">
-                                            </div>
-                                        </div> --%>
-                                       
-                                       <!--  <div class="col-md-12 col-sm-12 col-xs-12">
-                                           <div class="col-md-3 col-sm-3 col-xs-6"></div>                  
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <label class="control-label pull-left">Mobile :<span class="required">*</span>                            </label>
-                                                <input type="text" id="mobile" name="mobile" required="required" class="form-control col-md-7 col-xs-12" required="required" data-parsley-minlength="6"  data-parsley-maxlength="15" parsley-pattern-message="Please enter a valid mobile phone number." placeholder="Add Number with Country Code" pattern="^[{+}][0-9]{10,15}$"/>	
-                                                										
-                                            </div>
-                                        </div> -->
-                                        <div class="ln_solid"></div>
-                                        
-                                                                                     
-                                           <!--  <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <br/>
-                                                <button onclick="redeemAmount()" id="sendPayment" class="btn btn-success hvr-grow">Redeem Amount</button>
-                                            </div>	 -->
-                                        
-                           
-											</div>
-											
-										</div>
-									</div>
-								
-								<!-- /page content -->
-                            </div>
-                        </div>
-                    </div>
-
-                  
+                    </div>   
+                     <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
+                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
+                     
+                        
+                       <img src="images/111.JPG" class="img1" alt="amount" />
+                       <h1 style="color:#1f3087; margin-top:-115px;size:800%;"><i>$<c:out value="${coupon.couponValue}"/></i></h1>
+                       </br><h1 style="color:#1f3087;"><i>New Money</i></h1>
+                     </div>
+                     
+                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
+                    </div> </br>
+                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
+                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
+                     <a href="${redirectUrl}" ><img class="hvr-grow" src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png"></a>
+                     </div> 
+                     
+                    </div>                 
                 <!-- /page content -->
-
-
             </div>
+            <!-- /top navigation -->
 
         <script src="js/bootstrap.min.js"></script>
 
