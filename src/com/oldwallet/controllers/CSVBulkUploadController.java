@@ -11,6 +11,10 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.http.HttpRequest;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -29,6 +33,7 @@ import com.oldwallet.dao.CSVBulkUploadDAO;
 import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.enums.CouponStatus;
+import com.oldwallet.model.AdminSession;
 import com.oldwallet.model.CouponData;
 import com.oldwallet.model.GoogleResponse;
 import com.oldwallet.model.LatLong;
@@ -58,14 +63,27 @@ public class CSVBulkUploadController {
 
 	@SuppressWarnings({ "deprecation" })
 	@RequestMapping(value = "/csvBulkUpload", method = { RequestMethod.GET,RequestMethod.POST })
-	public String bulkUpload(ModelMap modelMap, CouponData couponData) {
+	public String bulkUpload(ModelMap modelMap, CouponData couponData, HttpSession session, HttpServletRequest request) {
+		AdminSession adminSession = (AdminSession) session.getAttribute("adminSession");
+		if(adminSession==null) {
+			return PageView.ADMINLOGIN;
+		}
+		if("GET".equalsIgnoreCase(request.getMethod())) {
+			return PageView.ADMINHOME;
+		}
 		MultipartFile multipartFile = couponData.getFile();
 		String fileName = multipartFile.getOriginalFilename();
 		String fileExt = fileName.substring(fileName.lastIndexOf("."));
 		System.out.println("FIle Ext :: "+fileExt);
-		if(!"CSV".equalsIgnoreCase(fileExt)) {
+		System.out.println("FILE SIZE :: "+multipartFile.getSize());
+		if(!".CSV".equalsIgnoreCase(fileExt)) {
 			System.out.println("File is not in proper format ::");
 			modelMap.put(STATUS, "Please Upload csv file only.");
+			return PageView.ADMINHOME;
+		}
+		if(multipartFile.getSize()>=9195255) {
+			System.out.println("File size is too big ::");
+			modelMap.put(STATUS, "File size is too big.");
 			return PageView.ADMINHOME;
 		}
 		boolean uploaded = false;
@@ -85,20 +103,22 @@ public class CSVBulkUploadController {
 				try {
 					while ((nextLine = reader.readNext()) != null) {
 						// nextLine[] is an array of values from the line
-						if (nextLine.length > 0) {
+						System.out.println("COLUMNS COUNT :: "+nextLine.length);
+						if (nextLine.length==5) {
 							CouponData couponData1 = new CouponData();
 							try {
 								couponData1.setCouponCode(EncryptCouponUtil.enccd(nextLine[0].toUpperCase()));
-								couponData1.setCouponValue(nextLine[1]);
-								couponData1.setCountryCode(nextLine[2]);
-								couponData1.setCouponHideLocation(nextLine[3]);
-								couponData1.setReedemStatus(nextLine[4]);
-								couponData1.setValidityPeriod(nextLine[5]);
+								couponData1.setCouponValue("0");
+								couponData1.setCountryCode(nextLine[1]);
+								couponData1.setCouponHideLocation(nextLine[2]);
+								couponData1.setReedemStatus("NEW");
 								SimpleDateFormat format1 = new SimpleDateFormat("MM-dd-yyyy");
 								SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-								couponData1.setValidFrom(format2.format(format1.parse(nextLine[6])));
-								couponData1.setValidTo(format2.format(format1.parse(nextLine[7])));
-								couponData1.setAvailableRedemptions(Long.parseLong(nextLine[8]));
+								couponData1.setValidFrom(format2.format(format1.parse(nextLine[3])));
+								couponData1.setValidTo(format2.format(format1.parse(nextLine[4])));
+								int diffInDays = (int) ((format1.parse(nextLine[4]).getTime() - format1.parse(nextLine[3]).getTime()) / (1000 * 60 * 60 * 24));
+								couponData1.setValidityPeriod(nextLine[5]);								
+								couponData1.setAvailableRedemptions(1);
 
 								uploaded = csvBulkUploadDAO.createCouponData(couponData1);
 								if (!uploaded) {
@@ -113,6 +133,9 @@ public class CSVBulkUploadController {
 								ExceptionObjUtil.saveException("csvBulkUpload Exception",e.getMessage(),"CSVBulkUploadController.java","bulkUpload");
 							}
 							LOGGER.debug("BREAK :: ");
+						} else {
+							modelMap.put(STATUS, "File format is not currect.");
+							return PageView.ADMINHOME;
 						}
 					}
 				} catch (IOException e) {
