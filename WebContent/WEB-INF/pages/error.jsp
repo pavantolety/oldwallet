@@ -23,8 +23,9 @@
     <link href="css/redeem.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+   <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- select2 -->
     <link href="css/select/select2.min.css" rel="stylesheet">
