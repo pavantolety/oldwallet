@@ -184,35 +184,6 @@
                                             <span id="gauge-text" class="gauge-value pull-left"><fmt:formatNumber value="${remaining}"  type="number"/></span>
                                             <span id="goal-text" class="goal-value pull-right">$<fmt:formatNumber value="${totalFund}"  type="number"/></span>
                                         </div>
-  									
-                                    </div>
-                                    <div class="col-md-6">
-                                       <form name="category" id="category" >
-										 <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-
-                                                <th>Category Name</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                           <tr>
-                                           <td>Jackpot</td><td> <button  class="btn btn-danger"  >Delete</button></td>
-                                           </tr>
-                                            <tr><td>Bumper Bonanza</td><td> <button  class="btn btn-danger"  >Delete</button></td>
-                                            </tr>
-                                             <tr><td>Super Bonanza</td><td> <button  class="btn btn-danger"  >Delete</button></td>
-                                             </tr>
-                                              <tr><td>Super Prize</td><td> <button  class="btn btn-danger"  >Delete</button></td>
-                                              </tr>
-                                               <tr><td>Lottery</td><td> <button  class="btn btn-danger"  >Delete</button></td>
-                                              </tr>
-                                        </tbody>
-
-                                    </table>
-                                    </form>
-                                    </div>
                                     
 								</div>
                                 <div class="x_content">

@@ -65,6 +65,10 @@ public class CouponDAOImpl implements CouponDAO {
     
 	public static final String  CREATE_FUND_ALLOCATION = "INSERT INTO FUND_ALLOCATION(CATEGORY_CODE,TOTAL_COUPON_COUNT,COUPON_VALUE,AVAILABLE_COUNT) VALUES(?,?,?,?)"; 
 	
+	public static final String UPDATE_FUND_ALLOCATION = "UPDATE FUND_ALLOCATION SET TOTAL_COUPON_COUNT=?,COUPON_VALUE=? , AVAILABLE_COUNT=? WHERE CATEGORY_CODE=?";
+	
+	public static final String GET_FUND_ALLOCATION_BY_CODE = "SELECT * FROM FUND_ALLOCATION WHERE CATEGORY_CODE=?";
+	
 	public static final String GET_FUND_ALLOCATION = "SELECT * FROM FUND_ALLOCATION";
 	
 	public static final String GET_FUND_ALLOCATION_BY_ID = "SELECT * FROM FUND_ALLOCATION WHERE FUND_ID = ?";
@@ -387,7 +391,15 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 		return isCreated;
 	}
-
+	@Override
+	public boolean updateFundAllocationData(FundAllocation fundAllocation) {
+		boolean isCreated =  false;
+		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION,fundAllocation.getTotalCouponCount(),fundAllocation.getCouponValue(),fundAllocation.getTotalCouponCount(),fundAllocation.getCategoryCode());
+		if(i>0){
+			isCreated = true;
+		}
+		return isCreated;
+	}
 	@Override
 	public FundAllocation assignValueToCoupon() {
 		// TODO Auto-generated method stub
@@ -463,6 +475,22 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 		return null;
 	}
+
+	@Override
+	public FundAllocation getFundAllocationDataByCode(String categoryCode) {
+		List<FundAllocation> fd =  new ArrayList<FundAllocation>();
+		List<Map<String,Object>> mapList = jdbcTemplate.queryForList(GET_FUND_ALLOCATION_BY_CODE,categoryCode);
+		if(mapList.size()>0){
+			for(Map<String,Object> map: mapList){
+				fd.add(retriveFundAllocation(map));
+			}
+			
+			fd.get(0);
+		}
+		return null;
+	}
+
+
 
 	
 

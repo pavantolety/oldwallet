@@ -51,4 +51,8 @@ public interface CouponDAO {
 
 	public FundAllocation getFundAllocationData();
 
+	public FundAllocation getFundAllocationDataByCode(String categoryCode);
+
+	public boolean updateFundAllocationData(FundAllocation fundAllocationData);
+
 }
