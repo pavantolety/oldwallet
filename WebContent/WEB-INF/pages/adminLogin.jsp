@@ -21,7 +21,7 @@
     <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- Custom styling plus plugins -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/user.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
 
 
@@ -52,14 +52,22 @@
 	 
 	  ga('create', 'UA-72298326-5', 'auto');
 	  ga('send', 'pageview'); 
-	</script>    
+	</script> 
+	<div class="container body">
+ <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></div>
+  <div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                    <div class="page-title">
+                        <div class="">
+                           <h3><a href="/index"><img src="images/PayPal_btn4.png"  alt="Smiley face" ></a></h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>   
 	<div  class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12">
-			<div class="col-md-3 col-sm-3 col-xs-3">
-		  		<h3><a href="/adminHome"><img src="images/logo.png" alt="Smiley face" style="width:30%;"></a></h3>
-		  	</div>
-		  	<div class="col-md-6 col-sm-6 col-xs-6">
-	  			<h1 align="center" style="color:white"> <!-- PayPal Drop Wallet Administration --> PayPal goccia Portafoglio Amministrazione </h1>
+		  	<div class="col-md-6 col-sm-6 col-xs-6" align="center">
+	  			<h1 align="center" style="color:white"> PayPal Drop Wallet Administration </h1>
 	  		</div>
 	  	</div>
   	</div> 
@@ -97,6 +105,8 @@
 				</form> 
 				</div>                    
         </div>
+        </div>
+       </div>
   
 
     <script type="text/javascript">
