@@ -14,7 +14,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -31,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CSVBulkUploadDAO;
 import com.oldwallet.dao.CouponDAO;
+import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.enums.CouponStatus;
 import com.oldwallet.model.AdminSession;
@@ -40,7 +40,6 @@ import com.oldwallet.model.LatLong;
 import com.oldwallet.model.Result;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.util.EncryptCouponUtil;
-import com.oldwallet.util.ExceptionObjUtil;
 import com.opencsv.CSVReader;
 
 @Controller
@@ -60,6 +59,9 @@ public class CSVBulkUploadController {
 
 	@Autowired
 	CouponDAO couponDAO;
+	
+	@Autowired
+	ExceptionObjDAO exceptionDAO;
 
 	@SuppressWarnings({ "deprecation" })
 	@RequestMapping(value = "/csvBulkUpload", method = { RequestMethod.GET,RequestMethod.POST })
@@ -126,11 +128,15 @@ public class CSVBulkUploadController {
 								}
 							} catch (DuplicateKeyException de) {
 								LOGGER.log(Priority.ERROR, de);
-								ExceptionObjUtil.saveException("csvBulkUpload Exception",de.getMessage(),"CSVBulkUploadController.java","bulkUpload");
+								exceptionDAO.saveException("csvBulkUpload Exception",de.getMessage(),"CSVBulkUploadController.java","bulkUpload");
 
 							} catch (Exception e) {
 								LOGGER.log(Priority.ERROR, e);
-								ExceptionObjUtil.saveException("csvBulkUpload Exception",e.getMessage(),"CSVBulkUploadController.java","bulkUpload");
+								try {
+									exceptionDAO.saveException("csvBulkUpload Exception",e.getMessage(),"CSVBulkUploadController.java","bulkUpload");
+								}catch(Exception ee) {
+									ee.printStackTrace();
+								}
 							}
 							LOGGER.debug("BREAK :: ");
 						} else {
