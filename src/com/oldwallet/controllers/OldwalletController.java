@@ -35,7 +35,6 @@ import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponStatistics;
 import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.MassPay;
-import com.oldwallet.util.ExceptionObjUtil;
 import com.oldwallet.util.paypal.Configuration;
 
 @Controller

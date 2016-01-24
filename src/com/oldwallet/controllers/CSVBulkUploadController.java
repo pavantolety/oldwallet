@@ -119,7 +119,7 @@ public class CSVBulkUploadController {
 								couponData1.setValidFrom(format2.format(format1.parse(nextLine[3])));
 								couponData1.setValidTo(format2.format(format1.parse(nextLine[4])));
 								int diffInDays = (int) ((format1.parse(nextLine[4]).getTime() - format1.parse(nextLine[3]).getTime()) / (1000 * 60 * 60 * 24));
-								couponData1.setValidityPeriod(nextLine[5]);								
+								couponData1.setValidityPeriod(diffInDays+"");								
 								couponData1.setAvailableRedemptions(1);
 
 								uploaded = csvBulkUploadDAO.createCouponData(couponData1);
