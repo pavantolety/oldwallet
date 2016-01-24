@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.oldwallet.model.ExceptionObj;
-
 @Repository
 public class ExceptionObjDAOImpl implements ExceptionObjDAO {
 
@@ -21,15 +19,15 @@ public class ExceptionObjDAOImpl implements ExceptionObjDAO {
 	}
 
 	@Override
-	public boolean saveException(ExceptionObj exceptionObj) {
+	public boolean saveException(String exceptionName,String exceptionMessage, String sourceFile, String sourceMethod) {
 		boolean isInserted = false;
-		int result = jdbcTemplate.update(SAVE_EXCEPTION,
-				exceptionObj.getExceptionName(),
-				exceptionObj.getExceptionMessage(),
-				exceptionObj.getExceptionSourceFile(),
-				exceptionObj.getExceptionSourceMethod());
+		try {
+		int result = jdbcTemplate.update(SAVE_EXCEPTION,exceptionName, exceptionMessage, sourceFile, sourceMethod);
 		if (result > 0) {
 			isInserted = true;
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		return isInserted;
 	}

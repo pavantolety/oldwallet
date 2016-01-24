@@ -168,13 +168,13 @@
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="file" id="file" name="file" class="form-control col-md-7 col-xs-12" required="required">
-                                            </div> ${status}
-                                        </div>
+                                            </div> <p id="statusMessage"> ${status}</p>
+                                            </div>
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                <button type="reset" class="btn btn-primary">Cancel</button>
-                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button id = "resetUpload" type="reset" class="btn btn-primary">Cancel</button>
+                                                <button id = "submitUpload" type="submit" class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
                                     </form>
@@ -441,6 +441,13 @@
             });
         });
     </script>
+    <script type="text/javascript">
+
+        $("#resetUpload").click(function() {
+        	$("#statusMessage").html("");
+        });
+        	</script>
+       
     <script>
         NProgress.done();
     </script>

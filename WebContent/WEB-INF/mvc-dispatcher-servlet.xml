@@ -86,7 +86,7 @@
 
 
 	<bean id="multipartResolver" class="org.gmr.web.multipart.GMultipartResolver">
-      <property name="maxUploadSize" value="3145728" />
+      <property name="maxUploadSize" value="9195255" />
     </bean>
  
  </beans>
