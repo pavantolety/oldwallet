@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.FactoryUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.json.simple.JSONArray;
@@ -216,6 +215,7 @@ public class OldwalletController {
 	@RequestMapping(value = "/sendMassPayment", method = RequestMethod.POST)
 	public String sendMassPayment(ModelMap modelMap, MassPay massPay) {
 		LOGGER.debug("Begining of sendMassPayment() ::::"+ massPay.getAmount1() + ", " + massPay.getEmailAddress1());
+		System.setProperty("Dhttps.protocols", "TLSv1.1,TLSv1.2");
 		String returnPage = "error";
 		MassPayReq req = new MassPayReq();
 
