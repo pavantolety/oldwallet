@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <p>Remaining Coupons</p>
-                                        <input class="knob" id="rCcouponCount" data-width="100" data-height="120" data-min="1" data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" readonly>
+                                        <input class="knob" id="rCcouponCount" data-width="100" data-height="120" data-displayPrevious=true data-fgColor="#26B99A" value="${remainCount}" readonly>
                                     </div>
 									<div class="col-md-2">
                                         <p>Coupon Value</p>

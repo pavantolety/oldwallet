@@ -162,22 +162,33 @@ public class OldwalletController {
 	@RequestMapping(value = "/fundsManagement", method = RequestMethod.GET)
 	public String fundsManagement(ModelMap modelMap) {
 		  
-		List<Coupon> coupon   = couponDAO.getCouponData();
+		FundAllocation fundAllocationData   = couponDAO.getFundData();
 	    FundAllocation fundAllocation = couponDAO.getFundAllocationData();
 	    
-		if(coupon.size()>0){
-			modelMap.put("totalCount",coupon.size());
+		if(fundAllocationData!=null){
+			modelMap.put("totalCount",fundAllocationData.getTotalCouponCount());
+			modelMap.put("remainCount",fundAllocationData.getAvailableCount());
 			if(fundAllocation!=null){
 				System.out.println("alocal1"+fundAllocation.getTotalCouponValue());
 				System.out.println("alocal2"+fundAllocation.getTotalFund());
 				if(fundAllocation.getTotalCouponValue()!=0){
 					modelMap.put("totalValue", fundAllocation.getTotalCouponValue());
 					modelMap.put("totalFund", fundAllocation.getTotalFund());
+					double value = (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue());
+					if(value==fundAllocation.getTotalFund()){
+						modelMap.put("remaining", 0);
+					}else{
 					modelMap.put("remaining", (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue()));
-				}else {
+					}
+				   }else {
 					modelMap.put("totalValue", fundAllocation.getTotalCouponValue());
 					modelMap.put("totalFund", fundAllocation.getTotalFund());
+					double value = (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue());
+					if(value==fundAllocation.getTotalFund()){
+						modelMap.put("remaining", 0);
+					}else{
 					modelMap.put("remaining", (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue()));
+					}
 				}
 			}
 		}else{

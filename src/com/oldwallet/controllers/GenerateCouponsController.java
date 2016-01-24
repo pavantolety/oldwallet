@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,9 +100,10 @@ public class GenerateCouponsController {
 					System.out.println("2"+fundAllocationData.getCouponValue());
 					if(fundAllocationData !=null){
 						FundAllocation fd = couponDAO.getFundAllocationDataByCode(fundAllocationData.getCategoryCode());
-						if(fd!=null){
+						if(fd==null){
 					     isCreated = couponDAO.createFundAllocation(fundAllocationData);
 						}else{
+							fd.setAvailableCount((NumberUtils.toLong(fd.getAvailableCount())+NumberUtils.toLong(fundAllocationData.getAvailableCount()))+"");
 							isCreated = couponDAO.updateFundAllocationData(fundAllocationData);
 						}
 					

@@ -44,7 +44,7 @@ function submitFund(){
 			var j = 0 ;
     		var cc = $("#couponCount"+c).val();
     		var ca = $("#couponAmount"+c).val();
-    		if(cc<to){ 
+    		if(cc<ro){ 
     		if(ca!=0 && cc!=0){
     			var total = $("#totalAmount").val();
     			var ta = parseFloat(cc)*parseFloat(ca);

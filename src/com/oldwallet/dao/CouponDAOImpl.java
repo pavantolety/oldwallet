@@ -59,6 +59,8 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	private static final String RETRIEVE_COUPON = "retrieveCoupon";
 	
+	private static final String GET_FUND_VALUES= "SELECT SUM(TOTAL_COUPON_COUNT) AS TOTAL_COUPON_COUNT , SUM(AVAILABLE_COUNT) AS AVAILABLE_COUNT FROM FUND_ALLOCATION";
+	
 	private static final String CREATE_GENERATED_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,REDEEM_STATUS,VALID_FROM,VALID_TO) VALUES (?,?,?,?)";
 	
 	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' , DATE_BLOCKED = NOW() WHERE COUPON_CODE=?";
@@ -73,7 +75,7 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	public static final String GET_FUND_ALLOCATION_BY_ID = "SELECT * FROM FUND_ALLOCATION WHERE FUND_ID = ?";
 	
-	public static final String UPDATE_FUND_ALLOCATION_BY_ID = "UPDATE FUND_ALLOCATION SET AVAILABLE_COUNT = ? WHERE FUND_ID = ?";
+	public static final String UPDATE_FUND_ALLOCATION_BY_ID = "UPDATE FUND_ALLOCATION SET AVAILABLE_COUNT = ? WHERE CATEGORY_CODE = ?";
 	
 	public static final String GET_REMAINING_TOTAL_VALUE = "SELECT SUM((F.TOTAL_COUPON_COUNT)*(F.COUPON_VALUE)) AS TOTAL_FUND, (SELECT (SUM((F.TOTAL_COUPON_COUNT)*(F.COUPON_VALUE))-SUM(C.COUPON_VALUE)) FROM COUPONS C WHERE REDEEM_STATUS='REDEEMED') AS REMAINING  FROM FUND_ALLOCATION F";
 	
@@ -245,7 +247,20 @@ public class CouponDAOImpl implements CouponDAO {
 			return new ArrayList<Coupon>();
 		}
 	}
-
+	@Override
+	public FundAllocation getFundData() {
+		List<FundAllocation> fundList = new ArrayList<FundAllocation>();
+		List<Map<String, Object>> mapList = jdbcTemplate
+				.queryForList(GET_FUND_VALUES);
+		if (!mapList.isEmpty()) {
+			for (Map<String, Object> map : mapList) {
+				fundList.add(retriveFundAllocation(map));
+			}
+			return fundList.get(0);
+		} else {
+			return null;
+		}
+	}
 	@Override
 	public UserToken getRedeemKey(String redeemKey) {
 		List<UserToken> userToken = new ArrayList<UserToken>();
@@ -394,7 +409,7 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean updateFundAllocationData(FundAllocation fundAllocation) {
 		boolean isCreated =  false;
-		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION,fundAllocation.getTotalCouponCount(),fundAllocation.getCouponValue(),fundAllocation.getTotalCouponCount(),fundAllocation.getCategoryCode());
+		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION,fundAllocation.getTotalCouponCount(),fundAllocation.getCouponValue(),fundAllocation.getAvailableCount(),fundAllocation.getCategoryCode());
 		if(i>0){
 			isCreated = true;
 		}
@@ -454,7 +469,7 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean updateFundAllocation(FundAllocation fundAllocation) {
 		boolean isUpdated = false;
-		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION_BY_ID,(NumberUtils.toLong(fundAllocation.getAvailableCount())-1),fundAllocation.getFundId());
+		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION_BY_ID,(NumberUtils.toLong(fundAllocation.getAvailableCount())-1),fundAllocation.getCategoryCode());
 		if(i>0){
 			String encCode =  EncryptCouponUtil.enccd(fundAllocation.getCouponCode());
 			jdbcTemplate.update(UPDATE_COUPON_VALUE,fundAllocation.getCouponValue(),encCode);
