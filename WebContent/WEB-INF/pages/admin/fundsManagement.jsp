@@ -166,8 +166,12 @@
                                 </div>
 								 <div class="x_content">
                                     <div class="col-md-2">
-                                        <p>Coupon Count</p>
-                                        <input class="knob" data-width="100" data-height="120" data-min="1" data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" readonly>
+                                        <p>Coupons Count</p>
+                                        <input class="knob" id="tCouponCount" data-width="100" data-height="120"  data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" readonly>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p>Remaining Coupons</p>
+                                        <input class="knob" id="rCcouponCount" data-width="100" data-height="120" data-min="1" data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" readonly>
                                     </div>
 									<div class="col-md-2">
                                         <p>Coupon Value</p>
@@ -182,6 +186,34 @@
                                         </div>
   									
                                     </div>
+                                    <div class="col-md-6">
+                                       <form name="category" id="category" >
+										 <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Category Name</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           <tr>
+                                           <td>Jackpot</td><td> <button  class="btn btn-danger"  >Delete</button></td>
+                                           </tr>
+                                            <tr><td>Bumper Bonanza</td><td> <button  class="btn btn-danger"  >Delete</button></td>
+                                            </tr>
+                                             <tr><td>Super Bonanza</td><td> <button  class="btn btn-danger"  >Delete</button></td>
+                                             </tr>
+                                              <tr><td>Super Prize</td><td> <button  class="btn btn-danger"  >Delete</button></td>
+                                              </tr>
+                                               <tr><td>Lottery</td><td> <button  class="btn btn-danger"  >Delete</button></td>
+                                              </tr>
+                                        </tbody>
+
+                                    </table>
+                                    </form>
+                                    </div>
+                                    
 								</div>
                                 <div class="x_content">
                                     <br />
@@ -242,72 +274,8 @@
       <!-- gauge js -->
     <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
     <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>
-    <script>
-    function submitFund(){
-    	  $('#fundAllocationForm').ajaxSubmit({
-   	       success : function(data)
-   	        {
-   	    	   if(data.result =="success"){
-   	    		 $('<div class="alert alert-success"><strong>'+data.message+'</strong></div>').appendTo("#messageD");
-              	
-    	         $(".alert").delay(200).addClass("in").fadeOut(3000);
-   	    	   }else{
-   	    		$('<div class="alert alert-success"><strong>'+data.message+'</strong></div>').appendTo("#messageD");
-              	
-   	            $(".alert").delay(200).addClass("in").fadeOut(3000);
-   	    	   }
-   	        }
-    	  });
-    }
-    function deleteRow(){
-        if(cn!=0){
-    	$("#tba"+(parseInt(cn)-1)).remove();
-    	
-    	cn--;
-    	if(cn==0){
-    		$("#totalAmount").val("");
-    	}
-    	}    	
-    }
-    var cn = 0;
-    function addRow(){
-    	
-	$('<tr id="tba'+cn+'"><td><select class="select2_multiple form-control" name="fundAllocation['+cn+'].categoryCode" id="couponPrize'+cn+'" onchange="block(this,'+cn+')"><option value=""></option><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select></td><td><input type="number" class="form-control " name="fundAllocation['+cn+'].totalCouponCount" id="couponCount'+cn+'" onkeyup="multy('+cn+')" placeholder="Count" > </td><td><input type="number" class="form-control " name="fundAllocation['+cn+'].couponValue" id="couponAmount'+cn+'" onkeyup="multy('+cn+')" placeholder="$ Amount" > </td><td><input type="number" class="form-control" name="totalAmount'+cn+'" id="totalAmount'+cn+'" placeholder="$ Amount" disabled> </td></tr>').appendTo("#fundTable tbody");
-    
-    cn++;
-    }
-    function multy(c){
-    	
-			var j = 0 ;
-    		var cc = $("#couponCount"+c).val();
-    		var ca = $("#couponAmount"+c).val();
-    		if(ca!=0 && cc!=0){
-    			var total = $("#totalAmount").val();
-    			var ta = parseFloat(cc)*parseFloat(ca);
-    			$("#totalAmount"+c).val(ta);
-    			for(i=0;i<cn;i++){
-    			  j +=  parseFloat($("#totalAmount"+i).val());
-    			}
-    			$("#totalAmount").val(j);
-    		}else{
-    			$("#totalAmount").val("");
-    		}
-
-    }
-    function block(va,c){
-    	if(c>=1){
-    	var count = 0;
-    	for(i=0;i<=cn;i++){
-    	if(va[va.selectedIndex].value == $("#couponPrize"+i).val()){
-    		count++;
-    		if(count>1){
-    			$("#couponPrize"+i).val("");
-    			alert("value is already choosen");
-    		}
-    	}
-    	}
-    	}
-    }
+     <script type="text/javascript" src="js/fd.js"></script>
+   <script>
         $(function ($) {
 
             $(".knob").knob({

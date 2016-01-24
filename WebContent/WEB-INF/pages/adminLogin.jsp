@@ -16,7 +16,10 @@
 	<link href="/css/bootstrapValidator.min.css" rel="stylesheet" type='text/css'>
     <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
-     
+      <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="css/editor/index.css" rel="stylesheet">
     <!-- Custom styling plus plugins -->
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
@@ -39,7 +42,8 @@
 
 </head>
 
-<body style="background:#F7F7F7;background-image: url(/images/bg.jpg)">   
+<body style="background:#F7F7F7;background-image: url(/images/bg.jpg)">  
+
 <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -49,7 +53,16 @@
 	  ga('create', 'UA-72298326-5', 'auto');
 	  ga('send', 'pageview'); 
 	</script>    
-  <h3><a href="/adminHome"><img src="images/logo.png" alt="Smiley face" style="width:5%;"></a></h3>
+	<div  class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="col-md-3 col-sm-3 col-xs-3">
+		  		<h3><a href="/adminHome"><img src="images/logo.png" alt="Smiley face" style="width:30%;"></a></h3>
+		  	</div>
+		  	<div class="col-md-6 col-sm-6 col-xs-6">
+	  			<h1 align="center" style="color:white"> <!-- PayPal Drop Wallet Administration --> PayPal goccia Portafoglio Amministrazione </h1>
+	  		</div>
+	  	</div>
+  	</div> 
         <div id="wrapper">
       
         <div class="panel panel-default panel-body">            
