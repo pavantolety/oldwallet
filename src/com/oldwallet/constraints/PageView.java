@@ -33,6 +33,10 @@ public interface PageView {
 	String CREATECOUPONS = "admin/createCoupon";
 	
 	String REDEEM = "screens/redeem";
+	
+	String SERVERERROR = "page505";
+	
+	String PAGENOTFOUND = "page404";
 
 
 }

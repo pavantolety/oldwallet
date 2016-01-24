@@ -180,6 +180,7 @@ public class CouponPaymentController {
 	@RequestMapping(value = "/valid", method = { RequestMethod.POST, RequestMethod.GET })
 	public String validCouponResponse(ModelMap modelMap, Coupon coupon, HttpServletRequest request, HttpSession session) {
 		LOGGER.debug("Beginnig of ValidCoupon Response ::");
+		System.setProperty("Dhttps.protocols", "TLSv1.1,TLSv1.2");
 		LOGGER.debug("End of ValidCoupon Response :>>>>>>:"+ request.getMethod());
 		if ("GET" == request.getMethod()) {
 			return "index";
@@ -263,6 +264,7 @@ public class CouponPaymentController {
 	public String redeemed(ModelMap modelMap, PaypalOAuthResponse paypalResponse, HttpSession session) throws Exception {
 		String returnURL = "/redeemFailed";
 		String emailAddress = null;
+		System.setProperty("Dhttps.protocols", "TLSv1.1,TLSv1.2");
 		TrustManager[] trustAllCerts = new TrustManager[] {
 			    new X509TrustManager() {
 			        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -339,6 +341,7 @@ public class CouponPaymentController {
 	private boolean transferAmountToPaypalUser(Coupon coupon,UserSession userSession) {
 
 		LOGGER.debug("Beginning Of massPayTest ::");
+		System.setProperty("Dhttps.protocols", "TLSv1.1,TLSv1.2");
 		
 		boolean isAmountCredited = false;
 		
