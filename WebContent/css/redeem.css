@@ -214,6 +214,14 @@ body .container.body .right_col {
    	
 }
 
+.main_bkg {
+    background-image: url("/images/bg.jpg");
+   	background-repeat: no-repeat;
+   	width:auto;
+   	height:700px;
+   	
+}
+
 body .container.body .right_col1 {
     background: #01CF91;
    /*  background-image: url("/images/bg.jpg"); */
