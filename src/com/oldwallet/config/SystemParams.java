@@ -3,6 +3,8 @@ package com.oldwallet.config;
 public interface SystemParams {
 
 	public static final String BASEURL = "https://oldwallet.edvenswa.com/";
+	
+	//public static final String BASEURL = "https://ec2-52-89-91-255.us-west-2.compute.amazonaws.com/";
 
 	//public static final String BASEURL = "http://localhost:8085/";
 
@@ -21,4 +23,5 @@ public interface SystemParams {
 	public static final String PAYPAL_LIVE_ID = "ASO1me3eFX_KUT7nkP1wWzHHhRab6xtZ0DJK3c7r11fQFFb-myrjtmbzj7D3v1-yYZVzF1Kt2nXN0tT7";
 	public static final String PAYPAL_LIVE_SECRET = "ELLrRWufa7Jt5n-QIeJiijdMTUs5Qxq4ZPycUbnKsJGqmxQFeD5GOJNR5QY2GVC5EIe_3tuQo-Qitc-Y";
 	public static final String PAYPAL_LIVE_REDIRECT = "https://oldwallet.edvenswa.com/redeemed";
+	//public static final String PAYPAL_LIVE_REDIRECT = "https://ec2-52-89-91-255.us-west-2.compute.amazonaws.com/redeemed";
 }
