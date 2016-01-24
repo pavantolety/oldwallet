@@ -428,7 +428,8 @@
                     "aoColumnDefs": [
                         {
                             'bSortable': false,
-                            'aTargets': [0]
+                            'aTargets': [0],
+                        	'sFileName':"PayPal-OldWallet"
                         } //disables sorting for column one
             		],
                 });
