@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponDAO;
+import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.dao.GenerateCouponDAO;
 import com.oldwallet.enums.CouponStatus;
 import com.oldwallet.model.Coupon;
@@ -24,7 +25,6 @@ import com.oldwallet.model.FundAllocationForm;
 import com.oldwallet.model.SaveConfiguration;
 import com.oldwallet.util.CouponCodeUtil;
 import com.oldwallet.util.EncryptCouponUtil;
-import com.oldwallet.util.ExceptionObjUtil;
 
 @Controller
 public class GenerateCouponsController {
@@ -39,6 +39,9 @@ public class GenerateCouponsController {
 	
 	@Autowired
 	CouponDAO couponDAO;
+	
+	@Autowired
+	ExceptionObjDAO exceptionDAO;
 	
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/saveConfiguration", method = RequestMethod.POST)
@@ -71,7 +74,7 @@ public class GenerateCouponsController {
 				} catch (Exception e) {
 					LOGGER.log(Priority.ERROR, e);
 					e.printStackTrace();
-					ExceptionObjUtil.saveException("Exception", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
+					exceptionDAO.saveException("Exception", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
 				} 
 				
 				c.setRedeemStatus(CouponStatus.NEW.toString());
