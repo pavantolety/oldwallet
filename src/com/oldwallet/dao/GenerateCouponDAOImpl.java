@@ -1,21 +1,13 @@
 package com.oldwallet.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.oldwallet.util.DataRetievar;
-import com.oldwallet.util.ExceptionObjUtil;
-import com.oldwallet.model.SaveConfiguration;;
+import com.oldwallet.model.SaveConfiguration;
 
 @Repository
 public class GenerateCouponDAOImpl implements GenerateCouponDAO{
@@ -27,7 +19,7 @@ public class GenerateCouponDAOImpl implements GenerateCouponDAO{
 	public static final String STORE_COUPONS = "INSERT INTO GENERATED_COUPONS (COUPON_CODE,GENERATE_REQUEST_DATE)VALUES(?,NOW())";
 	
 	private JdbcTemplate jdbcTemplate;
-
+	
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
