@@ -18,6 +18,7 @@ import com.oldwallet.model.MonthlyCouponsCount;
 import com.oldwallet.model.MonthlyRedeemCouponsCount;
 import com.oldwallet.model.Transaction;
 import com.oldwallet.util.DataRetievar;
+import com.oldwallet.util.EncryptCouponUtil;
 
 @Repository
 public class TransactionDAOImpl implements TransactionDAO {
@@ -69,8 +70,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 				transaction.getLongitude(), transaction.getTransactionCode());
 		if (result > 0) {
 			isUpdated = true;
+		String encCode =  EncryptCouponUtil.enccd(transaction.getCouponCode());
 			int result1 = jdbcTemplate.update(UPDATE_COUPON,
-					transaction.getUserEmail(), transaction.getCouponCode());
+					transaction.getUserEmail(),encCode);
 			if (result1 > 0) {
 				LOGGER.debug("COUPON UPDATED ::");
 			} else {
