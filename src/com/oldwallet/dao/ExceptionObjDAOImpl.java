@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ExceptionObjDAOImpl implements ExceptionObjDAO {
 
-	private static final String SAVE_EXCEPTION = "INSERT INTO EXCEPTIONS_AUDIT_LOG (EXCEPTION_NAME, EXCEPTION_MESSAGE, EXCEPTION_SOURCE_FILE, EXCEPTION-SOURCE_METHOD) VALUES(?,?,?,?)";
+	private static final String SAVE_EXCEPTION = "INSERT INTO EXCEPTIONS_AUDIT_LOG (EXCEPTION_NAME, EXCEPTION_MESSAGE, EXCEPTION_SOURCE_FILE, EXCEPTION_SOURCE_METHOD) VALUES(?,?,?,?)";
 
 	private JdbcTemplate jdbcTemplate;
 

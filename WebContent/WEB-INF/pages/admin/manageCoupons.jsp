@@ -203,10 +203,9 @@
                                                 <th>COUPON VALUE</th>
                                                 <!-- <th>START DATE </th>
 
-                                                <!--<th>COUPON VALUE</th>
+                                                <!--<th>COUPON VALUE</th> -->
                                                  <th>START DATE </th>
-
-                                                <th>END DATE</th> -->
+                                                <th>END DATE</th>
                                                 <th>STATUS</th>
                                                 <th>AVAILABLE REDEMPTIONS</th>
                                                 <th>COMPLETED REDEMPTIONS</th>
@@ -223,10 +222,10 @@
                                               <td class=" "><c:out value="${couponList.couponValue}" /></td>
                                                <%-- <td class=" "><c:out value="${couponList.validFrom}" /></td>
 
-                                                <%--<td class=" "><c:out value="${couponList.couponValue}" /></td>
+                                                <%--<td class=" "><c:out value="${couponList.couponValue}" /></td>--%>
                                                 <td class=" "><c:out value="${couponList.validFrom}" /></td>
 
-                                                <td class=" "><c:out value="${couponList.validTo}" /></td> --%>
+                                                <td class=" "><c:out value="${couponList.validTo}" /></td> 
                                                  <td class=" "><c:out value="${couponList.redeemStatus}" /></td>
                                                 <td class=" "><c:out value="${couponList.availableRedemptions}" /></td>
                                                 
@@ -428,8 +427,7 @@
                     "aoColumnDefs": [
                         {
                             'bSortable': false,
-                            'aTargets': [0],
-                        	'sFileName':"PayPal-OldWallet"
+                            'aTargets': [0]
                         } //disables sorting for column one
             		],
                 });
