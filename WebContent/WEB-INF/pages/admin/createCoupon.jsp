@@ -190,17 +190,17 @@
 			                                    </div> -->
 			                                     <div class="form-group col-md-8">
 			                                     	<div class="col-md-4 col-sm-4 col-xs-12">
-			                                     		<label>Choose coupon Start date:</label>
+			                                     		<label>Coupon Valid From:</label>
 		                                            	<div class="input-prepend input-group">
                                                             <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                                            <input type="text" value="" id="datetimepicker1"  name = "validFrom" required="required" class="form-control" />
+                                                            <input type="text" value="" id="datetimepicker1"  name = "validFrom" required="required" class="form-control" readonly/>
                                                         </div>
 		                                            </div>
 		                                            <div class="col-md-4 col-sm-4 col-xs-12">
-			                                     		<label>Choose Coupon End date:</label>
+			                                     		<label>Coupon Valid To:</label>
 		                                            	<div class="input-prepend input-group">
                                                             <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                                            <input type="text" value="" id="datetimepicker2"  name = "validTo" required="required" class="form-control" />
+                                                            <input type="text" value="" id="datetimepicker2"  name = "validTo" required="required" class="form-control" readonly/>
                                                         </div>
 		                                            </div>
 		                                            
@@ -235,7 +235,7 @@
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeALength" id="typeALength" placeholder="Length" value="4">
+	                                            <input type="text" class="form-control" name="typeALength" id="typeALength" placeholder="Length" value="3" readonly>
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -266,15 +266,15 @@
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 	                                            <select class="form-control" name="typeB" id="typeB">
-		                                            <option value="AlphaNumeric">Alpha Numeric</option>
 		                                            <option value="Numeric">Numeric</option>
 		                                            <option value="Character">Character</option>
+		                                            <option value="AlphaNumeric">Alpha Numeric</option>
 	                                            </select>
 	                                            
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeBLength" id="typeBLength" placeholder="Length" value="3">
+	                                            <input type="text" class="form-control" name="typeBLength" id="typeBLength" placeholder="Length" value="3" readonly>
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -305,16 +305,16 @@
 	                                    <form class="form-horizontal form-label-left input_mask">
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <select class="form-control" name="typeC" id="typeC">
-		                                            <option value="AlphaNumeric">Alpha Numeric</option>
-		                                            <option value="Numeric">Numeric</option>
+	                                            <select class="form-control" name="typeC" id="typeC">		                                            
 		                                            <option value="Character">Character</option>
+		                                            <option value="Numeric">Numeric</option>
+		                                            <option value="AlphaNumeric">Alpha Numeric</option>		                                            
 	                                            </select>
 	                                            
 	                                        </div>
 	
 	                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-	                                            <input type="text" class="form-control" name="typeCLength" id="typeCLength" placeholder="Length" value="2">
+	                                            <input type="text" class="form-control" name="typeCLength" id="typeCLength" placeholder="Length" value="2" readonly>
 	                                            
 	                                        </div>
 	                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -519,6 +519,7 @@
 	    $(document).ready(function () {
 	                        	
 	           	$('#datetimepicker1').datetimepicker({
+	           		minDate: 0,
 	           		formatTime:'H:i',
 	           		formatDate:'m.d.Y',
 	           		defaultTime:'10:00',
@@ -526,6 +527,7 @@
 	           		timepickerScrollbar:false
 	           	});
 	           	$('#datetimepicker2').datetimepicker({
+	           		minDate: 0,
 	           		formatTime:'H:i',
 	           		formatDate:'m.d.Y',
 	           		defaultTime:'10:00',
