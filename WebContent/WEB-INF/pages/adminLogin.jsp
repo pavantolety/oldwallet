@@ -79,7 +79,7 @@
 			<div class="col-md-3 col-sm-3 col-xs-3">
 			</div>
 		  	<div class="col-md-6 col-sm-6 col-xs-6" align="center">
-	  			<h1 align="center" style="color:white"><i> PayPal Drop Wallet Administration </i></h1>
+	  			<h1 align="center" style="color:white"><i> Edvenswa Coupon Manager - PayPal </i></h1>
 	  		</div>
 	  	</div>
   	</div> 

@@ -117,6 +117,7 @@ public class CouponPaymentController {
 		if (coupon != null && coupon.getCouponCode() != null) {
 				LOGGER.debug("Coupon VALUE ENTERED :::");
 				Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
+				System.out.println("Coupon Value ::"+Ccoupon);
 				if (Ccoupon!=null) {
 					LOGGER.debug("Coupon VALID :::");
 					    modelMap.put(COUPON, Ccoupon);
@@ -124,14 +125,14 @@ public class CouponPaymentController {
 						modelMap.put(MESSAGE, VALID_COUPON);
 					} else {
 						LOGGER.debug("Coupon INVALID :::");
-						modelMap.put(ACTION, EXPIRED);
-						modelMap.put(MESSAGE, EXPIRED_COUPON);
+						modelMap.put(ACTION, INVALID);
+						modelMap.put(MESSAGE, INVALID_COUPON);
 					}
 			
 			} else {
 				LOGGER.debug("NULL COUPON :::");
-				modelMap.put(ACTION, INVALID);
-				modelMap.put(MESSAGE, INVALID_COUPON);
+				modelMap.put(ACTION, "nocoupon");
+				modelMap.put(MESSAGE, "Please enter a coupon code.");
 			}
 
 		

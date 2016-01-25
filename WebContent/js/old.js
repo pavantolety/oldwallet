@@ -58,7 +58,7 @@ $(function() {
     						
     						} else if(action=="invalid") {	
     							$('#errorMessage').empty();
-    							$('#errorMessage').append('<b style="color:red;">Invalid Coupon Code</b>');
+    							$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
     						}else if(data.action=='expired') {
     							$('#errorMessage').empty();
     							$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
