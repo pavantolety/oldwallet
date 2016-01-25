@@ -167,11 +167,11 @@
 								 <div class="x_content">
                                     <div class="col-md-2">
                                         <p>Coupons Count</p>
-                                        <input class="knob" id="tCouponCount" data-width="100" data-height="120"  data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" readonly>
+                                        <input class="knob" id="tCouponCount" data-width="100" data-height="120"  data-max="1000" data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" readonly>
                                     </div>
                                     <div class="col-md-2">
                                         <p>Remaining Coupons</p>
-                                        <input class="knob" id="rCouponCount" data-width="100" data-height="120" data-displayPrevious=true data-fgColor="#26B99A" value="${remainCount}" readonly>
+                                        <input class="knob" id="rCouponCount" data-width="100" data-height="120" data-max="1000" data-displayPrevious=true data-fgColor="#26B99A" value="${remainCount}" readonly>
                                     </div>
 									<div class="col-md-2">
                                         <p>Coupon Value</p>
