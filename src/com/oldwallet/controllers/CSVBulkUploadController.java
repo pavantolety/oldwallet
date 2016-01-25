@@ -173,7 +173,7 @@ public class CSVBulkUploadController {
 		LOGGER.debug("Data  for tracking>>>>>>>>>>>>>>");
 		JSONArray list1 = new JSONArray();
 		JSONArray list2 = new JSONArray();
-		if (!couponDataList.isEmpty()) {
+		if (couponDataList.size()>0) {
 			for (Coupon couponData : couponDataList) {
 						JSONObject obj = new JSONObject();
 						obj.put("code","code");
