@@ -446,7 +446,7 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public List<Long> getAllCategories() {
 	     List<Long> list = new ArrayList<Long>();
-	     List<Map<String,Object>> mapList =  jdbcTemplate.queryForList("SELECT  * FROM FUND_ALLOCATION");
+	     List<Map<String,Object>> mapList =  jdbcTemplate.queryForList("SELECT  * FROM FUND_ALLOCATION WHERE AVAILABLE_COUNT>0");
 	     System.out.println("map list size>>>>>>>>>>>>>>>"+mapList.size());
 	     if(mapList.size()>0){
 	    	 for(Map<String , Object> map :mapList){
@@ -491,7 +491,12 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean updateFundAllocation(FundAllocation fundAllocation) {
 		boolean isUpdated = false;
-		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION_BY_ID,(NumberUtils.toLong(fundAllocation.getAvailableCount())-1),fundAllocation.getCategoryCode());
+		int i;
+		if(NumberUtils.toLong(fundAllocation.getAvailableCount())>0){
+		        i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION_BY_ID,(NumberUtils.toLong(fundAllocation.getAvailableCount())-1),fundAllocation.getCategoryCode());
+		}else{
+		        i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION_BY_ID,(NumberUtils.toLong(fundAllocation.getAvailableCount())),fundAllocation.getCategoryCode());
+		}
 		if(i>0){
 			String encCode =  EncryptCouponUtil.enccd(fundAllocation.getCouponCode());
 			jdbcTemplate.update(UPDATE_COUPON_VALUE,fundAllocation.getCouponValue(),encCode);
