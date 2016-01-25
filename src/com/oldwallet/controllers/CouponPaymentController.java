@@ -210,10 +210,10 @@ public class CouponPaymentController {
 				List<String> scopelist = new ArrayList<String>();
 				scopelist.add("openid");
 				scopelist.add("email");
-				String redirectURI = SystemParams.PAYPAL_LOCAL_REDIRECT;
+				String redirectURI = SystemParams.PAYPAL_LIVE_REDIRECT;
 
 				ClientCredentials clientCredentials = new ClientCredentials();
-				clientCredentials.setClientID(SystemParams.PAYPAL_LOCAL_ID);
+				clientCredentials.setClientID(SystemParams.PAYPAL_LIVE_ID);
 
 				redirectUrl = Session.getRedirectURL(redirectURI, scopelist, apiContext, clientCredentials); 
 					modelMap.put(COUPON, coupon2);
@@ -299,8 +299,8 @@ public class CouponPaymentController {
 						apiContext.setConfigurationMap(configurationMap);
 
 						CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
-						param.setClientID(SystemParams.PAYPAL_LOCAL_ID);
-						param.setClientSecret(SystemParams.PAYPAL_LOCAL_SECRET);
+						param.setClientID(SystemParams.PAYPAL_LIVE_ID);
+						param.setClientSecret(SystemParams.PAYPAL_LIVE_SECRET);
 						param.setCode(paypalResponse.getCode());
 						LOGGER.info("CODE ::: "+paypalResponse.getCode());
 						Tokeninfo info = null;
@@ -342,11 +342,11 @@ public class CouponPaymentController {
 
 		LOGGER.debug("Beginning Of massPayTest ::");
 		System.setProperty("Dhttps.protocols", "TLSv1.1,TLSv1.2");
-		
+		String transCode = UUID.randomUUID().toString().replaceAll("-", "");
 		boolean isAmountCredited = false;
 		
 		MassPayReq req = new MassPayReq();
-
+		
 		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
 
 		BasicAmountType amount1 =  new BasicAmountType(CurrencyCodeType.fromValue("USD"), coupon.getCouponValue());
@@ -354,6 +354,9 @@ public class CouponPaymentController {
 		MassPayRequestItemType item1 = null;
 			item1 = new MassPayRequestItemType(amount1);
 			item1.setReceiverEmail(userSession.getEmailAddress());
+			item1.setNote("Coupon Code : "+coupon.getCouponCode()+", Amount : "+coupon.getCouponValue()+" From Edvenswa SuperBowl.");
+			item1.setReceiverPhone("+16785968322");
+			item1.setUniqueId(transCode);
 			massPayItem.add(item1);
 			
 		if (!massPayItem.isEmpty()) {
@@ -363,7 +366,7 @@ public class CouponPaymentController {
 			Map<String, String> configurationMap = Configuration.getAcctAndConfig();
 
 			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
-			String transCode = UUID.randomUUID().toString().replaceAll("-", "");
+			
 			Transaction transaction = new Transaction();
 			transaction.setCouponCode(userSession.getCouponCode());
 			transaction.setCouponId(coupon.getCouponId()+"");
