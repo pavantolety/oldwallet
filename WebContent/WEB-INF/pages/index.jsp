@@ -148,6 +148,7 @@
                                 </div>
                             </div>
                             <div id="errorMessage" align="center"></div>  
+                             <div align="center">${message}</div>  
 							<div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-2">                       												
 									<input type="checkbox" name="terms" id="terms" checked data-parsley-multiple="terms" data-parsley-id="3763" style="color:#AAA;"> Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
@@ -303,7 +304,7 @@
 							
 							} else if(action=="invalid") {	
 								$('#errorMessage').empty();
-								$('#errorMessage').append('<b style="color:red;">Invalid Coupon Code</b>');
+								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
 							}else if(data.action=='expired') {
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');

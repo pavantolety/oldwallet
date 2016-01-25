@@ -100,7 +100,7 @@
                     </div> </br>
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
                      <div class="col-md-8 col-sm-8 col-xs-8" align="center">
-                     <a href="${redirectUrl}" ><img class="hvr-grow" src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png"></a>
+                     <a href="${redirectUrl}" ><img src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png"></a>
                      </div> 
                      
                     </div>                 
