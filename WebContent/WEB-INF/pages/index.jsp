@@ -304,7 +304,6 @@
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
 							}else if(data.action=='error') {
-								sweetAlert("Info",data.message,"info");
 								$('#errorMessage').empty();
 								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
 							}
