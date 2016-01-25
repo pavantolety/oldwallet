@@ -32,7 +32,6 @@ public class GenerateCouponsController {
 	
 	private static final String RESULT = "result";
 	private static final String MESSAGE = "message";
-	private static final String FILE_NAME = "GenerateCouponsController";
 	
 	private static final Logger LOGGER = Logger.getLogger(GenerateCouponsController.class);
 	
@@ -59,13 +58,13 @@ public class GenerateCouponsController {
 				try {
 					c.setValidFrom(format2.format(format1.parse(saveConfiguration.getValidFrom())));
 				} catch (ParseException e1) {
-					exceptionDAO.saveException("From Date Parse Exception", e1.getMessage(), FILE_NAME, "saveConfiguration");
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				try {
 					c.setValidTo(format2.format(format1.parse(saveConfiguration.getValidTo())));
 				} catch (ParseException e1) {
-					exceptionDAO.saveException("To Date Parse Exception", e1.getMessage(), FILE_NAME, "saveConfiguration");
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				String securedEncryptCouponCode;
@@ -76,7 +75,7 @@ public class GenerateCouponsController {
 				} catch (Exception e) {
 					LOGGER.log(Priority.ERROR, e);
 					e.printStackTrace();
-					exceptionDAO.saveException("Coupon Encryption Exception", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
+					exceptionDAO.saveException("Exception", e.getMessage(), "GenerateCouponsController.java", "saveConfiguration");
 				} 
 				
 				c.setRedeemStatus(CouponStatus.NEW.toString());
