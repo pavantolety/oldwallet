@@ -39,6 +39,7 @@ import com.oldwallet.config.SystemParams;
 import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponBlockerDAO;
 import com.oldwallet.dao.CouponDAO;
+import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.FundAllocation;
@@ -74,6 +75,7 @@ public class CouponPaymentController {
 	private static final String INVALID_COUPON = "Invalid Coupon";	
 	private static final String EXPIRED_COUPON = "Coupon Code Expired or Event Closed.!";
 	private static final String VALID_COUPON = "You have entered a valid coupon.!";
+	private static final String FILE_NAME = "CouponPaymentController";
 
 	@Autowired
 	CouponDAO couponDAO;
@@ -83,8 +85,11 @@ public class CouponPaymentController {
 
     @Autowired
     CouponBlockerDAO couponBlockerDAO;
+    
+    @Autowired
+	ExceptionObjDAO exceptionDAO;
      
-  @Scheduled(cron="0 0/5 * * * *")
+    @Scheduled(cron="0 0/5 * * * *")
 	@RequestMapping(value = "updateCouponBlocker")
 	public void updateCouponBlocker(){
 		couponBlockerDAO.updateCouponBlockerJob();
@@ -263,7 +268,6 @@ public class CouponPaymentController {
 	@RequestMapping(value="/redeemed", method=RequestMethod.GET)
 	public String redeemed(ModelMap modelMap, PaypalOAuthResponse paypalResponse, HttpSession session) throws Exception {
 		String returnURL = "/redeemFailed";
-		String emailAddress = null;
 		System.setProperty("Dhttps.protocols", "TLSv1.1,TLSv1.2");
 		TrustManager[] trustAllCerts = new TrustManager[] {
 			    new X509TrustManager() {
@@ -317,7 +321,6 @@ public class CouponPaymentController {
 								Userinfo userInfo = Userinfo.getUserinfo(apiContext, param2);
 								LOGGER.info("UserInfo ::"+userInfo);
 								userSession.setEmailAddress(userInfo.getEmail());
-								emailAddress  = userInfo.getEmail();
 								LOGGER.info("EMAIL ADDRESS :: "+userInfo.getEmail());
 								userSession.setEmailAddress(userInfo.getEmail());
 								boolean isAmountCredited = transferAmountToPaypalUser(validCoupon, userSession);
@@ -328,6 +331,7 @@ public class CouponPaymentController {
 						} catch (PayPalRESTException e) {
 							e.printStackTrace();
 							LOGGER.info("EXCEPTION WHILE SSL CONNECT ::");
+							exceptionDAO.saveException("PayPalRESTException", e.getMessage(), FILE_NAME, "redeemed");
 						}						
 					} 			
 				}
@@ -356,7 +360,7 @@ public class CouponPaymentController {
 			item1.setReceiverEmail(userSession.getEmailAddress());
 			item1.setNote("Coupon Code : "+coupon.getCouponCode()+", Amount : "+coupon.getCouponValue()+" From Edvenswa SuperBowl.");
 			item1.setReceiverPhone("+16785968322");
-			item1.setUniqueId(transCode);
+			item1.setUniqueId(transCode.substring(0, 29));
 			massPayItem.add(item1);
 			
 		if (!massPayItem.isEmpty()) {
@@ -400,7 +404,8 @@ public class CouponPaymentController {
 				}
 
 			} catch (Exception e) {
-				e.printStackTrace();				
+				e.printStackTrace();
+				exceptionDAO.saveException("MassPay Exception", e.getMessage(), FILE_NAME, "transferAmountToPaypalUser");
 			}
 		} else {
 			LOGGER.debug("action ::"+" Error");
