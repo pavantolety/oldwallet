@@ -173,7 +173,7 @@
                         <div class="left"></div>
                         <div class="right">
                             <span class="count_top"><i class="fa fa-user"></i> Total Amount</span>
-                            <div class="count green">$ ${couponAmount }</div>
+                            <div class="count green">$ ${totalFund }</div>
                         </div>
                     </div>
                     <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
@@ -187,7 +187,7 @@
                         <div class="left"></div>
                         <div class="right">
                             <span class="count_top"><i class="fa fa-user"></i> Redeemed Amount</span>
-                            <div class="count green">$ ${redeemedAmount }</div>
+                            <div class="count green">$ ${couponAmount }</div>
                         </div>
                     </div>
                 
@@ -199,7 +199,7 @@
                                        <div class="barWrapper">
 											 <span class="progressText" style="text-align:center;color:green"><h3>Redeemed Amount Progress</h3></span>
 											 <span class="progressText" style="text-align:center;"><h5 id="monthDiff"></h5></span>
-											<span class="progressText" style="color:black;"><h5>$ ${redeemedAmount} <span class="" style="color:black;margin:39%;">${percentageVal }%</span><span class="pull-right"style="color:black">$ ${couponAmount}</span></h5></span>
+											<span class="progressText" style="color:black;"><h5>$ ${remaining} <span class="" style="color:black;margin:39%;">${percentageVal }%</span><span class="pull-right"style="color:black">$ ${totalFund}</span></h5></span>
 											<div class="progress">
 						  <div class="progress-bar" role="progressbar" role="progressbar"
 						  aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${percentageVal }%">

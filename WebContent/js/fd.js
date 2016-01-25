@@ -1,21 +1,31 @@
+$(function ($) {
+var ro = $("#rCouponCount").val();
+if(parseInt(ro)==0){
+	$("#submitBtn").attr("disabled","disabled");
+}else{
+	$("#submitBtn").removeAttr("disabled","disabled");
+}
+});
 function submitFund(){
     	  $('#fundAllocationForm').ajaxSubmit({
    	       success : function(data)
    	        {
    	    	   if(data.result =="success"){
-   	    		  if(cn!=0){
+   	    		 /* if(cn!=0){
    	    	    	$("#tba"+(parseInt(cn)-1)).remove();
    	    	    	
    	    	    	cn--;
    	    	    	if(cn==0){
    	    	    		$("#totalAmount").val("");
    	    	    	}
-   	    	    	}    	
+   	    	    	} */   	
    	    		 $('<div class="alert alert-success"><strong>'+data.message+'</strong></div>').appendTo("#messageD");
               	
     	         $(".alert").delay(200).addClass("in").fadeOut(3000);
     	         
     	         setTimeout(function(){ location.reload();}, 1000);
+    	         
+    	         
    	    	   }else{
    	    		$('<div class="alert alert-success"><strong>'+data.message+'</strong></div>').appendTo("#messageD");
               	

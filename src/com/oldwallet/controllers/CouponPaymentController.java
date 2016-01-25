@@ -185,6 +185,8 @@ public class CouponPaymentController {
 		if ("GET" == request.getMethod()) {
 			return "index";
 		}
+		LOGGER.debug("Latitude>>>>>>:"+coupon.getLatitude());
+		LOGGER.debug("longitude>>>>>>"+coupon.getLongitude());
 		String redirectUrl = null;
 		String couponCode = coupon.getCouponCode();
 		if (couponCode != null && couponCode != "" && couponCode.length() > 4) {
@@ -192,6 +194,8 @@ public class CouponPaymentController {
 			if (Ccoupon!=null) {
 				UserLogin userLogin = new UserLogin();
 				Coupon coupon2 = asignValueToCoupon(Ccoupon.getCouponCode());
+				coupon2.setLatitude(coupon.getLatitude());
+				coupon2.setLongitude(coupon.getLongitude());
 				if(coupon2!=null){
 				userLogin.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 				userLogin.setAmount(coupon2.getCouponValue());

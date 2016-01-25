@@ -167,11 +167,11 @@
 								 <div class="x_content">
                                     <div class="col-md-2">
                                         <p>Coupons Count</p>
-                                        <input class="knob" id="tCouponCount" data-width="100" data-height="120"  data-max="1000" data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" readonly>
+                                        <input class="knob" id="tCouponCount" data-width="100" data-height="120"  data-max="1000" data-displayPrevious=true data-fgColor="#26B99A" value="${totalCount}" >
                                     </div>
                                     <div class="col-md-2">
                                         <p>Remaining Coupons</p>
-                                        <input class="knob" id="rCouponCount" data-width="100" data-height="120" data-max="1000" data-displayPrevious=true data-fgColor="#26B99A" value="${remainCount}" readonly>
+                                        <input class="knob" id="rCouponCount" data-width="100" data-height="120" data-displayPrevious=true data-fgColor="#26B99A" value="${remainCount}" >
                                     </div>
 									<div class="col-md-2">
                                         <p>Coupon Value</p>
@@ -193,7 +193,6 @@
 										 <table class="table table-bordered" id="fundTable">
                                         <thead>
                                             <tr>
-                                             
                                                 <th>Name of Prize</th>
                                                 <th>Coupon Count</th>
                                                 <th>Coupon Value</th>
@@ -201,18 +200,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                     
+                                        <tr id="tba0"><td><select class="select2_multiple form-control" id="couponPrize0" disabled><option value=""></option><option value="JP" selected>Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select><input type="hidden" name="fundAllocation[0].categoryCode" value="JP" /></td><td><input type="text" class="form-control " name="fundAllocation[0].totalCouponCount" id="couponCount0" value="4" placeholder="Count" readonly> </td><td><input type="text" class="form-control " name="fundAllocation[0].couponValue" id="couponAmount0" value = "500" placeholder="$ Amount" readonly> </td><td><input type="text" class="form-control" name="totalAmount0" id="totalAmount0" value="$2000" placeholder="$ Amount" disabled> </td></tr>
+                                        <tr id="tba1"><td><select class="select2_multiple form-control" id="couponPrize1" disabled><option value=""></option><option value="JP">Jackpot</option><option value="BB" selected>Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select><input type="hidden" name="fundAllocation[1].categoryCode" value="BB" /></td><td><input type="text" class="form-control " name="fundAllocation[1].totalCouponCount" id="couponCount1" value="4" placeholder="Count" readonly> </td><td><input type="text" class="form-control " name="fundAllocation[1].couponValue" id="couponAmount1" value = "250" placeholder="$ Amount" readonly> </td><td><input type="text" class="form-control" name="totalAmount1" id="totalAmount1" value = "$1000" placeholder="$ Amount" disabled> </td></tr>
+                                        <tr id="tba2"><td><select class="select2_multiple form-control" id="couponPrize2" disabled><option value=""></option><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB" selected>Super Bonanza</option><option value="SP">Super Prize</option><option value="LO">Lottery</option></select><input type="hidden" name="fundAllocation[2].categoryCode" value="SB" /></td><td><input type="text" class="form-control " name="fundAllocation[2].totalCouponCount" id="couponCount2" value="5" placeholder="Count" readonly> </td><td><input type="text" class="form-control " name="fundAllocation[2].couponValue" id="couponAmount2" value = "200" placeholder="$ Amount" readonly> </td><td><input type="text" class="form-control" name="totalAmount2" id="totalAmount2" value = "$1000" placeholder="$ Amount" disabled> </td></tr>
+                                        <tr id="tba3"><td><select class="select2_multiple form-control" id="couponPrize3" disabled><option value=""></option><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP" selected>Super Prize</option><option value="LO">Lottery</option></select><input type="hidden" name="fundAllocation[3].categoryCode" value="SP" /></td><td><input type="text" class="form-control " name="fundAllocation[3].totalCouponCount" id="couponCount3" value="40" placeholder="Count" readonly> </td><td><input type="text" class="form-control " name="fundAllocation[3].couponValue" id="couponAmount3" value = "100" placeholder="$ Amount" readonly> </td><td><input type="text" class="form-control" name="totalAmount3" id="totalAmount3" value = "$4000" placeholder="$ Amount" disabled> </td></tr>
+                                        <tr id="tba4"><td><select class="select2_multiple form-control" id="couponPrize4" disabled><option value=""></option><option value="JP">Jackpot</option><option value="BB">Bumper Bonanza</option><option value="SB">Super Bonanza</option><option value="SP">Super Prize</option><option value="LO" selected>Lottery</option></select><input type="hidden" name="fundAllocation[4].categoryCode" value="LO" /></td><td><input type="text" class="form-control " name="fundAllocation[4].totalCouponCount" id="couponCount4" value="40" placeholder="Count" readonly> </td><td><input type="text" class="form-control " name="fundAllocation[4].couponValue" id="couponAmount4" value = "50" placeholder="$ Amount" readonly> </td><td><input type="text" class="form-control" name="totalAmount4" id="totalAmount4" value = "$2000" placeholder="$ Amount" disabled> </td></tr>
                                         </tbody>
                                         <tfoot>
-						    			<tr><td></td><td></td><td></td><td><input id="totalAmount" class="form-control" type="number" disabled required=required></td></tr>
+						    			<tr><td></td><td></td><td></td><td><input id="totalAmount" class="form-control" type="text"  value="$10000" disabled></td></tr>
 						    			</tfoot>
                                     </table>
                                     </form>
                                    <div class="form-group">
                                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                                <button  class="btn btn-danger"  onclick="deleteRow()">Delete Row</button>
-                                                <button class="btn btn-primary" onclick="addRow()">Add Row</button>
-												<button  class="btn btn-success" onclick="submitFund()">Submit</button>
+                                                <button  class="btn btn-danger" >Delete Row</button>
+                                                <button class="btn btn-primary" >Add Row</button>
+												<button  class="btn btn-success" id="submitBtn" onclick="submitFund()">Submit</button>
                                             </div>
                                         </div>
                              

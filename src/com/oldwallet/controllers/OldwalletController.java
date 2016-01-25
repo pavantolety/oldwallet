@@ -125,11 +125,20 @@ public class OldwalletController {
 				modelMap.put("couponAmount", cs3.getTotalCouponAmount());
 			}
 			if (cs4 != null) {
-				long percentage = Math.round((cs4.getTotalRedeemedAmount() / cs3.getTotalCouponAmount()) * 100);
-				DecimalFormat df = new DecimalFormat("#.00");
-				String percentageVal = df.format(percentage);
-				modelMap.put("redeemedAmount", cs4.getTotalRedeemedAmount());
-				modelMap.put("percentageVal", percentageVal);
+				FundAllocation fundAllocation = couponDAO.getFundAllocationData();
+				if(fundAllocation!=null){
+					if(fundAllocation.getTotalCouponValue()!=0){
+						modelMap.put("totalValue", fundAllocation.getTotalCouponValue());
+						modelMap.put("totalFund", fundAllocation.getTotalFund());
+						double value = (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue());
+						modelMap.put("remaining", (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue()));
+						long percentage = Math.round( ((fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue())/fundAllocation.getTotalFund())* 100);
+						DecimalFormat df = new DecimalFormat("#.00");
+						String percentageVal = df.format(percentage);
+						modelMap.put("percentageVal", percentageVal);
+					   }
+				}
+				
 			}
 			return PageView.COUPONSTATS;
 		}

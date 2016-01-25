@@ -62,7 +62,7 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	private static final String CREATE_GENERATED_COUPON_DATA = "INSERT INTO COUPONS (COUPON_CODE,REDEEM_STATUS,VALID_FROM,VALID_TO) VALUES (?,?,?,?)";
 	
-	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' , DATE_BLOCKED = NOW() WHERE COUPON_CODE=?";
+	public static final String BLOCK_COUPON = "UPDATE COUPONS SET REDEEM_STATUS='BLOCKED' ,LATITUDE=?,LONGITUDE=?, DATE_BLOCKED = NOW() WHERE COUPON_CODE=?";
     
 	public static final String  CREATE_FUND_ALLOCATION = "INSERT INTO FUND_ALLOCATION(CATEGORY_CODE,TOTAL_COUPON_COUNT,COUPON_VALUE,REDEEMED_COUNT,AVAILABLE_COUNT) VALUES(?,?,?,?,?)"; 
 	
@@ -77,6 +77,8 @@ public class CouponDAOImpl implements CouponDAO {
 	public static final String UPDATE_FUND_ALLOCATION_BY_ID = "UPDATE FUND_ALLOCATION SET AVAILABLE_COUNT = ? WHERE CATEGORY_CODE = ?";
 	
 	public static final String GET_REMAINING_TOTAL_VALUE = "SELECT SUM((F.TOTAL_COUPON_COUNT)*(F.COUPON_VALUE)) AS TOTAL_FUND, (SELECT (SUM((F.TOTAL_COUPON_COUNT)*(F.COUPON_VALUE))-SUM(C.COUPON_VALUE)) FROM COUPONS C WHERE REDEEM_STATUS='REDEEMED') AS REMAINING  FROM FUND_ALLOCATION F";
+	
+	public static final String GET_LAT_LONG_BY_STATUS="SELECT LATITUDE,LONGITUDE FROM COUPONS WHERE REDEEM_STATUS=?";
 	
 	private JdbcTemplate jdbcTemplate;
 	
@@ -154,6 +156,22 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Coupon> getCouponDataByRedeemed() {
+		
+		List<Coupon> couponList = new ArrayList<Coupon>();
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(GET_LAT_LONG_BY_STATUS,"REDEEMED");
+		if (!coupon.isEmpty()) {
+			for (Map<String, Object> map : coupon) {
+				couponList.add(retrieveCoupon(map));
+			}		
+			return couponList;
+		}
+		return null;
+	}
+
+
 	@SuppressWarnings("deprecation")
 	private Coupon retrieveCoupon(Map<String, Object> map) {
 
@@ -177,6 +195,8 @@ public class CouponDAOImpl implements CouponDAO {
 				"COMPLETED_REDEMPTIONS", map));
 		coupon.setLocation(DataRetievar.getStringValue("", map));
 		coupon.setValidityPeriod(DataRetievar.getStringValue("", map));
+		coupon.setLatitude(DataRetievar.getStringValue("LATITUDE", map));
+		coupon.setLongitude(DataRetievar.getStringValue("LONGITUDE", map));
 		try {
 			if (map.get("REDEEMED_DATE") != null) {
 				coupon.setRedeemedDate(format2.format(format1.parse(map.get(
@@ -391,7 +411,7 @@ public class CouponDAOImpl implements CouponDAO {
 	public boolean blockCouponCode(Coupon coupon) {
 		boolean isBlocked = false;
 		String enccCouponcode =  EncryptCouponUtil.enccd(coupon.getCouponCode());
-		int i = jdbcTemplate.update(BLOCK_COUPON, enccCouponcode);
+		int i = jdbcTemplate.update(BLOCK_COUPON, coupon.getLatitude(),coupon.getLongitude(),enccCouponcode);
 		if(i>0) {
 			isBlocked = true;
 		}

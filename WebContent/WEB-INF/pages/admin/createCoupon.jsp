@@ -181,8 +181,8 @@
 		                                <div class="x_content">
 		                                	<form name="couponConfig" method="post">
 			                                    <div class="col-md-3">
-			                                        <p>Coupon Count<small>(Maximum 100 Coupons)</small></p>
-			                                        <input class="knob" data-width="100" data-height="120" data-cursor=true data-fgColor="#34495E" name="couponCount" id="couponCount" value="1">
+			                                        <p>Coupon Count</p>
+			                                        <input class="knob" data-width="100" data-height="120" data-cursor=true data-max="100" data-fgColor="#34495E" name="couponCount" id="couponCount" value="93" readonly>
 			                                    </div>
 			                                    <!-- <div class="col-md-2">
 			                                        <p>Coupon Length</p>

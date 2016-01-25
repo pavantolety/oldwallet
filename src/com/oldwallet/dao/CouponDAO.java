@@ -57,4 +57,6 @@ public interface CouponDAO {
 
 	List<Coupon> getCouponData();
 
+	public List<Coupon> getCouponDataByRedeemed();
+
 }

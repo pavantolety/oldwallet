@@ -64,6 +64,7 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="js/data.json"></script>
     <script src="js/data2.json"></script>
+    
     <script>
       var script = '<script type="text/javascript" src="js/markerclusterer';
       if (document.location.search.indexOf('compiled') !== -1) {
@@ -146,7 +147,7 @@
       }]];
 
       var markerClusterer = null;
-      var map = null;
+      var map1 = null;
       var marker1 = null ;
       var imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&' +
           'chco=FFFFFF,008CFF,000000&ext=.png';
@@ -168,34 +169,42 @@
       var mapdata1 = [];
       var mapdata2 = [];
             $(document).ready(function(){
+            	    
             	$.ajax({
         			type:'GET',
         			url:'/getTrackedCouponsMap.json',
         			success:function(data) {
+        				map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 2,
+                            center: new google.maps.LatLng(39.91, 116.38),
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                          });
         				var markerImage = new google.maps.MarkerImage(imageUrl,
         			              new google.maps.Size(24, 32));
         				   for (var i = 0; i < data.mapData1.length; ++i) {
         				          var latLng = new google.maps.LatLng(data.mapData1[i].latitude,
-        				        		  data.mapData1[i].logitude)
+        				        		  data.mapData1[i].longitude)
+        				         
         				          var  marker = new google.maps.Marker({
         				            position: latLng,
         				            draggable: false,
         				            icon: 'images/pin.png',
         				            title: data.mapData1[i].value+"",
-        				            label:"H"
+        				            label:"R"
         				          });
         				          markers1.push(marker);
         				          var marker1 = markers1[i];
-          				      	google.maps.event.addListener(marker1, 'mouseover', function () {
-          				      	infowindow.setContent(this.title+" Coupons Hide Location");
-          				      	infowindow.open(map, this);
+          				      	/* google.maps.event.addListener(marker1, 'mouseover', function () {
+          				      	infowindow.setContent(this.title+" Coupons Redeem Location");
+          				      	infowindow.open(map1, this);
           				      	});
           				      	google.maps.event.addListener(marker1, 'mouseout', function () {
               				      	
-              				      	infowindow.close(map, this);
-              				      	});
+              				      	infowindow.close(map1, this);
+              				      	}); */
+          				     
         				        }
-        				        for (var i = 0; i <data.mapData2.length; ++i) {
+        				  /*       for (var i = 0; i <data.mapData2.length; ++i) {
         				            var latLng = new google.maps.LatLng(data.mapData2[i].latitude,
         				            		data.mapData2[i].logitude)
 
@@ -216,8 +225,8 @@
                 				      	
                 				      	infowindow.close(map, this);
                 				      	});
-        				          }
-        				        var markers =  markers1.concat(markers2);
+        				          } */
+        				       // var markers =  markers1.concat(markers2);
         				        /* 
         				                var zoom = parseInt(document.getElementById('zoom').value, 10);
         				                var size = parseInt(document.getElementById('size').value, 10);
@@ -225,8 +234,8 @@
         				                zoom = zoom === -1 ? null : zoom;
         				                size = size === -1 ? null : size;
         				                style = style === -1 ? null: style; */
-
-        				                markerClusterer = new MarkerClusterer(map, markers, {
+        				                
+        				                markerClusterer = new MarkerClusterer(map, markers1, {
         				                  maxZoom:10,
         				                  gridSize:-1,
         				                  styles: styles[0]
@@ -238,29 +247,28 @@
  
 
       function initialize() {
-        map = new google.maps.Map(document.getElementById('map'), {
+    	 alert("dasd");
+       /*  map = new google.maps.Map(document.getElementById('map'), {
           zoom: 2,
           center: new google.maps.LatLng(39.91, 116.38),
           mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-        
+        }); */
+       
 
       /*   var refresh = document.getElementById('refresh');
         google.maps.event.addDomListener(refresh, 'click', refreshMap); */
 
        /*  var clear = document.getElementById('clear');
         google.maps.event.addDomListener(clear, 'click', clearClusters); */
-       
-        refreshMap();
       }
-
+      //google.maps.event.addDomListener(window, 'load', initialize);
       function clearClusters(e) {
         e.preventDefault();
         e.stopPropagation();
         markerClusterer.clearMarkers();
       }
 
-      google.maps.event.addDomListener(window, 'load', initialize);
+      
     </script>
     <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>

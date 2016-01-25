@@ -38,6 +38,7 @@
 	<link rel="stylesheet" href="css/hover-min.css" />
 	
     <script src="js/jquery.min.js"></script>
+   
 
     <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -131,6 +132,8 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             	<label class="control-label">Coupon Code:<span class="required">*</span></label>
                                                 <input type="text" id="couponCode" name="couponCode" required="required" class="form-control col-md-7 col-xs-12">
+												<input type="hidden" id="latitude" name="latitude" >
+												<input type="hidden" id="longitude" name="longitude" >
 												<br/>
                                             	<div id="errorMessage"></div>                                            	
                                             												
@@ -263,89 +266,9 @@
                 });
             });
         </script>
-		 <script type="text/javascript">
 
-		$("#redeem_button").click(function() {		
-		//var e=$('#redeem_form [name=paypal_id]').val();
-		var c=$("#couponCode").val();
-		//var mobile = document.getElementById("mobile").value;
-		
-		if(c.length==0) {
-			//sweetAlert("Info","Please enter a coupon code","info");
-			$('#errorMessage').empty();
-			$('#errorMessage').append('<b style="color:orange;">Please enter a coupon code</b>');
-			return;
-		}
-		if($('#terms').prop('checked')){
-			if(c != null && $("#couponCode").val()){			
-				var coupon = {
-							couponCode : c
-					};
-					
-					$.ajax({
-						type:'POST',
-						url:'/validateCoupon.json',
-						data:coupon,
-						success:function(data) {
-							
-							var action = data.action;
-							//alert(action);
-							if(action=='valid') {
-							var successUrl = '/valid';
-							$('#errorMessage').empty();
-							//successUrl = successUrl+c;
-							$("#couponValidForm").attr("action", successUrl);
-							$("#couponValidForm").submit();
-							
-							} else if(action=="invalid") {	
-								$('#errorMessage').empty();
-								$('#errorMessage').append('<b style="color:red;">Invalid Coupon Code</b>');
-							}else if(data.action=='expired') {
-								$('#errorMessage').empty();
-								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
-							}else if(data.action=='error') {
-								sweetAlert("Info",data.message,"info");
-								$('#errorMessage').empty();
-								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
-							}
-							
-						},
-						
-						error:function(data) {
-							console.log("Error  ::"+JSON.stringify(data));
-						}
-					});
-					
-				}else{
-					$('#errorMessage').empty();
-					$('#errorMessage').append('<b style="color:orange;">Please enter a valid coupon.!</b>');								
-				}
-			
-			}
-		else{
-			//sweetAlert("Info","Please Agree Terms and Conditions","info");
-			$('#errorMessage').empty();
-			$('#errorMessage').append('<b style="color:red;">Please check Agree Terms and Conditions</b>');
-		}
-    
-		});
-
-	function checkArray(c){
-		var bool = "false";
-		for (j=0;j<coupons.length;j++){
-			if(coupons[j]==c ){
-				bool= "true";
-			}
-		}
-		return bool;
-	}
-	
-	function openTerms() {
-		$("#tandc").modal();
-	}
-</script>
 <script src="js/custom.js"></script>
-        
+  <script src="js/old.js"></script>       
 </body>
 
 </html>

@@ -34,6 +34,7 @@ import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.dao.TransactionDAO;
 import com.oldwallet.enums.CouponStatus;
 import com.oldwallet.model.AdminSession;
+import com.oldwallet.model.Coupon;
 import com.oldwallet.model.CouponData;
 import com.oldwallet.model.GoogleResponse;
 import com.oldwallet.model.LatLong;
@@ -167,28 +168,21 @@ public class CSVBulkUploadController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getTrackedCouponsMap", method = RequestMethod.GET)
 	public void getTrackedCouponsMap(ModelMap modelMap) throws Exception {
-		List<CouponData> coupnDataList = csvBulkUploadDAO.getCouponTrackingData();
+		//List<CouponData> coupnDataList = csvBulkUploadDAO.getCouponTrackingData();
+		List<Coupon> couponDataList = couponDAO.getCouponDataByRedeemed();
 		LOGGER.debug("Data  for tracking>>>>>>>>>>>>>>");
 		JSONArray list1 = new JSONArray();
 		JSONArray list2 = new JSONArray();
-		if (!coupnDataList.isEmpty()) {
-			for (CouponData couponData : coupnDataList) {
-
-				if (couponData.getCountryCode() != null) {
-					LOGGER.debug(STATUS + " :: " + couponData.getReedemStatus());
-					if (couponData.getReedemStatus().equalsIgnoreCase(CouponStatus.NEW.toString())) {
+		if (!couponDataList.isEmpty()) {
+			for (Coupon couponData : couponDataList) {
 						JSONObject obj = new JSONObject();
-						LOGGER.debug("LOCATION :: "+ couponData.getCouponHideLocation());
-						LOGGER.debug("email" + couponData.getReedemedBy());
-						LatLong lt = getLatLongByAddress(couponData.getCouponHideLocation());
-						obj.put("code", couponData.getCountryCode());
-						obj.put("name", couponData.getCouponHideLocation());
-						obj.put("value", couponData.getCouponCount());
-						obj.put("latitude", lt.getLat());
-						obj.put("logitude", lt.getLonngi());
+						obj.put("code","code");
+						obj.put("name", "name");
+						obj.put("value",couponDataList.size());
+						obj.put("latitude", couponData.getLatitude());
+						obj.put("longitude", couponData.getLongitude());
 						list1.add(obj);
-					}
-					List<Transaction> transactionList = transactionDAO.getRedeemedCouponData();
+				/*	List<Transaction> transactionList = transactionDAO.getRedeemedCouponData();
 					if (!transactionList.isEmpty()) {
 						for (Transaction tr : transactionList) {
 							LOGGER.debug("NOT EMPTY ::");
@@ -200,13 +194,12 @@ public class CSVBulkUploadController {
 							obj2.put("logitude", tr.getLongitude());
 							list2.add(obj2);
 						}
-					}
-				}
+			}*/
 
 			}
 		}
 		modelMap.put("mapData1", list1);
-		modelMap.put("mapData2", list2);
+		/*modelMap.put("mapData2", list2);*/
 	}
 
 	public LatLong getLatLongByAddress(String address) throws IOException {
