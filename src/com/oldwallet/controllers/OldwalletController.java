@@ -127,9 +127,10 @@ public class OldwalletController {
 			if (cs4 != null) {
 				FundAllocation fundAllocation = couponDAO.getFundAllocationData();
 				if(fundAllocation!=null){
-					if(fundAllocation.getTotalCouponValue()!=0){
+					if(fundAllocation.getTotalCouponValue()!=0 || fundAllocation.getTotalFund()!=0){
 						modelMap.put("totalValue", fundAllocation.getTotalCouponValue());
 						modelMap.put("totalFund", fundAllocation.getTotalFund());
+						System.out.println("totalfund>>>>>>>>>>>>>>"+fundAllocation.getTotalFund());
 						double value = (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue());
 						modelMap.put("remaining", (fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue()));
 						long percentage = Math.round( ((fundAllocation.getTotalFund()-fundAllocation.getTotalCouponValue())/fundAllocation.getTotalFund())* 100);
