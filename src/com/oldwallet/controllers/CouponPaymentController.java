@@ -131,7 +131,7 @@ public class CouponPaymentController {
 			} else {
 				LOGGER.debug("NULL COUPON :::");
 				modelMap.put(ACTION, INVALID);
-				modelMap.put(MESSAGE, EXPIRED_COUPON);
+				modelMap.put(MESSAGE, INVALID_COUPON);
 			}
 
 		
@@ -350,6 +350,7 @@ public class CouponPaymentController {
 		boolean isAmountCredited = false;
 		
 		MassPayReq req = new MassPayReq();
+		String transCode = UUID.randomUUID().toString().replaceAll("-", "");
 
 		List<MassPayRequestItemType> massPayItem = new ArrayList<MassPayRequestItemType>();
 
@@ -358,6 +359,10 @@ public class CouponPaymentController {
 		MassPayRequestItemType item1 = null;
 			item1 = new MassPayRequestItemType(amount1);
 			item1.setReceiverEmail(userSession.getEmailAddress());
+			item1.setNote("Coupon Code : "+coupon.getCouponCode()+", Amount : "+coupon.getCouponValue()+" From Edvenswa SuperBowl.");
+			   item1.setReceiverPhone("+16785968322");
+			   item1.setUniqueId(transCode.substring(0, 29));
+			   massPayItem.add(item1);
 			massPayItem.add(item1);
 			
 		if (!massPayItem.isEmpty()) {
@@ -367,7 +372,7 @@ public class CouponPaymentController {
 			Map<String, String> configurationMap = Configuration.getAcctAndConfig();
 
 			PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
-			String transCode = UUID.randomUUID().toString().replaceAll("-", "");
+			
 			Transaction transaction = new Transaction();
 			transaction.setCouponCode(userSession.getCouponCode());
 			transaction.setCouponId(coupon.getCouponId()+"");

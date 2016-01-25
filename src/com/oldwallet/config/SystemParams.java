@@ -2,8 +2,8 @@ package com.oldwallet.config;
 
 public interface SystemParams {
 
-	//public static final String BASEURL = "https://oldwallet.edvenswa.com/";
-	public static final String BASEURL = "http://localhost:9090/";
+	public static final String BASEURL = "https://oldwallet.edvenswa.com/";
+	//public static final String BASEURL = "http://localhost:9090/";
 	//public static final String BASEURL = "https://ec2-52-89-91-255.us-west-2.compute.amazonaws.com/";
 
     public static final String ADMIN_EMAIL="oldwallet@ratemyfortune.com";

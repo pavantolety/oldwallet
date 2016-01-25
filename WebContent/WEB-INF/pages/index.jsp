@@ -13,30 +13,29 @@
     <title>PayPal-OldWallet</title>
 
     <!-- Bootstrap core CSS -->
-
+	<link href="css/user.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
-    <link href="css/user.css" rel="stylesheet">
+    <link href="css/redeem.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- select2 -->
     <link href="css/select/select2.min.css" rel="stylesheet">
-    <!-- switchery -->
-    <link rel="stylesheet" href="css/switchery/switchery.min.css" />
-	<!-- Sweet Alert -->
-	<link rel="stylesheet" href="css/sweet-alert.css" />
-	<script src="js/sweet-alert.min.js"></script>
-	
-	<!-- Hover css -->
+    
+    <!-- Hover css -->
 	<link rel="stylesheet" href="css/hover-min.css" />
 	
+    <!-- switchery -->
+    <link rel="stylesheet" href="css/switchery/switchery.min.css" />
+	<link rel="stylesheet" href="css/intlTelInput.css">
     <script src="js/jquery.min.js"></script>
    
 
@@ -109,26 +108,27 @@
                     <div class="clearfix"></div>
                     <div class="row">
                     	<div class="col-md-3 col-sm-3 col-xs-3">
-                    </div>
+                    	</div>
                     	<div class="col-md-6 col-sm-6 col-xs-6" align="center">
                     		<h1 style="color:#fff;"><i>YOU'VE FOUND NEW MONEY</i></h1>
       						<h4 style="color:#fff;">Nice going, Enter your unique code to redeem.</h4>
                     	</div>
                     	<div class="col-md-4 col-sm-4 col-xs-4" >
-                    </div>
+                    	</div>
                     </div>
                     <div class="row">
-                     <div class="col-md-3 col-sm-3 col-xs-3">
+                     <div class="col-md-4 col-sm-4 col-xs-4">
                     </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <div class="x_panel">
+                        <div class="col-md-4 col-sm-4 col-xs-4" >
+                            <div class="x_panel_a responsive">
                                 
                                 <div class="x_content">
-                                    <br />
-                                    <form name="couponValidForm" id="couponValidForm"  action="" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                                    <br><br><br><br><br><br><br><br>
+                                    <form name="couponValidForm" id="couponValidForm" action="" data-parsley-validate="" class="form-horizontal form-label-left" method="post" novalidate="">
 										<div class="col-md-3 col-sm-3 col-xs-12">
 										</div>
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                             	<label class="control-label">Coupon Code:<span class="required">*</span></label>
                                                 <input type="text" id="couponCode" name="couponCode" required="required" class="form-control col-md-7 col-xs-12">
@@ -138,8 +138,15 @@
                                             	<div id="errorMessage"></div>                                            	
                                             												
 												<input type="checkbox" name="terms" id="terms" checked> Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
+=======
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                            	<label class="control-label" style="color:#eee;">Coupon Code:<span class="required">*</span></label>
+                                                <input type="text" style="color:#AAA;" id="couponCode" name="couponCode" required="required" class="form-control" data-parsley-id="7028"><ul class="parsley-errors-list" id="parsley-id-7028"></ul>
+												<br>
+>>>>>>> dd827a4d721a3ec72a3b4b619547f48bf5717150
                                             	
-                                            </div>
+                                            	
+                                            </div><ul class="parsley-errors-list" id="parsley-id-multiple-terms"></ul>
                                         </div>
                                         <!-- <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">Mobile Number:<span class="required">*</span></label>
@@ -148,19 +155,27 @@
 												<input type="checkbox" name="terms" id="terms" > Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
                                             </div>
                                         </div> -->
-                                        <div class="ln_solid"></div>
-                                        <div class="form-group">
-                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                <button type="button" id="redeem_button" class="btn btn-success hvr-grow">Redeem</button>
-                                            </div>											
-                                        </div>
+                                       
+                                        <br><br>
                                     </form>
                                 </div>
                             </div>
+                            <div id="errorMessage" align="center"></div>  
+                             <div align="center">${message}</div>  
+							<div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-2">                       												
+									<input type="checkbox" name="terms" id="terms" checked data-parsley-multiple="terms" data-parsley-id="3763" style="color:#AAA;"> Agree to <a onclick="openTerms()"><b><u>Terms and Conditions</u></b></a>
+								</div>
+							</div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-2">
+                                    <button type="button" id="redeem_button" class="btn-a btn-success-a hvr-grow-a">ENTER</button>
+                                </div>											
+                            </div>
                         </div>
-                         <div class="col-md-2 col-sm-2 col-xs-2">
-                    </div>
-                    </div>    
+                         <div class="col-md-4 col-sm-4 col-xs-4">
+                    	</div>
+                    </div> 
                     </div>                 
                 <!-- /page content -->
             </div>
@@ -174,9 +189,9 @@
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+                                                <h4 class="modal-title" id="myModalLabel" style="color:#AAA;">Terms & Conditions</h4>
                                             </div>
-                                            <div class="modal-body">
+                                            <div class="modal-body" style="color:#AAA;">
 						                             <p>Your access to and use of the Service is conditioned on your acceptance of and compliance with
 								these Terms. These Terms apply to all visitors, users and others who access or use the Service.</p>
 								<p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any 
@@ -267,6 +282,87 @@
             });
         </script>
 
+<<<<<<< HEAD
+=======
+		$("#redeem_button").click(function() {		
+		//var e=$('#redeem_form [name=paypal_id]').val();
+		var c=$("#couponCode").val();
+		//var mobile = document.getElementById("mobile").value;
+		
+		if(c.length==0) {
+			//sweetAlert("Info","Please enter a coupon code","info");
+			$('#errorMessage').empty();
+			$('#errorMessage').append('<b style="color:orange;">Please enter a coupon code</b>');
+			return;
+		}
+		if($('#terms').prop('checked')){
+			if(c != null && $("#couponCode").val()){			
+				var coupon = {
+							couponCode : c
+					};
+					
+					$.ajax({
+						type:'POST',
+						url:'/validateCoupon.json',
+						data:coupon,
+						success:function(data) {
+							
+							var action = data.action;
+							//alert(action);
+							if(action=='valid') {
+							var successUrl = '/valid';
+							$('#errorMessage').empty();
+							//successUrl = successUrl+c;
+							$("#couponValidForm").attr("action", successUrl);
+							$("#couponValidForm").submit();
+							
+							} else if(action=="invalid") {	
+								$('#errorMessage').empty();
+								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
+							}else if(data.action=='expired') {
+								$('#errorMessage').empty();
+								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
+							}else if(data.action=='error') {
+								$('#errorMessage').empty();
+								$('#errorMessage').append('<b style="color:red;">'+data.message+'</b>');
+							}
+							
+						},
+						
+						error:function(data) {
+							console.log("Error  ::"+JSON.stringify(data));
+						}
+					});
+					
+				}else{
+					$('#errorMessage').empty();
+					$('#errorMessage').append('<b style="color:orange;">Please enter a valid coupon.!</b>');								
+				}
+			
+			}
+		else{
+			//sweetAlert("Info","Please Agree Terms and Conditions","info");
+			$('#errorMessage').empty();
+			$('#errorMessage').append('<b style="color:red;">Please check Agree Terms and Conditions</b>');
+		}
+    
+		});
+
+	function checkArray(c){
+		var bool = "false";
+		for (j=0;j<coupons.length;j++){
+			if(coupons[j]==c ){
+				bool= "true";
+			}
+		}
+		return bool;
+	}
+	
+	function openTerms() {
+		$("#tandc").modal();
+	}
+</script>
+>>>>>>> dd827a4d721a3ec72a3b4b619547f48bf5717150
 <script src="js/custom.js"></script>
   <script src="js/old.js"></script>       
 </body>

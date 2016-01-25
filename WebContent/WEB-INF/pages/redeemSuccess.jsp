@@ -79,7 +79,8 @@
 															&nbsp;&nbsp;
 															<span><a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="https://ec2-52-10-32-150.us-west-2.compute.amazonaws.com" data-text="Please use my link." data-size="small">Tweet</a></span>											   
 											 </div>
-                   
+                   <br><br>
+                    <a href="" ><img src="images/newmoney.jpg" class="img-responsive" alt="dsfadg"/></a>
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
                     </div>           
                     </div>
