@@ -248,7 +248,7 @@ public class CouponPaymentController {
 		List<Long> cateIdList = couponDAO.getAllCategories();
 		Coupon coupon =  new Coupon();
 	    Collections.shuffle(cateIdList);	    
-	    for(int i= 0;i<=cateIdList.size();i++){
+	    for(int i= 0;i<cateIdList.size();i++){
 	    	long id =  cateIdList.get(0);
 	    	FundAllocation fa = couponDAO.getFundByCateId(id);
 	    	if(fa!=null){	    		
@@ -309,6 +309,7 @@ public class CouponPaymentController {
 						param.setCode(paypalResponse.getCode());
 						LOGGER.info("CODE ::: "+paypalResponse.getCode());
 						Tokeninfo info = null;
+						boolean firstTime =  true;
 						try {
 							LOGGER.info("GOING TO GET ACCESS TOKEN FROM PAYPAL ::");
 							info = Tokeninfo.createFromAuthorizationCode(apiContext, param);
@@ -364,7 +365,6 @@ public class CouponPaymentController {
 			   item1.setReceiverPhone("+16785968322");
 			   item1.setUniqueId(transCode.substring(0, 29));
 			   massPayItem.add(item1);
-			massPayItem.add(item1);
 			
 		if (!massPayItem.isEmpty()) {
 			MassPayRequestType reqType = new MassPayRequestType(massPayItem);
