@@ -215,10 +215,10 @@ public class CouponPaymentController {
 				List<String> scopelist = new ArrayList<String>();
 				scopelist.add("openid");
 				scopelist.add("email");
-				String redirectURI = SystemParams.PAYPAL_LOCAL_REDIRECT;
+				String redirectURI = SystemParams.PAYPAL_PROD_REDIRECT;
 
 				ClientCredentials clientCredentials = new ClientCredentials();
-				clientCredentials.setClientID(SystemParams.PAYPAL_LOCAL_ID);
+				clientCredentials.setClientID(SystemParams.PAYPAL_PROD_ID);
 
 				redirectUrl = Session.getRedirectURL(redirectURI, scopelist, apiContext, clientCredentials); 
 					modelMap.put(COUPON, coupon2);
@@ -304,8 +304,8 @@ public class CouponPaymentController {
 						apiContext.setConfigurationMap(configurationMap);
 
 						CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
-						param.setClientID(SystemParams.PAYPAL_LOCAL_ID);
-						param.setClientSecret(SystemParams.PAYPAL_LOCAL_SECRET);
+						param.setClientID(SystemParams.PAYPAL_PROD_ID);
+						param.setClientSecret(SystemParams.PAYPAL_PROD_SECRET);
 						param.setCode(paypalResponse.getCode());
 						LOGGER.info("CODE ::: "+paypalResponse.getCode());
 						Tokeninfo info = null;
