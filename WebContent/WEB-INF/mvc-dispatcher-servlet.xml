@@ -32,7 +32,7 @@
     </bean>
     
 
-     <!--<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+     <!-- <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://oldwalletdb.cplj3axk7jia.us-west-2.rds.amazonaws.com:3306/oldwalletdb"/>
         <property name="username" value="oldwallet"/>
@@ -40,9 +40,9 @@
         <property name="maxActive" value="100"/>
         <property name="minIdle" value ="10" />
         <property name="initialSize" value="10"/>
-    </bean> --> 
+    </bean>-->  
     
-	 <!-- <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+	 <!--<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://paypal-oldwallet.cplj3axk7jia.us-west-2.rds.amazonaws.com:3306/oldwalletdb"/>
         <property name="username" value="oldwallet"/>
@@ -56,11 +56,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/oldwalletdb?autoReconnect=true"/>
         <property name="username" value="root"/>
-<<<<<<< HEAD
         <property name="password" value="password"/>
-=======
-        <property name="password" value="welcome1"/>
->>>>>>> ca9e59d17ba0639f79718e93f8f80ae52cc5be03
         <property name="maxActive" value="100"/>
         <property name="minIdle" value ="10" />
         <property name="initialSize" value="10"/>

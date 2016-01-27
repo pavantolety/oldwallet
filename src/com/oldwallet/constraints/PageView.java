@@ -25,8 +25,6 @@ public interface PageView {
 	String ADMINHOME = "adminHome";
 
 	String ADMINLOGIN = "adminLogin";
-	
-	String USERLOGIN = "userLogin";
 
 	String FACEBOOK = "facebook";
 

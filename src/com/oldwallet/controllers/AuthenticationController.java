@@ -65,34 +65,4 @@ public class AuthenticationController {
 		return returnURI;
 	}
 	
-	@RequestMapping(value = "/userLogin", method = RequestMethod.GET)
-	public String userLogin() {
-		return PageView.USERLOGIN;
-	}
-	
-	@RequestMapping(value = "/userLogout", method = RequestMethod.GET)
-	public String userlogout(HttpSession session) {
-
-		session.removeAttribute("userSession");
-
-		return PageView.USERLOGIN;
-	}
-	
-	@RequestMapping(value = "/userSubmit", method = { RequestMethod.POST,RequestMethod.GET })
-	public String getUserHome(ModelMap modelMap, UserLogin userLogin,HttpSession session) {
-
-		String returnURI = PageView.USERLOGIN;
-
-		UserLogin validUser = userLoginDAO.getUserByEmailAddress(userLogin.getEmailAddress());
-		if (validUser != null) {
-			returnURI = "/index";
-			UserSession userSession = AuthenticationHelper.populateUserSession(userLogin);
-			session.setAttribute("userSession", userSession);
-		} else {
-			modelMap.put("status", "error");
-			modelMap.put("message", "Please give valid Credentials");
-		}
-		return returnURI;
-	}
-	
 }
