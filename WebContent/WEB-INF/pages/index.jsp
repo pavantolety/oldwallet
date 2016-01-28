@@ -64,7 +64,7 @@
                         	</div>
                             <div class="col-md-4 col-sm-4 scrollpoint sp-effect1 panel-a">
                             <br><br><br><br><br><br><br><br><br>
-                                <form role="form" id="couponValidForm" name="couponValidForm" action="" method="post">
+                                <form role="form" id="couponValidForm" name="couponValidForm" action="" method="post" placeholder="Enter Coupon Code">
                                     <div class="form-group col-md-11">
                                         <input type="text" class="form-control-a" id="couponCode" name="couponCode">
                                         <input type="hidden" id="latitude" name="latitude" >
