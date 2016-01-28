@@ -20,7 +20,7 @@
     <link href="css/animate.min.css" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
-    <link href="css/redeem.css" rel="stylesheet">
+    <link href="css/endpage.css" rel="stylesheet">
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <!-- editor -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
@@ -31,7 +31,13 @@
     <link href="css/select/select2.min.css" rel="stylesheet">
     <!-- switchery -->
     <link rel="stylesheet" href="css/switchery/switchery.min.css" />
-
+	<!-- Sweet Alert -->
+	<link rel="stylesheet" href="css/sweet-alert.css" />
+	<script src="js/sweet-alert.min.js"></script>
+	
+	<!-- Hover css -->
+	<link rel="stylesheet" href="css/hover-min.css" />
+	
     <script src="js/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -46,16 +52,17 @@
 
 </head>
 
+
 <body>
     <div class="container body">
- <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></div>
+ <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></a></div>
   <div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
             <!-- page content -->
             <div class="right_col1" role="main">
                     <div class="page-title">
-                        <div class="">
+                        <!-- <div class="">
                            <h3><a href="/index"><img src="images/PayPal_btn4.png"  alt="Smiley face" ></a></h3>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="clearfix"></div>
                     <div class="row">

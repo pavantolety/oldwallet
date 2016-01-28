@@ -24,7 +24,6 @@ $(function() {
     	//var e=$('#redeem_form [name=paypal_id]').val();
     	var c=$("#couponCode").val();
     	//var mobile = document.getElementById("mobile").value;
-
     	if(c.length==0) {
     		//sweetAlert("Info","Please enter a coupon code","info");
     		$('#errorMessage').empty();
@@ -37,16 +36,14 @@ $(function() {
     						couponCode : c,
     						latitude: $('#latitude').val(),
     						longitude : $('#longitude').val()
-    			
+    						
     						
     				};
-    				
     				$.ajax({
     					type:'POST',
     					url:'/validateCoupon.json',
     					data:coupon,
     					success:function(data) {
-    						
     						var action = data.action;
     						//alert(action);
     						if(action=='valid') {

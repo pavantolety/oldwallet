@@ -22,7 +22,7 @@ public class UserLoginDAOImpl implements UserLoginDAO{
 	
 	public static final String GET_USER_DETAILS = "SELECT ID, EMAIL_ADDRESS, PASSWORD FROM USER_LOGIN WHERE EMAIL_ADDRESS=?";
  
-	public static final String CREATE_ADMIN_USER = "UPDATE ADMIN_LOGIN SET EMAIL_ADDRESS=?, PASSWORD=? WHERE ID= ?";
+	public static final String CREATE_ADMIN_USER = "INSERT INTO ADMIN_LOGIN (EMAIL_ADDRESS, PASSWORD) VALUES(?,?)";
 	
 	private static final Logger LOGGER = Logger
 			.getLogger(AdminLoginDAOImpl.class);
@@ -67,7 +67,7 @@ public class UserLoginDAOImpl implements UserLoginDAO{
 	
 	String getGeneratedSecuredEmailHash =EncryptCouponUtil.enccd(SystemParams.ADMIN_EMAIL);
 	String getGeneratedSecuredPasswordHash = EncryptCouponUtil.enccd(SystemParams.ADMIN_PASSWORD);
-	     int i  = jdbcTemplate.update(CREATE_ADMIN_USER,getGeneratedSecuredEmailHash,getGeneratedSecuredPasswordHash,2);
+	     int i  = jdbcTemplate.update(CREATE_ADMIN_USER,getGeneratedSecuredEmailHash,getGeneratedSecuredPasswordHash);
 	     if(i>0){
 	    	 isCreated = true;
 	     }

@@ -159,7 +159,7 @@
                                             
                                         </div>
 										<div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="number" class="form-control" id="inputSuccess3" name="amount1" placeholder="Amount" required="required">
+                                            <input type="number" class="form-control" id="inputSuccess3" min="1" name="amount1" placeholder="Amount" required="required">
                                             
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
@@ -172,7 +172,7 @@
                                             
                                         </div>
 										<div class="col-md-4 col-sm-4 col-xs-12 form-group ">
-                                            <input type="number" class="form-control" id="inputSuccess3" name="amount2" placeholder="Amount" required="required">
+                                            <input type="number" class="form-control" id="inputSuccess3" min="1" name="amount2" placeholder="Amount" required="required">
                                             
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12 form-group ">

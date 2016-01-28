@@ -111,7 +111,7 @@ public class CouponPaymentController {
 	}
 
 	@RequestMapping(value = "/validateCoupon", method = RequestMethod.POST)
-	public void validateCoupon(ModelMap modelMap, Coupon coupon, HttpServletRequest request, HttpSession session) {
+	public String  validateCoupon(ModelMap modelMap, Coupon coupon, HttpServletRequest request, HttpSession session) {
 		LOGGER.debug("Beginning Of Validating Coupon ::: " + coupon);
 
 		if (coupon != null && coupon.getCouponCode() != null) {
@@ -119,7 +119,7 @@ public class CouponPaymentController {
 				Coupon Ccoupon = couponDAO.getEncCouponByCode(coupon.getCouponCode());
 				System.out.println("Coupon Value ::"+Ccoupon);
 				if (Ccoupon!=null) {
-					LOGGER.debug("Coupon VALID :::");
+					System.out.println("Coupon VALID :::");
 					    modelMap.put(COUPON, Ccoupon);
 						modelMap.put(ACTION, VALID);
 						modelMap.put(MESSAGE, VALID_COUPON);
@@ -130,12 +130,12 @@ public class CouponPaymentController {
 					}
 			
 			} else {
-				LOGGER.debug("NULL COUPON :::");
+				System.out.println("NULL COUPON :::");
 				modelMap.put(ACTION, "nocoupon");
 				modelMap.put(MESSAGE, "Please enter a coupon code.");
 			}
 
-		
+		return "";
 
 	}
 

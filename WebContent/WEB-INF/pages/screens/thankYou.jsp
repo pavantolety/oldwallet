@@ -2,140 +2,103 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="no-js">
+<!--<![endif]-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>PayPal-OldWallet</title>
-
-    <!-- Bootstrap core CSS -->
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <title>Oleose App Landing Page | Bootstrap Theme</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="shortcut icon" href="favicon.png">
+    
+    <!-- Bootstrap 3.3.2 -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/js/rs-plugin/css/settings.css">
+	 <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="assets/css/styles.css">
     <!-- Custom styling plus plugins -->
     <link href="css/redeem.css" rel="stylesheet">
-    <link href="css/icheck/flat/green.css" rel="stylesheet">
-    <!-- editor -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
-    <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link href="css/editor/index.css" rel="stylesheet">
-    <!-- select2 -->
-    <link href="css/select/select2.min.css" rel="stylesheet">
-    
-    <!-- Hover css -->
-	<link rel="stylesheet" href="css/hover-min.css" />
-	
-    <!-- switchery -->
-    <link rel="stylesheet" href="css/switchery/switchery.min.css" />
-	<link rel="stylesheet" href="css/intlTelInput.css">
-    <script src="js/jquery.min.js"></script>
+     <script src="js/jquery.min.js"></script>
+     <script src="/js/jquery.form.min.js"></script> 
+
+    <script type="text/javascript" src="assets/js/modernizr.custom.32033.js"></script>
 
     <!--[if lt IE 9]>
-        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
-        <![endif]-->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
-	
-    <div class="container body">
- <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></div>
-  <div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
-            <!-- page content -->
-            <div class="right_col" role="main">
-                    <div class="page-title">
-                        <div class="">
-                           <h3><a href="/index"><img src="images/PayPal_btn4.png"  alt="Smiley face" ></a></h3>
+    <div class="wrapper">
+	<div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></a></div>
+  	<div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
+        <section id="support" class="doublediagonal">
+            <div class="container">
+                <div class="">
+                  <!--  <img src="images/PayPal_btn4.png" alt=""> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    	<div class="row">
+                    		<br>
+                        	<div class="col-md-2 col-sm-2 scrollpoint sp-effect1">
+                        	</div>
+                            <div class="col-md-8 col-sm-8 scrollpoint sp-effect1" align="center">                                
+								<h2 style="color:#fff;"><i>YOU'RE IN THE NEW MONEY</i></h2>
+      							<h5 style="color:#fff;">Congratulations! Thats's a nice little chunk of change. Now, log in to deposit your New Money into your PayPal account.</h5>
+                            </div>
+                            <div class="col-md-2 col-sm-2 scrollpoint sp-effect1">
+                            </div>
+                        </div>
+                        <div class="row">
+                        <br> <br> <br>
+                        	<div class="col-md-4 col-sm-4 scrollpoint sp-effect1">
+                        	</div>
+                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1 panel-a">
+                                <img src="images/111.JPG" class="img-responsive" alt="amount" style="margin-top:-50px;margin-left:8%">
+								   <h1 style="color:#1f3087; margin-top:-150px;margin-left:30%"><i>$<c:out value="${coupon.couponValue}"/></i></h1>
+								   <br><h1 style="color:#1f3087;margin-left:17%"><i>New Money</i></h1>
+								    <br>
+                            <br>
+                            <br> <br>
+                            <br>
+                            <br>
+                            </div>
+                            
+                            <div class="col-md-3 col-sm-3 scrollpoint sp-effect1">
+                            </div>
+                        </div>
+                        <div class="row">
+                        	<br>
+                        	<div class="col-md-4 col-sm-4 scrollpoint sp-effect1">  
+                        		                      		
+                        	</div>
+                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1" align="center">
+                                <a href="${redirectUrl}" ><img src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png"></a>
+                            </div>
+                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1">
+                            </div>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="row">
-                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
-                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
-                      <h1><i>YOU'RE IN THE NEW MONEY</i></h1>
-				       <p><h4>Congratulations! Thats's a nice little chunk of change. Now, log in to deposit your New Money into your PayPal account.</h4></p>
-				       </br></br>
-                        <img src="images/Capture.JPG" class="img" alt="wallet" />
-                        
-                       
-                     </div>
-                     
-                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
-                    </div>   
-                     <div class="row">
-                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
-                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
-                     
-                        
-                       <img src="images/111.JPG" class="img1" alt="amount" />
-                       <h1 style="color:#1f3087; margin-top:-115px;size:800%;"><i>$<c:out value="${coupon.couponValue}"/></i></h1>
-                       </br><h1 style="color:#1f3087;"><i>New Money</i></h1>
-                     </div>
-                     
-                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
-                    </div> </br>
-                    <div class="col-md-2 col-sm-2 col-xs-2"></div>
-                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
-                     <a href="${redirectUrl}" ><img src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/lipp/loginwithpaypalbutton.png"></a>
-                     </div> 
-                     
-                    </div>                 
-                <!-- /page content -->
+                </div>
             </div>
-            <!-- /top navigation -->
-
-        <script src="js/bootstrap.min.js"></script>
-
-        <!-- chart js -->
-        <script src="js/chartjs/chart.min.js"></script>
-        <!-- bootstrap progress js -->
-        <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-        <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
-        <!-- icheck -->
-        <script src="js/icheck/icheck.min.js"></script>
-        <!-- tags -->
-        <script src="js/tags/jquery.tagsinput.min.js"></script>
-        <!-- switchery -->
-        <script src="js/switchery/switchery.min.js"></script>
-        <!-- daterangepicker -->
-        <script type="text/javascript" src="js/moment.min2.js"></script>
-        <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
-        <!-- richtext editor -->
-        <script src="js/editor/bootstrap-wysiwyg.js"></script>
-        <script src="js/editor/external/jquery.hotkeys.js"></script>
-        <script src="js/editor/external/google-code-prettify/prettify.js"></script>
-        <!-- select2 -->
-        <script src="js/select/select2.full.js"></script>
-        <!-- form validation -->
-        <script type="text/javascript" src="js/parsley/parsley.min.js"></script>
-        <!-- textarea resize -->
-        <script src="js/textarea/autosize.min.js"></script>
-        <script>
-            autosize($('.resizable_textarea'));
-        </script>
-        <!-- Autocomplete -->
-        <script type="text/javascript" src="js/autocomplete/countries.js"></script>
-        <script src="js/autocomplete/jquery.autocomplete.js"></script>
-		<script src="https://www.paypalobjects.com/js/external/api.js"></script>
-       
-        <script src="js/custom.js"></script>
-		 <script type="text/javascript">
+        </section>
+    </div>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <script src="assets/js/placeholdem.min.js"></script>
+    <script src="assets/js/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+    <script src="assets/js/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/scripts.js"></script>
+	 <script type="text/javascript">
 			$(function() {
 				jQuery.ajax( { 
 					  url: '//freegeoip.net/json/', 
@@ -335,7 +298,7 @@
 			}
 			
 		 </script>
-		  
+      
 </body>
 
 </html>
