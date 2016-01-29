@@ -22,6 +22,7 @@ import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.UserToken;
 import com.oldwallet.util.DataRetievar;
 import com.oldwallet.util.EncryptCouponUtil;
+import com.oldwallet.dao.DBOperationsDAO;
 
 @Repository
 public class CouponDAOImpl implements CouponDAO {
@@ -86,6 +87,9 @@ public class CouponDAOImpl implements CouponDAO {
 	ExceptionObjDAO exceptionDAO;
 	
 	@Autowired
+	DBOperationsDAO dbOperationsDAO;
+	
+	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
@@ -96,7 +100,12 @@ public class CouponDAOImpl implements CouponDAO {
 		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,coupon.getCouponValue(), coupon.getRedeemStatus(),coupon.getValidFrom(), coupon.getValidTo(),coupon.getAvailableRedemptions(),coupon.getCompletedRedemptions(),encypCode);
 		if (result > 0) {
 			isUpdated = true;
-		}		
+			dbOperationsDAO.createDBOperation(FILE_NAME,"updateCouponData()","UPDATE_COUPON_BY_COUPON_CODE","Success");
+		}	
+		else{
+			isUpdated = false;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"updateCouponData()","UPDATE_COUPON_BY_COUPON_CODE","Failure");
+		}
 		return isUpdated;
 	}
 
@@ -105,8 +114,7 @@ public class CouponDAOImpl implements CouponDAO {
 		LOGGER.debug("Beginning of getCouponByCode ::: ");
 		List<Coupon> couponList = new ArrayList<Coupon>();
 		
-		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(
-				VALIDATE_COUPON, couponCode);
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(VALIDATE_COUPON, couponCode);
 		if (!coupon.isEmpty()) {
 			LOGGER.debug("Calid Coupon is available ::: ");
 			for (Map<String, Object> map : coupon) {
@@ -136,10 +144,14 @@ public class CouponDAOImpl implements CouponDAO {
 			LOGGER.debug("Valid Coupon is available getEncCouponByCode ::: ");
 			for (Map<String, Object> map : coupon) {
 				couponList.add(retrieveCoupon(map));
-			}		
+			}	
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getEncCouponByCode()","VALIDATE_COUPON","Success");
 			return couponList.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getEncCouponByCode()","VALIDATE_COUPON","Failure");
+			return null;
+			}
 	}
 	@Override
 	public Coupon getEncBlockedCouponByCode(String couponCode) {
@@ -150,11 +162,15 @@ public class CouponDAOImpl implements CouponDAO {
 		if (!coupon.isEmpty()) {
 			LOGGER.debug("Valid Coupon is available getEncCouponByCode ::: ");
 			for (Map<String, Object> map : coupon) {
-				couponList.add(retrieveCoupon(map));
-			}		
+				couponList.add(retrieveCoupon(map));				
+			}	
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getEncBlockedCouponByCode()","VALIDATE_BLOCKED_COUPON","Success");
 			return couponList.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getEncBlockedCouponByCode()","VALIDATE_BLOCKED_COUPON","Failure");
+			return null;
+		}
 	}
 	
 	@Override
@@ -164,9 +180,13 @@ public class CouponDAOImpl implements CouponDAO {
 		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(GET_LAT_LONG_BY_STATUS,"REDEEMED");
 		if (!coupon.isEmpty()) {
 			for (Map<String, Object> map : coupon) {
-				couponList.add(retrieveCoupon(map));
-			}		
+				couponList.add(retrieveCoupon(map));				
+			}	
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponDataByRedeemed()","GET_LAT_LONG_BY_STATUS","Success");
 			return couponList;
+		}
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponDataByRedeemed()","GET_LAT_LONG_BY_STATUS","Failure");			
 		}
 		return new ArrayList<Coupon>();
 	}
@@ -186,26 +206,21 @@ public class CouponDAOImpl implements CouponDAO {
 		coupon.setCouponCode(EncryptCouponUtil.deccd(DataRetievar.getStringValue("COUPON_CODE", map)));
 		coupon.setCouponValue(DataRetievar.getStringValue("COUPON_VALUE", map));
 		coupon.setRedeemStatus(DataRetievar.getStringValue("REDEEM_STATUS", map));
-		coupon.setCouponHideLocation(DataRetievar.getStringValue(
-				"COUPON_HIDE_LOCATION", map));
+		coupon.setCouponHideLocation(DataRetievar.getStringValue("COUPON_HIDE_LOCATION", map));
 		coupon.setRedeemedBy(DataRetievar.getStringValue("REDEEMED_BY", map));
-		coupon.setAvailableRedemptions(DataRetievar.getIntValue(
-				"AVAILABLE_REDEMPTIONS", map));
-		coupon.setCompletedRedemptions(DataRetievar.getIntValue(
-				"COMPLETED_REDEMPTIONS", map));
+		coupon.setAvailableRedemptions(DataRetievar.getIntValue("AVAILABLE_REDEMPTIONS", map));
+		coupon.setCompletedRedemptions(DataRetievar.getIntValue("COMPLETED_REDEMPTIONS", map));
 		coupon.setLocation(DataRetievar.getStringValue("", map));
 		coupon.setValidityPeriod(DataRetievar.getStringValue("", map));
 		coupon.setLatitude(DataRetievar.getStringValue("LATITUDE", map));
 		coupon.setLongitude(DataRetievar.getStringValue("LONGITUDE", map));
 		try {
 			if (map.get("REDEEMED_DATE") != null) {
-				coupon.setRedeemedDate(format2.format(format1.parse(map.get(
-						"REDEEMED_DATE").toString())));
+				coupon.setRedeemedDate(format2.format(format1.parse(map.get("REDEEMED_DATE").toString())));
 			}
 		} catch (ParseException e) {
 			LOGGER.log(Priority.ERROR, e);
-			exceptionDAO.saveException("REDEEMED_DATE Exception",
-					e.getMessage(),FILE_NAME ,RETRIEVE_COUPON );
+			exceptionDAO.saveException("REDEEMED_DATE Exception",e.getMessage(),FILE_NAME ,RETRIEVE_COUPON );
 		}
 		if (map.get("VALID_FROM") != null) {
 			try {
@@ -213,8 +228,7 @@ public class CouponDAOImpl implements CouponDAO {
 						"VALID_FROM").toString())));
 			} catch (ParseException e) {
 				LOGGER.log(Priority.ERROR, e);
-				exceptionDAO.saveException("VALID_FROM Exception",
-						e.getMessage(), FILE_NAME ,RETRIEVE_COUPON );
+				exceptionDAO.saveException("VALID_FROM Exception",e.getMessage(), FILE_NAME ,RETRIEVE_COUPON );
 			}
 		}
 		if (map.get("VALID_TO") != null) {
@@ -223,8 +237,7 @@ public class CouponDAOImpl implements CouponDAO {
 						"VALID_TO").toString())));
 			} catch (ParseException e) {
 				LOGGER.log(Priority.ERROR, e);
-				exceptionDAO.saveException("VALID_TO Exception",
-						e.getMessage(),FILE_NAME , RETRIEVE_COUPON);
+				exceptionDAO.saveException("VALID_TO Exception",e.getMessage(),FILE_NAME , RETRIEVE_COUPON);
 			}
 		}
 
@@ -240,6 +253,11 @@ public class CouponDAOImpl implements CouponDAO {
 		int result = jdbcTemplate.update(UPDATE_COUPON, "REDEEMED", enccCouponCode);
 		if (result > 0) {
 			isUpdated = true;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"updateCoupon()","UPDATE_COUPON","Success");			
+		}
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"updateCoupon()","UPDATE_COUPON","Failure");
+			isUpdated = false;
 		}
 		return isUpdated;
 	}
@@ -247,10 +265,14 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public boolean isCouponExists(String couponCode) {
 		boolean isExists = false;
-		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(
-				IS_COUPON_EXISTS, couponCode);
+		List<Map<String, Object>> coupon = jdbcTemplate.queryForList(IS_COUPON_EXISTS, couponCode);
 		if (!coupon.isEmpty()) {
 			isExists = true;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"isCouponExists()","IS_COUPON_EXISTS","Success");
+		}
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"isCouponExists()","IS_COUPON_EXISTS","Failure");
+			isExists = false;
 		}
 		return isExists;
 	}
@@ -258,42 +280,45 @@ public class CouponDAOImpl implements CouponDAO {
 	@Override
 	public List<Coupon> getCouponData() {
 		List<Coupon> couponList = new ArrayList<Coupon>();
-		List<Map<String, Object>> mapList = jdbcTemplate
-				.queryForList(GET_COUPON_VALUES);
+		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_COUPON_VALUES);
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				couponList.add(retrieveCoupon(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponData()","GET_COUPON_VALUES","Success");
 			return couponList;
 		} else {
-			return new ArrayList<Coupon>();
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponData()","GET_COUPON_VALUES","Failure");			
 		}
+		return new ArrayList<Coupon>();
 	}
 	@Override
 	public FundAllocation getFundData() {
 		List<FundAllocation> fundList = new ArrayList<FundAllocation>();
-		List<Map<String, Object>> mapList = jdbcTemplate
-				.queryForList(GET_FUND_VALUES);
+		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_FUND_VALUES);
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				fundList.add(retriveFundAllocation(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getFundData()","GET_FUND_VALUES","Success");
 			return fundList.get(0);
 		} else {
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getFundData()","GET_FUND_VALUES","Failure");
 			return null;
 		}
 	}
 	@Override
 	public UserToken getRedeemKey(String redeemKey) {
 		List<UserToken> userToken = new ArrayList<UserToken>();
-		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(
-				GET_USER_TOKEN_VALUES, redeemKey);
+		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_USER_TOKEN_VALUES, redeemKey);
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				userToken.add(retriveUserToken(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getRedeemKey()","GET_USER_TOKEN_VALUES","Success");
 			return userToken.get(0);
 		} else {
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getRedeemKey()","GET_USER_TOKEN_VALUES","Failure");
 			return null;
 		}
 	}
@@ -314,45 +339,49 @@ public class CouponDAOImpl implements CouponDAO {
 	public CouponStatistics retriveCouponStatistics(Map<String, Object> map) {
 		CouponStatistics cs = new CouponStatistics();
 
-		cs.setRedeemedCouponCount(DataRetievar.getLongValue("REDEEMED_COUNT",
-				map));
+		cs.setRedeemedCouponCount(DataRetievar.getLongValue("REDEEMED_COUNT",map));
 		cs.setRedeemStatus(DataRetievar.getStringValue("REDEEM_STATUS", map));
-		cs.setTotalCouponAmount(DataRetievar.getDoubleValue(
-				"TOTAL_COUPON_AMOUNT", map));
-		cs.setTotalCouponsCount(DataRetievar.getLongValue("TOTAL_COUPON_COUNT",
-				map));
-		cs.setTotalRedeemedAmount(DataRetievar.getDoubleValue(
-				"REDEEMED_COUPON_AMOUNT", map));
+		cs.setTotalCouponAmount(DataRetievar.getDoubleValue("TOTAL_COUPON_AMOUNT", map));
+		cs.setTotalCouponsCount(DataRetievar.getLongValue("TOTAL_COUPON_COUNT",map));
+		cs.setTotalRedeemedAmount(DataRetievar.getDoubleValue("REDEEMED_COUPON_AMOUNT", map));
 
 		return cs;
 	}
 
 	@Override
 	public CouponStatistics getTotalCouponCount() {
-		List<Map<String, Object>> mapList = jdbcTemplate
-				.queryForList(GET_TOTAL_COUPON_COUNT);
+		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_TOTAL_COUPON_COUNT);
 		List<CouponStatistics> csList = new ArrayList<CouponStatistics>();
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				csList.add(retriveCouponStatistics(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getTotalCouponCount()","GET_TOTAL_COUPON_COUNT","Success");
 			return csList.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getTotalCouponCount()","GET_TOTAL_COUPON_COUNT","Failure");
+			return null;
+		}
+		
 	}
 
 	@Override
 	public CouponStatistics getRedeemedCount() {
-		List<Map<String, Object>> mapList = jdbcTemplate
-				.queryForList(GET_TOTAL_REDEEMED_COUNT);
+		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_TOTAL_REDEEMED_COUNT);
 		List<CouponStatistics> csList = new ArrayList<CouponStatistics>();
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				csList.add(retriveCouponStatistics(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getRedeemedCount()","GET_TOTAL_REDEEMED_COUNT","Success");
 			return csList.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getRedeemedCount()","GET_TOTAL_REDEEMED_COUNT","Failure");
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -364,23 +393,32 @@ public class CouponDAOImpl implements CouponDAO {
 			for (Map<String, Object> map : mapList) {
 				csList.add(retriveCouponStatistics(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getTotalCouponAmount()","GET_TOTAL_COUPON_AMOUNT","Success");
 			return csList.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getTotalCouponAmount()","GET_TOTAL_COUPON_AMOUNT","Failure");
+			return null;
+		}
+		
 	}
 
 	@Override
 	public CouponStatistics getReedmedAmount() {
-		List<Map<String, Object>> mapList = jdbcTemplate
-				.queryForList(GET_TOTAL_REDEEMED_AMOUNT);
+		List<Map<String, Object>> mapList = jdbcTemplate.queryForList(GET_TOTAL_REDEEMED_AMOUNT);
 		List<CouponStatistics> csList = new ArrayList<CouponStatistics>();
 		if (!mapList.isEmpty()) {
 			for (Map<String, Object> map : mapList) {
 				csList.add(retriveCouponStatistics(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getReedmedAmount()","GET_TOTAL_REDEEMED_AMOUNT","Success");
 			return csList.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getReedmedAmount()","GET_TOTAL_COUPON_AMOUNT","Failure");
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -393,6 +431,7 @@ public class CouponDAOImpl implements CouponDAO {
 			for (Map<String, Object> map : mapList) {
 				csList.add(retriveCouponStatistics(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponDataByReedeemStatus()","GET_COUPON_DATA_BY_REDEEM_STATUS","Success");
 		}
 		return csList;
 	}
@@ -403,6 +442,7 @@ public class CouponDAOImpl implements CouponDAO {
 		int i =  jdbcTemplate.update(CREATE_GENERATED_COUPON_DATA,coupon.getCouponCode(),coupon.getRedeemStatus(),coupon.getValidFrom(),coupon.getValidTo());
 		if(i>0){
 			isCreated = true;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"createGeneratedCouponData()","CREATE_GENERATED_COUPON_DATA","Success");
 		}
 		return isCreated;
 	}
@@ -414,6 +454,7 @@ public class CouponDAOImpl implements CouponDAO {
 		int i = jdbcTemplate.update(BLOCK_COUPON, coupon.getLatitude(),coupon.getLongitude(),enccCouponcode);
 		if(i>0) {
 			isBlocked = true;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"blockCouponCode()","BLOCK_COUPON","Success");
 		}
 		
 		return isBlocked;
@@ -425,6 +466,7 @@ public class CouponDAOImpl implements CouponDAO {
 		int i = jdbcTemplate.update(CREATE_FUND_ALLOCATION,fundAllocation.getCategoryCode(),fundAllocation.getTotalCouponCount(),fundAllocation.getCouponValue(),fundAllocation.getTotalCouponCount(),fundAllocation.getTotalCouponCount());
 		if(i>0){
 			isCreated = true;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"createFundAllocation()","CREATE_FUND_ALLOCATION","Success");
 		}
 		return isCreated;
 	}
@@ -434,6 +476,7 @@ public class CouponDAOImpl implements CouponDAO {
 		int i = jdbcTemplate.update(UPDATE_FUND_ALLOCATION,fundAllocation.getTotalCouponCount(),fundAllocation.getCouponValue(),fundAllocation.getRedeemedCount(),fundAllocation.getAvailableCount(),fundAllocation.getCategoryCode());
 		if(i>0){
 			isCreated = true;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"updateFundAllocationData()","UPDATE_FUND_ALLOCATION","Success");
 		}
 		return isCreated;
 	}
@@ -450,8 +493,9 @@ public class CouponDAOImpl implements CouponDAO {
 	     System.out.println("map list size>>>>>>>>>>>>>>>"+mapList.size());
 	     if(mapList.size()>0){
 	    	 for(Map<String , Object> map :mapList){
-	    		 list.add(retriveFundId(map));
+	    		 list.add(retriveFundId(map));	    		 
 	    	 }
+	    	 dbOperationsDAO.createDBOperation(FILE_NAME,"getAllCategories()","GET FUND ALLOCATION","Success");
 	    	 return list;
 	     }
 		return null;
@@ -471,9 +515,14 @@ public class CouponDAOImpl implements CouponDAO {
 			for(Map<String,Object> map :mapList){
 				fa.add(retriveFundAllocation(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getFundByCateId()","GET_FUND_ALLOCATION_BY_ID","Success");
 			return fa.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getFundByCateId()","GET_FUND_ALLOCATION_BY_ID","Failure");
+			return null;
+		}
+		
 	}
     public FundAllocation retriveFundAllocation(Map<String,Object> map){
     	FundAllocation fa=  new FundAllocation();
@@ -513,9 +562,14 @@ public class CouponDAOImpl implements CouponDAO {
 			for(Map<String,Object> map:mapList){
 				faList.add(retriveFundAllocation(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getFundAllocationData()","GET_REMAINING_TOTAL_VALUE","Success");
 			return faList.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getFundAllocationData()","GET_REMAINING_TOTAL_VALUE","Failure");
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -524,12 +578,16 @@ public class CouponDAOImpl implements CouponDAO {
 		List<Map<String,Object>> mapList = jdbcTemplate.queryForList(GET_FUND_ALLOCATION_BY_CODE,categoryCode);
 		if(mapList.size()>0){
 			for(Map<String,Object> map: mapList){
-				fd.add(retriveFundAllocation(map));
+				fd.add(retriveFundAllocation(map));				
 			}
-			
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getFundAllocationDataByCode()","GET_FUND_ALLOCATION_BY_CODE","Success");
 			return fd.get(0);
 		}
-		return null;
+		else{
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getFundAllocationDataByCode()","GET_FUND_ALLOCATION_BY_CODE","Failure");
+			return null;
+		}
+		
 	}
 
 

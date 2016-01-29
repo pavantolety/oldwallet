@@ -19,6 +19,7 @@ import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.dao.ExceptionObjDAO;
 import com.oldwallet.dao.GenerateCouponDAO;
+import com.oldwallet.dao.DBOperationsDAO;
 import com.oldwallet.enums.CouponStatus;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.FundAllocation;
@@ -32,6 +33,7 @@ public class GenerateCouponsController {
 	
 	private static final String RESULT = "result";
 	private static final String MESSAGE = "message";
+	public final static String FILE_NAME="GenerateCoupons";
 	
 	private static final Logger LOGGER = Logger.getLogger(GenerateCouponsController.class);
 	
@@ -43,6 +45,9 @@ public class GenerateCouponsController {
 	
 	@Autowired
 	ExceptionObjDAO exceptionDAO;
+	
+	@Autowired
+	DBOperationsDAO dbOperationsDAO;
 	
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/saveConfiguration", method = RequestMethod.POST)
@@ -84,9 +89,11 @@ public class GenerateCouponsController {
 			
 			modelMap.put(RESULT, "success");
 			modelMap.put(MESSAGE, "Successfully Created");
+			dbOperationsDAO.createDBOperation(FILE_NAME,"saveConfiguration()","Save Configuration Data","Success");
 		}else{
 			modelMap.put(RESULT, "failure");
 			modelMap.put(MESSAGE, "Failed to create.");
+			dbOperationsDAO.createDBOperation(FILE_NAME,"saveConfiguration()","Save Configuration Data","Failure");
 		}
 		return PageView.CREATECOUPONS;
 	}
@@ -119,9 +126,11 @@ public class GenerateCouponsController {
 				if(isCreated){
 					modelMap.put(RESULT, "success");
 					modelMap.put(MESSAGE, "Successfully Created");
+					dbOperationsDAO.createDBOperation(FILE_NAME,"saveFundForCoupon()","Save Fund for Coupon","Success");
 				}else{
 					modelMap.put(RESULT, "failure");
 					modelMap.put(MESSAGE, "Successfully Created");
+					dbOperationsDAO.createDBOperation(FILE_NAME,"saveFundForCoupon()","Save Fund for Coupon","Failure");
 				}
 			}
 		}

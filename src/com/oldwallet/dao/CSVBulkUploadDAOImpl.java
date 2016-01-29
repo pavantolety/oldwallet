@@ -15,12 +15,14 @@ import org.springframework.stereotype.Repository;
 
 import com.oldwallet.model.CouponData;
 import com.oldwallet.util.DataRetievar;
+import com.oldwallet.dao.DBOperationsDAO;
 
 @Repository
 public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(CSVBulkUploadDAOImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(CSVBulkUploadDAOImpl.class);
+	
+	public final static String FILE_NAME="CSV Bulk Upload";
 
 	public static final String GET_COUPON_DATA_BY_CODE = "SELECT * FROM COUPONS WHERE COUPON_CODE=?";
 
@@ -32,6 +34,9 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	
 	@Autowired
 	ExceptionObjDAO exceptionDAO;
+	
+	@Autowired
+	DBOperationsDAO dbOperationsDAO;
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
@@ -41,10 +46,14 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	@Override
 	public boolean getCouponData(String couponCode) {
 		boolean isThere = false;
-		List<Map<String, Object>> myList = jdbcTemplate.queryForList(
-				GET_COUPON_DATA_BY_CODE, couponCode);
+		List<Map<String, Object>> myList = jdbcTemplate.queryForList(GET_COUPON_DATA_BY_CODE, couponCode);
 		if (!myList.isEmpty()) {
 			isThere = true;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponData()","GET_COUPON_DATA_BY_CODE","Success");
+		}
+		else{
+			isThere = false;
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponData()","GET_COUPON_DATA_BY_CODE","Failure");
 		}
 		return isThere;
 	}
@@ -83,12 +92,12 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 	public List<CouponData> getCouponTrackingData() {
 		List<CouponData> couponDataList = new ArrayList<CouponData>();
 
-		List<Map<String, Object>> myList = jdbcTemplate
-				.queryForList(GET_TRACKING_COUPON_DATA);
+		List<Map<String, Object>> myList = jdbcTemplate.queryForList(GET_TRACKING_COUPON_DATA);
 		if (!myList.isEmpty()) {
 			for (Map<String, Object> map : myList) {
 				couponDataList.add(retrieveCouponTrackData(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponTrackingData()","GET_TRACKING_COUPON_DATA","Success");
 		}
 		return couponDataList;
 	}
@@ -99,14 +108,11 @@ public class CSVBulkUploadDAOImpl implements CSVBulkUploadDAO {
 
 		coupon.setCouponCount(DataRetievar.getLongValue("COUPON_COUNT", map));
 		coupon.setLocation(DataRetievar.getStringValue("LOCATION", map));
-		coupon.setCouponHideLocation(DataRetievar.getStringValue("LOCATION",
-				map));
+		coupon.setCouponHideLocation(DataRetievar.getStringValue("LOCATION",map));
 		coupon.setRedeemedLocation(DataRetievar.getStringValue("", map));
-		coupon.setReedemStatus(DataRetievar
-				.getStringValue("REDEEM_STATUS", map));
+		coupon.setReedemStatus(DataRetievar.getStringValue("REDEEM_STATUS", map));
 		coupon.setReedemedBy(DataRetievar.getStringValue("REDEEMED_BY", map));
-		coupon.setCompletedRedemptions(DataRetievar.getLongValue(
-				"COMPLETED_REDEMPTIONS", map));
+		coupon.setCompletedRedemptions(DataRetievar.getLongValue("COMPLETED_REDEMPTIONS", map));
 		coupon.setCountryCode(DataRetievar.getStringValue("C_CODE", map));
 
 		return coupon;

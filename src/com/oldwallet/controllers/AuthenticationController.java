@@ -16,22 +16,27 @@ import com.oldwallet.model.AdminLogin;
 import com.oldwallet.model.AdminSession;
 import com.oldwallet.model.UserLogin;
 import com.oldwallet.model.UserSession;
+import com.oldwallet.dao.DBOperationsDAO;
 
 @Controller
 public class AuthenticationController {
+	
 	private static final Logger LOGGER = Logger.getLogger(AuthenticationController.class);
+	
+	public final static String FILE_NAME="Authentication";
+	
 	@Autowired
 	AdminLoginDAO adminLoginDAO;
 	
 	@Autowired
 	UserLoginDAO userLoginDAO;
-
 	
+	@Autowired
+	DBOperationsDAO dbOperationsDAO;	
 	
 	@RequestMapping(value="/createAdmin")
 	public void createAdmin(){
-		boolean isCreated = userLoginDAO.createAdminUser();
-		
+		boolean isCreated = userLoginDAO.createAdminUser();		
 		LOGGER.info("Amdin>>>>>>>>>"+isCreated);
 	}
 	
@@ -58,9 +63,11 @@ public class AuthenticationController {
 			returnURI = PageView.ADMINHOME;
 			AdminSession adminSession = AuthenticationHelper.populateAdminSession(adminLogin);
 			session.setAttribute("adminSession", adminSession);
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getAdminHome()","Admin Login","Success");
 		} else {
 			modelMap.put("status", "error");
 			modelMap.put("message", "Please give valid Credentials");
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getAdminHome()","Admin Login","Failure");
 		}
 		return returnURI;
 	}

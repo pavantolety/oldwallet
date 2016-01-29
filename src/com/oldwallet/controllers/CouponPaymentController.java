@@ -40,6 +40,7 @@ import com.oldwallet.constraints.PageView;
 import com.oldwallet.dao.CouponBlockerDAO;
 import com.oldwallet.dao.CouponDAO;
 import com.oldwallet.dao.TransactionDAO;
+import com.oldwallet.dao.DBOperationsDAO;
 import com.oldwallet.model.Coupon;
 import com.oldwallet.model.FundAllocation;
 import com.oldwallet.model.PaypalOAuthResponse;
@@ -74,6 +75,7 @@ public class CouponPaymentController {
 	private static final String INVALID_COUPON = "Invalid Coupon";	
 	private static final String EXPIRED_COUPON = "Coupon Code Expired or Event Closed.!";
 	private static final String VALID_COUPON = "You have entered a valid coupon.!";
+	public final static String FILE_NAME="CouponPayment";
 
 	@Autowired
 	CouponDAO couponDAO;
@@ -83,6 +85,9 @@ public class CouponPaymentController {
 
     @Autowired
     CouponBlockerDAO couponBlockerDAO;
+    
+    @Autowired
+	DBOperationsDAO dbOperationsDAO;
      
   @Scheduled(cron="0 0/5 * * * *")
 	@RequestMapping(value = "updateCouponBlocker")
@@ -102,9 +107,10 @@ public class CouponPaymentController {
 			boolean isUpdated = couponDAO.updateCouponData(coupon);
 			if (isUpdated) {
 				modelMap.put(STATUS, SUCCESS);
-
+				dbOperationsDAO.createDBOperation(FILE_NAME,"saveCouponData()","Save Coupon Data","Success");
 			} else {
 				modelMap.put(STATUS, "failure");
+				dbOperationsDAO.createDBOperation(FILE_NAME,"saveCouponData()","Save Coupon Data","Failure");
 			}
 		}
 
@@ -123,16 +129,19 @@ public class CouponPaymentController {
 					    modelMap.put(COUPON, Ccoupon);
 						modelMap.put(ACTION, VALID);
 						modelMap.put(MESSAGE, VALID_COUPON);
+						dbOperationsDAO.createDBOperation(FILE_NAME,"validateCoupon()","Validate Coupon",VALID);
 					} else {
 						LOGGER.debug("Coupon INVALID :::");
 						modelMap.put(ACTION, INVALID);
 						modelMap.put(MESSAGE, INVALID_COUPON);
+						dbOperationsDAO.createDBOperation(FILE_NAME,"validateCoupon()","Validate Coupon",INVALID);
 					}
 			
 			} else {
 				System.out.println("NULL COUPON :::");
 				modelMap.put(ACTION, "nocoupon");
 				modelMap.put(MESSAGE, "Please enter a coupon code.");
+				dbOperationsDAO.createDBOperation(FILE_NAME,"validateCoupon()","Validate Coupon","No Coupon");
 			}
 
 		return "";
@@ -153,11 +162,12 @@ public class CouponPaymentController {
 					modelMap.put(COUPON, validCoupon);
 					modelMap.put(ACTION, VALID);
 					modelMap.put(MESSAGE, VALID_COUPON);
+					dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponValidation()","Coupon Validation",VALID);
 					return PageView.THANKYOU;
 				} else {
 					modelMap.put(ACTION, EXPIRED);
 					modelMap.put(MESSAGE, EXPIRED_COUPON);
-
+					dbOperationsDAO.createDBOperation(FILE_NAME,"getCouponValidation()","Coupon Validation",EXPIRED);
 				}
 
 				LOGGER.debug("Coupon is Valid ::");
@@ -224,21 +234,25 @@ public class CouponPaymentController {
 					modelMap.put(COUPON, coupon2);
 					modelMap.put(ACTION, VALID);
 					modelMap.put(MESSAGE, VALID_COUPON);
+					dbOperationsDAO.createDBOperation(FILE_NAME,"validCouponResponse()","Coupon Response",VALID);
 					modelMap.put("redirectUrl", redirectUrl);
 					return PageView.THANKYOU;
 				}else{
 					modelMap.put(ACTION, ERROR);
 					modelMap.put(MESSAGE, INVALID_COUPON);
+					dbOperationsDAO.createDBOperation(FILE_NAME,"validCouponResponse()","Coupon Response",ERROR);
 					return "index";
 				}
 				} else {
 					modelMap.put(ACTION, ERROR);
 					modelMap.put(MESSAGE, INVALID_COUPON);
+					dbOperationsDAO.createDBOperation(FILE_NAME,"validCouponResponse()","Coupon Response",ERROR);
 					return "index";
 				}
 		} else {
 			modelMap.put(ACTION, ERROR);
 			modelMap.put(MESSAGE, INVALID_COUPON);
+			dbOperationsDAO.createDBOperation(FILE_NAME,"validCouponResponse()","Coupon Response",ERROR);
 			return "index";
 		}		
 		

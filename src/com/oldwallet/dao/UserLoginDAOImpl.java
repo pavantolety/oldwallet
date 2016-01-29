@@ -16,9 +16,12 @@ import com.oldwallet.config.SystemParams;
 import com.oldwallet.model.UserLogin;
 import com.oldwallet.util.DataRetievar;
 import com.oldwallet.util.EncryptCouponUtil;
+import com.oldwallet.dao.DBOperationsDAO;
 
 @Repository
 public class UserLoginDAOImpl implements UserLoginDAO{
+	
+	public final static String FILE_NAME="UserLogin";
 	
 	public static final String GET_USER_DETAILS = "SELECT ID, EMAIL_ADDRESS, PASSWORD FROM USER_LOGIN WHERE EMAIL_ADDRESS=?";
  
@@ -33,6 +36,9 @@ public class UserLoginDAOImpl implements UserLoginDAO{
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	
+	@Autowired
+	DBOperationsDAO dbOperationsDAO;
 
 	@Override
 	public UserLogin getUserByEmailAddress(String emailAddress) {
@@ -44,8 +50,10 @@ public class UserLoginDAOImpl implements UserLoginDAO{
 			for (Map<String, Object> map : userList) {
 				userDetailsList.add(retrieveUser(map));
 			}
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getUserByEmailAddress()","GET_USER_DETAILS","Success");
 			return userDetailsList.get(0);
 		} else {
+			dbOperationsDAO.createDBOperation(FILE_NAME,"getUserByEmailAddress()","GET_USER_DETAILS","Failure");
 			return null;
 		}
 
@@ -70,6 +78,11 @@ public class UserLoginDAOImpl implements UserLoginDAO{
 	     int i  = jdbcTemplate.update(CREATE_ADMIN_USER,getGeneratedSecuredEmailHash,getGeneratedSecuredPasswordHash);
 	     if(i>0){
 	    	 isCreated = true;
+	    	 dbOperationsDAO.createDBOperation(FILE_NAME,"createAdminUser()","CREATE_ADMIN_USER","Success");
+	     }
+	     else{
+	    	 dbOperationsDAO.createDBOperation(FILE_NAME,"createAdminUser()","CREATE_ADMIN_USER","Failure");
+	    	 isCreated = false;
 	     }
 		return isCreated;
 	}
