@@ -53,7 +53,7 @@ public class CouponDAOImpl implements CouponDAO {
 
 	public static final String GET_COUPON_DATA_BY_REDEEM_STATUS = "SELECT COUNT(COUPON_CODE) AS TOTAL_COUPON_COUNT ,REDEEM_STATUS FROM COUPONS GROUP BY REDEEM_STATUS";
 
-	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=?, COMPLETED_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW'";
+	public static final String UPDATE_COUPON_BY_COUPON_CODE = "UPDATE COUPONS SET COUPON_VALUE=?,REDEEM_STATUS=?,VALID_FROM=?,VALID_TO=?,AVAILABLE_REDEMPTIONS=? WHERE COUPON_CODE=? AND REDEEM_STATUS='NEW'";
 	
 	private static final String FILE_NAME = "CouponDAOImpl.java";
 	
@@ -97,7 +97,7 @@ public class CouponDAOImpl implements CouponDAO {
 	public boolean updateCouponData(Coupon coupon) {
 		boolean isUpdated = false;
 		String encypCode = EncryptCouponUtil.enccd(coupon.getCouponCode());
-		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,coupon.getCouponValue(), coupon.getRedeemStatus(),coupon.getValidFrom(), coupon.getValidTo(),coupon.getAvailableRedemptions(),coupon.getCompletedRedemptions(),encypCode);
+		int result = jdbcTemplate.update(UPDATE_COUPON_BY_COUPON_CODE,coupon.getCouponValue(), coupon.getRedeemStatus(),coupon.getValidFrom(), coupon.getValidTo(),coupon.getAvailableRedemptions(),encypCode);
 		if (result > 0) {
 			isUpdated = true;
 			dbOperationsDAO.createDBOperation(FILE_NAME,"updateCouponData()","UPDATE_COUPON_BY_COUPON_CODE","Success");

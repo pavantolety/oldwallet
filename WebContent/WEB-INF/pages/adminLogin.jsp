@@ -52,8 +52,7 @@
 
 </head>
 
-<body style="background:#F7F7F7;background-image: url(/images/bg.jpg)">  
-
+<body style="background:#F7F7F7;background-image: url(/images/bg.jpg)">
 	<div class="container body">
  <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></div>
   <div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>

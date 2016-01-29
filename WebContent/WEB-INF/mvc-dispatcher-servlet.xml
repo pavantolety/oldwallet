@@ -42,7 +42,7 @@
         <property name="initialSize" value="10"/>
     </bean>-->  
     
-	 <!--<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+	<!--<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://paypal-oldwallet.cplj3axk7jia.us-west-2.rds.amazonaws.com:3306/oldwalletdb"/>
         <property name="username" value="oldwallet"/>
