@@ -54,7 +54,7 @@
 
 
 <body>
-    <div class="container body">
+    <div class="container body" style="overflow-x:hidden;">
  <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></a></div>
   <div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
             <!-- page content -->
@@ -80,8 +80,7 @@
 					<br>
 					<h5>Redirecting in <span id="countdown">5</span>.</h5>           											   
 					</div>											 
-                   	<br><br>
-                   	         
+                   	<br><br>                   	         
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
                  </div>           
            </div>
