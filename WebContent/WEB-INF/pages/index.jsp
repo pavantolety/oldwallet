@@ -36,12 +36,12 @@
     <![endif]-->
 </head>
 
-<body>
-    <div class="wrapper">
+<body style="background:#F7F7F7;background-image: url(/images/bg.jpg);overflow-x:hidden">
+    <div class="container body">
 	<div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></a></div>
   	<div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
         <section id="support" class="doublediagonal">
-            <div class="container">
+           <div class="right_col" role="main">
                 <div class="">
                   <!--  <img src="images/PayPal_btn4.png" alt=""> -->
                 </div>
@@ -49,22 +49,22 @@
                     <div class="col-md-12">
                     	<div class="row">
                     		<br>
-                        	<div class="col-md-2 col-sm-2 scrollpoint sp-effect1">
+                        	<div class="col-md-3 col-sm-3 scrollpoint sp-effect1">
                         	</div>
-                            <div class="col-md-8 col-sm-8 scrollpoint sp-effect1" align="center">                                
-								<h2 style="color:#fff;"><i>YOU'VE FOUND NEW MONEY</i></h2>
+                            <div class="col-md-6 col-sm-6 scrollpoint sp-effect1" align="center">                                
+								<h2 style="color:#fff;font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>YOU'VE FOUND NEW MONEY</i></h2>
       							<h5 style="color:#fff;">Nice going, Enter your unique code to redeem.</h5>
                             </div>
-                            <div class="col-md-2 col-sm-2 scrollpoint sp-effect1">
+                            <div class="col-md-3 col-sm-3 scrollpoint sp-effect1">
                             </div>
                         </div>
                         <div class="row">
                         	<br><br>
-                        	<div class="col-md-4 col-sm-4 scrollpoint sp-effect1">
+                        	<div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">
                         	</div>
-                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1 panel-a">
+                            <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1 panel-a" style="background-image: url(../images/wallet_large.jpg);background-repeat: no-repeat;max-width:100%;">
                             <br><br><br><br><br><br><br><br><br>
-                                <form role="form" id="couponValidForm" name="couponValidForm" action="" method="post" placeholder="Enter Coupon Code">
+                                <form role="form" id="couponValidForm" name="couponValidForm" action="" method="post">
                                     <div class="form-group col-md-11">
                                         <input type="text" class="form-control-a" id="couponCode" name="couponCode" placeholder="Enter Coupon Code">
                                         <input type="hidden" id="latitude" name="latitude" >
@@ -73,16 +73,16 @@
                                 </form>
                             <br><br><br><br>
                             </div>
-                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1">
+                            <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">
                             </div>
                         </div>
                         <div id="errorMessage" align="center"></div>  
                         <div align="center">${message}</div>
                         <div class="row">
-                        	<div class="col-md-4 col-sm-4 scrollpoint sp-effect1">  
+                        	<div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">  
                         		                      		
                         	</div>
-                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1" align="center">
+                            <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1" align="center">
                             <br>
                                 <form role="form">
                                 	<div class="form-group">
@@ -93,7 +93,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1">
+                            <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">
                             </div>
                         </div>
                         <!-- Modal Window of terms and conditions  -->

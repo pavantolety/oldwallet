@@ -3,12 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!doctype html>
+<!--[if lt IE 7]><html lang="en" class="no-js ie6"><![endif]-->
+<!--[if IE 7]><html lang="en" class="no-js ie7"><![endif]-->
+<!--[if IE 8]><html lang="en" class="no-js ie8"><![endif]-->
+<!--[if gt IE 8]><!-->
 <html lang="en" class="no-js">
 <!--<![endif]-->
 
 <head>
     <meta charset="UTF-8">
-    <title>Oleose App Landing Page | Bootstrap Theme</title>
+    <title>PayPal-Oldwallet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link rel="shortcut icon" href="favicon.png">
@@ -25,7 +29,8 @@
     <!-- Custom styling plus plugins -->
     <link href="css/redeem.css" rel="stylesheet">
      <script src="js/jquery.min.js"></script>
-     <script src="/js/jquery.form.min.js"></script> 
+     <script src="/js/jquery.form.min.js"></script>
+<script src="js/old.js"></script>  
 
     <script type="text/javascript" src="assets/js/modernizr.custom.32033.js"></script>
 
@@ -35,12 +40,12 @@
     <![endif]-->
 </head>
 
-<body>
-    <div class="wrapper">
+<body style="background:#F7F7F7;background-image: url(/images/bg.jpg);overflow-x:hidden">
+     <div class="container body">
 	<div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></a></div>
   	<div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
         <section id="support" class="doublediagonal">
-            <div class="container">
+             <div class="right_col" role="main">
                 <div class="">
                   <!--  <img src="images/PayPal_btn4.png" alt=""> -->
                 </div>
@@ -51,7 +56,7 @@
                         	<div class="col-md-2 col-sm-2 scrollpoint sp-effect1">
                         	</div>
                             <div class="col-md-8 col-sm-8 scrollpoint sp-effect1" align="center">                                
-								<h2 style="color:#fff;"><i>YOU'RE IN THE NEW MONEY</i></h2>
+								<h2 style="color:#fff;font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>YOU'RE IN THE NEW MONEY</i></h2>
       							<h5 style="color:#fff;">Congratulations! Thats's a nice little chunk of change. Now, log in to deposit your New Money into your PayPal account.</h5>
                             </div>
                             <div class="col-md-2 col-sm-2 scrollpoint sp-effect1">
@@ -61,10 +66,10 @@
                         <br> <br> <br>
                         	<div class="col-md-4 col-sm-4 scrollpoint sp-effect1">
                         	</div>
-                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1 panel-a">
-                                <img src="images/111.JPG" class="img-responsive" alt="amount" style="margin-top:-50px;margin-left:8%">
-								   <h1 style="color:#1f3087; margin-top:-150px;margin-left:30%"><i>$<c:out value="${coupon.couponValue}"/></i></h1>
-								   <br><h1 style="color:#1f3087;margin-left:17%"><i>New Money</i></h1>
+                            <div class="col-md-4 col-sm-4 scrollpoint sp-effect1 panel-a" style="background-image: url(../images/wallet_large.jpg);background-repeat: no-repeat;max-width:100%;">
+                                <img src="images/111.JPG" class="img-responsive" alt="amount" style="margin-top:-10%;margin-left:15%">
+								   <h1 style="color:#1f3087; margin-top:-150px;margin-left:30%;font-size:50px;font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>$<c:out value="${coupon.couponValue}"></c:out></i></h1>
+								   <br><h1 style="color:#1f3087;margin-left:28%;font-size:26px;font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>New Money</i></h1>
 								    <br>
                             <br>
                             <br> <br>

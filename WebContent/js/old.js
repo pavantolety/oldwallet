@@ -21,8 +21,10 @@ $(function() {
        }
      } );
     $("#redeem_button").click(function() {		
+    	$("#couponCode").removeAttr("placeholder", "");
     	//var e=$('#redeem_form [name=paypal_id]').val();
     	var c=$("#couponCode").val();
+    	
     	//var mobile = document.getElementById("mobile").value;
     	if(c.length==0) {
     		//sweetAlert("Info","Please enter a coupon code","info");

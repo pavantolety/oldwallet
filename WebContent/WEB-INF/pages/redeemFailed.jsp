@@ -72,7 +72,7 @@
        <p><h4>This code seems to have expired. But don't fear. You can still spend, send & receive New Money all you want.</h4></p>
        </br></br>
        
-       <a href="" ><img src="images/newmoney.jpg" class="img-responsive" alt="dsfadg"/></a>
+       <a href="/index" ><img src="images/newmoney.jpg" class="img-responsive" alt="dsfadg"/></a>
                      </div>
                    
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
