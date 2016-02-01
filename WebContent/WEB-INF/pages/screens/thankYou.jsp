@@ -68,8 +68,8 @@
                         	</div>
                             <div class="col-md-4 col-sm-4 scrollpoint sp-effect1 panel-a" style="background-image: url(../images/wallet_large.jpg);background-repeat: no-repeat;max-width:100%;">
                                 <img src="images/111.JPG" class="img-responsive" alt="amount" style="margin-top:-10%;margin-left:15%">
-								   <h1 style="color:#1f3087; margin-top:-150px;margin-left:30%;font-size:50px;font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>$<c:out value="${coupon.couponValue}"></c:out></i></h1>
-								   <br><h1 style="color:#1f3087;margin-left:28%;font-size:26px;font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>New Money</i></h1>
+								   <h1 style="color:#1f3087; margin-top:-150px;margin-left:30%;font-family: 'Squada One', cursive;"><i>$<c:out value="${coupon.couponValue}"></c:out></i></h1>
+								   <br><h1 style="color:#1f3087;margin-left:28%;font-size:26px;font-family: 'Squada One', cursive;"><i>New Money</i></h1>
 								    <br>
                             <br>
                             <br> <br>
