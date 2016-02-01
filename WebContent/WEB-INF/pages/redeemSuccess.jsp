@@ -25,7 +25,7 @@
     <!-- editor -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
     <link href="css/editor/index.css" rel="stylesheet">
     <!-- select2 -->
     <link href="css/select/select2.min.css" rel="stylesheet">
@@ -68,7 +68,7 @@
                     <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
                     <div class="col-md-8 col-sm-8 col-xs-8" align="center">
-                    <h1 style="font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>DONE AND DONE</i></h1>
+                    <h1 style="color:#fff;font-family: 'Squada One', cursive;"><i>DONE AND DONE</i></h1>
        				<p><h4>Getting New Money was easy. Now the hard part? Deciding where to spend it. So feel free to ask your friends by sharing the news. We're sure they'll have some ideas.</h4></p>
        				</br></br>															
 					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Foldwallet.edvenswa.com" target="_blank"><img src="images/facebook.jpg" class="img-responsive" alt="facebook"/></a>																													

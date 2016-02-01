@@ -20,22 +20,19 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/slick.css">
     <link rel="stylesheet" href="assets/js/rs-plugin/css/settings.css">
-	 <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="assets/css/styles.css">
     <!-- Custom styling plus plugins -->
     <link href="css/redeem.css" rel="stylesheet">
-     <script src="js/jquery.min.js"></script>
-     <script src="/js/jquery.form.min.js"></script>
-<script src="js/old.js"></script>  
-
+    <link href='https://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
+    <script src="js/jquery.min.js"></script>
+    <script src="/js/jquery.form.min.js"></script>
+	<script src="js/old.js"></script>
     <script type="text/javascript" src="assets/js/modernizr.custom.32033.js"></script>
-
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <![endif]-->    
 </head>
-
 <body style="background:#F7F7F7;background-image: url(/images/bg.jpg);overflow-x:hidden">
     <div class="container body">
 	<div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></a></div>
@@ -52,7 +49,7 @@
                         	<div class="col-md-3 col-sm-3 scrollpoint sp-effect1">
                         	</div>
                             <div class="col-md-6 col-sm-6 scrollpoint sp-effect1" align="center">                                
-								<h2 style="color:#fff;font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>YOU'VE FOUND NEW MONEY</i></h2>
+								<h1 style="color:#fff;font-family: 'Squada One', cursive;"><i>YOU'VE FOUND NEW MONEY</i></h1>
       							<h5 style="color:#fff;">Nice going, Enter your unique code to redeem.</h5>
                             </div>
                             <div class="col-md-3 col-sm-3 scrollpoint sp-effect1">
@@ -154,9 +151,6 @@
     <script src="assets/js/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
     <script src="assets/js/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
     <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/scripts.js"></script>
-
-      
+    <script src="assets/js/scripts.js"></script>      
 </body>
-
 </html>

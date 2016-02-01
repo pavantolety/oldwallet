@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/slick.css">
     <link rel="stylesheet" href="assets/js/rs-plugin/css/settings.css">
-	 <link href='https://fonts.googleapis.com/css?family=Passion+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="assets/css/styles.css">
     <!-- Custom styling plus plugins -->
     <link href="css/redeem.css" rel="stylesheet">
@@ -56,7 +56,7 @@
                         	<div class="col-md-2 col-sm-2 scrollpoint sp-effect1">
                         	</div>
                             <div class="col-md-8 col-sm-8 scrollpoint sp-effect1" align="center">                                
-								<h2 style="color:#fff;font-family: Copperplate, 'Copperplate Gothic Heavy', fantasy;"><i>YOU'RE IN THE NEW MONEY</i></h2>
+								<h1 style="color:#fff;font-family: 'Squada One', cursive;"><i>YOU'RE IN THE NEW MONEY</i></h1>
       							<h5 style="color:#fff;">Congratulations! Thats's a nice little chunk of change. Now, log in to deposit your New Money into your PayPal account.</h5>
                             </div>
                             <div class="col-md-2 col-sm-2 scrollpoint sp-effect1">
