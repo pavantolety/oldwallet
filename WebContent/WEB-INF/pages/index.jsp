@@ -47,10 +47,19 @@
 		  -o-background-size: cover;
 		  background-size: cover;
 		}
+		
+		.image-bg{
+			background: url('../images/wallet_large.jpg');
+			background-repeat: no-repeat;
+		    width: 32%;
+   			height: 100%;
+   			position:center;
+		}
 	</style>
 </head>
 
-<body>
+<body onorientationchange="testOrientation();" onload="testOrientation();">
+	<div id="block_land">Turn your device in Portrait mode.</div>
    <nav class="navbar navbar-fixed" role="navigation">
                  <div class="navbar-header">
                     <a class="navbar-brand" href="/index">
@@ -65,18 +74,21 @@
                     	<div class="row">
                         	<div class="col-md-3 col-sm-3 scrollpoint sp-effect1">
                         	</div>
-                            <div class="col-md-6 col-sm-6 scrollpoint sp-effect1" align="center">                                
-								<h1 style="color:#fff;font-family: 'Squada One', cursive;"><i>YOU'VE FOUND NEW MONEY</i></h1>
-      							<h5 style="color:#fff;">Nice going, Enter your unique code to redeem.</h5>
+                            <div class="col-md-6 col-sm-6 scrollpoint sp-effect1">                                
+								<h1  align="center" style="color:#fff;font-family: 'Squada One', cursive;"><i>YOU'VE FOUND NEW MONEY</i></h1>
+      							<h5  align="center" style="color:#fff;">Nice going, Enter your unique code to redeem.</h5>
                             </div>
                             <div class="col-md-3 col-sm-3 scrollpoint sp-effect1">
                             </div>
                         </div>
+                        <br>
+                        <br>
                         <div class="row">
-                        	<div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">
+                        	<div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">  
+                        		                      		
                         	</div>
-                            <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1 panel-a" align="center" style="background-image: url(../images/wallet_large.jpg);background-repeat: no-repeat;max-width:inherit;">
-                          
+                            <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1 image-bg" align="center">
+                                <br><br><br><br><br><br><br><br><br>
                                 <form role="form" id="couponValidForm" name="couponValidForm" action="" method="post">
                                     <div class="form-group">
                                         <input type="text" class="form-control-a" id="couponCode" name="couponCode" placeholder="Enter Coupon Code">
@@ -84,7 +96,7 @@
 										<input type="hidden" id="longitude" name="longitude" >
                                     </div>
                                 </form>
-
+								<br><br><br><br>
                             </div>
                             <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">
                             </div>
