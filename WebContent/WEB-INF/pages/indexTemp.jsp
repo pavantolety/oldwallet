@@ -5,7 +5,7 @@
 <!--[if IE 7]><html lang="en" class="no-js ie7"><![endif]-->
 <!--[if IE 8]><html lang="en" class="no-js ie8"><![endif]-->
 <!--[if gt IE 8]><!-->
-<html lang="en" class="full">
+<html lang="en" class="no-js">
 <!--<![endif]-->
 
 <head>
@@ -33,36 +33,16 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<style>
-		body {
-		margin-top: 0px;
-		margin-bottom: 50px;
-		background: none;
-		}
-		
-		.full {
-		  background: url(/images/back.jpg) no-repeat center center; 
-		  -webkit-background-size: cover;
-		  -moz-background-size: cover;
-		  -o-background-size: cover;
-		  background-size: cover;
-		}
-	</style>
+
 </head>
 
 <body>
-   <nav class="navbar navbar-fixed" role="navigation">
-                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/index">
-                        <img src="images/PayPal_btn4.png" class="animated fadeInDown" alt="">
-                    </a>
-                </div>
-    </nav>
     <!-- Page Content -->
     <div class="container">
        <div class="row">
                     <div class="col-md-12">
                     	<div class="row">
+                    		<br>
                         	<div class="col-md-3 col-sm-3 scrollpoint sp-effect1">
                         	</div>
                             <div class="col-md-6 col-sm-6 scrollpoint sp-effect1" align="center">                                
@@ -73,18 +53,19 @@
                             </div>
                         </div>
                         <div class="row">
+                        	<br><br>
                         	<div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">
                         	</div>
-                            <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1 panel-a" align="center" style="background-image: url(../images/wallet_large.jpg);background-repeat: no-repeat;max-width:inherit;">
-                          
+                            <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1 panel-a" style="background-image: url(../images/wallet_large.jpg);background-repeat: no-repeat;max-width:100%;">
+                            <br><br><br><br><br><br><br><br><br>
                                 <form role="form" id="couponValidForm" name="couponValidForm" action="" method="post">
-                                    <div class="form-group">
+                                    <div class="form-group col-md-11">
                                         <input type="text" class="form-control-a" id="couponCode" name="couponCode" placeholder="Enter Coupon Code">
                                         <input type="hidden" id="latitude" name="latitude" >
 										<input type="hidden" id="longitude" name="longitude" >
                                     </div>
                                 </form>
-
+                            <br><br><br><br>
                             </div>
                             <div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">
                             </div>
@@ -172,7 +153,7 @@
     <script src="assets/js/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
     <script src="assets/js/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
     <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/scripts.js"></script>                
+    <script src="assets/js/scripts.js"></script>            
 
 </body>
 

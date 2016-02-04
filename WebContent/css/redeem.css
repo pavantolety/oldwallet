@@ -22,7 +22,7 @@
 #blue_corner {
  	top: 25px;
     left: 97%;
-    width: 777px;
+    width: 300px;
     height: 660px;
     background-color: #1f3087;
     position: absolute;
@@ -116,7 +116,7 @@
 
 .form-control-a {
     display: block;
-    width: 100%;
+    width: inherit;
     height: 34px;
     padding: 6px 12px;
     font-size: 18px;

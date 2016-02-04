@@ -26,6 +26,6 @@ public interface SystemParams {
 	public static final String PAYPAL_LIVE_SECRET = "ELLrRWufa7Jt5n-QIeJiijdMTUs5Qxq4ZPycUbnKsJGqmxQFeD5GOJNR5QY2GVC5EIe_3tuQo-Qitc-Y";
 	
 	public static final String PAYPAL_PROD_REDIRECT = "https://paypal-superbowl.com/redeemed";
-	public static final String PAYPAL_PROD_SECRET = "EEF80rs_lCmkuVN6Yc0FgHud-xvSA_Dl7QGCrvVCMVe2xaZPt-s5yMrz632ejSxPkmPfdFyqgAq2nrGG";
 	public static final String PAYPAL_PROD_ID ="ARDctmh5TjxewjkQNECRVCsGoAOLLGlq8kZ7AA-qn1_HG9VIB7Mw5Q8SEjeZxTL_r0KR7PDrpaOPwHra";
+	public static final String PAYPAL_PROD_SECRET = "EEF80rs_lCmkuVN6Yc0FgHud-xvSA_Dl7QGCrvVCMVe2xaZPt-s5yMrz632ejSxPkmPfdFyqgAq2nrGG";
 }
