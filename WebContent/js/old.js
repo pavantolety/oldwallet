@@ -29,7 +29,7 @@ $(function() {
     	if(c.length==0) {
     		//sweetAlert("Info","Please enter a coupon code","info");
     		$('#errorMessage').empty();
-    		$('#errorMessage').append('<b style="color:orange;">Please enter a coupon code</b>');
+    		$('#errorMessage').append('<b style="color:red;">Please enter a Coupon Code</b>');
     		return;
     	}
     	if($('#terms').prop('checked')){
@@ -76,7 +76,7 @@ $(function() {
     				
     			}else{
     				$('#errorMessage').empty();
-    				$('#errorMessage').append('<b style="color:orange;">Please enter a valid coupon.!</b>');								
+    				$('#errorMessage').append('<b style="color:orange;">Please enter a Valid Coupon.!</b>');								
     			}
     		
     		}

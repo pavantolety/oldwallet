@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <!--[if lt IE 7]><html lang="en" class="no-js ie6"><![endif]-->
 <!--[if IE 7]><html lang="en" class="no-js ie7"><![endif]-->
@@ -51,15 +50,14 @@
 		.image-bg{
 			background: url('../images/wallet_large.jpg');
 			background-repeat: no-repeat;
-		    width: 32%;
+		    width: 370px;
    			height: 100%;
    			position:center;
 		}
 	</style>
 </head>
 
-<body onorientationchange="testOrientation();" onload="testOrientation();">
-	<div id="block_land">Turn your device in Portrait mode.</div>
+<body>
    <nav class="navbar navbar-fixed" role="navigation">
                  <div class="navbar-header">
                     <a class="navbar-brand" href="/index">
@@ -83,7 +81,7 @@
                         </div>
                         <br>
                         <br>
-                        <div class="row">
+                        <div class="row" align="center">
                         	<div class="col-md-4 col-sm-4 col-lg-4 scrollpoint sp-effect1">  
                         		                      		
                         	</div>
@@ -173,9 +171,6 @@
         <!-- /.row -->
     </div>
     <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
