@@ -50,7 +50,7 @@
 		.image-bg{
 			background: url('../images/wallet_large.jpg');
 			background-repeat: no-repeat;
-		    width: 370px;
+		    width: 360px;
    			height: 100%;
    			position:center;
 		}

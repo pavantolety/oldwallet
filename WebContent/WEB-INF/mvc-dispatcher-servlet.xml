@@ -50,7 +50,7 @@
         <property name="maxActive" value="100"/>
         <property name="minIdle" value ="10" />
         <property name="initialSize" value="10"/>
-    </bean> 
+    </bean>
 
     <!--<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>

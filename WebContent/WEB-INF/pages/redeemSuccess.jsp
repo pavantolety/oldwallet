@@ -53,8 +53,8 @@
 </head>
 
 
-<body>
-	<script>
+<body style="overflow-x:hidden;">
+	 <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -64,7 +64,7 @@
 	  ga('send', 'pageview');
 	 
 	</script>
-    <div class="container body" style="overflow-x:hidden;">
+    <div class="container body">
  <div id="pink_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"><a href="/index"><img src="images/PayPal_btn4.png" alt="Smiley face" style="padding-left: 90%;"></a></div>
   <div id="blue_corner" style="transform: matrix(1, 0, -0.14054, 1, 0, 0);"></div>
             <!-- page content -->
@@ -88,7 +88,7 @@
 					<br>
 					<a href="/index"><img src="images/newmoney.jpg" class="img-responsive" alt="newMoney"/></a>
 					<br>
-					<h5>Redirecting in <span id="countdown">5</span>.</h5>           											   
+					<h5>Redirecting in <span id="countdown">30</span>.</h5>           											   
 					</div>											 
                    	<br><br>                   	         
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
